@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# پوشه‌های ساخت و کش‌ها
+dist/
+build/
+.cache/
+.next/
+out/
+
+# سیستم‌ها و ابزارها
+.DS_Store
+
+.vscode/
+.idea/
+
+# پوشه‌های پروژه سمت سرور
+server/node_modules/
+
+# پوشه‌های پروژه کلاینت
+client/node_modules/
+client/.next
