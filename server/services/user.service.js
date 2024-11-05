@@ -13,15 +13,20 @@ const token = require("../utils/token.util");
 /* sign up an user */
 exports.signUp = async (req, res) => {
   const { body, file } = req;
-console.log('body',body)
-  // Create a new user instance
+  if (!body.name || !body.email || !body.password || !body.phone) {
+    return res.status(400).json({
+      acknowledgement: false,
+      message: "Bad Request",
+      description: "All fields are required",
+    });
+  }
   const user = new User({
     name: body.name,
     email: body.email,
     password: body.password,
     phone: body.phone,
   });
-
+  
   if (file) {
     user.avatar = {
       url: file.path,
@@ -43,7 +48,7 @@ console.log('body',body)
 /* sign in an user */
 exports.signIn = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-
+console.log('user',user)
   if (!user) {
     res.status(404).json({
       acknowledgement: false,
@@ -93,7 +98,7 @@ exports.signIn = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
-  if (!user) {
+  if (!user) {  
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",

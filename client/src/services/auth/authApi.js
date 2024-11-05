@@ -5,7 +5,6 @@ const authApi = nabApi.injectEndpoints({
     // signUp
     signUp: builder.mutation({
       query: (body) => {
-        console.log("Sign Up Body:", body); // نمایش بدنه درخواست در کنسول
         return {
           url: "/user/sign-up",
           method: "POST",
@@ -34,7 +33,7 @@ const authApi = nabApi.injectEndpoints({
       }),
     }),
 
-    // persist login
+   // persist login
     persistLogin: builder.query({
       query: () => ({
         url: "/user/me",
@@ -52,6 +51,6 @@ const authApi = nabApi.injectEndpoints({
 export const {
   useSignUpMutation,
   useSignInMutation,
-  useForgotPasswordMutation,
   usePersistLoginQuery,
+  useForgotPasswordMutation,
 } = authApi;

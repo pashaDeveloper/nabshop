@@ -54,7 +54,6 @@ const Signup = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("avatar", avatar);
 
     formData.append("name", e.target.name.value);
     formData.append("email", e.target.email.value);
@@ -82,6 +81,7 @@ const Signup = () => {
 
     formData.append("phone", e.target.phone.value);
     formData.append("password", e.target.password.value);
+    console.log("Signup Form Data:", Array.from(formData)); // این خط بدنه درخواست را در کنسول چاپ می‌کند
 
     signup(formData);
 
@@ -109,7 +109,7 @@ const Signup = () => {
           className="w-full flex flex-col gap-y-4"
           onSubmit={handleSignup}
         >
-          <label
+          {/* <label
             htmlFor="avatar"
             className="flex flex-col gap-y-1 w-fit mx-auto items-center"
           >
@@ -158,7 +158,7 @@ const Signup = () => {
                 </>
               )}
             </div>
-          </label>
+          </label> */}
           <label htmlFor="name" className="flex flex-col gap-y-1">
             <span className="text-sm">Enter Your Name*</span>
             <input

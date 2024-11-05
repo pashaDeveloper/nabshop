@@ -28,17 +28,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please, provide a strong password"],
-      validate: {
-        validator: (value) =>
-          validator.isStrongPassword(value, {
-            minUppercase: 1,
-            minLowercase: 1,
-            minNumbers: 1,
-            minSymbols: 1,
-          }),
-        message:
-          "Password {VALUE} should contain minimum 1 => uppercase, lowercase, number and symbol",
-      },
       minLength: [8, "Password should be at least 8 characters"],
       maxLength: [20, "Password should be at most 20 characters"],
     },
@@ -60,15 +49,15 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: [
-        true,
-        "Please, provide your phone number, i.e.: +8801xxxxxxxxx",
+        // true,
+        // "Please, provide your phone number, i.e.: +8801xxxxxxxxx",
       ],
-      validate: {
-        validator: (value) =>
-          validator.isMobilePhone(value, "bn-BD", { strictMode: true }),
-        message:
-          "Phone number {VALUE} is not valid. Please, retry like +8801xxxxxxxxx",
-      },
+      // validate: {
+      //   validator: (value) =>
+      //     validator.isMobilePhone(value, "bn-BD", { strictMode: true }),
+      //   message:
+      //     "Phone number {VALUE} is not valid. Please, retry like +8801xxxxxxxxx",
+      // },
       unique: true,
     },
 
