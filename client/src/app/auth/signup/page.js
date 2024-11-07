@@ -22,12 +22,15 @@ const Signup = () => {
     }
 
     if (data) {
+      console.log(data)
+      if (data.isSuccess) {
       toast.success(data?.description, { id: "signup" });
-      
-      // open new tab
-      // setTimeout(() => {
-      //   window.open("/auth/signin", "_self");
-      // }, 1000);
+      window.open("/auth/signin", "_self");
+
+      }else{
+        toast.error(data?.description, { id: "signup" });
+      }
+ 
     }
     if (error?.data) {
       toast.error(error?.data?.description, { id: "signup" });
@@ -78,7 +81,7 @@ const Signup = () => {
     //   );
     //   return;
     // }
-
+    formData.append("avatar", avatar);
     formData.append("phone", e.target.phone.value);
     formData.append("password", e.target.password.value);
     console.log("Signup Form Data:", Array.from(formData)); // این خط بدنه درخواست را در کنسول چاپ می‌کند
@@ -109,7 +112,7 @@ const Signup = () => {
           className="w-full flex flex-col gap-y-4"
           onSubmit={handleSignup}
         >
-          {/* <label
+          <label
             htmlFor="avatar"
             className="flex flex-col gap-y-1 w-fit mx-auto items-center"
           >
@@ -158,7 +161,7 @@ const Signup = () => {
                 </>
               )}
             </div>
-          </label> */}
+          </label>
           <label htmlFor="name" className="flex flex-col gap-y-1">
             <span className="text-sm">Enter Your Name*</span>
             <input

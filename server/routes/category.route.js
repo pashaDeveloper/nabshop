@@ -21,7 +21,7 @@ router.post(
   "/add-category",
   verify,
   authorize("admin", "seller"),
-  upload.single("thumbnail"),
+  upload('category').single("thumbnail"),
   categoryController.addCategory
 );
 
@@ -36,7 +36,7 @@ router.patch(
   "/update-category/:id",
   verify,
   authorize("admin", "seller"),
-  upload.single("thumbnail"),
+  upload('category').single("thumbnail"),
   categoryController.updateCategory
 );
 

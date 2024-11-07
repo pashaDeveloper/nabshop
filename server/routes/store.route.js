@@ -23,7 +23,7 @@ router.post(
   verify,
   authorize("admin", "seller"),
   restrict,
-  upload.single("thumbnail"),
+  upload('store').single("thumbnail"),
   storeController.addStore
 );
 
@@ -38,7 +38,7 @@ router.patch(
   "/update-store/:id",
   verify,
   authorize("admin", "seller"),
-  upload.single("thumbnail"),
+  upload('store').single("thumbnail"),
   storeController.updateStore
 );
 

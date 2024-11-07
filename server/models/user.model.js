@@ -1,42 +1,36 @@
-
-/* external imports */
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
 
-/* create user schema */
 const userSchema = new mongoose.Schema(
   {
-    // for full name
     name: {
       type: String,
-      required: [true, "Please, provide your full name"],
+      required: [true, "لطفا نام کامل خود را وارد کنید"],
       trim: true,
-      maxLength: [100, "Your name would be at most 100 characters"],
+      maxLength: [100, "نام شما باید حداکثر 100 کاراکتر باشد"],
     },
 
-    // for email
     email: {
       type: String,
-      required: [true, "Please, provide your email address"],
-      validate: [validator.isEmail, "Provide a valid email address"],
-      unique: [true, "Email already exist. Please, provide new"],
+      required: [true, "لطفا آدرس ایمیل خود را وارد کنید"],
+      validate: [validator.isEmail, "لطفا یک آدرس ایمیل معتبر وارد کنید"],
+      unique: [true, "این ایمیل قبلا ثبت شده است. لطفا ایمیل جدید وارد کنید"],
     },
 
-    // for password
+    // رمز عبور
     password: {
       type: String,
-      required: [true, "Please, provide a strong password"],
-      minLength: [8, "Password should be at least 8 characters"],
-      maxLength: [20, "Password should be at most 20 characters"],
+      required: [true, "لطفا یک رمز عبور قوی وارد کنید"],
+      minLength: [6, "رمز عبور باید حداقل 6 کاراکتر باشد"],
+      maxLength: [20, "رمز عبور باید حداکثر 20 کاراکتر باشد"],
     },
 
-    // for avatar
+    // آواتار
     avatar: {
       url: {
         type: String,
-        validate: [validator.isURL, "Please provide a valid avatar URL"],
         default: "https://placehold.co/300x300.png",
       },
       public_id: {
@@ -45,37 +39,37 @@ const userSchema = new mongoose.Schema(
       },
     },
 
-    // for contact number
+    // شماره تماس
     phone: {
       type: String,
       required: [
         // true,
-        // "Please, provide your phone number, i.e.: +8801xxxxxxxxx",
+        // "لطفا شماره تماس خود را وارد کنید، به عنوان مثال: +8801xxxxxxxxx",
       ],
       // validate: {
       //   validator: (value) =>
       //     validator.isMobilePhone(value, "bn-BD", { strictMode: true }),
       //   message:
-      //     "Phone number {VALUE} is not valid. Please, retry like +8801xxxxxxxxx",
+      //     "شماره تماس {VALUE} معتبر نیست. لطفا دوباره وارد کنید به شکل +8801xxxxxxxxx",
       // },
       unique: true,
     },
 
-    // for role
+    // نقش کاربر
     role: {
       type: String,
       enum: ["admin", "buyer", "seller"],
       default: "buyer",
     },
 
-    // for account status
+    // وضعیت حساب
     status: {
       type: String,
       enum: ["active", "inactive"],
       default: "active",
     },
 
-    // for cart
+    // سبد خرید
     cart: [
       {
         type: ObjectId,
@@ -83,7 +77,7 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // for wishlist
+    // لیست علاقه‌مندی‌ها
     favorites: [
       {
         type: ObjectId,
@@ -91,7 +85,7 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // for reviews
+    // نظرات
     reviews: [
       {
         type: ObjectId,
@@ -99,7 +93,7 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // for purchases
+    // خریدها
     purchases: [
       {
         type: ObjectId,
@@ -107,25 +101,25 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // for store creation
+    // ایجاد فروشگاه
     store: {
       type: ObjectId,
       ref: "Store",
     },
 
-    // for brand creation
+    // ایجاد برند
     brand: {
       type: ObjectId,
       ref: "Brand",
     },
 
-    // for category creation
+    // ایجاد دسته‌بندی
     category: {
       type: ObjectId,
       ref: "Category",
     },
 
-    // for buying products
+    // خرید محصولات
     products: [
       {
         type: ObjectId,
@@ -133,15 +127,15 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // for address
+    // آدرس
     address: {
       type: String,
       default: "N/A",
       trim: true,
-      maxLength: [500, "Your address would be at most 500 characters"],
+      maxLength: [500, "آدرس شما باید حداکثر 500 کاراکتر باشد"],
     },
 
-    // for user account time stamps
+    // زمان‌های ایجاد حساب کاربری
     createdAt: {
       type: Date,
       default: Date.now,
@@ -154,7 +148,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-/* encrypted user account password */
+/* رمزگذاری رمز عبور کاربر */
 userSchema.methods.encryptedPassword = function (password) {
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
@@ -162,29 +156,28 @@ userSchema.methods.encryptedPassword = function (password) {
   return hashedPassword;
 };
 
-/* middleware to encrypt password */
+/* میدلور برای رمزگذاری رمز عبور */
 userSchema.pre("save", async function (next) {
   try {
-    // initialize encrypted password
+    // رمزگذاری رمز عبور در صورت تغییر
     if (!this.isModified("password")) {
       return next();
     }
 
-    // encrypt password
     this.password = this.encryptedPassword(this.password);
   } catch (error) {
     next(error);
   }
 });
 
-/* compare passwords as sign in proportion */
+/* مقایسه رمز عبور در زمان ورود */
 userSchema.methods.comparePassword = function (password, hash) {
   const isPasswordValid = bcrypt.compareSync(password, hash);
   return isPasswordValid;
 };
 
-/* create user model schema */
+/* ایجاد مدل کاربر */
 const User = mongoose.model("User", userSchema);
 
-/* export user schema */
+/* اکسپورت مدل کاربر */
 module.exports = User;

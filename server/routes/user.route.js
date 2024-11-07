@@ -16,7 +16,7 @@ const router = express.Router();
 /* router methods integration */
 
 // sign up an user
-router.post("/sign-up", upload.single("avatar"), userController.signUp);
+router.post("/sign-up",   upload("avatar").single("avatar"), userController.signUp);
 
 // sign in an user
 router.post("/sign-in", userController.signIn);
@@ -38,7 +38,7 @@ router.patch(
   "/update-information",
   verify,
   authorize("admin", "seller", "buyer"),
-  upload.single("avatar"),
+  upload('avatar').single("avatar"),
   userController.updateUser
 );
 
@@ -46,7 +46,7 @@ router.patch(
   "/update-user/:id",
   verify,
   authorize("admin"),
-  upload.single("avatar"),
+  upload('avatar').single("avatar"),
   userController.updateUserInfo
 );
 

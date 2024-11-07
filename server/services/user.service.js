@@ -18,6 +18,7 @@ exports.signUp = async (req, res) => {
       acknowledgement: false,
       message: "Bad Request",
       description: "All fields are required",
+      isSuccess: false
     });
   }
   const user = new User({
@@ -26,7 +27,7 @@ exports.signUp = async (req, res) => {
     password: body.password,
     phone: body.phone,
   });
-  
+  console.log('file',file)
   if (file) {
     user.avatar = {
       url: file.path,
@@ -40,6 +41,7 @@ exports.signUp = async (req, res) => {
     acknowledgement: true,
     message: "Created",
     description: "User created successfully",
+    isSuccess: true
   });
 
   return user;

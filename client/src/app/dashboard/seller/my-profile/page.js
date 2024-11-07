@@ -78,103 +78,104 @@ const Page = () => {
 
   return (
     <Dashboard>
-      <section className="flex flex-col gap-y-4">
-        <form
-          action=""
-          className="w-full flex flex-col gap-y-4"
-          onSubmit={handleEditProfile}
-        >
-          {/* avatar */}
-          <div className="w-fit flex flex-col gap-y-4 p-4 border rounded">
-            <Image
-              src={avatarPreview || user?.avatar?.url}
-              alt={user?.avatar?.public_id || "avatar"}
-              width={96}
-              height={96}
-              className="w-full h-24 object-cover rounded"
-            />
+ <section className="flex flex-col max-w-xl gap-y-4">
+  <form
+    action=""
+    className="w-full flex flex-col gap-y-4"
+    onSubmit={handleEditProfile}
+  >
+    {/* آواتار */}
+    <div className="w-fit flex flex-col gap-y-4 p-4 border rounded">
+      <Image
+        src={avatarPreview || user?.avatar?.url}
+        alt={user?.avatar?.public_id || "آواتار"}
+        width={96}
+        height={96}
+        className="w-full h-24 object-cover rounded"
+      />
 
-            <label
-              htmlFor="avatar"
-              className="w-full flex flex-col gap-y-1 relative"
-            >
-              <span className="text-sm cursor-pointer">Choose Avatar</span>
-              <input
-                type="file"
-                name="avatar"
-                id="avatar"
-                className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer z-50"
-                accept=".jpg, .jpeg, .png"
-                multiple={false}
-                onChange={handleAvatarPreview}
-              />
-            </label>
-          </div>
+      <label
+        htmlFor="avatar"
+        className="w-full flex flex-col gap-y-1 relative"
+      >
+        <span className="text-sm cursor-pointer">انتخاب آواتار</span>
+        <input
+          type="file"
+          name="avatar"
+          id="avatar"
+          className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer z-50"
+          accept=".jpg, .jpeg, .png"
+          multiple={false}
+          onChange={handleAvatarPreview}
+        />
+      </label>
+    </div>
 
-          {/* name & email */}
-          <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-            {/* name */}
-            <label htmlFor="name" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Name</span>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={user.name}
-                onChange={(e) => setUser({ ...user, name: e.target.value })}
-              />
-            </label>
+    {/* نام و ایمیل */}
+    <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+      {/* نام */}
+      <label htmlFor="name" className="w-full flex flex-col gap-y-1">
+        <span className="text-sm">نام</span>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={user.name}
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
+        />
+      </label>
 
-            {/* email */}
-            <label htmlFor="email" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Email</span>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={user.email}
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
-              />
-            </label>
-          </div>
+      {/* ایمیل */}
+      <label htmlFor="email" className="w-full flex flex-col gap-y-1">
+        <span className="text-sm">ایمیل</span>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+        />
+      </label>
+    </div>
 
-          {/* phone, role & address */}
-          <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-            {/* phone */}
-            <label htmlFor="phone" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Phone</span>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                value={user.phone}
-                onChange={(e) => setUser({ ...user, phone: e.target.value })}
-              />
-            </label>
+    {/* شماره تماس، نقش و آدرس */}
+    <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+      {/* شماره تماس */}
+      <label htmlFor="phone" className="w-full flex flex-col gap-y-1">
+        <span className="text-sm">شماره تماس</span>
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          value={user.phone}
+          onChange={(e) => setUser({ ...user, phone: e.target.value })}
+        />
+      </label>
 
-            {/* address */}
-            <label htmlFor="address" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Address</span>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                value={user.address}
-                onChange={(e) => setUser({ ...user, address: e.target.value })}
-              />
-            </label>
-          </div>
+      {/* آدرس */}
+      <label htmlFor="address" className="w-full flex flex-col gap-y-1">
+        <span className="text-sm">آدرس</span>
+        <input
+          type="text"
+          name="address"
+          id="address"
+          value={user.address}
+          onChange={(e) => setUser({ ...user, address: e.target.value })}
+        />
+      </label>
+    </div>
 
-          {/* submit button */}
-          <input
-            type="submit"
-            value="Update Profile"
-            className="py-2 border border-black rounded bg-black hover:bg-black/90 text-white transition-colors drop-shadow cursor-pointer text-sm"
-          />
-        </form>
+    {/* دکمه ارسال */}
+    <input
+      type="submit"
+      value="به‌روزرسانی پروفایل"
+      className="py-2 border border-black rounded bg-black hover:bg-black/90 text-white transition-colors drop-shadow cursor-pointer text-sm"
+    />
+  </form>
 
-        <DeleteUser />
-      </section>
+  <DeleteUser />
+</section>
+
     </Dashboard>
   );
 };

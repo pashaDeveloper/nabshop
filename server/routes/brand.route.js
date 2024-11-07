@@ -21,7 +21,7 @@ router.post(
   "/add-brand",
   verify,
   authorize("admin", "seller"),
-  upload.single("logo"),
+  upload('brand').single("logo"),
   brandController.addBrand
 );
 
@@ -36,7 +36,7 @@ router.patch(
   "/update-brand/:id",
   verify,
   authorize("admin", "seller"),
-  upload.single("logo"),
+  upload('brand').single("logo"),
   brandController.updateBrand
 );
 

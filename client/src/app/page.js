@@ -1,7 +1,6 @@
 
 
 "use client";
-
 import Banner1 from "@/components/home/Banner1";
 import Banner2 from "@/components/home/Banner2";
 import Banner3 from "@/components/home/Banner3";

@@ -27,7 +27,9 @@ out/
 
 # پوشه‌های پروژه سمت سرور
 server/node_modules/
+server/uploads/
 
 # پوشه‌های پروژه کلاینت
 client/node_modules/
 client/.next
+

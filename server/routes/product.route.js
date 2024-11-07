@@ -20,7 +20,7 @@ router.post(
   "/add-product",
   verify,
   authorize("admin", "seller"),
-  upload.fields([
+  upload('product').fields([
     { name: "thumbnail", maxCount: 1 },
     { name: "gallery", maxCount: 5 },
   ]),
@@ -35,7 +35,7 @@ router.patch(
   "/update-product/:id",
   verify,
   authorize("admin", "seller"),
-  upload.fields([
+  upload('product').fields([
     { name: "thumbnail", maxCount: 1 },
     { name: "gallery", maxCount: 5 },
   ]),
