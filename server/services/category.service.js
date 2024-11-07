@@ -1,19 +1,4 @@
-/**
- * Title: Write a program using JavaScript on Category Service
- * Author: Hasibul Islam
- * Portfolio: https://devhasibulislam.vercel.app
- * Linkedin: https://linkedin.com/in/devhasibulislam
- * GitHub: https://github.com/devhasibulislam
- * Facebook: https://facebook.com/devhasibulislam
- * Instagram: https:/instagram.com/devhasibulislam
- * Twitter: https://twitter.com/devhasibulislam
- * Pinterest: https://pinterest.com/devhasibulislam
- * WhatsApp: https://wa.me/8801906315901
- * Telegram: devhasibulislam
- * Date: 11, November 2023
- */
 
-/* internal import */
 const Category = require("../models/category.model");
 const Product = require("../models/product.model");
 const User = require("../models/user.model");
@@ -22,7 +7,8 @@ const remove = require("../utils/remove.util");
 /* add new category */
 exports.addCategory = async (req, res) => {
   const { body, file } = req;
-
+  console.log(body);  // این برای چاپ body است
+  console.log(file);
   const category = new Category({
     title: body.title,
     description: body.description,

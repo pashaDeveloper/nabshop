@@ -25,7 +25,7 @@ const Banner1 = () => {
   return (
     <Container>
       <div
-        className="bg-[#f8f0ea] h-full w-full rounded-primary relative flex flex-col gap-y-8 lg:p-24 pt-8 pb-0"
+        className="bg-[#f8f0ea] h-[600px] w-full rounded-primary relative flex flex-col gap-y-8 lg:p-24 pt-8 pb-0 "
         style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
       >
         <Image
@@ -33,7 +33,7 @@ const Banner1 = () => {
           alt="model"
           height={872}
           width={500}
-          className="lg:absolute bottom-0 right-0 order-2 lg:w-[500px] lg:ml-0 md:ml-auto"
+          className="lg:absolute bottom-0 right-0 order-2 lg:w-[500px] lg:ml-0 md:ml-auto  !z-10"
         />
         <article className="flex flex-col justify-start items-end order-1 px-8">
           <div className="flex flex-col gap-y-4 max-w-lg z-20 mr-auto">

@@ -1,21 +1,7 @@
-/**
- * Title: Write a program using JavaScript on Dashboard
- * Author: Hasibul Islam
- * Portfolio: https://devhasibulislam.vercel.app
- * Linkedin: https://linkedin.com/in/devhasibulislam
- * GitHub: https://github.com/devhasibulislam
- * Facebook: https://facebook.com/devhasibulislam
- * Instagram: https://instagram.com/devhasibulislam
- * Twitter: https://twitter.com/devhasibulislam
- * Pinterest: https://pinterest.com/devhasibulislam
- * WhatsApp: https://wa.me/8801906315901
- * Telegram: devhasibulislam
- * Date: 09, November 2023
- */
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Sidebar from "../Sidebar";
 import { useSelector } from "react-redux";
 import { usePathname } from "next/navigation";
@@ -26,6 +12,7 @@ import Logout from "@/components/icons/Logout";
 const Dashboard = ({ children }) => {
   const user = useSelector((state) => state?.auth?.user);
   const [showMenu, setShowMenu] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const pathname = usePathname();
 
@@ -34,146 +21,193 @@ const Dashboard = ({ children }) => {
   if (user?.role === "buyer") {
     routes = [
       {
-        name: "My Profile",
+        name: "پروفایل من",
         paths: [
           {
-            name: "View Profile",
+            name: "مشاهده پروفایل",
             path: "/dashboard/buyer/my-profile",
           },
           {
-            name: "View Purchases",
+            name: "مشاهده خریدها",
             path: "/dashboard/buyer/my-purchases",
           },
         ],
       },
       {
-        name: "My Cart",
+        name: "سبد خرید من",
         paths: [
           {
-            name: "View Cart",
+            name: "مشاهده سبد خرید",
             path: "/dashboard/buyer/my-cart",
           },
           {
-            name: "View Wishlist",
+            name: "مشاهده لیست علاقه‌مندی‌ها",
             path: "/dashboard/buyer/my-wishlist",
           },
         ],
       },
       {
-        name: "My Reviews",
+        name: "نظرات من",
         paths: [
           {
-            name: "View Reviews",
+            name: "مشاهده نظرات",
             path: "/dashboard/buyer/my-reviews",
           },
         ],
       },
     ];
   }
-
+  
   if (user?.role === "seller") {
     routes = [
       {
-        name: "My Profile",
+        name: "پروفایل من",
         paths: [
           {
-            name: "View Profile",
+            name: "مشاهده پروفایل",
             path: "/dashboard/seller/my-profile",
           },
         ],
       },
       {
-        name: "My Assets",
+        name: "دارایی‌های من",
         paths: [
           {
-            name: "View brand",
+            name: "مشاهده برند",
             path: "/dashboard/seller/my-brand",
           },
           {
-            name: "View Category",
+            name: "مشاهده دسته‌بندی",
             path: "/dashboard/seller/my-category",
           },
           {
-            name: "View Store",
+            name: "مشاهده فروشگاه",
             path: "/dashboard/seller/my-store",
           },
         ],
       },
       {
-        name: "My Products",
+        name: "محصولات من",
         paths: [
           {
-            name: "Add Product",
+            name: "افزودن محصول",
             path: "/dashboard/seller/add-product",
           },
           {
-            name: "List Products",
+            name: "لیست محصولات",
             path: "/dashboard/seller/list-products",
           },
         ],
       },
     ];
   }
-
+  
   if (user?.role === "admin") {
     routes = [
       {
-        name: "Retail Landscape",
+        name: "پروفایل من",
         paths: [
           {
-            name: "List Brands",
+            name: "مشاهده پروفایل",
+            path: "/dashboard/seller/my-profile",
+          },
+        ],
+      },
+      {
+        name: "دارایی‌های من",
+        paths: [
+          {
+            name: "مشاهده برند",
+            path: "/dashboard/seller/my-brand",
+          },
+          {
+            name: "مشاهده دسته‌بندی",
+            path: "/dashboard/seller/my-category",
+          },
+          {
+            name: "مشاهده فروشگاه",
+            path: "/dashboard/seller/my-store",
+          },
+        ],
+      },
+      {
+        name: "محصولات من",
+        paths: [
+          {
+            name: "افزودن محصول",
+            path: "/dashboard/seller/add-product",
+          },
+          {
+            name: "لیست محصولات",
+            path: "/dashboard/seller/list-products",
+          },
+        ],
+      },
+      {
+        name: "مدیریت خرده‌فروشی",
+        paths: [
+          {
+            name: "لیست برندها",
             path: "/dashboard/admin/list-brands",
           },
           {
-            name: "List Categories",
+            name: "لیست دسته‌بندی‌ها",
             path: "/dashboard/admin/list-categories",
           },
           {
-            name: "List Stores",
+            name: "لیست فروشگاه‌ها",
             path: "/dashboard/admin/list-stores",
           },
           {
-            name: "List Products",
+            name: "لیست محصولات",
             path: "/dashboard/admin/list-products",
           },
         ],
       },
       {
-        name: "Account Features",
+        name: "ویژگی‌های حساب",
         paths: [
           {
-            name: "List Favorites",
+            name: "لیست علاقه‌مندی‌ها",
             path: "/dashboard/admin/list-favorites",
           },
           {
-            name: "List Cart",
+            name: "لیست سبدها",
             path: "/dashboard/admin/list-cart",
           },
           {
-            name: "List Purchases",
+            name: "لیست خریدها",
             path: "/dashboard/admin/list-purchases",
           },
         ],
       },
       {
-        name: "Account Manager",
+        name: "مدیریت کاربران",
         paths: [
           {
-            name: "List Users",
+            name: "لیست کاربران",
             path: "/dashboard/admin/list-users",
           },
           {
-            name: "Sellers Requests",
+            name: "درخواست‌های فروشندگان",
             path: "/dashboard/admin/seller-requests",
           },
         ],
       },
     ];
   }
+  useEffect(() => {
+    setIsClient(true); // فقط در سمت کلاینت اجرا می‌شود
+  }, []);
+
+  // فقط وقتی که isClient=true باشد، کامپوننت را رندر کنید
+  if (!isClient) {
+    return null; // یا یک لودر نمایش دهید
+  }
 
   return (
-    <main className="h-screen w-screen">
-      <section className="max-w-5xl mx-auto h-full flex flex-col gap-y-4 p-2">
+    <main className="h-screen w-screen" dir="rtl">
+      <section className="mx-auto h-full flex flex-col gap-y-4 p-2">
         <nav className="border px-4 py-2 rounded flex justify-between items-center flex-row">
           {showMenu ? (
             <button
@@ -226,7 +260,7 @@ const Dashboard = ({ children }) => {
           <button
             type="button"
             className="p-1 rounded-secondary border md:block hidden"
-            title="Logout"
+            title="خروج"
             onClick={() => {
               localStorage.removeItem("accessToken");
               window.open("/", "_self");
@@ -238,12 +272,12 @@ const Dashboard = ({ children }) => {
 
         <div className="grid grid-cols-12 gap-x-2 h-full overflow-hidden relative">
           <Sidebar />
-          <div className="md:col-span-8 col-span-12 overflow-y-auto rounded">
+          <div className="md:col-span-10 col-span-12 overflow-y-auto rounded">
             {children}
           </div>
 
           {showMenu && (
-            <div className="absolute top-0 left-0 h-full overflow-y-auto w-3/4 bg-white z-50 md:hidden">
+            <div className="absolute top-0 right-0 h-full overflow-y-auto w-3/4 bg-white z-50 md:hidden">
               <div className="w-full h-full flex flex-col gap-y-4">
                 {routes.map((route, index) => (
                   <div
@@ -314,7 +348,7 @@ const Dashboard = ({ children }) => {
 
         <footer className="border px-4 py-2 rounded flex justify-center items-center flex-row">
           <p className="text-xs">
-            © {new Date().getFullYear()} Canim. All rights reserved.
+          © {new Date().getFullYear()} تمام حقوق این صفحه نزد برنامه نویس محفوظ است.
           </p>
         </footer>
       </section>

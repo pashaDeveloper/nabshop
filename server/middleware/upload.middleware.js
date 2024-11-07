@@ -1,29 +1,14 @@
-
-
-/* external imports */
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const path = require("path");
 
-/* cloudinary config */
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-  secure: true,
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: async (_, file) => {
-    return {
-      folder: "canim-template",
-      public_id: `${Date.now()}_${file.originalname
-        .replace(/[^\w\s.-]/g, "")
-        .replace(/\s+/g, "-")
-        .toLowerCase()}`,
-    };
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // مسیر پوشه محلی
+  },
+  filename: (req, file, cb) => {
+    const hashedName = crypto.randomBytes(16).toString('hex'); 
+    const uniqueSuffix = `${Date.now()}_${hashedName}`;
+    cb(null, uniqueSuffix);
   },
 });
 

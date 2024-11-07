@@ -1,17 +1,4 @@
-/**
- * Title: Write a program using JavaScript on Page
- * Author: Hasibul Islam
- * Portfolio: https://devhasibulislam.vercel.app
- * Linkedin: https://linkedin.com/in/devhasibulislam
- * GitHub: https://github.com/devhasibulislam
- * Facebook: https://facebook.com/devhasibulislam
- * Instagram: https://instagram.com/devhasibulislam
- * Twitter: https://twitter.com/devhasibulislam
- * Pinterest: https://pinterest.com/devhasibulislam
- * WhatsApp: https://wa.me/8801906315901
- * Telegram: devhasibulislam
- * Date: 15, January 2024
- */
+
 
 "use client";
 
@@ -126,147 +113,145 @@ const AddCategory = () => {
 
     addCategory(formData);
 
-    e.target.reset();
-    setThumbnailPreview(null);
-    setKeynotes([""]);
-    setTags([""]);
+
   }
 
   return (
     <form
       action=""
-      className="w-full flex flex-col gap-y-4"
+      className="w-full max-w-xl  flex flex-col gap-y-4"
       onSubmit={handleAddBrand}
     >
       {/* thumbnail */}
       <div className="w-fit flex flex-col gap-y-4 p-4 border rounded">
-        {thumbnailPreview && (
-          <Image
-            src={thumbnailPreview}
-            alt={"thumbnail"}
-            width={96}
-            height={96}
-            className="w-full h-24 object-cover rounded"
-          />
+  {/* پیش‌نمایش تصویر */}
+  {thumbnailPreview && (
+    <Image
+      src={thumbnailPreview}
+      alt={"thumbnail"}
+      width={96}
+      height={96}
+      className="w-full h-24 object-cover rounded"
+    />
+  )}
+
+  {/* انتخاب تصویر بندانگشتی */}
+  <label htmlFor="thumbnail" className="w-full flex flex-col gap-y-1 relative">
+    <span className="text-sm cursor-pointer">انتخاب بندانگشتی*</span>
+    <input
+      type="file"
+      name="thumbnail"
+      id="thumbnail"
+      className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer z-50"
+      accept=".jpg, .jpeg, .png"
+      multiple={false}
+      onChange={handleThumbnailPreview}
+      required
+    />
+  </label>
+</div>
+
+{/* عنوان و توضیحات */}
+<div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+  {/* عنوان */}
+  <label htmlFor="title" className="w-full flex flex-col gap-y-1">
+    <span className="text-sm">عنوان*</span>
+    <input type="text" name="title" id="title" maxLength="100" required />
+  </label>
+
+  {/* توضیحات */}
+  <label htmlFor="email" className="w-full flex flex-col gap-y-1">
+    <span className="text-sm">توضیحات*</span>
+    <textarea name="description" id="description" rows="4" maxLength="500" required />
+  </label>
+</div>
+
+{/* نکات کلیدی */}
+<div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+  <label htmlFor="keynotes" className="w-full flex flex-col gap-y-4">
+    <p className="text-sm flex flex-row justify-between items-center">
+      نکات کلیدی*
+      <button
+        type="button"
+        className="p-0.5 border rounded-secondary bg-green-500 text-white"
+        onClick={handleAddKeynote}
+      >
+        <Plus />
+      </button>
+    </p>
+
+    {/* نمایش نکات کلیدی */}
+    {keynotes.map((keynote, index) => (
+      <p key={index} className="flex flex-row gap-x-2 items-center">
+        <input
+          type="text"
+          name="keynotes"
+          placeholder="یک نکته کلیدی وارد کنید"
+          className="flex-1"
+          value={keynote}
+          onChange={(event) =>
+            handleKeynoteChange(index, event.target.value)
+          }
+          required
+        />
+        {index !== 0 && (
+          <button
+            type="button"
+            className="p-0.5 border rounded-secondary bg-red-500 text-white"
+            onClick={() => handleRemoveKeynote(index)}
+          >
+            <Minus />
+          </button>
         )}
+      </p>
+    ))}
+  </label>
+</div>
 
-        <label
-          htmlFor="thumbnail"
-          className="w-full flex flex-col gap-y-1 relative"
-        >
-          <span className="text-sm cursor-pointer">Choose Thumbnail*</span>
-          <input
-            type="file"
-            name="thumbnail"
-            id="thumbnail"
-            className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer z-50"
-            accept=".jpg, .jpeg, .png"
-            multiple={false}
-            onChange={handleThumbnailPreview}
-            required
-          />
-        </label>
-      </div>
+{/* برچسب‌ها */}
+<div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+  <label htmlFor="tags" className="w-full flex flex-col gap-y-4">
+    <p className="text-sm flex flex-row justify-between items-center">
+      برچسب‌ها*
+      <button
+        type="button"
+        className="p-0.5 border rounded-secondary bg-green-500 text-white"
+        onClick={handleAddTag}
+      >
+        <Plus />
+      </button>
+    </p>
 
-      {/* title & description */}
-      <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-        {/* title */}
-        <label htmlFor="title" className="w-full flex flex-col gap-y-1">
-          <span className="text-sm">Title*</span>
-          <input type="text" name="title" id="title" maxlength="100" required />
-        </label>
-
-        {/* description */}
-        <label htmlFor="email" className="w-full flex flex-col gap-y-1">
-          <span className="text-sm">Description*</span>
-          <textarea name="description" id="description" rows="4" maxlength="500" required />
-        </label>
-      </div>
-
-      {/* keynotes */}
-      <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-        <label htmlFor="keynotes" className="w-full flex flex-col gap-y-4">
-          <p className="text-sm flex flex-row justify-between items-center">
-            Keynotes*
-            <button
-              type="button"
-              className="p-0.5 border rounded-secondary bg-green-500 text-white"
-              onClick={handleAddKeynote}
-            >
-              <Plus />
-            </button>
-          </p>
-
-          {keynotes.map((keynote, index) => (
-            <p key={index} className="flex flex-row gap-x-2 items-center">
-              <input
-                type="text"
-                name="keynotes"
-                placeholder="Enter category keynote"
-                className="flex-1"
-                value={keynote}
-                onChange={(event) =>
-                  handleKeynoteChange(index, event.target.value)
-                }
-                required
-              />
-              {index !== 0 && (
-                <button
-                  type="button"
-                  className="p-0.5 border rounded-secondary bg-red-500 text-white"
-                  onClick={() => handleRemoveKeynote(index)}
-                >
-                  <Minus />
-                </button>
-              )}
-            </p>
-          ))}
-        </label>
-      </div>
-
-      {/* tags */}
-      <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-        <label htmlFor="tags" className="w-full flex flex-col gap-y-4">
-          <p className="text-sm flex flex-row justify-between items-center">
-            Tags*
-            <button
-              type="button"
-              className="p-0.5 border rounded-secondary bg-green-500 text-white"
-              onClick={handleAddTag}
-            >
-              <Plus />
-            </button>
-          </p>
-
-          {tags.map((tag, index) => (
-            <p key={index} className="flex flex-row gap-x-2 items-center">
-              <input
-                type="text"
-                name="tags"
-                placeholder="Enter category tag"
-                className="flex-1"
-                value={tag}
-                onChange={(event) => handleTagChange(index, event.target.value)}
-                required
-              />
-              {index !== 0 && (
-                <button
-                  type="button"
-                  className="p-0.5 border rounded-secondary bg-red-500 text-white"
-                  onClick={() => handleRemoveTag(index)}
-                >
-                  <Minus />
-                </button>
-              )}
-            </p>
-          ))}
-        </label>
-      </div>
+    {/* نمایش برچسب‌ها */}
+    {tags.map((tag, index) => (
+      <p key={index} className="flex flex-row gap-x-2 items-center">
+        <input
+          type="text"
+          name="tags"
+          placeholder="یک برچسب وارد کنید"
+          className="flex-1"
+          value={tag}
+          onChange={(event) => handleTagChange(index, event.target.value)}
+          required
+        />
+        {index !== 0 && (
+          <button
+            type="button"
+            className="p-0.5 border rounded-secondary bg-red-500 text-white"
+            onClick={() => handleRemoveTag(index)}
+          >
+            <Minus />
+          </button>
+        )}
+      </p>
+    ))}
+  </label>
+</div>
 
       {/* submit button */}
       <input
         type="submit"
-        value="Create Category"
+        value="ایجاد دسته بندی"
         className="py-2 border border-black rounded bg-black hover:bg-black/90 text-white transition-colors drop-shadow cursor-pointer"
       />
     </form>
