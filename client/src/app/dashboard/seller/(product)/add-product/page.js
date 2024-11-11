@@ -6,7 +6,7 @@ import Minus from "@/components/icons/Minus";
 import Plus from "@/components/icons/Plus";
 import Dashboard from "@/components/shared/layouts/Dashboard";
 import useGetColors from "@/libs/useGetColors";
-import { useGetBrandsQuery } from "@/services/brand/brandApi";
+// import { useGetBrandsQuery } from "@/services/brand/brandApi";
 import { useGetCategoriesQuery } from "@/services/category/categoryApi";
 import { useAddProductMutation } from "@/services/product/productApi";
 import Image from "next/image";
@@ -28,7 +28,7 @@ const Page = () => {
 
   /* colors and sizes hooks */
   const colors = useGetColors() || [];
-  const sizes = ["xxs", "xs", "s", "m", "l", "xl", "xxl"];
+  const sizes = ["نیم کیلویی", "یک کیلوئی", "یک و نیم کیلوئی ", "بزرگ", "کوچک", "متوسط", "یک لیتری","یک و نیم لیتری","سه لیتری"];
 
   /* user state hook */
   const user = useSelector((state) => state.auth.user);
@@ -38,12 +38,12 @@ const Page = () => {
     addProduct,
     { isLoading: addingProduct, data: addProductData, error: addProductError },
   ] = useAddProductMutation();
-  const {
-    isLoading: fetchingBrands,
-    data: fetchBrandsData,
-    error: fetchBrandsError,
-  } = useGetBrandsQuery();
-  const brands = useMemo(() => fetchBrandsData?.data || [], [fetchBrandsData]);
+  // const {
+  //   isLoading: fetchingBrands,
+  //   data: fetchBrandsData,
+  //   error: fetchBrandsError,
+  // } = useGetBrandsQuery();
+  // const brands = useMemo(() => fetchBrandsData?.data || [], [fetchBrandsData]);
   const {
     isLoading: fetchingCategories,
     data: fetchCategoriesData,
@@ -74,17 +74,17 @@ const Page = () => {
       toast.error(addProductError?.data?.description, { id: "addProduct" });
     }
 
-    if (fetchingBrands) {
-      toast.loading("Fetching Brands...", { id: "fetchBrands" });
-    }
+    // if (fetchingBrands) {
+    //   toast.loading("Fetching Brands...", { id: "fetchBrands" });
+    // }
 
-    if (fetchBrandsData) {
-      toast.success(fetchBrandsData?.description, { id: "fetchBrands" });
-    }
+    // if (fetchBrandsData) {
+    //   toast.success(fetchBrandsData?.description, { id: "fetchBrands" });
+    // }
 
-    if (fetchBrandsError) {
-      toast.error(fetchBrandsError?.data?.description, { id: "fetchBrands" });
-    }
+    // if (fetchBrandsError) {
+    //   toast.error(fetchBrandsError?.data?.description, { id: "fetchBrands" });
+    // }
 
     if (fetchingCategories) {
       toast.loading("Fetching Categories...", { id: "fetchCategories" });
@@ -105,9 +105,9 @@ const Page = () => {
     addingProduct,
     addProductData,
     addProductError,
-    fetchingBrands,
-    fetchBrandsData,
-    fetchBrandsError,
+    // fetchingBrands,
+    // fetchBrandsData,
+    // fetchBrandsError,
     fetchingCategories,
     fetchCategoriesData,
     fetchCategoriesError,
@@ -539,7 +539,7 @@ const Page = () => {
           </label>
 
           {/* brand */}
-          <label htmlFor="brand" className="w-full flex flex-col gap-y-1">
+          {/* <label htmlFor="brand" className="w-full flex flex-col gap-y-1">
             <span className="text-sm">Brand*</span>
             {fetchingBrands ? (
               <p className="text-sm">Loading...</p>
@@ -561,7 +561,7 @@ const Page = () => {
                 ))}
               </select>
             )}
-          </label>
+          </label> */}
         </div>
 
         {/* submit button */}

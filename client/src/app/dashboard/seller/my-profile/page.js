@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 const Page = () => {
   const userInfo = useSelector((state) => state.auth.user);
   const [user, setUser] = useState({});
+  console.log('user',user)
   const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [updateUserInformation, { isLoading, data, error }] =

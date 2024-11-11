@@ -8,8 +8,10 @@ const getStorage = (folderName) => {
     destination: (req, file, cb) => {
       const date = new Date();
       const monthFolder = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}`;
-      const fullPath = path.join("uploads", folderName, monthFolder);
+      
+      const fullPath = path.join(__dirname, "../../client/public/uploads", folderName, monthFolder);
       req.monthFolder = monthFolder;
+      
       if (!fs.existsSync(fullPath)) {
         fs.mkdirSync(fullPath, { recursive: true });
       }
@@ -21,16 +23,13 @@ const getStorage = (folderName) => {
       const extension = path.extname(file.originalname);
       const uniqueSuffix = `${hashedName}${extension}`;
       
-      // نام نهایی فایل
+      // نام نهایی فایل و مسیر نهایی که به کلاینت ارسال می‌شود
       const filename = uniqueSuffix;
-      
-      // مسیر نسبی برای دسترسی به فایل، استفاده از req.monthFolder
-      req.body.filePath = path.join("uploads", folderName, req.monthFolder, filename).replace(/\\/g, "/");
+      req.body.filePath = (`/uploads/${folderName}/${req.monthFolder}/${filename}`).replace(/\\/g, "/");
       cb(null, filename);
     },
   });
 };
-
 
 const upload = (folderName) =>
   multer({

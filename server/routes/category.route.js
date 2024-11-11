@@ -20,7 +20,7 @@ const router = express.Router();
 router.post(
   "/add-category",
   verify,
-  authorize("admin", "seller"),
+  authorize("superAdmin","admin", "seller"),
   upload('category').single("thumbnail"),
   categoryController.addCategory
 );
@@ -35,7 +35,7 @@ router.get("/get-category/:id", categoryController.getCategory);
 router.patch(
   "/update-category/:id",
   verify,
-  authorize("admin", "seller"),
+  authorize("superAdmin","admin", "seller"),
   upload('category').single("thumbnail"),
   categoryController.updateCategory
 );
@@ -44,7 +44,7 @@ router.patch(
 router.delete(
   "/delete-category/:id",
   verify,
-  authorize("admin", "seller"),
+  authorize("superAdmin","admin", "seller"),
   categoryController.deleteCategory
 );
 

@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema(
     // نقش کاربر
     role: {
       type: String,
-      enum: ["admin", "buyer", "seller"],
+      enum: ["superAdmin","admin","operator", "buyer", "seller"],
       default: "buyer",
     },
 

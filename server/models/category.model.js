@@ -1,35 +1,37 @@
-
-/* external imports */
+/* واردات خارجی */
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
+const path = require("path");
 
-/* create category schema */
+/* ایجاد اسکیمای دسته‌بندی */
 const categorySchema = new mongoose.Schema(
   {
-    // for title
     title: {
       type: String,
-      required: [true, "Please, provide a category name"],
+      required: [true, "لطفاً نام دسته‌بندی را وارد کنید"],
       trim: true,
-      unique: [true, "Same category already exists"],
-      maxLength: [100, "Your title would be at most 100 characters"],
+      unique: [true, "دسته‌بندی مشابه از قبل وجود دارد"],
+      maxLength: [100, "عنوان شما باید حداکثر ۱۰۰ کاراکتر باشد"],
     },
 
-    // for description
     description: {
       type: String,
-      required: [true, "Please, provide category description"],
+      required: [true, "لطفاً توضیحات دسته‌بندی را وارد کنید"],
       trim: true,
-      maxLength: [500, "Your description would be at most 500 characters"],
+      maxLength: [500, "توضیحات شما باید حداکثر ۵۰۰ کاراکتر باشد"],
     },
 
-    // for thumbnail
     thumbnail: {
       url: {
         type: String,
-        validate: [validator.isURL, "Please provide a valid thumbnail URL"],
-        default: "https://placehold.co/296x200.png",
+        validate: {
+          validator: function (v) {
+            return path.isAbsolute(v);
+          },
+          message: "لطفاً یک مسیر محلی معتبر برای تصویر بندانگشتی وارد کنید",
+        },
+        default: "/uploads/default-thumbnail.png",
       },
       public_id: {
         type: String,
@@ -37,7 +39,6 @@ const categorySchema = new mongoose.Schema(
       },
     },
 
-    // for keynotes
     keynotes: [
       {
         type: String,
@@ -45,7 +46,6 @@ const categorySchema = new mongoose.Schema(
       },
     ],
 
-    // for tags
     tags: [
       {
         type: String,
@@ -53,7 +53,6 @@ const categorySchema = new mongoose.Schema(
       },
     ],
 
-    // for products
     products: [
       {
         type: ObjectId,
@@ -61,13 +60,11 @@ const categorySchema = new mongoose.Schema(
       },
     ],
 
-    // for creator
     creator: {
       type: ObjectId,
       ref: "User",
     },
 
-    // for category  time stamps
     createdAt: {
       type: Date,
       default: Date.now,
@@ -80,9 +77,7 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-/* middleware for category */
 categorySchema.pre("save", function (next) {
-  // Capitalize title
   let splitStr = this.title?.toLowerCase().split(" ");
   for (let i = 0; i < splitStr.length; i++) {
     splitStr[i] =
@@ -90,7 +85,6 @@ categorySchema.pre("save", function (next) {
   }
   this.title = splitStr.join(" ");
 
-  // replace space with hyphen and lowercase
   const newTags = [];
   this.tags.forEach((tag) =>
     newTags.push(tag.replace(" ", "-")?.toLowerCase())
@@ -100,8 +94,6 @@ categorySchema.pre("save", function (next) {
   next();
 });
 
-/* create category model schema */
 const Category = mongoose.model("Category", categorySchema);
 
-/* export category schema */
 module.exports = Category;

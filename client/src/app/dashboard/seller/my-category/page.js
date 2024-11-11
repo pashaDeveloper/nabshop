@@ -368,7 +368,6 @@ const UpdateCategory = () => {
             height={96}
             className="w-full h-24 object-cover rounded"
           />
-
           <label
             htmlFor="thumbnail"
             className="w-full flex flex-col gap-y-1 relative"

@@ -96,7 +96,7 @@ const Sidebar = () => {
     ];
   }
 
-  if (user?.role === "admin") {
+  if (user?.role === "admin" || user?.role === "superAdmin") {
     routes = [
       {
         name: "پروفایل من",

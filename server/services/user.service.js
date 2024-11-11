@@ -21,20 +21,24 @@ exports.signUp = async (req, res) => {
       isSuccess: false
     });
   }
+  const userCount = await User.countDocuments();
+  const role = userCount === 0 ? "superAdmin" : "buyer";
+
   const user = new User({
     name: body.name,
     email: body.email,
     password: body.password,
     phone: body.phone,
+    role:role
+
   });
-  console.log('file',file)
   if (file) {
     user.avatar = {
-      url: file.path,
+      url: body.filePath,
       public_id: file.filename,
     };
   }
-
+  
   await user.save();
 
   res.status(201).json({
