@@ -115,7 +115,7 @@ const AddCategory = () => {
 
 
   }
-
+console.log("thumbnailPreview",thumbnailPreview)
   return (
     <form
       action=""

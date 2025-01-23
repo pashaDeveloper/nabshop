@@ -9,8 +9,8 @@ function authorize(...role) {
     if (!role.includes(userRole)) {
       return res.status(403).json({
         acknowledgement: false,
-        message: "Forbidden",
-        description: "You're not applicable to access this page and features",
+        message: "ممنوع",
+        description: "شما مجاز به دسترسی به این صفحه نیستید",
       });
     }
 

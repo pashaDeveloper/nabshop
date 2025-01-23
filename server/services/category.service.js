@@ -7,8 +7,6 @@ const remove = require("../utils/remove.util");
 /* add new category */
 exports.addCategory = async (req, res) => {
   const { body, file } = req;
-  console.log(body);  // این برای چاپ body است
-  console.log(file);
   const category = new Category({
     title: body.title,
     description: body.description,
@@ -57,7 +55,7 @@ exports.getCategories = async (res) => {
 /* get a category */
 exports.getCategory = async (req, res) => {
   const category = await Category.findById(req.params.id);
-
+  console.log(category)
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
@@ -70,7 +68,6 @@ exports.getCategory = async (req, res) => {
 exports.updateCategory = async (req, res) => {
   const category = await Category.findById(req.params.id);
   let updatedCategory = req.body;
-
   if (!req.body.thumbnail && req.file) {
     await remove(category.thumbnail.public_id);
 

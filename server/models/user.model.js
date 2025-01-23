@@ -2,19 +2,40 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
-
+const baseSchema = require("./baseSchema.model");
+const Counter = require("./counter")
 const userSchema = new mongoose.Schema(
   {
+    userId: {
+      type: Number,
+      unique: true,
+    },
     name: {
       type: String,
-      required: [true, "لطفا نام کامل خود را وارد کنید"],
+      validate: {
+        validator: function (value) {
+          if (this.role === "admin" || this.role === "superAdmin") {
+            return !!value; 
+          }
+          return true;
+        },
+        message: "برای نقش مدیر یا مدیر کل، وارد کردن نام الزامی است",
+      },
       trim: true,
       maxLength: [100, "نام شما باید حداکثر 100 کاراکتر باشد"],
     },
 
     email: {
       type: String,
-      required: [true, "لطفا آدرس ایمیل خود را وارد کنید"],
+      validate: {
+        validator: function (value) {
+          if (this.role === "admin" || this.role === "superAdmin") {
+            return validator.isEmail(value);
+          }
+          return true; 
+        },
+        message: "برای نقش مدیر یا مدیر کل، وارد کردن ایمیل معتبر الزامی است",
+      },
       validate: [validator.isEmail, "لطفا یک آدرس ایمیل معتبر وارد کنید"],
       unique: [true, "این ایمیل قبلا ثبت شده است. لطفا ایمیل جدید وارد کنید"],
     },
@@ -32,6 +53,15 @@ const userSchema = new mongoose.Schema(
       url: {
         type: String,
         default: "https://placehold.co/300x300.png",
+        validate: {
+          validator: function (value) {
+            if (this.role === "admin" || this.role === "superAdmin") {
+              return value && value !== "https://placehold.co/300x300.png"; 
+            }
+            return true; 
+          },
+          message: "برای نقش مدیر یا مدیر کل، وارد کردن آواتار الزامی است",
+        },
       },
       public_id: {
         type: String,
@@ -42,31 +72,19 @@ const userSchema = new mongoose.Schema(
     // شماره تماس
     phone: {
       type: String,
-      required: [
-        // true,
-        // "لطفا شماره تماس خود را وارد کنید، به عنوان مثال: +8801xxxxxxxxx",
-      ],
-      // validate: {
-      //   validator: (value) =>
-      //     validator.isMobilePhone(value, "bn-BD", { strictMode: true }),
-      //   message:
-      //     "شماره تماس {VALUE} معتبر نیست. لطفا دوباره وارد کنید به شکل +8801xxxxxxxxx",
-      // },
+      required: [true, "لطفا شماره تماس خود را وارد کنید"],
+      validate: {
+        validator: (value) => /^09\d{9}$/.test(value),
+        message: "شماره تماس {VALUE} معتبر نیست. شماره باید 11 رقم باشد و با 09 شروع شود",
+      },
       unique: true,
     },
 
     // نقش کاربر
     role: {
       type: String,
-      enum: ["superAdmin","admin","operator", "buyer", "seller"],
+      enum: ["superAdmin","admin","operator", "buyer"],
       default: "buyer",
-    },
-
-    // وضعیت حساب
-    status: {
-      type: String,
-      enum: ["active", "inactive"],
-      default: "active",
     },
 
     // سبد خرید
@@ -101,23 +119,6 @@ const userSchema = new mongoose.Schema(
       },
     ],
 
-    // ایجاد فروشگاه
-    store: {
-      type: ObjectId,
-      ref: "Store",
-    },
-
-    // ایجاد برند
-    brand: {
-      type: ObjectId,
-      ref: "Brand",
-    },
-
-    // ایجاد دسته‌بندی
-    category: {
-      type: ObjectId,
-      ref: "Category",
-    },
 
     // خرید محصولات
     products: [
@@ -135,15 +136,8 @@ const userSchema = new mongoose.Schema(
       maxLength: [500, "آدرس شما باید حداکثر 500 کاراکتر باشد"],
     },
 
-    // زمان‌های ایجاد حساب کاربری
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+
+    ...baseSchema.obj
   },
   { timestamps: true }
 );
@@ -165,6 +159,27 @@ userSchema.pre("save", async function (next) {
     }
 
     this.password = this.encryptedPassword(this.password);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userSchema.pre("save", async function (next) {
+  if (!this.isNew || this.userId) {
+    return next(); 
+  }
+
+  try {
+    // دریافت مقدار جدید از شمارنده
+    const counter = await Counter.findOneAndUpdate(
+      { name: "userId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true } 
+    );
+    
+
+    this.userId = counter.seq; 
+    next();
   } catch (error) {
     next(error);
   }

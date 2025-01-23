@@ -3,10 +3,14 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
 const path = require("path");
-
+const baseSchema = require("./baseSchema.model");
 /* ایجاد اسکیمای دسته‌بندی */
 const categorySchema = new mongoose.Schema(
   {
+    categoryId: {
+      type: Number,
+      unique: true,
+    },
     title: {
       type: String,
       required: [true, "لطفاً نام دسته‌بندی را وارد کنید"],
@@ -65,14 +69,7 @@ const categorySchema = new mongoose.Schema(
       ref: "User",
     },
 
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    ...baseSchema.obj
   },
   { timestamps: true }
 );
@@ -93,6 +90,24 @@ categorySchema.pre("save", function (next) {
 
   next();
 });
+categorySchema.pre("save", async function (next) {
+  if (!this.isNew || this.categoryId) {
+    return next(); 
+  }
+
+  try {
+    const counter = await Counter.findOneAndUpdate(
+      { name: "categoryId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true } 
+    );
+
+    this.categoryId = counter.seq; 
+    next();
+  } catch (error) {
+    next(error);
+  }
+}); 
 
 const Category = mongoose.model("Category", categorySchema);
 

@@ -28,16 +28,16 @@ router.patch("/forgot-password", userController.forgotPassword);
 router.get("/me", verify, userController.persistLogin);
 
 // get all users
-router.get("/all-users", verify, authorize("admin"), userController.getUsers);
+router.get("/all-users", verify, authorize("superAdmin"), userController.getUsers);
 
 // get single user
-router.get("/get-user/:id", verify, authorize("admin"), userController.getUser);
+router.get("/get-user/:id", verify, authorize("superAdmin"), userController.getUser);
 
 // update user information
 router.patch(
   "/update-information",
   verify,
-  authorize("admin", "seller", "buyer"),
+  authorize("superAdmin", "admin"),
   upload('avatar').single("avatar"),
   userController.updateUser
 );
@@ -45,7 +45,7 @@ router.patch(
 router.patch(
   "/update-user/:id",
   verify,
-  authorize("admin"),
+  authorize("superAdmin","admin"),
   upload('avatar').single("avatar"),
   userController.updateUserInfo
 );
@@ -54,15 +54,15 @@ router.patch(
 router.delete(
   "/delete-user/:id",
   verify,
-  authorize("admin", "seller", "buyer"),
+  authorize("superAdmin", "admin"),
   userController.deleteUser
 );
 
 // seller request and approve
 router
   .route("/seller-review")
-  .get(verify, authorize("admin"), userController.getSellers)
-  .patch(verify, authorize("admin"), userController.reviewSeller);
+  .get(verify, authorize("superAdmin","admin"), userController.getSellers)
+  .patch(verify, authorize("superAdmin","admin"), userController.reviewSeller);
 
 /* export user router */
 module.exports = router;

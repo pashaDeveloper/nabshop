@@ -14,7 +14,7 @@ async function verify(req, res, next) {
       return res.status(401).json({
         acknowledgement: false,
         message: "Unauthorized",
-        description: "No token found to persist an existing user for long time",
+        description: "توکنی برای نگه‌داری کاربر موجود برای مدت طولانی یافت نشد",
       });
     }
 
@@ -30,7 +30,7 @@ async function verify(req, res, next) {
     res.status(401).json({
       acknowledgement: false,
       message: "Unauthorized",
-      description: "Sign in your account to continue",
+      description: "لطفا برای ادامه وارد حساب کاربری خودش شوید",
     });
   }
 }

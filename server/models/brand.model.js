@@ -3,10 +3,14 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
-
+const baseSchema = require("./baseSchema.model");
 /* create brand schema */
 const brandSchema = new mongoose.Schema(
   {
+    brandId: {
+      type: Number,
+      unique: true,
+    },
     // for title
     title: {
       type: String,
@@ -68,15 +72,7 @@ const brandSchema = new mongoose.Schema(
       ref: "User",
     },
 
-    // for brand  time stamps
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    ...baseSchema.obj
   },
   { timestamps: true }
 );
@@ -101,6 +97,24 @@ brandSchema.pre("save", function (next) {
   next();
 });
 
+brandSchema.pre("save", async function (next) {
+  if (!this.isNew || this.brandId) {
+    return next(); 
+  }
+
+  try {
+    const counter = await Counter.findOneAndUpdate(
+      { name: "brandId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true } 
+    );
+
+    this.brandId = counter.seq; 
+    next();
+  } catch (error) {
+    next(error);
+  }
+}); 
 /* create brand model schema */
 const Brand = mongoose.model("Brand", brandSchema);
 

@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -9,15 +8,19 @@ const error = require("./middleware/error.middleware");
 /* application level connection */
 const app = express();
 
+/* allowed origins */
+const allowedOrigins = process.env.ORIGIN_URLS.split(","); // لیستی از آدرس‌ها که در فایل .env تعریف شده‌اند
+
 /* middleware connections */
-app.use(
-  cors({
-    origin: process.env.ORIGIN_URL,
-    methods: "GET, PATCH, POST, DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  })
-);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.header("Access-Control-Allow-Methods", "GET, PATCH, POST, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 app.use(express.json());
 
 /* router level connections */

@@ -13,38 +13,63 @@ const token = require("../utils/token.util");
 /* sign up an user */
 exports.signUp = async (req, res) => {
   const { body, file } = req;
-  if (!body.name || !body.email || !body.password || !body.phone) {
+  const { name, email, password, phone ,avatarUrl} = body; 
+
+  if (!name || !email || !password || !phone) {
     return res.status(400).json({
       acknowledgement: false,
-      message: "Bad Request",
-      description: "All fields are required",
-      isSuccess: false
+      message: "درخواست نادرست",
+      description: "همه فیلدها الزامی است",
+      isSuccess: false,
     });
   }
+console.log("name",name);
+console.log("email",email);
+console.log("phone",phone);
+console.log("file",file);
+  const existingUser = await User.findOne({
+    $or: [{ email: email }, { phone: phone }],
+  });
+if (existingUser) {
+    return {
+        success: false,
+        message: "کاربری با این ایمیل یا شماره تلفن قبلاً ثبت‌نام کرده است. لطفاً به صفحه ورود بروید.",
+        redirectToLogin: true,
+    };
+}
+
+
+if (req.uploadedFiles && req.uploadedFiles["avatar"] && req.uploadedFiles["avatar"].length > 0) {
+  avatar = {
+      url: req.uploadedFiles["avatar"][0].url,
+      public_id: req.uploadedFiles["avatar"][0].key,
+  }
+}else{
+  avatar = {
+    url: avatarUrl,
+    public_id: null,
+}
+}
   const userCount = await User.countDocuments();
   const role = userCount === 0 ? "superAdmin" : "buyer";
+  const status = userCount === 0 ? "active" : "inactive";
 
   const user = new User({
     name: body.name,
     email: body.email,
     password: body.password,
     phone: body.phone,
-    role:role
-
+    role:role,
+    status:status,
+    avatar
   });
-  if (file) {
-    user.avatar = {
-      url: body.filePath,
-      public_id: file.filename,
-    };
-  }
-  
+
   await user.save();
 
   res.status(201).json({
     acknowledgement: true,
-    message: "Created",
-    description: "User created successfully",
+    message: "تبریک ",
+    description: "ثبت نام شما با موفقیت انجام شد",
     isSuccess: true
   });
 
@@ -59,7 +84,7 @@ console.log('user',user)
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",
-      description: "User not found",
+      description: "کاربر یافت نشد",
     });
   } else {
     const isPasswordValid = user.comparePassword(
@@ -71,7 +96,7 @@ console.log('user',user)
       res.status(401).json({
         acknowledgement: false,
         message: "Unauthorized",
-        description: "Invalid password",
+        description: "رمز عبور صحیح نیست",
       });
     } else {
       if (user.status === "inactive") {
@@ -108,7 +133,7 @@ exports.forgotPassword = async (req, res) => {
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",
-      description: "User not found",
+      description: "کاربر یافت نشد",
     });
   } else {
     const hashedPassword = user.encryptedPassword(req.body.password);
@@ -129,49 +154,19 @@ exports.forgotPassword = async (req, res) => {
 
 /* login persistance */
 exports.persistLogin = async (req, res) => {
-  const user = await User.findById(req.user._id).populate([
-    {
-      path: "cart",
-      populate: [
-        { path: "product", populate: ["brand", "category", "store"] },
-        "user",
-      ],
-    },
-    {
-      path: "reviews",
-      populate: ["product", "reviewer"],
-    },
-    {
-      path: "favorites",
-      populate: [
-        {
-          path: "product",
-          populate: ["brand", "category", "store"],
-        },
-        "user",
-      ],
-    },
-    {
-      path: "purchases",
-      populate: ["customer", "products.product"],
-    },
-    "store",
-    "brand",
-    "category",
-    "products",
-  ]);
+  const user = await User.findById(req.user._id);
 
   if (!user) {
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",
-      description: "User not found",
+      description: "کاربر یافت نشد",
     });
   } else {
     res.status(200).json({
       acknowledgement: true,
       message: "OK",
-      description: "Login successful",
+      description: "ورود با موفقیت انجام شد",
       data: user,
     });
   }
@@ -179,24 +174,24 @@ exports.persistLogin = async (req, res) => {
 
 /* get all users */
 exports.getUsers = async (res) => {
-  const users = await User.find().populate("store").populate(["brand", "category", "store"]);
+  const users = await User.find();
 
   res.status(200).json({
     acknowledgement: true,
     message: "OK",
-    description: "Users retrieved successfully",
+    description: "دریافت موفق کاربران",
     data: users,
   });
 };
 
 /* get single user */
 exports.getUser = async (req, res) => {
-  const user = await User.findById(req.params.id).populate("store");
+  const user = await User.findById(req.params.id);
 
   res.status(200).json({
     acknowledgement: true,
     message: "OK",
-    description: `${user.name}'s information retrieved successfully`,
+    description: `اطلاعات کاربر${user.name}' با موفقیت دریافت شد`,
     data: user,
   });
 };
@@ -205,7 +200,6 @@ exports.getUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const existingUser = await User.findById(req.user._id);
   const user = req.body;
-
   if (!req.body.avatar && req.file) {
     await remove(existingUser.avatar?.public_id);
 

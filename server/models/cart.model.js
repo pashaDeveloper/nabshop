@@ -3,10 +3,14 @@
 /* external imports */
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
-
+const baseSchema = require("./baseSchema.model");
 /* create cart schema */
 const cartSchema = new mongoose.Schema(
   {
+    cartId: {
+      type: Number,
+      unique: true,
+    },
     // for product
     product: {
       type: ObjectId,
@@ -25,19 +29,29 @@ const cartSchema = new mongoose.Schema(
       default: 1,
     },
 
-    // for user account time stamps
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    ...baseSchema.obj
   },
   { timestamps: true }
 );
 
+cartSchema.pre("save", async function (next) {
+  if (!this.isNew || this.cartId) {
+    return next(); 
+  }
+
+  try {
+    const counter = await Counter.findOneAndUpdate(
+      { name: "cartId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true } 
+    );
+
+    this.cartId = counter.seq; 
+    next();
+  } catch (error) {
+    next(error);
+  }
+}); 
 /* create cart schema */
 const Cart = mongoose.model("Cart", cartSchema);
 

@@ -12,7 +12,6 @@ const Auth = ({ children }) => {
   const dispatch = useDispatch();
   const { data: userData, error: userError } = usePersistLoginQuery();
   const user = useMemo(() => userData?.data || {}, [userData]);
-
   useEffect(() => {
     if (userData && !userError) {
       toast.success(userData?.description, { id: "auth" });
