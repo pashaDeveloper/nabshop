@@ -20,7 +20,6 @@ const DeleteUser = ({ id }) => {
     data: fetchData,
     error: fetchError
   } = useGetUserQuery(id);
-  console.log(fetchData)
   const user = useMemo(() => fetchData?.data || {}, [fetchData]);
   const [
     deleteUser,
@@ -117,12 +116,12 @@ const DeleteUser = ({ id }) => {
                   بازگشت است!
                 </p>
                 <p className="flex flex-row gap-x-1 items-center">
-                  <Cart className="h-5 w-5" /> آیتم‌های سبد خرید شما
+                  <Cart className="h-5 w-5" /> آیتم‌های سبد خرید کاربر
                   حذف خواهند شد!
                 </p>
                 <p className="flex flex-row gap-x-1 items-center">
                   <Favorite className="h-5 w-5" /> آیتم‌های مورد علاقه
-                  شما حذف خواهند شد!
+                  کاربر حذف خواهند شد!
                 </p>
                 {/* <p className="flex flex-row gap-x-1 items-center">
                   <BiSolidPurchaseTag className="h-5 w-5" />{" "}
@@ -131,7 +130,7 @@ const DeleteUser = ({ id }) => {
                
                 <p className="flex flex-row gap-x-1 items-center">
                   <Review className="h-5 w-5" />{" "}
-                  {user?.reviews?.length} نظر شما حذف خواهند شد!
+                  {user?.reviews?.length} نظرات کاربر حذف خواهند شد!
                 </p>
               </div>
             </article>

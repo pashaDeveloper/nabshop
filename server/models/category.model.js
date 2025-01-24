@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
-const path = require("path");
+const Counter = require("./counter")
 const baseSchema = require("./baseSchema.model");
 /* ایجاد اسکیمای دسته‌بندی */
 const categorySchema = new mongoose.Schema(
@@ -25,23 +25,16 @@ const categorySchema = new mongoose.Schema(
       trim: true,
       maxLength: [500, "توضیحات شما باید حداکثر ۵۰۰ کاراکتر باشد"],
     },
-
     thumbnail: {
       url: {
         type: String,
-        validate: {
-          validator: function (v) {
-            return path.isAbsolute(v);
-          },
-          message: "لطفاً یک مسیر محلی معتبر برای تصویر بندانگشتی وارد کنید",
+        default: "https://placehold.co/300x300.png",
         },
-        default: "/uploads/default-thumbnail.png",
+         public_id: {
+          type: String,
+          default: "N/A",
+        },
       },
-      public_id: {
-        type: String,
-        default: "N/A",
-      },
-    },
 
     keynotes: [
       {

@@ -1,9 +1,5 @@
-import Spinner from "@/components/shared/Spinner";
-import { NavLink, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import Upload from "@/components/icons/Upload";
-import Trash from "@/components/icons/Trash";
+import { NavLink } from "react-router-dom";
+import React from  "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import StepSignUp from "./steps/StepSignUp";
 const Signup = () => {

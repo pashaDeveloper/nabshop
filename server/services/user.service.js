@@ -23,10 +23,7 @@ exports.signUp = async (req, res) => {
       isSuccess: false,
     });
   }
-console.log("name",name);
-console.log("email",email);
-console.log("phone",phone);
-console.log("file",file);
+
   const existingUser = await User.findOne({
     $or: [{ email: email }, { phone: phone }],
   });

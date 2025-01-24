@@ -6,13 +6,13 @@ const remove = require("../utils/remove.util");
 
 /* add new category */
 exports.addCategory = async (req, res) => {
-  const { body, file } = req;
+  const { body } = req;
   const category = new Category({
     title: body.title,
     description: body.description,
     thumbnail: {
-      url: file.path,
-      public_id: file.filename,
+      url: req.uploadedFiles["thumbnail"][0].url,
+      public_id: req.uploadedFiles["thumbnail"][0].key,
     },
     keynotes: JSON.parse(body.keynotes),
     tags: JSON.parse(body.tags),
@@ -30,7 +30,7 @@ exports.addCategory = async (req, res) => {
   res.status(201).json({
     acknowledgement: true,
     message: "Created",
-    description: "Category created successfully",
+    description: "دسته بندی با موفقیت ایجاد شد",
   });
 };
 
@@ -47,7 +47,7 @@ exports.getCategories = async (res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Categories fetched successfully",
+    description: "دسته بندی ها با موفقیت دریافت شدند",
     data: categories,
   });
 };

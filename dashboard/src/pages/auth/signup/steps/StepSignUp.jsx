@@ -14,7 +14,6 @@ import SendButton from "@/components/shared/button/SendButton";
 
 const StepSignUp = () => {
     const [avatarPreview, setAvatarPreview] = useState(null);
-    const [avatar, setAvatar] = useState(null);
     const [signup, { isLoading, data, error }] = useSignUpMutation();
     const [currentStep, setCurrentStep] = useState(1);
     const [completedSteps, setCompletedSteps] = useState({});
@@ -54,7 +53,6 @@ const StepSignUp = () => {
 
   
     const onSubmit = async (data) => {
-        console.log('data', data);
         const formData = new FormData();
     
         if (data.avatar instanceof File) { 

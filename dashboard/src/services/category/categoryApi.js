@@ -1,6 +1,6 @@
 
 
-const { nabApi } = require("../nab");
+import { nabApi } from "../nab";
 
 const categoryApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
