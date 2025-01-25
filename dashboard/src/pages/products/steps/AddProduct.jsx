@@ -4,12 +4,14 @@ import NavigationButton from "@/components/shared/button/NavigationButton";
 import { useForm } from "react-hook-form";
 import SendButton from "@/components/shared/button/SendButton";
 import { useAddProductMutation } from "@/services/Product/ProductApi";
-import ThumbnailStep from "./ThumbnailStep";
+import ThumbnailStep from "./Thumbnail";
 import StepIndicator from "./StepIndicator";
-import TitleStep from "./TitleStep";
-import KeynotesStep from "./KeynotesStep";
-import TagsStep from "./TagsStep";
-import GalleryStep from "./GalleryStep";
+import Title from "./Title";
+import Gallery from "./Gallery";
+import Category from "./Category";
+import Size from "./Size";
+import Features from "./Features";
+import Campaign from "./Campaign";
 
 const StepAddProduct = () => {
   const [thumbnail, setThumbnail] = useState(null);
@@ -18,8 +20,7 @@ const StepAddProduct = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState({});
   const [invalidSteps, setInvalidSteps] = useState({});
-  const [tags, setTags] = useState([""]);
-  const [keynotes, setKeynotes] = useState([""]);
+  const [features, setFeatures] = useState([{ title: "", content: [""] }]);
 
   const {
     register,
@@ -32,31 +33,41 @@ const StepAddProduct = () => {
   } = useForm({
     mode: "onChange",
   });
-  const totalSteps = 5;
-
-  const watchedFields = watch();
+  const totalSteps = 7;
 
   const onSubmit = async (data) => {
     const formData = new FormData();
 
-    formData.append("thumbnail", thumbnail);
-
-    formData.append("keynotes", JSON.stringify(keynotes));
-    formData.append("tags", JSON.stringify(tags));
     formData.append("title", data.title);
-    formData.append("description", data.description);
+    formData.append("summary", data.summary);
+    formData.append("price", data.price);
+
+    formData.append("thumbnail", thumbnail);
+    for (let i = 0; i < gallery.length; i++) {
+      formData.append("gallery", gallery[i]);
+    }
+
+    formData.append("features", JSON.stringify(features));
+    formData.append(
+      "campaign",
+      JSON.stringify({
+        title: data.campaignTitle?.value,
+        state: data.campaignState?.value,
+      })
+    );
+    
+    formData.append("category", formData.category);
 
     addProduct(formData);
   };
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding Product...", { id: "addProduct" });
+      toast.loading("در حال افزودن محصول...", { id: "addProduct" });
     }
 
     if (data) {
       toast.success(data?.description, { id: "addProduct" });
-      window.open("/categories", "_self");
     }
 
     if (error?.data) {
@@ -76,7 +87,7 @@ const StepAddProduct = () => {
         }
         valid = true;
         break;
-        case 2:
+      case 2:
         valid = await trigger("gallery");
         if (!valid) {
           toast.error("لطفاً گالری محصول  را وارد کنید");
@@ -92,26 +103,42 @@ const StepAddProduct = () => {
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
           return;
         }
-        valid = await trigger("description");
+        valid = await trigger("summary");
         if (!valid) {
-          toast.error("لطفاً توضیحات دسته بندی را وارد کنید");
+          toast.error("لطفاً خلاصه ای کوتاه از محصول را وارد کنید");
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
           return;
         }
         break;
 
       case 4:
-        valid = await trigger("keynotes");
+        valid = await trigger("category");
         if (!valid) {
-          toast.error("لطفاً نکات کلیدی را وارد کنید");
+          toast.error("لطفاً دسته بندی  محصول را وارد کنید");
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
           return;
         }
         break;
       case 5:
-        valid = await trigger("tags");
+        valid = await trigger("size");
         if (!valid) {
-          toast.error("لطفاً تگ ها را وارد کنید");
+          toast.error("لطفاً اندازه یا وزن محصول را وارد کنید");
+          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
+          return;
+        }
+        break;
+      case 6:
+        valid = await trigger("features");
+        if (!valid) {
+          toast.error("لطفاً ویژگی های محصول را وارد کنید");
+          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
+          return;
+        }
+        break;
+      case 7:
+        valid = await trigger("campaign");
+        if (!valid) {
+          toast.error("لطفاً نوع کمپین فروش را تعیین کنید");
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
           return;
         }
@@ -143,7 +170,7 @@ const StepAddProduct = () => {
         );
       case 2:
         return (
-          <GalleryStep
+          <Gallery
             setGallery={setGallery}
             nextStep={nextStep}
             register={register}
@@ -152,7 +179,7 @@ const StepAddProduct = () => {
         );
       case 3:
         return (
-          <TitleStep
+          <Title
             register={register}
             errors={errors}
             prevStep={prevStep}
@@ -161,9 +188,7 @@ const StepAddProduct = () => {
         );
       case 4:
         return (
-          <KeynotesStep
-            keynotes={keynotes}
-            setKeynotes={setKeynotes}
+          <Category
             register={register}
             errors={errors}
             prevStep={prevStep}
@@ -172,16 +197,31 @@ const StepAddProduct = () => {
         );
       case 5:
         return (
-          <TagsStep
-            tags={tags}
-            setTags={setTags}
+          <Size
             register={register}
             errors={errors}
             prevStep={prevStep}
             nextStep={nextStep}
           />
         );
-
+      case 6:
+        return (
+          <Features
+            register={register}
+            errors={errors}
+            prevStep={prevStep}
+            nextStep={nextStep}
+          />
+        );
+        case 7:
+          return (
+            <Campaign
+              register={register}
+              errors={errors}
+              prevStep={prevStep}
+              nextStep={nextStep}
+            />
+          );
       default:
         return null;
     }

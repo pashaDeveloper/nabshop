@@ -29,29 +29,29 @@ const TitleStep = ({ register, errors, prevStep, nextStep }) => {
           <span className="text-red-500 text-sm">{errors.title.message}</span>
         )}
       </label>
-      <label htmlFor="description" className="w-full flex flex-col gap-y-1">
-        <span className="text-sm">توضیحات*</span>
+      <label htmlFor="summary" className="w-full flex flex-col gap-y-1">
+        <span className="text-sm">خلاصه*</span>
         <textarea
-          name="description"
-          id="description"
+          name="summary"
+          id="summary"
           rows="4"
           maxLength="500"
-          {...register("description", {
-            required: "وارد کردن توضیحات الزامی است",
+          {...register("summary", {
+            required: "وارد کردن خلاصه الزامی است",
             minLength: {
               value: 50,
-              message: "توضیحات باید حداقل ۵۰ کاراکتر باشد",
+              message: "خلاصه باید حداقل ۵۰ کاراکتر باشد",
             },
             maxLength: {
               value: 500,
-              message: "توضیحات نباید بیشتر از ۵۰۰ کاراکتر باشد",
+              message: "خلاصه نباید بیشتر از ۵۰۰ کاراکتر باشد",
             },
           })}
           required
         />
-        {errors.description && (
+        {errors.summary && (
           <span className="text-red-500 text-sm">
-            {errors.description.message}
+            {errors.summary.message}
           </span>
         )}
       </label>

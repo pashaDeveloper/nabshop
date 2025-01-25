@@ -493,13 +493,13 @@ const Page = () => {
                 defaultValue="choose-state"
                 required
               >
-                <option value="choose-state" disabled>
-                  Select Campaign State
-                </option>
-                <option value="new-arrival">New Arrival</option>
-                <option value="discount">Discount</option>
-                <option value="sold-out">Sold Out</option>
-                <option value="on-sale">On Sale</option>
+               <option value="choose-state" disabled>
+  انتخاب وضعیت کمپین
+</option>
+<option value="new-arrival">جدید</option>
+<option value="discount">تخفیف‌دار</option>
+<option value="sold-out">تمام‌شده</option>
+<option value="on-sale">در حال فروش</option>
               </select>
             </p>
           </label>

@@ -19,10 +19,10 @@ const router = express.Router();
 router.post(
   "/add-product",
   verify,
-  authorize("admin", "seller"),
+  authorize("superAdmin", "admin"),
   upload('product').fields([
     { name: "thumbnail", maxCount: 1 },
-    { name: "gallery", maxCount: 5 },
+    { name: "gallery", maxCount: 10 },
   ]),
   productController.addProduct
 );
@@ -34,7 +34,7 @@ router.get("/get-products", productController.getProducts);
 router.patch(
   "/update-product/:id",
   verify,
-  authorize("admin", "seller"),
+  authorize("superAdmin", "admin"),
   upload('product').fields([
     { name: "thumbnail", maxCount: 1 },
     { name: "gallery", maxCount: 5 },
@@ -52,7 +52,7 @@ router.get("/filtered-products", productController.getFilteredProducts);
 router.delete(
   "/delete-product/:id",
   verify,
-  authorize("admin", "seller"),
+  authorize("superAdmin", "admin"),
   productController.deleteProduct
 );
 

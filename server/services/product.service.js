@@ -19,17 +19,17 @@ exports.addProduct = async (req, res) => {
   const parsedCampaign = JSON.parse(campaign);
   const parsedVariations = JSON.parse(variations);
 
-  if (req.files.thumbnail.length) {
+  if (req.uploadedFiles["thumbnail"].length) {
     thumbnail = {
-      url: req.files.thumbnail[0].path,
-      public_id: req.files.thumbnail[0].filename,
+      url: req.uploadedFiles["thumbnail"][0].url,
+      public_id: req.uploadedFiles["thumbnail"][0].key,
     };
   }
 
-  if (req.files.gallery.length) {
-    gallery = req.files.gallery.map((file) => ({
-      url: file.path,
-      public_id: file.filename,
+  if (req.uploadedFiles["gallery"] && req.uploadedFiles["gallery"].length > 0) {
+    gallery = req.uploadedFiles["gallery"].map((file) => ({
+      url: file.url,
+      public_id: file.key,
     }));
   }
 
@@ -46,9 +46,7 @@ exports.addProduct = async (req, res) => {
   await Category.findByIdAndUpdate(product.category, {
     $push: { products: product._id },
   });
-  await Brand.findByIdAndUpdate(product.brand, {
-    $push: { products: product._id },
-  });
+
   await Store.findByIdAndUpdate(product.store, {
     $push: { products: product._id },
   });

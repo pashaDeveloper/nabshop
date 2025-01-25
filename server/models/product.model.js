@@ -86,7 +86,6 @@ const productSchema = new mongoose.Schema(
 
     // for variations
     variations: {
-      colors: [String],
       sizes: [String],
     },
 
@@ -113,18 +112,6 @@ const productSchema = new mongoose.Schema(
     category: {
       type: ObjectId,
       ref: "Category",
-    },
-
-    // for brand
-    brand: {
-      type: ObjectId,
-      ref: "Brand",
-    },
-
-    // for store
-    store: {
-      type: ObjectId,
-      ref: "Store",
     },
 
     // for buyers
