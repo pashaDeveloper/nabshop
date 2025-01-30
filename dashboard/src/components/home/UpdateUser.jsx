@@ -69,7 +69,6 @@ const UpdateUser = ({ setIsOpen }) => {
     if (avatarPreview !== null && data.avatar[0]) {
       formData.append("avatar", data.avatar[0]);
     }
-console.log(formData)
     updateUser({ id: user?._id, body: formData });
   };
 

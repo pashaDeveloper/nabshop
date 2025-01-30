@@ -28,7 +28,7 @@ const Relatives = () => {
   return (
     <section className="flex flex-col gap-y-10">
       <h1 className="text-4xl">
-        Related. <span className="">Products</span>
+        محصولات <span className="">مشابه</span>
       </h1>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-x-6 gap-y-8">
         {productsLoading || products?.length === 0 ? (

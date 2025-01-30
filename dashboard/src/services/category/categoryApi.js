@@ -4,7 +4,6 @@ import { nabApi } from "../nab";
 
 const categoryApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
-    // add new category
     addCategory: builder.mutation({
       query: (category) => ({
         url: "/category/add-category",

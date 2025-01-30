@@ -10,7 +10,9 @@ import { useRouter } from "next/navigation";
 import { useGetProductsQuery } from "@/services/product/productApi";
 import ExpertCard from "../shared/skeletonLoading/ExpertCard";
 import { toast } from "react-hot-toast";
-
+import { MdDelete } from "react-icons/md";
+import { motion } from "framer-motion";
+import {PopularProductsSlider}  from "./PopularProductsSlider"
 const ExpertChoice = ({ className }) => {
   const router = useRouter();
 
@@ -29,7 +31,8 @@ const ExpertChoice = ({ className }) => {
 
   return (
     <Container className={className ? className : ""}>
-      <section className="flex flex-col gap-y-10">
+      <PopularProductsSlider />
+            <section className="flex flex-col gap-y-10">
         <h1 className="text-4xl">
           Experts Choice. <span className="">Most Favorites</span>
         </h1>

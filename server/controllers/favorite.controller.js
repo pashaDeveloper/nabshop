@@ -4,7 +4,7 @@
 const favoriteService = require("../services/favorite.service");
 
 /* add to favorite */
-exports.addToFavorite = async (req, res) => {
+exports.addToFavorite = async (req, res,next) => {
   try {
     await favoriteService.addToFavorite(req, res);
   } catch (error) {
@@ -15,7 +15,7 @@ exports.addToFavorite = async (req, res) => {
 };
 
 /* get favorites */
-exports.getFavorites = async (req, res) => {
+exports.getFavorites = async (req, res,next) => {
   try {
     await favoriteService.getFavorites(res);
   } catch (error) {
@@ -26,7 +26,7 @@ exports.getFavorites = async (req, res) => {
 };
 
 /* delete favorite */
-exports.deleteFromFavorite = async (req, res) => {
+exports.deleteFromFavorite = async (req, res,next) => {
   try {
     await favoriteService.deleteFromFavorite(req, res);
   } catch (error) {

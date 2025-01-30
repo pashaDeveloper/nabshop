@@ -34,7 +34,7 @@ const Page = () => {
     <Dashboard>
       {user?.cart?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Products in Cart List!
+          <Inform /> هیچ محصولی در سبد خرید شما وجود ندارد!
         </p>
       ) : (
         <section className="w-full h-full">
@@ -158,7 +158,7 @@ const Page = () => {
                       <span className="flex flex-row gap-x-2 scrollbar-hide text-sm">
                         {product?.variations?.sizes?.map((size) => (
                           <span key={size} className="border px-1 py-0.5">
-                            {size.toUpperCase()}
+                            {size?.toUpperCase()}
                           </span>
                         ))}
                       </span>

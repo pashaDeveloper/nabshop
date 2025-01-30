@@ -16,10 +16,9 @@ const MyCart = () => {
   const { user } = useSelector((state) => state.auth);
   const [removeFromCart, { isLoading, data, error }] =
     useDeleteFromCartMutation();
-
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Removing item from cart...", { id: "removeFromCart" });
+      toast.loading("پاک کردن سبد خرید...", { id: "removeFromCart" });
     }
 
     if (data) {
@@ -33,18 +32,19 @@ const MyCart = () => {
 
   return (
     <>
-      <button
+        <button
         className="p-2 rounded-secondary hover:bg-slate-100 transition-colors relative"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Cart className="h-6 w-6" />
 
-        {user?.cart?.length > 0 && (
-          <span className="h-2 w-2 bg-red-500 rounded-secondary absolute top-1 right-1"></span>
-        )}
-      </button>
+          {user?.cart?.length > 0 && (
+          // <span className="h-2 w-2 bg-red-500 rounded-secondary absolute top-1 right-1"></span>
+          <></>
+        )}  
+      </button>  
 
-      {isOpen && (
+       {isOpen && (
         <OutsideClick
           onOutsideClick={() => setIsOpen(false)}
           className="absolute top-full right-0 w-80 h-96 overflow-y-auto bg-white border rounded p-4 flex flex-col gap-y-2.5"
@@ -94,12 +94,7 @@ const MyCart = () => {
                             </span>
                           </p>
                           <div className="flex flex-row gap-x-1">
-                            <span className="whitespace-nowrap text-[10px] bg-purple-300/50 text-purple-500 border border-purple-500 px-1.5 rounded">
-                              {product?.store?.title}
-                            </span>
-                            <span className="whitespace-nowrap text-[10px] bg-indigo-300/50 text-indigo-500 border border-indigo-500 px-1.5 rounded">
-                              {product?.brand?.title}
-                            </span>
+                           
                             <span className="whitespace-nowrap text-[10px] bg-blue-300/50 text-blue-500 border border-blue-500 px-1.5 rounded">
                               {product?.category?.title}
                             </span>
@@ -109,7 +104,7 @@ const MyCart = () => {
 
                       <button
                         type="button"
-                        className="opacity-0 transition-opacity group-hover:opacity-100 absolute top-2 right-2 border p-1 rounded-secondary bg-red-100 text-red-900 border-red-900"
+                        className="opacity-0 transition-opacity group-hover:opacity-100 absolute top-2 left-2 border p-1 rounded-secondary bg-red-100 text-red-900 border-red-900"
                         onClick={() => removeFromCart(_id)}
                       >
                         <Trash />
@@ -122,7 +117,7 @@ const MyCart = () => {
             )}
           </div>
         </OutsideClick>
-      )}
+      )} 
     </>
   );
 };
@@ -133,7 +128,7 @@ function Purchase({ cart }) {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Creating payment...", { id: "createPayment" });
+      toast.loading("در حال انتقال به درگاه پرداخت بانک ملت...", { id: "createPayment" });
     }
 
     if (data) {
@@ -164,13 +159,13 @@ function Purchase({ cart }) {
 
   return (
     <>
-      <button
+       <button
         type="button"
         className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow flex flex-row gap-x-2 items-center justify-center"
         onClick={() => createPayment(result)}
       >
-        Purchase
-      </button>
+        تسویه حساب
+      </button> 
     </>
   );
 }

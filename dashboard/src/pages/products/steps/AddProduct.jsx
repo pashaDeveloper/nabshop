@@ -51,14 +51,20 @@ const StepAddProduct = () => {
     formData.append(
       "campaign",
       JSON.stringify({
-        title: data.campaignTitle?.value,
-        state: data.campaignState?.value,
+        title: data.campaignTitle,
+        state: data.campaignState,
       })
     );
-    
-    formData.append("category", formData.category);
-
-    addProduct(formData);
+    formData.append(
+      "variations",
+      JSON.stringify({
+        sizes: Array.from(data.sizes).map(
+          (option) => option.value
+        ),
+      })
+    );
+    formData.append("category", data.category);
+   addProduct(formData)
   };
 
   useEffect(() => {
@@ -120,7 +126,7 @@ const StepAddProduct = () => {
         }
         break;
       case 5:
-        valid = await trigger("size");
+        valid = await trigger("sizes");
         if (!valid) {
           toast.error("لطفاً اندازه یا وزن محصول را وارد کنید");
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
@@ -136,7 +142,13 @@ const StepAddProduct = () => {
         }
         break;
       case 7:
-        valid = await trigger("campaign");
+        valid = await trigger("campaignTitle");
+        if (!valid) {
+          toast.error("لطفاً عنوان کمپین فروش را تعیین کنید");
+          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
+          return;
+        }
+        valid = await trigger("campaignState");
         if (!valid) {
           toast.error("لطفاً نوع کمپین فروش را تعیین کنید");
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
@@ -207,21 +219,23 @@ const StepAddProduct = () => {
       case 6:
         return (
           <Features
+            features={features}
+            setFeatures={setFeatures}
             register={register}
             errors={errors}
             prevStep={prevStep}
             nextStep={nextStep}
           />
         );
-        case 7:
-          return (
-            <Campaign
-              register={register}
-              errors={errors}
-              prevStep={prevStep}
-              nextStep={nextStep}
-            />
-          );
+      case 7:
+        return (
+          <Campaign
+            register={register}
+            errors={errors}
+            prevStep={prevStep}
+            nextStep={nextStep}
+          />
+        );
       default:
         return null;
     }

@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { MdFavorite } from "react-icons/md";
+import { HeartEmpty, HeartFull } from "@/components/icons/Heart";
 import Discount from "../icons/Discount";
 import SoldOut from "../icons/SoldOut";
 import Arrival from "../icons/Arrival";
@@ -17,6 +18,7 @@ import {
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Spinner from "./Spinner";
+import { ArrowRight } from '@/components/icons/ArrowRight'
 
 const Card = ({ index, product, ...rest }) => {
   const router = useRouter();
@@ -30,95 +32,51 @@ const Card = ({ index, product, ...rest }) => {
   return (
     <div
       {...rest}
-      className="flex-shrink-0 flex flex-col gap-y-6 group border hover:border-black transition-colors rounded-lg"
+      className="relative group cursor-pointer  bg-white w-60 h-72 rounded-2xl shadow-lg p-6"
+      onClick={() =>
+        router.push(
+          `/product?product_id=${
+            product?._id
+          }&product_title=${product?.title
+            .replace(/ /g, "-")
+            .toLowerCase()}}`
+        )
+      }
+
     >
-      <div className="relative h-[200px] w-full rounded-lg">
-        <Image
-          src={product?.thumbnail?.url}
-          alt={product?.thumbnail?.public_id}
-          width={296}
-          height={200}
-          className="h-[200px] w-full rounded-t-lg object-cover"
-        />
-        <div className="flex flex-row gap-x-2.5 absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Logo
-            src={product?.brand?.logo?.url}
-            alt={product?.brand?.logo?.public_id}
-          />
-          <Logo
-            src={product?.store?.thumbnail?.url}
-            alt={product?.store?.thumbnail?.public_id}
-          />
-        </div>
-        {product?.campaign && (
-          <span className="text-xs bg-white/80 px-2.5 py-0.5 rounded-xl absolute bottom-4 right-4 cursor-not-allowed">
-            {product?.campaign?.state === "discount" && (
-              <span className="flex flex-row gap-x-0.5 items-center">
-                <Discount /> {product?.campaign.title}
-              </span>
-            )}
-            {product?.campaign?.state === "sold-out" && (
-              <span className="flex flex-row gap-x-0.5 items-center">
-                <SoldOut /> {product?.campaign.title}
-              </span>
-            )}
-            {product?.campaign?.state === "new-arrival" && (
-              <span className="flex flex-row gap-x-0.5 items-center">
-                <Arrival /> {product?.campaign.title}
-              </span>
-            )}
-            {product?.campaign?.state === "on-sale" && (
-              <span className="flex flex-row gap-x-0.5 items-center">
-                <Arrival /> {product?.campaign.title}
-              </span>
-            )}
-          </span>
-        )}
-        {favorite ? (
+       {favorite ? (
           <RemoveFromFavorite favorite={favorite} />
         ) : (
           <AddToFavorite product={product} />
         )}
+       <div className="mt-4 flex justify-center">
+      <div className="w-36 h-36 bg-white rounded-full relative     opacity-15 shadow-custom  flex items-center justify-center">
+      <Image
+          src={product?.thumbnail?.url}
+          alt={product?.thumbnail?.public_id}
+          width={300}
+          height={300}
+          className="w-full h-full object-contain" />
       </div>
-      <article className="flex flex-col gap-y-3.5 px-4 h-full">
-        <div className="flex flex-row items-center gap-x-1.5">
-          <Badge className="text-indigo-800 bg-indigo-100">
-            {product?.variations?.colors?.length + " " + "Colors"}
-          </Badge>
-          <div className="h-5 border-l w-[1px]"></div>
-          <Badge className="text-purple-800 bg-purple-100">
-            {product?.variations?.sizes?.length + " " + "Sizes"}
-          </Badge>
-        </div>
-        <div
-          className="flex flex-col gap-y-4 cursor-pointer h-full"
-          onClick={() =>
-            router.push(
-              `/product?product_id=${
-                product?._id
-              }&product_title=${product?.title
-                .replace(/ /g, "-")
-                .toLowerCase()}}`
-            )
-          }
-        >
-          <h2 className="line-clamp-2 h-full">{product?.title}</h2>
-          <div className="flex flex-row items-end justify-between mt-auto">
-            <span className="flex items-center border-2 border-green-500 rounded py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium">
-              <span className="text-green-500 !leading-none">
-                ${product?.price}.00
-              </span>
-            </span>
-            <span className="flex flex-row items-center gap-x-0.5">
-              <AiFillStar className="text-[#ffc242]" />
-              <span className="text-sm">
-                {product?.reviews?.length}
-              </span>
-            </span>
-          </div>
-        </div>
-      </article>
-      <div></div>
+    </div>
+       
+   
+  
+    {/* Texts */}
+    <div className="mt-6 text-left">
+      <h3 className="text-xl font-semibold">{product?.title}</h3>
+      <p className="text-base text-gray-500">{product?.category?.title}</p>
+      <p className="text-lg text-blue-500 font-bold">{product?.price}</p>
+    </div>
+  
+    {/* Action Button */}
+    <div className="absolute bottom-4 right-4">
+      <button className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center ">
+        <ArrowRight className="w-12 h-12  transition-transform duration-300 transform group-hover:translate-x-1 group-focus:translate-x-1" />
+      </button>
+    </div>
+       
+      
     </div>
   );
 };
@@ -136,21 +94,7 @@ function Badge({ props, children, className }) {
   );
 }
 
-function Logo({ src, alt, props, className }) {
-  return (
-    <Image
-      {...props}
-      src={src}
-      alt={alt}
-      width={30}
-      height={30}
-      className={
-        "w-[30px] h-[30px] object-cover rounded-[5px] shadow border border-transparent hover:border-black transition-colors cursor-help" +
-        (className ? " " + className : "")
-      }
-    />
-  );
-}
+
 
 function AddToFavorite({ product }) {
   const user = useSelector((state) => state?.auth?.user);
@@ -159,7 +103,7 @@ function AddToFavorite({ product }) {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding to favorite...", { id: "addToFavorite" });
+      toast.loading("اضافه کردن به علاقه مندی...", { id: "addToFavorite" });
     }
 
     if (data) {
@@ -173,13 +117,13 @@ function AddToFavorite({ product }) {
 
   return (
     <button
-      className="border border-transparent bg-white hover:border-black shadow p-1 absolute bottom-4 left-4 rounded-secondary opacity-0 group-hover:opacity-100 transition-all"
+      className="absolute top-4 right-5 z-10"
       onClick={() => addToFavorite({ product: product?._id })}
     >
       {isLoading ? (
         <Spinner />
       ) : (
-        <MdFavorite className={`w-5 h-5 text-black`} />
+        <HeartEmpty className={`w-5 h-5 text-black`} />
       )}
     </button>
   );
@@ -192,7 +136,7 @@ function RemoveFromFavorite({ favorite }) {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding to favorite...", { id: "addToFavorite" });
+      toast.loading("حذف از علاقه مندی...", { id: "addToFavorite" });
     }
 
     if (data) {
@@ -206,13 +150,13 @@ function RemoveFromFavorite({ favorite }) {
 
   return (
     <button
-      className="border border-transparent bg-white hover:border-black shadow p-1 absolute bottom-4 left-4 rounded-secondary opacity-0 group-hover:opacity-100 transition-all"
+      className="absolute top-4 right-5 z-10"
       onClick={() => removeFromFavorite({ id: favorite?._id })}
     >
       {isLoading ? (
         <Spinner />
       ) : (
-        <MdFavorite className={`w-5 h-5 text-red-500`} />
+        <HeartFull className={`w-5 h-5 `} />
       )}
     </button>
   );

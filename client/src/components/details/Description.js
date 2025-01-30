@@ -43,7 +43,7 @@ const Description = ({ product }) => {
     <section className="flex flex-col gap-y-2.5">
       <div className="flex flex-row gap-x-2 items-center">
         <span className="whitespace-nowrap text-sm text-black">
-          Details of this product
+          جزئیات این محصول
         </span>
         <hr className="w-full" />
       </div>
@@ -53,12 +53,11 @@ const Description = ({ product }) => {
           className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow w-fit flex flex-row gap-x-2 items-center"
           onClick={() => setIsOpen(!isOpen)}
         >
-          Reviews
+          نظرات
         </button>
         <div className="flex flex-row gap-x-2 items-center">
           <span className="whitespace-nowrap text-sm text-black">
-            Features & Policies of this product
-          </span>
+ویزگی های این محصول          </span>
           <hr className="w-full" />
         </div>
         <div className="flex flex-col gap-y-4">
@@ -88,7 +87,7 @@ const Description = ({ product }) => {
                 type="text"
                 name="comment"
                 id="comment"
-                placeholder="Write your thoughts..."
+                placeholder="اگر ایده یا نظری دارید خوشحال می شویم با ما در میان بگذارید"
                 className="w-full text-sm"
               />
               <input
@@ -97,19 +96,19 @@ const Description = ({ product }) => {
                 id="rating"
                 min="1"
                 max="5"
-                placeholder="Value"
+                placeholder="مقدار"
                 className="w-fit text-sm"
               />
               <input
                 type="submit"
-                value="Submit"
+                value="ثبت"
                 className="text-sm p-2 border bg-black text-white rounded cursor-pointer"
               />
             </form>
 
             {product?.reviews?.length === 0 ? (
               <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-                <Inform /> No reviews added yet!
+                <Inform /> هیچ نظری برای این محصول ثبت نشده!
               </p>
             ) : (
               <div className="h-full overflow-y-auto scrollbar-hide flex flex-col gap-y-4">

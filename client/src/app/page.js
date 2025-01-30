@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Main>
-        <main className="flex flex-col gap-y-20 w-full">
+        <main className="flex flex-col gap-y-20 w-full bg-primary">
           <Banner1 />
           <Steps />
           <NewArrivals />

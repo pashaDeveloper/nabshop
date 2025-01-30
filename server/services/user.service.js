@@ -151,7 +151,35 @@ exports.forgotPassword = async (req, res) => {
 
 /* login persistance */
 exports.persistLogin = async (req, res) => {
-  const user = await User.findById(req.user._id);
+  
+  const user = await User.findById(req.user._id).populate([
+    {
+      path: "cart",
+      populate: [
+        { path: "product", populate: [ "category"] },
+        "user",
+      ],
+    },
+    {
+      path: "reviews",
+      populate: ["product", "reviewer"],
+    },
+    {
+      path: "favorites",
+      populate: [
+        {
+          path: "product",
+          populate: ["category"],
+        },
+        "user",
+      ],
+    },
+    {
+      path: "purchases",
+      populate: ["customer", "products.product"],
+    },
+    "products",
+  ]);
 
   if (!user) {
     res.status(404).json({
@@ -169,6 +197,7 @@ exports.persistLogin = async (req, res) => {
   }
 };
 
+  
 /* get all users */
 exports.getUsers = async (res) => {
   const users = await User.find();

@@ -9,6 +9,7 @@ import SignIn from "./pages/auth/signin/index";
 import SignUp from "./pages/auth/signup/index";
 import Users from "./pages/users/index";
 import { Toaster } from "react-hot-toast";
+import Tags from "./pages/tags";
 import Categories from "./pages/categories";
 import AddCategory from "./pages/categories/add";
 import Products from "./pages/products";
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/signin" element={<SignIn />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/users" element={<Users />} />
+          <Route exact path="/tags" element={<Tags />} />
           <Route exact path="/categories" element={<Categories />} />
           <Route exact path="/categories/add" element={<AddCategory />} />
           <Route exact path="/products" element={<Products />} />

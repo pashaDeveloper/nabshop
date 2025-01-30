@@ -4,35 +4,36 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
 export const metadata = {
-  metadataBase: new URL("https://canim-csr.vercel.app"),
-  title: "Canim - Shop & eCommerce React Template",
+  metadataBase: new URL("https://noglenab.com"),
+  title: "نقل و حلوا پزی ناب - بهترین حلوا در شهر",
   description:
-    "Buy Canim - Shop & eCommerce Next.Js Template by Hasibul Islam. Canim | Shop & eCommerce React Template - a responsive React template. Canim is built with the latest Next.Js 13 App Directory",
+    "نقل و حلوا پزی ناب ارائه‌دهنده بهترین و خوشمزه‌ترین حلواهای تازه با طعم‌های متنوع و اصیل. تجربه‌ای شیرین و لذیذ برای تمام سلیقه‌ها. به ما اعتماد کنید برای خرید حلواهای خوشمزه و تازه.",
   openGraph: {
-    title: "Canim - Shop & eCommerce React Template",
+    title: "نقل و حلوا پزی ناب - بهترین حلوا در شهر",
     description:
-      "Buy Canim - Shop & eCommerce Next.Js Template by Hasibul Islam. Canim | Shop & eCommerce React Template - a responsive React template. Canim is built with the latest Next.Js 13 App Directory",
-    url: "https://canim-csr.vercel.app",
-    siteName: "Canim Template",
+      "نقل و حلوا پزی ناب ارائه‌دهنده بهترین و خوشمزه‌ترین حلواهای تازه با طعم‌های متنوع و اصیل. تجربه‌ای شیرین و لذیذ برای تمام سلیقه‌ها. به ما اعتماد کنید برای خرید حلواهای خوشمزه و تازه.",
+    url: "https://noglenab.com",
+    siteName: "نقل و حلوا پزی ناب",
     images:
-      "https://github.com/devhasibulislam/canim-ecommerce/blob/master/client/public/og.png?raw=true",
-    locale: "en_US",
+      "https://noglenab.com/images/og-halwa.jpg", // لینک تصویر مربوطه را وارد کن
+    locale: "fa_IR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@devhasibulislam",
-    title: "Canim - Shop & eCommerce React Template",
+    site: "@noglenab",
+    title: "نقل و حلوا پزی ناب - بهترین حلوا در شهر",
     description:
-      "Buy Canim - Shop & eCommerce Next.Js Template by Hasibul Islam. Canim | Shop & eCommerce React Template - a responsive React template. Canim is built with the latest Next.Js 13 App Directory",
+      "نقل و حلوا پزی ناب ارائه‌دهنده بهترین و خوشمزه‌ترین حلواهای تازه با طعم‌های متنوع و اصیل. تجربه‌ای شیرین و لذیذ برای تمام سلیقه‌ها. به ما اعتماد کنید برای خرید حلواهای خوشمزه و تازه.",
     image:
-      "https://github.com/devhasibulislam/canim-ecommerce/blob/master/client/public/og.png?raw=true",
+      "https://noglenab.com/images/og-halwa.jpg", // لینک تصویر مربوطه را وارد کن
   },
+  
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fa">
+    <html lang="fa" dir="rtl">
       <body>
         <Providers>
           <Auth>{children}</Auth>

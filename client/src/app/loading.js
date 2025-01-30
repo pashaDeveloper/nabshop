@@ -7,11 +7,11 @@ const Loading = () => {
   return (
     <section className="fixed top-0 left-0 h-screen w-screen overflow-hidden flex justify-center items-center bg-white z-50">
       <Image
-        src="/loading.gif"
+        src="/loading.png"
         alt="loading"
         height={540}
         width={960}
-        className="max-w-full h-[400px] w-full object-contain"
+        className="max-w-full h-[250px] w-full object-contain"
       />
     </section>
   );

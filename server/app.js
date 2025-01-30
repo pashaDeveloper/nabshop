@@ -9,8 +9,10 @@ const error = require("./middleware/error.middleware");
 const app = express();
 
 /* allowed origins */
-const allowedOrigins = process.env.ORIGIN_URLS.split(","); // لیستی از آدرس‌ها که در فایل .env تعریف شده‌اند
-
+const allowedOrigins = [
+  process.env.NEXT_PUBLIC_CLIENT_URL,
+  process.env.NEXT_PUBLIC_DASHBOARD_URL,
+];
 /* middleware connections */
 app.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -25,6 +27,7 @@ app.use(express.json());
 
 /* router level connections */
 app.use("/api/brand", require("./routes/brand.route"));
+app.use("/api/tag", require("./routes/tag.route"));
 app.use("/api/category", require("./routes/category.route"));
 app.use("/api/product", require("./routes/product.route"));
 app.use("/api/store", require("./routes/store.route"));

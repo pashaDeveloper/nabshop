@@ -3,8 +3,7 @@ import React from "react";
 import MoonLoader from "@/components/shared/loading/MoonLoaderLoading";
 import Apply from "@/components/icons/Apply";
 import Reject from "@/components/icons/Reject";
-const DeleteModal = ({ isOpen, onDelete, onClose, message, isLoading }) => {
-  if (!isOpen) return null;
+const DeleteModal = ({ onDelete, onClose, message, isLoading }) => {
 
   return (
     <div

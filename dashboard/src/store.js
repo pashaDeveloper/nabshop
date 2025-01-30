@@ -13,6 +13,7 @@ import cartSlice from "./features/cart/cartSlice";
 import purchaseSlice from "./features/purchase/purchaseSlice";
 import filterSlice from "./features/filter/filterSlice";
 import userSlice from "@/features/user/userSlice";
+import tagSlice from "@/features/tag/tagSlice";
 export const store = configureStore({
   reducer: {
     [nabApi.reducerPath]: nabApi.reducer,
@@ -25,7 +26,8 @@ export const store = configureStore({
     cart: cartSlice,
     purchase: purchaseSlice,
     filter: filterSlice,
-    user:userSlice
+    user:userSlice,
+    tag:tagSlice
     // productFilter: productFilterSlice,
   },
   middleware: (getDefaultMiddleware) =>

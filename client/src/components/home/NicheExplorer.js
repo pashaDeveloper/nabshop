@@ -24,15 +24,15 @@ import { setStore } from "@/features/store/storeSlice";
 const NicheExplorer = () => {
   const niches = [
     {
-      title: "Brand",
+      title: "محصولات",
       icon: <Brand />,
     },
     {
-      title: "Category",
+      title: "دسته بندی",
       icon: <Category />,
     },
     {
-      title: "Store",
+      title: "مجله",
       icon: <Store />,
     },
   ];
@@ -43,7 +43,7 @@ const NicheExplorer = () => {
     <Container>
       <section className="flex flex-col gap-y-10">
         <h1 className="text-4xl">
-          Top Exploring. <span className="">By Niche</span>
+          بیشترین جستجوی <span className="">کاربران</span>
         </h1>
 
         <div className="bg-neutral-100/70 rounded-primary lg:p-24 md:p-12 p-6 flex flex-col gap-y-12">
@@ -53,7 +53,7 @@ const NicheExplorer = () => {
                 <button
                   key={index}
                   className={
-                    "text-sm text-black flex flex-row items-center gap-x-1 px-8 py-2 rounded-secondary border border-transparent" +
+                    "text-sm text-black w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent" +
                     " " +
                     (selectedNiche === niche.title ? "bg-black text-white" : "")
                   }

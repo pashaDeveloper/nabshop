@@ -1,22 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ControlPanel from "../ControlPanel";
-import Cross from "@/components/icons/Cross";
-import Trash from "@/components/icons/Trash";
 import Modal from "@/components/shared/modal/Modal";
-
 import {
-  useDeleteUserMutation,
   useGetUsersQuery,
-  useReviewSellerMutation,
 } from "@/services/user/userApi";
 import { toast } from "react-hot-toast";
-import OutsideClick from "@/components/OutsideClick";
 import StatusIndicator from "@/components/shared/tools/StatusIndicator";
 import Edit from "@/components/icons/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/features/user/userSlice";
 import UpdateUser from "@/components/home/UpdateUser";
-import DeleteUser from "../../components/home/DeleteUser";
+import DeleteUser from "@/components/home/DeleteUser";
 
 function Users() {
   const { isLoading, data, error } = useGetUsersQuery();

@@ -15,132 +15,132 @@ const Footer = () => {
 
   const sitemaps = [
     {
-      name: "Features",
+      name: "ویژگی‌ها",
       paths: [
         {
-          name: "Cool stuff",
+          name: "طعم خاص",
           path: "/",
         },
         {
-          name: "Random feature",
+          name: "ویژگی‌های ممتاز",
           path: "/",
         },
         {
-          name: "Team feature",
+          name: "تیم تولید",
           path: "/",
         },
         {
-          name: "Stuff for developers",
+          name: "کیفیت خانگی",
           path: "/",
         },
         {
-          name: "Another one",
+          name: "تجربه متفاوت",
           path: "/",
         },
         {
-          name: "Last time",
+          name: "اخرین ویژگی",
           path: "/",
         },
       ],
     },
     {
-      name: "Resources",
+      name: "منابع",
       paths: [
         {
-          name: "Resource",
+          name: "دستور تهیه",
           path: "/",
         },
         {
-          name: "Resource name",
+          name: "خواص نقل و حلوا",
           path: "/",
         },
         {
-          name: "Another resource",
+          name: "سنت‌های مرتبط",
           path: "/",
         },
         {
-          name: "Final resource",
+          name: "تاریخ نقل و حلوا",
           path: "/",
         },
       ],
     },
     {
-      name: "About",
+      name: "درباره ما",
       paths: [
         {
-          name: "Team",
+          name: "تیم ناب",
           path: "/",
         },
         {
-          name: "Locations",
+          name: "کارگاه‌ه تولیدی",
           path: "/",
         },
         {
-          name: "Privacy",
+          name: "حریم خصوصی",
           path: "/",
         },
         {
-          name: "Terms",
+          name: "قوانین و مقررات",
           path: "/",
         },
       ],
     },
     {
-      name: "Contact",
+      name: "تماس با ما",
       paths: [
         {
-          name: "Help",
+          name: "پشتیبانی",
           path: "/",
         },
         {
-          name: "Sales",
+          name: "واحد فروش",
           path: "/",
         },
         {
-          name: "Advertise",
+          name: "همکاری تبلیغاتی",
           path: "/",
         },
       ],
     },
     {
-      name: "Legal",
+      name: "قوانین",
       paths: [
         {
-          name: "Claim",
+          name: "ثبت شکایت",
           path: "/",
         },
         {
-          name: "Terms of Services",
+          name: "شرایط خدمات",
           path: "/",
         },
         {
-          name: "Privacy & Policy",
+          name: "قوانین و سیاست‌ها",
           path: "/",
         },
       ],
     },
-    {},
     {
-      name: "Stay Connected",
+      name: "ارتباط با ما",
       paths: [
         {
-          name: "Facebook",
-          path: "https://www.facebook.com/devhasibulislam/",
+          name: "اینستاگرام",
+          path: "https://www.instagram.com/nab/",
         },
         {
-          name: "LinkedIn",
-          path: "https://www.linkedin.com/in/devhasibulislam/",
+          name: "لینکدین",
+          path: "https://www.linkedin.com/in/nab/",
         },
         {
-          name: "GitHub",
-          path: "https://github.com/devhasibulislam/",
+          name: "گیت‌هاب",
+          path: "https://github.com/nab/",
         },
       ],
     },
   ];
+  
 
   return (
-    <footer className="footer-1 bg-gray-100 py-8 sm:py-12 m-6 p-6 rounded-xl">
+    <footer className="footer-1 bg-primary py-8 sm:py-12 m-6 p-6 rounded-xl">
       <div className="container mx-auto px-4 flex flex-col gap-y-10">
         <div className="flex md:flex-row md:flex-wrap md:justify-between flex-col gap-x-4 gap-y-8">
           {sitemaps?.map((sitemap, index) => (
@@ -157,8 +157,11 @@ const Footer = () => {
           ))}
         </div>
         <hr />
-        <p className="text-center">&copy; {year} Canim. All rights reserved.</p>
-      </div>
+        <p className="text-center">
+  &copy; {year} تمامی حقوق این اثر متعلق به نقل و حلواپزی ناب می‌باشد<br />طراحی و برنامه‌نویسی توسط مجید و امیر
+  </p>
+
+        </div>
     </footer>
   );
 };

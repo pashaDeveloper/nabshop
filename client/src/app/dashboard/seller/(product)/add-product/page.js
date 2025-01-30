@@ -6,7 +6,6 @@ import Minus from "@/components/icons/Minus";
 import Plus from "@/components/icons/Plus";
 import Dashboard from "@/components/shared/layouts/Dashboard";
 import useGetColors from "@/libs/useGetColors";
-// import { useGetBrandsQuery } from "@/services/brand/brandApi";
 import { useGetCategoriesQuery } from "@/services/category/categoryApi";
 import { useAddProductMutation } from "@/services/product/productApi";
 import Image from "next/image";

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ControlPanel from "../ControlPanel";
 import AddButton from "@/components/shared/button/AddButton";
-import { setProduct, setProducts } from "@/features/product/productSlice";
+import {  setProducts } from "@/features/product/productSlice";
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
@@ -109,7 +109,7 @@ function Products() {
               className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-100 dark:hover:bg-gray-800 dark:text-slate-100"
               >
                 <div className="col-span-10 lg:col-span-3 text-center flex items-center">
-                  <StatusIndicator isActive={Product.status === "active"} />
+                  <StatusIndicator isActive={product.status === "active"} />
                   <div className="py-2 flex justify-center items-center gap-x-2 text-right">
                     <img
                       src={product?.thumbnail?.url}
@@ -175,13 +175,13 @@ function Products() {
                   <article className="lg:flex-row flex flex-col justify-center gap-x-2  gap-y-2">
                     <span
                       className="edit-button "
-                      onClick={() => openEditModal(Product)}
+                      onClick={() => openEditModal(product)}
                     >
                       <Edit className="w-5 h-5" />
                     </span>
                     <span
                       className="delete-button"
-                      onClick={() => openDeleteModal(Product)}
+                      onClick={() => openDeleteModal(product)}
                     >
                       <Trash className="w-5 h-5" />
                     </span>

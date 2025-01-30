@@ -54,7 +54,6 @@ const StepAddCategory = () => {
 
     if (data) {
       toast.success(data?.description, { id: "addCategory" });
-      window.open("/categories", "_self");
     }
 
     if (error?.data) {

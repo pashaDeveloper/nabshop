@@ -54,7 +54,7 @@ exports.addProduct = async (req, res) => {
   res.status(201).json({
     acknowledgement: true,
     message: "Created",
-    description: "Product created successfully",
+    description: "محصول با موفقیت ایجاد شد",
   });
 };
 
@@ -62,8 +62,6 @@ exports.addProduct = async (req, res) => {
 exports.getProducts = async (res) => {
   const products = await Product.find().populate([
     "category",
-    "brand",
-    "store",
     {
       path: "reviews",
       options: { sort: { updatedAt: -1 } },
@@ -71,7 +69,7 @@ exports.getProducts = async (res) => {
         "reviewer",
         {
           path: "product",
-          populate: ["brand", "category", "store"],
+          populate: [ "category"],
         },
       ],
     },
@@ -81,7 +79,7 @@ exports.getProducts = async (res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Products fetched successfully",
+    description: "دریافت محصولات با موفقیت انجام شد",
     data: products,
   });
 };
@@ -90,8 +88,6 @@ exports.getProducts = async (res) => {
 exports.getProduct = async (req, res) => {
   const product = await Product.findById(req.params.id).populate([
     "category",
-    "brand",
-    "store",
     {
       path: "reviews",
       options: { sort: { updatedAt: -1 } },
@@ -99,7 +95,7 @@ exports.getProduct = async (req, res) => {
         "reviewer",
         {
           path: "product",
-          populate: ["brand", "category", "store"],
+          populate: [ "category"],
         },
       ],
     },
@@ -108,7 +104,7 @@ exports.getProduct = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Product fetched successfully",
+    description: "محصول با موفقیت دریافت شد",
     data: product,
   });
 };
@@ -132,8 +128,6 @@ exports.getFilteredProducts = async (req, res) => {
 
     const products = await Product.find(filter).populate([
       "category",
-      "brand",
-      "store",
     ]);
 
     res.status(200).json({

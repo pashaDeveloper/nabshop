@@ -9,29 +9,30 @@ import Policy from "../icons/Policy";
 const Policies = () => {
   const policies = [
     {
-      title: "Free Shipping",
-      detail: "On orders over $50.00",
+      title: "ارسال رایگان",
+      detail: "برای خریدهای بالای ۵۰۰ هزار تومان",
       icon: <Shipping />,
       className: "bg-red-50",
     },
     {
-      title: "Very easy to return",
-      detail: "Just phone number.",
+      title: "بازگشت آسان",
+      detail: "امکان بازگشت محصول تا ۷ روز.",
       icon: <Return />,
       className: "bg-sky-50",
     },
     {
-      title: "Nationwide Delivery",
-      detail: "Fast delivery nationwide.",
+      title: "تحویل سریع",
+      detail: "ارسال به سراسر کشور در کوتاه‌ترین زمان.",
       icon: <Delivery />,
       className: "bg-green-50",
     },
     {
-      title: "Refunds Policy",
-      detail: "60 days return for any reason.",
+      title: "تضمین کیفیت",
+      detail: "تازه‌ترین نقل و حلوا.",
       icon: <Policy />,
       className: "bg-amber-50",
     },
+    
   ];
 
   return (
@@ -45,7 +46,7 @@ const Policies = () => {
           <article className="flex flex-col gap-y-0.5">
             <h2 className="text-lg">{policy.title}</h2>
             <p className="text-sm">{policy.detail}</p>
-          </article>
+          </article>  
         </div>
       ))}
     </section>

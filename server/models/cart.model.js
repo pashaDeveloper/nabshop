@@ -4,6 +4,8 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 const baseSchema = require("./baseSchema.model");
+const Counter = require("./counter")
+
 /* create cart schema */
 const cartSchema = new mongoose.Schema(
   {

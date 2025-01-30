@@ -62,7 +62,9 @@ const CartButton = ({ product }) => {
           <Spinner />
         ) : (
           <>
-            <Bag /> Add to Cart
+            <Bag />  
+            <span className="md:hidden text-white" >افزودن</span>
+            <span className="md:flex hidden text-white" >اضافه کردن به سبد خرید </span>
           </>
         )}
       </button>

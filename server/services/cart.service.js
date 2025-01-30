@@ -28,7 +28,9 @@ exports.addToCart = async (req, res) => {
 
 /* get from cart */
 exports.getFromCart = async (res) => {
+
   const cart = await Cart.find().populate(["user", "product"]);
+  console.log("cart",cart)
 
   res.status(200).json({
     acknowledgement: true,

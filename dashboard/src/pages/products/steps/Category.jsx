@@ -50,6 +50,17 @@ const Category = ({ register, errors, prevStep, nextStep }) => {
               <select
                 name="category"
                 id="category"
+                {...register("category", {
+                  required: "وارد کردن عنوان الزامی است",
+                  minLength: {
+                    value: 3,
+                    message: "عنوان باید حداقل ۳ حرف داشته باشد",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "عنوان نباید بیشتر از ۳۰ حرف باشد",
+                  },
+                })}
                 className="w-full"
                 required
               >
@@ -61,8 +72,11 @@ const Category = ({ register, errors, prevStep, nextStep }) => {
                 ))}
               </select>
             )}
+             {errors.category && (
+          <span className="text-red-500 text-sm">{errors.category.message}</span>
+        )}
           </label>
-
+         
         
         </div>
 
