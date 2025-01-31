@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useGetBrandsQuery } from "@/services/brand/brandApi";
@@ -14,26 +12,27 @@ import {
   clearFilter,
   setBrand,
   setCategory,
-  setStore,
+  setStore
 } from "@/features/filter/filterSlice";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import PriceFilterSlider from "./PriceFilterSlider";
 
 const FilterSidebar = () => {
   const {
     data: brandsData,
     error: brandsError,
-    isLoading: brandsLoading,
+    isLoading: brandsLoading
   } = useGetBrandsQuery();
   const {
     data: categoriesData,
     error: categoriesError,
-    isLoading: categoriesLoading,
+    isLoading: categoriesLoading
   } = useGetCategoriesQuery();
   const {
     data: storesData,
     error: storesError,
-    isLoading: storesLoading,
+    isLoading: storesLoading
   } = useGetStoresQuery();
 
   const dispatch = useDispatch();
@@ -56,7 +55,7 @@ const FilterSidebar = () => {
 
     if (categoriesError?.data) {
       toast.error(categoriesError?.data?.description, {
-        id: "categories-data",
+        id: "categories-data"
       });
     }
 
@@ -70,7 +69,8 @@ const FilterSidebar = () => {
       <section className="flex flex-col gap-y-4 md:sticky md:top-4">
         {/* reset */}
         <div className="flex flex-row items-center justify-between border py-2 px-4 rounded">
-          <h2 className="text-lg">Reset Filter</h2>
+          <h2 className="text-lg">تنظیم مجدد فیلتر</h2>
+
           <button
             className="p-1 border rounded-secondary"
             onClick={() => {
@@ -101,7 +101,7 @@ const FilterSidebar = () => {
 
         {/* Choose Category */}
         <div className="flex flex-col gap-y-4 border py-2 px-4 rounded-xl max-h-96 overflow-y-auto scrollbar-hide">
-          <h2 className="text-lg">Choose Category</h2>
+          <h2 className="text-lg">از دسته بندی</h2>
           <div className="flex flex-col gap-y-2.5">
             {categoriesLoading || categories?.length === 0 ? (
               <>
@@ -140,10 +140,11 @@ const FilterSidebar = () => {
             )}
           </div>
         </div>
-
+        {/* choose price */}
+        <PriceFilterSlider />
         {/* Choose Brand */}
         <div className="flex flex-col gap-y-4 border py-2 px-4 rounded-xl max-h-96 overflow-y-auto scrollbar-hide">
-          <h2 className="text-lg">Choose Brand</h2>
+          <h2 className="text-lg">براساس وزن</h2>
           <div className="flex flex-col gap-y-2.5">
             {brandsLoading || brands?.length === 0 ? (
               <>

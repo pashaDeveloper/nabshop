@@ -50,7 +50,7 @@ const ListProducts = () => {
     <Dashboard>
       {products?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Products Found!
+          <Inform /> هیچ محصولی یافت نشد!
         </p>
       ) : (
         <section className="w-full h-full">
@@ -445,7 +445,7 @@ function ProductReviews({ product }) {
           ))}
         </div>
       ) : (
-        <p className="text-left">No reviews found yet!</p>
+        <p className="text-left">هیچ نظری یافت نشد!</p>
       )}
     </>
   );

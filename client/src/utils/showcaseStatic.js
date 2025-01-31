@@ -2,7 +2,7 @@ export const data = [
     {
       id: 1,
       title: 'نقل گردویی',
-      desc: "نقل با مغز گردو و گلاب",
+      desc: "نقل با مغز گردو",
       price: '150,000',
       imgSrc: "/assets/home/product/n3.png"
     },

@@ -54,7 +54,7 @@ const Page = () => {
     <Dashboard>
       {products?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Products Added!
+          <Inform /> هیچ محصولی اضافه نشده است!
         </p>
       ) : (
         <section className="w-full h-full">

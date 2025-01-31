@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useEffect, useMemo } from "react";
@@ -12,14 +10,14 @@ import ExpertCard from "../shared/skeletonLoading/ExpertCard";
 import { toast } from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { motion } from "framer-motion";
-import {PopularProductsSlider}  from "./PopularProductsSlider"
+import { PopularProductsSlider } from "./PopularProductsSlider";
 const ExpertChoice = ({ className }) => {
   const router = useRouter();
 
   const {
     data: productsData,
     error: productsError,
-    isLoading: productsLoading,
+    isLoading: productsLoading
   } = useGetProductsQuery();
   const products = useMemo(() => productsData?.data || [], [productsData]);
 
@@ -32,13 +30,14 @@ const ExpertChoice = ({ className }) => {
   return (
     <Container className={className ? className : ""}>
       <PopularProductsSlider />
-            <section className="flex flex-col gap-y-10">
+      
+      <section className="flex flex-col gap-y-10">
         <h1 className="text-4xl">
-          Experts Choice. <span className="">Most Favorites</span>
+      <span className="">محبوب‌ترین‌ها</span>
         </h1>
 
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-6 gap-y-8">
-          {productsLoading ? (
+          {productsLoading ||!productsLoading && products?.length === 0 ? (
             <>
               {[1, 2, 3, 4].map((_, index) => (
                 <ExpertCard key={index} />
@@ -119,9 +118,7 @@ const ExpertChoice = ({ className }) => {
             </>
           )}
         </div>
-        {!productsLoading && products?.length === 0 && (
-          <p className="text-sm">Oops! No products found!</p>
-        )}
+        
       </section>
     </Container>
   );

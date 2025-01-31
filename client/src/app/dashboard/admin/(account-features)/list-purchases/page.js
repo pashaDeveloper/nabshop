@@ -53,7 +53,7 @@ const Page = () => {
     <Dashboard>
       {filteredPurchases?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Purchases Found!
+          <Inform /> هیچ سفارشی  یافت نشد!
         </p>
       ) : (
         <section className="w-full h-full flex flex-col gap-y-6">

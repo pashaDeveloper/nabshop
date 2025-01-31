@@ -5,7 +5,7 @@ import  CardLikeButton  from './CardLikeButton'
 // PopularProductCard Component
 export const PopularProductCard = ({ image, title, subTitle, price, isLiked }) => {
   return (
-    <div className="relative group cursor-pointer  bg-white w-60 h-72 rounded-2xl shadow-lg p-6">
+    <div className="relative h-[400px] !w-[320px] group cursor-pointer  bg-white   rounded-primary shadow-lg p-6">
     {/* Like Button */}
     <CardLikeButton isLiked={isLiked} />
 
@@ -50,6 +50,13 @@ export const PopularProductsSlider = () => {
       title: "Mix Burger",
       subTitle: "Double Cheese",
       price: 15.21,
+      isLiked: true,
+    },
+    {
+      image: "/images/pizza.png",
+      title: "Thin Crust Pizza",
+      subTitle: "Almost borderless",
+      price: 11.99,
       isLiked: true,
     },
     {

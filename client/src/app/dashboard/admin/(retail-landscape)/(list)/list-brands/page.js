@@ -55,7 +55,7 @@ const ListBrands = () => {
     <Dashboard>
       {brands?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Brands Found!
+          <Inform /> هیچ برندی یافت نشد!
         </p>
       ) : (
         <section className="w-full h-full">

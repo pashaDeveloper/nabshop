@@ -38,7 +38,7 @@ const Page = () => {
     <Dashboard>
       {favorites?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Favorites Found!
+          <Inform /> هیچ علاقه مندی یافت نشد!
         </p>
       ) : (
         <section className="w-full h-full">

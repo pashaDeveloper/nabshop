@@ -59,7 +59,7 @@ const ListCategories = () => {
     <Dashboard>
       {categories?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Categories Found!
+          <Inform /> هیچ دسته بندی یافت نشد!
         </p>
       ) : (
         <section className="w-full h-full">

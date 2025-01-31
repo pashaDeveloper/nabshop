@@ -17,7 +17,7 @@ const Banner1 = () => {
           
     
        <div
-        className="bg-[#f8e9dd]    w-full h-fit md:mt-5 rounded-primary relative flex flex-col gap-y-8 lg:px-22 lg:py-[80px] pt-8 pb-0 "
+        className="bg-[#ddfbff]    w-full h-fit md:mt-5 rounded-primary relative flex flex-col gap-y-8 lg:px-22 lg:py-[80px] pt-8 pb-0 "
         style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
       >
         <Image

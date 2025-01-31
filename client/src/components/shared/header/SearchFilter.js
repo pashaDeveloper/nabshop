@@ -95,7 +95,7 @@ const SearchFilter = () => {
           <div className="overflow-y-auto scrollbar-hide flex flex-col gap-y-8 h-full">
             {filteredProducts?.length === 0 ? (
               <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-                <Inform /> No Products Found!
+                <Inform /> هیچ محصولی یافت نشد!
               </p>
             ) : (
               <>

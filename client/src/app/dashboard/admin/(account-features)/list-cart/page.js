@@ -37,7 +37,7 @@ const Page = () => {
     <Dashboard>
       {cart?.length === 0 ? (
         <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> No Cart Found!
+          <Inform /> هیچ سبد خریدی یافت نشد!
         </p>
       ) : (
         <section className="w-full h-full">
