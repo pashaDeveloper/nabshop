@@ -7,13 +7,16 @@ const remove = require("../utils/remove.util");
 /* add new category */
 exports.addCategory = async (req, res) => {
   const { body } = req;
+  
+  const thumbnail = req.uploadedFiles["thumbnail"] ? {
+    url: req.uploadedFiles["thumbnail"][0].url,
+    public_id: req.uploadedFiles["thumbnail"][0].key,
+  } : null;
+
   const category = new Category({
     title: body.title,
     description: body.description,
-    thumbnail: {
-      url: req.uploadedFiles["thumbnail"][0].url,
-      public_id: req.uploadedFiles["thumbnail"][0].key,
-    },
+    thumbnail: thumbnail,
     keynotes: JSON.parse(body.keynotes),
     tags: JSON.parse(body.tags),
     creator: req.user._id,
@@ -33,7 +36,6 @@ exports.addCategory = async (req, res) => {
     description: "دسته بندی با موفقیت ایجاد شد",
   });
 };
-
 /* get all categories */
 exports.getCategories = async (res) => {
   const categories = await Category.find().populate([

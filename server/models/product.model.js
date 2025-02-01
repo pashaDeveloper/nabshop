@@ -37,6 +37,13 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "لطفاً خلاصه محصول را وارد کنید"],
       trim: true,
+      minlength: [20, "خلاصه محصول باید حداقل ۲۰ کاراکتر باشد"],
+      maxlength: [30, "خلاصه محصول نمی‌تواند بیشتر از ۳۰ کاراکتر باشد"],
+    },
+    description: {
+      type: String,
+      required: [true, "لطفاً خلاصه محصول را وارد کنید"],
+      trim: true,
       maxLength: [500, "خلاصه نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد"],
     },
     thumbnail: {
@@ -87,32 +94,23 @@ gallery: {
       },
     ],
 
-    unit: {
-      type: String,
-      required: [true, "لطفاً واحد اندازه‌گیری را مشخص کنید"],
-      enum: ["weight", "volume", "count"],
-      default: "weight",
+    views: {
+      type: Number,
+      default: 0,
+      min: [0, "تعداد بازدید نمی‌تواند منفی باشد"],
     },
+
     variations: [
       {
-        value: {
-          type: String,
-          required: [true, "لطفاً مقدار را وارد کنید"],
+        unit: {
+          type: ObjectId,
+          ref: "Unit",
         },
         price: {
           type: Number,
           required: [true, "لطفاً قیمت را وارد کنید"],
         },
-        discountPrice: {
-          type: Number,
-          default: null,
-          validate: {
-            validator: function (v) {
-              return v === null || v < this.price;
-            },
-            message: "قیمت تخفیف باید کمتر از قیمت اصلی باشد",
-          },
-        },
+       
       },
     ],
 
@@ -172,22 +170,7 @@ gallery: {
         required: [true, "تگ محصول الزامی است"],
       },
     ],
-    stock: {
-      type: Number,
-      required: [true, "لطفاً تعداد موجود را وارد کنید"],
-      default: 0
-    },
-    stockStatus: {
-      type: String,
-      enum: ["in-stock", "out-of-stock", "low-stock"],
-      default: "in-stock"
-    },
-    lowStockThreshold: {
-      type: Number,
-      required: [true, "لطفاً حد آستانه موجودی را مشخص کنید"],
-      default: 10,
-    },
-    metaTitle: {
+       metaTitle: {
       type: String,
       maxLength: [60, "متا تایتل نمی‌تواند بیشتر از ۶۰ کاراکتر باشد"],
       default: "",

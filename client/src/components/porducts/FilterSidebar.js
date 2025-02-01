@@ -183,7 +183,7 @@ const FilterSidebar = () => {
 
         {/* Choose Store */}
         <div className="flex flex-col gap-y-4 border py-2 px-4 rounded-xl max-h-96 overflow-y-auto scrollbar-hide">
-          <h2 className="text-lg">Choose Store</h2>
+          <h2 className="text-lg">براساس کمپین</h2>
           <div className="flex flex-col gap-y-2.5">
             {storesLoading || stores?.length === 0 ? (
               <>

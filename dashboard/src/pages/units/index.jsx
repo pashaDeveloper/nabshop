@@ -1,22 +1,22 @@
 import ControlPanel from "../ControlPanel";
 import React, { useState, useEffect } from "react";
-import { useGetTagsQuery } from "@/services/tag/tagApi";
-import AddTag from "./add";
+import { useGetUnitsQuery } from "@/services/unit/unitApi";
+import AddUnit from "./add";
 import DeleteModal from "@/components/shared/modal/DeleteModal";
 import { toast } from "react-hot-toast";
 import SkeletonItem from "@/components/shared/skeleton/SkeletonItem";
 import StatusIndicator from "@/components/shared/tools/StatusIndicator";
 import Pagination from "@/components/shared/pagination/Pagination";
 import AddButton from "@/components/shared/button/AddButton";
-import DeleteTag from "./DeleteTag";
-import UpdateTag from "./UpdateTag";
+import DeleteUnit from "./DeleteUnit";
+import UpdateUnit from "./UpdateUnit";
 
-const Tags = () => {
+const Units = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const { data, isLoading, error, refetch } = useGetTagsQuery({
+  const { data, isLoading, error, refetch } = useGetUnitsQuery({
     page: currentPage,
     limit: itemsPerPage,
     status: statusFilter === "all" ? undefined : statusFilter,
@@ -34,16 +34,16 @@ const Tags = () => {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("در حال دریافت تگ‌ها...", { id: "tag-loading" });
+      toast.loading("در حال دریافت تگ‌ها...", { id: "unit-loading" });
     }
     if (data && !isLoading) {
-      toast.dismiss("tag-loading");
+      toast.dismiss("unit-loading");
     }
     if (data) {
-      toast.success(data?.description, { id: "tag-loading" });
+      toast.success(data?.description, { id: "unit-loading" });
     }
     if (error?.data) {
-      toast.error(error?.data?.message, { id: "tag-loading" });
+      toast.error(error?.data?.message, { id: "unit-loading" });
     }
   }, [data, error, isLoading]);
 
@@ -72,16 +72,16 @@ const Tags = () => {
         {isLoading || data?.data?.length == 0 ? (
           <SkeletonItem repeat={5} />
         ) : (
-          data.data.map((tag) => (
+          data.data.map((unit) => (
             <div
-              key={tag._id}
+              key={unit._id}
               className="mt-4 p-2 grid grid-cols-12 rounded-xl min-h-25 border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-50/50 dark:hover:bg-gray-900 dark:text-slate-100 "
             >
               <div className="col-span-10 lg:col-span-3 text-center flex items-center">
-                <StatusIndicator isActive={tag.status === "active"} />
+                <StatusIndicator isActive={unit.status === "active"} />
                 <div className="py-2 flex justify-center items-center gap-x-2 text-right">
                   <img
-                    src={tag?.creator?.avatar?.url || "/placeholder.png"}
+                    src={unit?.creator?.avatar?.url || "/placeholder.png"}
                     alt="Description of the image"
                     height={100}
                     width={100}
@@ -90,29 +90,29 @@ const Tags = () => {
                   <article className="flex-col flex gap-y-2  ">
                     <span className="line-clamp-1 text-base ">
                       <span className="hidden lg:flex ">
-                        {tag?.creator?.name}
+                        {unit?.creator?.name}
                       </span>
-                      <span className=" lg:hidden ">{tag?.title}</span>
+                      <span className=" lg:hidden ">{unit?.title}</span>
                     </span>
                     <span className="text-xs hidden lg:flex">
-                      {new Date(tag.createdAt).toLocaleDateString("fa-IR")}
+                      {new Date(unit.createdAt).toLocaleDateString("fa-IR")}
                     </span>
                     <span className=" lg:hidden text-xs line-clamp-1 ">
-                      {tag?.description
-                        ? tag?.description
-                        : new Date(tag.createdAt).toLocaleDateString("fa-IR")}
+                      {unit?.description
+                        ? unit?.description
+                        : new Date(unit.createdAt).toLocaleDateString("fa-IR")}
                     </span>
                   </article>
                 </div>
               </div>
               <div className="lg:col-span-3 lg:flex  hidden  text-center  items-center">
                 <span className="break-words text-sm lg:text-sm text-right">
-                  {tag.title}
+                  {unit.title}
                 </span>
               </div>
               <div className="lg:col-span-5 lg:flex hidden col-span-5 text-right  items-center">
                 <span className="text-sm lg:text-base overflow-hidden text-ellipsis block line-clamp-1 max-h-[1.2em]">
-                  {tag.description ? tag.description : "ندارد"}
+                  {unit.description ? unit.description : "ندارد"}
                 </span>
               </div>
 
@@ -121,11 +121,11 @@ const Tags = () => {
                   <span
                   
                   >
-                    <UpdateTag id={tag?._id} />
+                    <UpdateUnit id={unit?._id} />
 
                   </span>
                   <span>
-                    <DeleteTag id={tag?._id} />
+                    <DeleteUnit id={unit?._id} />
                   </span>
                 </article>
               </div>
@@ -136,9 +136,10 @@ const Tags = () => {
         {/* Pagination */}
 
       
+
         {/* مودال افزودن/ویرایش */}
         {isAddModalOpen && (
-          <AddTag
+          <AddUnit
             isOpen={isAddModalOpen}
             onClose={closeAddModal}
             onSuccess={refetch}
@@ -149,4 +150,4 @@ const Tags = () => {
   );
 };
 
-export default Tags;
+export default Units;

@@ -66,7 +66,6 @@ exports.getTag = async (req, res) => {
 exports.updateTag = async (req, res) => {
   let updatedTag = req.body;
   const parsedRobots = JSON.parse(req.body.robots);
-  console.log(updatedTag)
   const robotsArray = parsedRobots.map((value, index) => ({
     id: index + 1, 
     value,
@@ -75,7 +74,6 @@ exports.updateTag = async (req, res) => {
 
   updatedTag.keynotes = JSON.parse(req.body.keynotes);
   updatedTag.robots = robotsArray;
-  console.log(updatedTag)
   await Tag.findByIdAndUpdate(req.params.id, updatedTag);
 
   res.status(200).json({

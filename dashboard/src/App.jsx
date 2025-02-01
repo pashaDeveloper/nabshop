@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import Tags from "./pages/tags";
 import Categories from "./pages/categories";
 import AddCategory from "./pages/categories/add";
+import Units from "./pages/units";
 import Products from "./pages/products";
 import AddProduct from "./pages/products/add";
 
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/users" element={<Users />} />
           <Route exact path="/tags" element={<Tags />} />
           <Route exact path="/categories" element={<Categories />} />
+          <Route exact path="/units" element={<Units />} />
           <Route exact path="/categories/add" element={<AddCategory />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/products/add" element={<AddProduct />} />

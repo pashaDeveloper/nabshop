@@ -1,51 +1,52 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDeleteTagMutation, useGetTagQuery } from "@/services/tag/tagApi";
+import { useDeleteUnitMutation, useGetUnitQuery } from "@/services/unit/unitApi";
 import { toast } from "react-hot-toast";
 import DeleteModal from "@/components/shared/modal/DeleteModal";
-import { setTag } from "@/features/tag/tagSlice";
+import { setUnit } from "@/features/unit/unitSlice";
 import { useDispatch } from "react-redux";
 import Trash from "@/components/icons/Trash";
 
-const DeleteTag = ({ id }) => {
+const DeleteUnit = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const {
     isLoading: fetching,
     data: fetchData,
     error: fetchError,
-  } = useGetTagQuery(id);
-  const tag = useMemo(() => fetchData?.data || {}, [fetchData]);
+  } = useGetUnitQuery(id, { skip: !isOpen });
+  const unit = useMemo(() => fetchData?.data || {}, [fetchData]);
   const [
-    deleteTag,
+    deleteUnit,
     { isLoading: deleting, data: deleteData, error: deleteError },
-  ] = useDeleteTagMutation();
+  ] = useDeleteUnitMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (fetching) {
-      toast.loading("در حال به‌روزرسانی اطلاعات برچسب...", {
-        id: "fetchTag",
+      toast.loading("در حال به‌روزرسانی اطلاعات واحد اندازه گیری...", {
+        id: "fetchUnit",
       });
     }
 
     if (fetchData) {
-      toast.success(fetchData?.message, { id: "fetchTag" });
+      toast.success(fetchData?.message, { id: "fetchUnit" });
     }
 
     if (fetchError?.data) {
-      toast.error(fetchError?.data?.message, { id: "fetchTag" });
+      toast.error(fetchError?.data?.message, { id: "fetchUnit" });
     }
 
     if (deleting) {
-      toast.loading("در حال حذف برچسب...", { id: "deleteTag" });
+      toast.loading("در حال حذف برچسب...", { id: "deleteUnit" });
     }
 
     if (deleteData) {
-      toast.success(deleteData?.message, { id: "deleteTag" });
+      toast.success(deleteData?.message, { id: "deleteUnit" });
       setIsOpen(false);
     }
 
     if (deleteError?.data) {
-      toast.error(deleteError?.data?.message, { id: "deleteTag" });
+      toast.error(deleteError?.data?.message, { id: "deleteUnit" });
     }
   }, [fetching, fetchData, fetchError, deleting, deleteData, deleteError]);
 
@@ -56,7 +57,7 @@ const DeleteTag = ({ id }) => {
         disabled={deleting ? true : undefined}
         className="delete-button"
         onClick={() => {
-          dispatch(setTag(tag));
+          dispatch(setUnit(unit));
           setIsOpen(true);
         }}
       >
@@ -66,16 +67,16 @@ const DeleteTag = ({ id }) => {
       {isOpen && (
         <DeleteModal
           isOpen={isOpen}
-          onDelete={() => deleteTag(id)}
+          onDelete={() => deleteUnit(id)}
           onClose={() => {
-            dispatch(setTag({}));
+            dispatch(setUnit({}));
             setIsOpen(false);
           }}
-          message={`آیا مطمئن هستید که می‌خواهید برچسب "${tag?.title}" را حذف کنید؟`}
+          message={`آیا مطمئن هستید که می‌خواهید برچسب "${unit?.title}" را حذف کنید؟`}
         />
       )}
     </>
   );
 };
 
-export default DeleteTag;
+export default DeleteUnit;

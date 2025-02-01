@@ -9,6 +9,7 @@ import StepIndicator from "./StepIndicator";
 import TitleStep from "./TitleStep";
 import KeynotesStep from "./KeynotesStep";
 import TagsStep from "./TagsStep";
+import { useNavigate } from "react-router-dom";
 
 const StepAddCategory = () => {
   const [thumbnail, setThumbnail] = useState(null);
@@ -46,6 +47,7 @@ const StepAddCategory = () => {
 
     addCategory(formData);
   };
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (isLoading) {
@@ -54,6 +56,7 @@ const StepAddCategory = () => {
 
     if (data) {
       toast.success(data?.description, { id: "addCategory" });
+      navigate("/categories");   
     }
 
     if (error?.data) {

@@ -122,7 +122,7 @@ function Categories() {
                   <StatusIndicator isActive={category.status === "active"} />
                   <div className="py-2 flex justify-center items-center gap-x-2 text-right">
                     <img
-                      src={category?.thumbnail?.url}
+                      src={category?.thumbnail?.url ||category?.creator?.avatar?.url}
                       alt={``}
                       height={100}
                       width={100}

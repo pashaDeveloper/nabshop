@@ -8,8 +8,6 @@ import ThumbnailStep from "./Thumbnail";
 import StepIndicator from "./StepIndicator";
 import Title from "./Title";
 import Gallery from "./Gallery";
-import Category from "./Category";
-import Size from "./Size";
 import Features from "./Features";
 import Campaign from "./Campaign";
 
@@ -33,7 +31,7 @@ const StepAddProduct = () => {
   } = useForm({
     mode: "onChange",
   });
-  const totalSteps = 7;
+  const totalSteps = 5;
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -117,23 +115,9 @@ const StepAddProduct = () => {
         }
         break;
 
+     
+      
       case 4:
-        valid = await trigger("category");
-        if (!valid) {
-          toast.error("لطفاً دسته بندی  محصول را وارد کنید");
-          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
-          return;
-        }
-        break;
-      case 5:
-        valid = await trigger("sizes");
-        if (!valid) {
-          toast.error("لطفاً اندازه یا وزن محصول را وارد کنید");
-          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
-          return;
-        }
-        break;
-      case 6:
         valid = await trigger("features");
         if (!valid) {
           toast.error("لطفاً ویژگی های محصول را وارد کنید");
@@ -141,7 +125,7 @@ const StepAddProduct = () => {
           return;
         }
         break;
-      case 7:
+      case 5:
         valid = await trigger("campaignTitle");
         if (!valid) {
           toast.error("لطفاً عنوان کمپین فروش را تعیین کنید");
@@ -198,25 +182,9 @@ const StepAddProduct = () => {
             nextStep={nextStep}
           />
         );
+      
+      
       case 4:
-        return (
-          <Category
-            register={register}
-            errors={errors}
-            prevStep={prevStep}
-            nextStep={nextStep}
-          />
-        );
-      case 5:
-        return (
-          <Size
-            register={register}
-            errors={errors}
-            prevStep={prevStep}
-            nextStep={nextStep}
-          />
-        );
-      case 6:
         return (
           <Features
             features={features}
@@ -227,7 +195,7 @@ const StepAddProduct = () => {
             nextStep={nextStep}
           />
         );
-      case 7:
+      case 5:
         return (
           <Campaign
             register={register}

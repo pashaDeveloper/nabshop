@@ -29,7 +29,6 @@ const ThumbnailStep = ({ nextStep, errors ,register,thumbnail,setThumbnail}) => 
           setThumbnailPreview={setThumbnailPreview}
           setThumbnail={setThumbnail}
           title={"لطفا یک تصویر بند انگشتی انتخاب کنید"}
-          register={register('thumbnail', { required: 'آپلود تصویر عنوان الزامی است' })}
           maxFiles={1}
         />
       </label>
