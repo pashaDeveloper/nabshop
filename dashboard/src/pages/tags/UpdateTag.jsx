@@ -28,7 +28,7 @@ const UpdateTag = ({ id }) => {
     isLoading: fetching,
     data: fetchData,
     error: fetchError,
-  } = useGetTagQuery(id);
+  } = useGetTagQuery(id, { skip: !isOpen });
   const [
     updateTag,
     { isLoading: isUpdateing, data: updateData, error: updateError },

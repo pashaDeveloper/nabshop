@@ -1,35 +1,29 @@
 import { useGetUnitsQuery } from "@/services/unit/unitApi";
-import React ,{useEffect ,useMemo} from "react";
+import React, { useEffect, useMemo } from "react";
 import { toast } from "react-hot-toast";
 import Plus from "@/components/icons/Plus";
 import UnitPrice from "./UnitPrice";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
+import NavigationButton from "@/components/shared/button/NavigationButton";
 
-const Campaign = ({ register, errors }) => {
+const Campaign = ({ register, errors, watch, control, prevStep, nextStep }) => {
   const {
     isLoading: fetchingUnits,
     data: fetchUnitsData,
     error: fetchUnitsError,
   } = useGetUnitsQuery();
 
-
-  const {  control } = useForm({
-    defaultValues: {
-      variations: [],
-    },
-  });
-
-  const { fields: variations, append, remove } = useFieldArray({
+  const {
+    fields: variations,
+    append,
+    remove,
+  } = useFieldArray({
     control,
     name: "variations",
   });
 
-  const units = useMemo(
-    () => fetchUnitsData?.data || [],
-    [fetchUnitsData]
-  );
+  const units = useMemo(() => fetchUnitsData?.data || [], [fetchUnitsData]);
   useEffect(() => {
-  
     if (fetchingUnits) {
       toast.loading("در حال دریافت واحد ...", { id: "fetchUnits" });
     }
@@ -45,18 +39,16 @@ const Campaign = ({ register, errors }) => {
         id: "fetchUnits",
       });
     }
-  }, [
-
-    fetchingUnits,
-    fetchUnitsData,
-    fetchUnitsError,
-  ]);
-  console.log(units)
+  }, [fetchingUnits, fetchUnitsData, fetchUnitsError]);
+  const campaignState = watch("campaignState");
   return (
     <>
       <div className="w-full flex flex-col gap-y-4   ">
         {/* campaign */}
-        <label htmlFor="campaign" className="w-full flex p-4 rounded flex-col border gap-y-1">
+        <label
+          htmlFor="campaign"
+          className="w-full flex p-4 rounded flex-col border gap-y-1"
+        >
           <span className="text-sm">کمپین فروش*</span>
           <p className="flex flex-row gap-x-4">
             <input
@@ -78,7 +70,7 @@ const Campaign = ({ register, errors }) => {
               placeholder="عنوان کمپین فروش را وارد کنید"
               required
             />
-            
+
             <select
               name="campaignState"
               id="campaignState"
@@ -96,7 +88,6 @@ const Campaign = ({ register, errors }) => {
               className="w-fit"
               defaultValue="choose-state"
               required
-              
             >
               <option value="choose-state" disabled>
                 انتخاب وضعیت کمپین
@@ -107,44 +98,60 @@ const Campaign = ({ register, errors }) => {
               <option value="on-sale">در حال فروش</option>
             </select>
           </p>
-          {errors.campaignTitle && (
-          <span className="text-red-500 text-sm">{errors.campaignTitle.message}</span>
-        )}
-         {errors.campaignState && (
-          <span className="text-red-500 text-sm">{errors.campaignState.message}</span>
-        )}
-        </label>
-        <label htmlFor="variations" className="flex w-full border rounded p-4 flex-col gap-y-2">
-        
-        <span className="text-sm">درج قیمت بر اساس واحد*</span>
-
-        <div className="flex flex-col gap-y-4">
-          {variations.map((field, index) => (
-            <UnitPrice
-              key={field.id}
-              control={control}
-              index={index}
-              remove={remove}
-              errors={errors}
-              units={units}
+          {campaignState === "discount" && (
+            <input
+              type="number"
+              name="discountAmount"
+              id="discountAmount"
+              {...register("discountAmount", {
+                required: "وارد کردن مقدار تخفیف الزامی است",
+                min: { value: 1, message: "مقدار تخفیف باید حداقل ۱ باشد" },
+                max: {
+                  value: 99,
+                  message: "مقدار تخفیف نباید بیشتر از ۹۹ باشد",
+                },
+              })}
+              className="w-full border p-2 rounded mt-2"
+              placeholder="مقدار تخفیف را وارد کنید"
             />
-          ))}
+          )}
+        </label>
+        <label
+          htmlFor="variations"
+          className="flex w-full flex-col gap-y-2 p-2 max-h-[200px] overflow-y-auto"
+        >
+          <span className="text-sm">درج قیمت بر اساس واحد*</span>
 
-          {/* دکمه افزودن واحد جدید */}
-          <button
-            type="button"
-            className="bg-green-100 dark:bg-blue-100 border border-green-900 dark:border-blue-900 text-green-900 dark:text-blue-900 py-1 rounded flex flex-row gap-x-1 items-center px-2 w-fit text-xs"
-            onClick={() => {
-              append({ unit: "", price: "" });
-            }}
-          >
-            <Plus className="w-4 h-4" /> افزودن واحد و قیمت
-          </button>
-        </div>
-      </label>
-       
+          <div className="flex flex-col gap-y-4  ">
+            {variations.map((field, index) => (
+              <UnitPrice
+                key={field.id}
+                control={control}
+                index={index}
+                remove={remove}
+                errors={errors}
+                units={units}
+              />
+            ))}
+
+            {/* دکمه افزودن واحد جدید */}
+            <button
+              type="button"
+              className="bg-green-100 dark:bg-blue-100 border border-green-900 dark:border-blue-900 text-green-900 dark:text-blue-900 py-1 rounded flex flex-row gap-x-1 items-center px-2 w-fit text-xs"
+              onClick={() => {
+                append({ unit: "", price: "" ,stock:0,lowStockThreshold:10 });
+              }}
+            >
+              <Plus className="w-4 h-4" /> افزودن واحد و قیمت
+            </button>
+          </div>
+        </label>
       </div>
-     
+      <div className="flex justify-between mt-12">
+        <NavigationButton direction="next" onClick={nextStep} />
+
+        <NavigationButton direction="prev" onClick={prevStep} />
+      </div>
     </>
   );
 };

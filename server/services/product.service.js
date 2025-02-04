@@ -11,13 +11,14 @@ const User = require("../models/user.model");
 
 /* add new product */
 exports.addProduct = async (req, res) => {
-  const { features, campaign, variations, ...otherInformation } = req.body;
+  const { features, campaign, variations,tags, ...otherInformation } = req.body;
   let thumbnail = null;
   let gallery = [];
-
+console.log(req.body)
   const parsedFeatures = JSON.parse(features);
   const parsedCampaign = JSON.parse(campaign);
   const parsedVariations = JSON.parse(variations);
+  const parsedTags = JSON.parse(tags);
 
   if (req.uploadedFiles["thumbnail"].length) {
     thumbnail = {
@@ -38,6 +39,7 @@ exports.addProduct = async (req, res) => {
     features: parsedFeatures,
     campaign: parsedCampaign,
     variations: parsedVariations,
+    tags:parsedTags,
     thumbnail,
     gallery,
   });
@@ -86,28 +88,39 @@ exports.getProducts = async (res) => {
 
 /* get a single product */
 exports.getProduct = async (req, res) => {
-  const product = await Product.findById(req.params.id).populate([
-    "category",
-    {
-      path: "reviews",
-      options: { sort: { updatedAt: -1 } },
-      populate: [
-        "reviewer",
-        {
-          path: "product",
-          populate: [ "category"],
-        },
-      ],
-    },
-  ]);
-
-  res.status(200).json({
-    acknowledgement: true,
-    message: "Ok",
-    description: "محصول با موفقیت دریافت شد",
-    data: product,
-  });
+  try {
+    const product = await Product.findById(req.params.id)
+      .populate("category")
+      .populate({
+        path: "reviews",
+        options: { sort: { updatedAt: -1 } },
+        populate: [
+          "reviewer",
+          {
+            path: "product",
+            populate: ["category"],
+          },
+        ],
+      })
+      .populate({
+        path: "variations.unit", 
+        select: "title value",
+      });
+    res.status(200).json({
+      acknowledgement: true,
+      message: "Ok",
+      description: "محصول با موفقیت دریافت شد",
+      data: product,
+    });
+  } catch (error) {
+    res.status(500).json({
+      acknowledgement: false,
+      message: "خطایی رخ داد",
+      description: error.message,
+    });
+  }
 };
+
 
 /* filtered products */
 exports.getFilteredProducts = async (req, res) => {

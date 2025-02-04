@@ -23,7 +23,7 @@ const Banner2 = ({ className }) => {
             className="lg:absolute bottom-0 left-0 order-2"
           />
           <article className="flex flex-col justify-start items-end order-1">
-            <div className="flex flex-col  md:gap-y-8 gap-y-4 max-w-lg z-50 lg:ml-auto lg:mr-0 mr-auto">
+            <div className="flex flex-col  md:gap-y-8 gap-y-4 max-w-lg z-48 lg:ml-auto lg:mr-0 mr-auto">
               <h1 className="md:text-6xl font-nozha text-4xl">
               نقل و حلوای ناب </h1>
               <h1 className="md:text-6xl font-nozha text-4xl">

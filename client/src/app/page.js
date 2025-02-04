@@ -17,7 +17,6 @@ export default function Home() {
       <Main>
         <main className="flex flex-col gap-y-20 w-full bg-primary">
           <Banner1 />
-          <Steps />
           <NewArrivals />
           <Banner2 />
           <ExpertChoice />

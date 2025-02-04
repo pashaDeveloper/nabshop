@@ -55,7 +55,7 @@ const CartButton = ({ product }) => {
         className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow w-fit flex flex-row gap-x-2 items-center"
         disabled={qty === 0 || addingToCart}
         onClick={() => {
-          addToCart({ product: product._id, quantity: qty });
+          addToCart({ product: product._id, quantity: qty,unit: selectedUnit?.unit._id, });
         }}
       >
         {addingToCart ? (

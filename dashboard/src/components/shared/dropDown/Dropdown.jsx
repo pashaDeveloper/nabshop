@@ -3,7 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 const Dropdown = ({
   items = [],
   value,
-  handleSelect,
+  handleSelect, // قدیمی
+  onChange, // جدید: به عنوان prop از Controller دریافت می‌شود
   sendId = false,
   className = "h-12 w-full",
   isReadOnly = false,
@@ -21,8 +22,11 @@ const Dropdown = ({
   const handleItemSelect = (item) => {
     if (!isReadOnly) {
       setSelectedItem(item);
+      // اگر handleSelect موجود است، از آن استفاده کن، در غیر اینصورت از onChange استفاده کن.
       if (handleSelect) {
         handleSelect(sendId ? item.id : item.value);
+      } else if (onChange) {
+        onChange(sendId ? item.id : item.value);
       }
       setIsOpen(false); // بستن dropdown
       setTooltipContent(""); // پاک کردن tooltip بعد از انتخاب آیتم
@@ -114,7 +118,7 @@ const Dropdown = ({
                 onMouseLeave={handleMouseLeave}
                 className="relative px-4 py-2 bg-gray-100 hover:bg-blue-100 dark:bg-gray-700 dark:hover:bg-gray-900 rounded-md cursor-pointer group"
               >
-                <span> {item.value}</span>
+                <span>{item.value}</span>
               </li>
             ))}
           </ul>

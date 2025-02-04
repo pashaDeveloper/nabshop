@@ -34,8 +34,7 @@ const Left = ({ product }) => {
 
   return (
     <section className="lg:col-span-6 md:col-span-6 col-span-12 flex flex-col gap-y-4">
-      <div className="flex flex-col gap-y-4">
-        {/* Main Image */}
+     <div className="flex flex-col gap-y-4">
         <LoadImage
           src={mainImage}
           alt="Main product"
@@ -44,7 +43,6 @@ const Left = ({ product }) => {
           className="rounded w-full h-full object-cover"
         />
         <div className="grid grid-cols-7 gap-4">
-          {/* Gallery Images */}
           {product?.gallery?.map((thumbnail, index) => (
             <LoadImage
               src={thumbnail?.url}
@@ -57,13 +55,13 @@ const Left = ({ product }) => {
               }
               width={480}
               height={200}
-              onClick={() => setMainImage(thumbnail?.url)} // Update the main image on click
+              onClick={() => setMainImage(thumbnail?.url)} 
             />
           ))}
         </div>
-      </div>
-      <article className="flex flex-col gap-y-4">
-        <div className="flex flex-row gap-x-2.5">
+      </div> 
+       <article className="flex flex-col gap-y-4">
+         <div className="flex flex-row gap-x-2.5">
           <Badge className="text-purple-800 bg-purple-100">
             {"در " + product?.variations?.sizes?.length + " " + "وزن"}
           </Badge>
@@ -87,8 +85,8 @@ const Left = ({ product }) => {
               <Arrival /> {product?.campaign?.title}
             </Badge>
           )}
-        </div>
-        <div className="flex flex-col gap-y-2.5">
+        </div> 
+         <div className="flex flex-col gap-y-2.5">
           <DetailCard
             title={`از دسته بندی ${product?.category?.title}`}
             content={product?.category?.keynotes}
@@ -98,8 +96,8 @@ const Left = ({ product }) => {
               <span key={index} className="!text-xs border px-2 py-0.5 rounded-sm">{`#${hashTag}`}</span>
             ))}
           </div>
-        </div>
-      </article>
+        </div> 
+      </article> 
     </section>
   );
 };

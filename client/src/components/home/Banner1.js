@@ -12,12 +12,12 @@ const Banner1 = () => {
 
   return (
     <Container >
-      <div className="grid md:grid-cols-3  mt-5 justify-center grid-cols-1 md:gap-4">
+      <div className="grid md:grid-cols-3  mt-28 justify-center grid-cols-1 md:gap-4">
         <div className="col-span-2 h-full flex flex-col gap-y-4 ">
           
     
        <div
-        className="bg-[#ddfbff]    w-full h-fit md:mt-5 rounded-primary relative flex flex-col gap-y-8 lg:px-22 lg:py-[80px] pt-8 pb-0 "
+        className="bg-[#ddfbff]    w-full h-fit md:mt-5 rounded-primary relative flex flex-col gap-y-8 lg:px-22 lg:py-[80px] md:pt-8 pb-0 "
         style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
       >
         <Image
@@ -25,10 +25,10 @@ const Banner1 = () => {
           alt="model"
           height={872}
           width={500}
-          className="lg:absolute bottom-0 right-0 order-2 lg:w-[500px] lg:ml-0 md:ml-auto  !z-10"
+          className="lg:absolute bottom-0 right-0 order-2 lg:w-[500px] lg:ml-0 md:ml-auto  "
         />
         <div className="md:grid md:grid-cols-5 gap-4">
-  <div className="md:col-span-3  p-4">
+  <div className="md:col-span-3 hidden md:flex p-4">
   </div>
   <div className="md:col-span-2 flex flex-col gap-4 p-4">
   <h1 className="md:text-6xl font-nozha text-6xl w-full text-right">
@@ -60,7 +60,7 @@ const Banner1 = () => {
 </div>
 
 </div>
-<div className="bg-blue-100 rounded-primary h-full flex flex-col gap-y-4 md:flex-row justify-between items-center md:p-6 p-2 rtl">
+<div className="bg-blue-100 rounded-primary h-full hidden md:flex flex-col gap-y-4 md:flex-row justify-between items-center md:p-6 p-2 rtl">
   <h1 className="md:text-3xl hidden md:flex text-4xl font-nozha text-right leading-tight">
     تا پایان 
   </h1>

@@ -14,12 +14,10 @@ const Auth = ({ children }) => {
   const user = useMemo(() => userData?.data || {}, [userData]);
   useEffect(() => {
     if (userData && !userError) {
-      toast.success(userData?.description, { id: "auth" });
       dispatch(addUser(user));
     }
 
     if (userError?.data) {
-      toast.error(userError?.data?.description, { id: "auth" });
     }
   }, [userData, userError, dispatch, user]);
 

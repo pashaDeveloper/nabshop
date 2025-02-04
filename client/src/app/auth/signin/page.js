@@ -7,7 +7,9 @@ import Spinner from "@/components/shared/Spinner";
 import Link from "next/link";
 import { useSignInMutation } from "@/services/auth/authApi";
 import { toast } from "react-hot-toast";
-
+import { motion } from "framer-motion";
+import { FcGoogle } from "react-icons/fc";
+import { BsGithub } from "react-icons/bs";
 const Signin = () => {
   const router = useRouter();
   const [signin, { isLoading, data, error }] = useSignInMutation();
@@ -39,63 +41,105 @@ const Signin = () => {
   };
 
   return (
-    <section className="w-screen h-screen flex justify-center items-center px-4">
-      <div className="max-w-md w-full flex flex-col gap-y-4 border p-8 rounded-primary">
-        <div className="flex flex-row items-center gap-x-2">
-          <hr className="w-full" />
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={141}
-            height={40}
-            className="max-w-full cursor-pointer"
-            onClick={() => router.push("/")}
-          />
-          <hr className="w-full" />
-        </div>
-        <form
-          action=""
-          className="w-full flex flex-col gap-y-4"
-          onSubmit={handleSignin}
-        >
-          <label htmlFor="email" className="flex flex-col gap-y-1">
-            <span className="text-sm">Enter Your Email</span>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="i.e. example@gmail.com"
-              className=""
-              required
-            />
-          </label>
-          <label htmlFor="password" className="flex flex-col gap-y-1">
-            <span className="text-sm">Enter Your Password</span>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="i.e. Admin@123"
-              className=""
-              required
-            />
-          </label>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow disabled:bg-gray-200 disabled:border-gray-200 disabled:text-black/50 disabled:cursor-not-allowed flex flex-row justify-center items-center text-sm"
-          >
-            {isLoading ? <Spinner /> : "Sign In"}
-          </button>
-        </form>
-        <div className="flex flex-row justify-center items-center gap-x-2 text-xs">
-          <Link href="/auth/signup" className="">
-            Sign Up
-          </Link>
-          <span className="h-4 border-l" />
-          <Link href="/auth/forgot-password" className="">
-            Forgot Password
-          </Link>
+    <section className="w-full h-auto ">
+      <div className="container md:py-10 h-full">
+        <div className="flex justify-center items-center flex-wrap h-full g-3 text-gray-800">
+        <div className="hidden md:w-8/12 lg:w-6/12 mb-12 md:mb-0 md:flex ">
+        <motion.div
+      whileHover={{
+        rotate: [0, -10, 10, -10, 0],
+      }}
+      className="w-[400px] cursor-pointer" // Tailwind برای عرض 600px
+    >
+      <Image
+        src="/chef1.png" // مسیر صحیح
+        width={600} // عرض
+        height={600} // ارتفاع
+        alt="logo-login"
+        className="h-full"
+      />
+    </motion.div>
+    </div>          <div className="w-full md:w-[30rem]">
+            <form className="p-2">
+            <div className="flex items-center justify-center gap-5  text-center">
+      <motion.p
+        whileHover={{ scale: 1.1 }}
+        className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer shadow-sm hover:bg-slate-100"
+        onClick={() =>
+          toast.warn("GitHub Signin is not available yet", {
+            autoClose: 2000,
+            icon: (
+              <MdOutlineNotificationsActive className="text-yellow-500 text-xl" />
+            ),
+            toastId: "github",
+          })
+        }
+      >
+        <BsGithub className="text-xl w-5 mr-1" />
+        <span>Github</span>
+      </motion.p>
+      <motion.p
+        whileHover={{ scale: 1.1 }}
+        className="flex items-center w-36 h-10 bg-white justify-center rounded text-headingColor px-5 cursor-pointer shadow-sm hover:bg-slate-100"
+        onClick={() => AUTH({ provider: GOOGLE_PROVIDER })}
+      >
+        <FcGoogle className="text-xl w-5 mr-1" />
+        <span>Google</span>
+      </motion.p>
+    </div>              <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                <p className="text-center text-textColor text-sm font-semibold mx-4 mb-0">
+                  OR
+                </p>
+              </div>
+              <div className="mb-6">
+                <input
+                  type="text"
+                  className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
+                  placeholder="Email address"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-6">
+                <input
+                  type="password"
+                  className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="flex justify-between items-center mb-6">
+                <Link
+                  href="/"
+                  className="text-orange-600 hover:text-orange-700 focus:text-orange-700 active:text-orange-800 duration-200 transition ease-in-out"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+
+              <motion.p
+                className="cursor-pointer flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-600 hover:shadow-lg focus:bg-orange-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+             
+                whileHover={{ scale: 1.1 }}
+              >
+                Sign in
+              </motion.p>
+              <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                <p className="text-center text-sm text-textColor font-semibold mx-4 mb-0">
+                  Don't have an account?
+                </p>
+              </div>
+              <Link href="/register">
+                <motion.p
+                  whileHover={{ scale: 0.99 }}
+                  className="cursor-pointer flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-600 hover:shadow-lg focus:bg-orange-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                >
+                  Sign Up
+                </motion.p>
+              </Link>
+            </form>
+          </div>
         </div>
       </div>
     </section>

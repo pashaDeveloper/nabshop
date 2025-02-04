@@ -7,7 +7,7 @@ const StaticsImages = ({ items }) => {
   {items.map((item, index) => (
     <div
       key={index}
-      className="cursor-pointer col-span-1 mx-4 mt-4 drop-shadow-lg px-2 p-2 bg-white  rounded-xl flex flex-col items-center justify-center"
+      className="cursor-pointer col-span-1 mx-4 mt-4 drop-shadow-lg px-2 p-2 bg-cardOverlay  rounded-xl flex flex-col items-center justify-center"
     >
       <motion.img
         whileHover={{ scale: 1.1 }}

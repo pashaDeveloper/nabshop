@@ -8,12 +8,13 @@ const remove = require("../utils/remove.util");
 
 /* add new unit */
 exports.addUnit = async (req, res) => {
-  const { title,description,category } = req.body;
+  const { title,description,category,value} = req.body;
   console.log(req.body)
   const unit = new Unit({
     title: title,
     description: description,
     category:category,
+    value: value,
     creator: req.user._id
   });
 
@@ -61,7 +62,6 @@ exports.getUnit = async (req, res) => {
 exports.updateUnit = async (req, res) => {
   let updatedUnit = req.body;
   await Unit.findByIdAndUpdate(req.params.id, updatedUnit);
-
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",

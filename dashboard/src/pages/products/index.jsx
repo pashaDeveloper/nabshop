@@ -94,10 +94,10 @@ function Products() {
               </div>
          
               <div className="lg:col-span-2 lg:flex hidden text-sm md:block">
-                برچسب
+                موجودی
               </div>
               <div className="lg:col-span-2 lg:flex hidden text-sm md:block">
-                نکته کلیدی
+                دسته بندی
               </div>
 
               <div className="col-span-1 md:block text-sm">عملیات</div>
@@ -106,7 +106,7 @@ function Products() {
             {products.map((product) => (
               <div
               key={product?._id}
-              className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-100 dark:hover:bg-gray-800 dark:text-slate-100"
+              className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-50 dark:hover:bg-gray-800 dark:text-slate-100"
               >
                 <div className="col-span-10 lg:col-span-3 text-center flex items-center">
                   <StatusIndicator isActive={product.status === "active"} />
@@ -149,26 +149,13 @@ function Products() {
                
                 <div className="lg:col-span-2 hidden gap-2 lg:flex justify-left items-center text-right">
                   <span className="w-52 overflow-x-auto scrollbar-hide text-sm flex flex-row gap-x-2">
-                    {product?.tags?.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="border px-1 py-0.5 rounded-sm whitespace-nowrap"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  {product.description}
+
                   </span>
                 </div>
                 <div className="lg:col-span-2 hidden gap-2 lg:flex justify-left items-center text-right">
                   <span className="w-52 overflow-x-auto scrollbar-hide text-sm flex flex-row gap-x-2">
-                    {product?.keynotes?.map((keynote, index) => (
-                      <span
-                        key={index}
-                        className="border px-1 py-0.5 rounded-sm whitespace-nowrap"
-                      >
-                        {keynote}
-                      </span>
-                    ))}
+                    
                   </span>
                 </div>
                 <div className="col-span-2 md:col-span-1 gap-2 text-center flex justify-center items-center">

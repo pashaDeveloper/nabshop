@@ -55,7 +55,7 @@ const Detail = () => {
             )}
           </div>
           <Relatives />
-          <Banner2 className={"!px-0"} />
+          <Banner2 className={"!px-0"} /> 
         </div>
       </Container>
     </Main>

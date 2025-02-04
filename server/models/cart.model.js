@@ -24,7 +24,10 @@ const cartSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "User",
     },
-
+    unit: {
+      type: ObjectId,
+      ref: "Unit",
+    },
     // for quantity
     quantity: {
       type: Number,

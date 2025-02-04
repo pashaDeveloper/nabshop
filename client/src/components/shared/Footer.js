@@ -143,7 +143,7 @@ const Footer = () => {
     <footer className="footer-1 bg-primary py-8 sm:py-12 m-6 p-6 rounded-xl">
       <div className="container mx-auto px-4 flex flex-col gap-y-10">
         <div className="flex md:flex-row md:flex-wrap md:justify-between flex-col gap-x-4 gap-y-8">
-          {sitemaps?.map((sitemap, index) => (
+           {sitemaps?.map((sitemap, index) => (
             <div key={index} className="flex flex-col gap-y-3">
               <h2 className="text-2xl">{sitemap.name}</h2>
               <div className="flex flex-col gap-y-1.5">
@@ -154,7 +154,7 @@ const Footer = () => {
                 ))}
               </div>
             </div>
-          ))}
+          ))} 
         </div>
         <hr />
         <p className="text-center">

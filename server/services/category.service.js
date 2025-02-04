@@ -38,18 +38,21 @@ exports.addCategory = async (req, res) => {
 };
 /* get all categories */
 exports.getCategories = async (res) => {
-  const categories = await Category.find().populate([
-    "creator",
-  ]);
+  const categories = await Category.find()
+    .populate({
+      path: "products",
+      select: "_id",
+    });
+
+  const filteredCategories = categories.filter(category => category.products.length > 0);
 
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
     description: "دسته بندی ها با موفقیت دریافت شدند",
-    data: categories,
+    data: filteredCategories,
   });
 };
-
 /* get a category */
 exports.getCategory = async (req, res) => {
   const category = await Category.findById(req.params.id);

@@ -4,6 +4,7 @@ const { ObjectId } = mongoose.Schema.Types;
 const baseSchema = require("./baseSchema.model");
 const Counter = require("./counter")
 const Category = require("./category.model");
+const Tag = require("./tag.model");
 
 const productSchema = new mongoose.Schema(
   {
@@ -110,7 +111,16 @@ gallery: {
           type: Number,
           required: [true, "لطفاً قیمت را وارد کنید"],
         },
-       
+        stock: {
+          type: Number,
+          required: [true, "لطفاً تعداد موجود را وارد کنید"],
+          default: 0,
+        },
+        lowStockThreshold: {
+          type: Number,
+          required: [true, "لطفاً حد آستانه موجودی را مشخص کنید"],
+          default: 10,
+        },
       },
     ],
 
@@ -124,9 +134,9 @@ gallery: {
       },
     },
 
-    stock: {
+    
+    discountAmount: {
       type: Number,
-      required: [true, "لطفاً تعداد موجود را وارد کنید"],
       default: 0,
     },
 
@@ -136,11 +146,7 @@ gallery: {
       default: "in-stock",
     },
 
-    lowStockThreshold: {
-      type: Number,
-      required: [true, "لطفاً حد آستانه موجودی را مشخص کنید"],
-      default: 10,
-    },
+   
     category: {
       type: ObjectId,
       ref: "Category",
@@ -217,23 +223,29 @@ productSchema.pre("save", async function (next) {
     );
     this.productId = counter.seq;
 
-    if (this.stock === 0) {
+    // تنظیم وضعیت موجودی برای هر variation
+    if (this.variations && this.variations.length > 0) {
+      this.variations.forEach((variation) => {
+        if (variation.stock === 0) {
+          variation.stockStatus = "out-of-stock";
+        } else if (variation.stock < variation.lowStockThreshold) {
+          variation.stockStatus = "low-stock";
+        } else {
+          variation.stockStatus = "in-stock";
+        }
+      });
+    }
+
+    // تنظیم وضعیت کلی موجودی محصول
+    if (this.variations.some(variation => variation.stock === 0)) {
       this.stockStatus = "out-of-stock";
-    } else if (this.stock < this.lowStockThreshold) {
+    } else if (this.variations.some(variation => variation.stock < variation.lowStockThreshold)) {
       this.stockStatus = "low-stock";
     } else {
       this.stockStatus = "in-stock";
     }
 
-    if (this.campaign?.state === "discount") {
-      this.variations = this.variations.map((variation) => {
-        if (!variation.discountPrice) {
-          variation.discountPrice = variation.price * 0.9;
-        }
-        return variation;
-      });
-    }
-
+    // سایر تنظیمات مربوط به metaTitle، metaDescription و metaKeywords
     if (
       this.isModified("title") ||
       !this.metaTitle ||
@@ -276,6 +288,7 @@ productSchema.pre("save", async function (next) {
     next(error);
   }
 });
+
 
 const Product = mongoose.model("Product", productSchema);
 

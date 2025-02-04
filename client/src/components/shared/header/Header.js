@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Container from "../Container";
 import Image from "next/image";
-import Categories from "./Categories";
 import Auth from "./Auth";
 import Dashboard from "@/components/icons/Dashboard";
 import SearchFilter from "./SearchFilter";
@@ -10,9 +8,15 @@ import { useSelector } from "react-redux";
 import Brand from "@/components/icons/Brand";
 import Category from "@/components/icons/Category";
 import Store from "@/components/icons/Store";
+import { motion } from "framer-motion";
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import Link from "next/link";
+import MobileNav from "./mobile-nav";
+
 const Header = () => {
   const user = useSelector((state) => state?.auth?.user);
   const [isClient, setIsClient] = useState(false);
+  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
 
   useEffect(() => {
     setIsClient(true); 
@@ -34,22 +38,19 @@ const Header = () => {
   const [selectedNiche, setSelectedNiche] = useState("Category");
 
   return (
-    <Container className="w-full">
-      <nav className="rounded-xl p-4 flex flex-row-reverse justify-between z-20">
-        <div className="flex flex-row gap-x-4 items-center relative">
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={141}
-            height={40}
-            className="h-[40px] object-contain md:block cursor-pointer"
-            onClick={() => window.open("/", "_self")}
-          />
-
-          <div className="border-l h-7 rounded" />
-
-          {/* <Categories /> */}
-        </div>
+    <div className=" relative flex justify-center">
+       <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-2 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
+       <div className="md:flex flex-row gap-x-4 hidden items-center relative">
+  
+  <img
+    src="./logo.png"
+    alt="logo"
+    width={45}
+    height={45}
+    className="h-[45px] object-contain md:block cursor-pointer"
+    onClick={() => window.open("/", "_self")}
+  />
+</div>
         <div className="bg-neutral-100/70 rounded-primary  hidden md:flex">
           <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
             <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white overflow-x-auto scrollbar-hide">
@@ -59,7 +60,7 @@ const Header = () => {
                   className={
                     "text-sm text-black w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent" +
                     " " +
-                    (selectedNiche === niche.title ? "bg-black text-white" : "")
+                    (selectedNiche === niche.title ? "bg-[#673DE6] text-white" : "")
                   }
                   onClick={() => setSelectedNiche(niche.title)}
                 >
@@ -73,7 +74,40 @@ const Header = () => {
           {selectedNiche === "Category" &&""}
           {selectedNiche === "Store" && ""}
         </div>
-        <div className="flex flex-row-reverse gap-x-2 relative">
+        {/* Mobile */}
+      <motion.div
+        className="flex md:hidden w-full p-0 items-center justify-between"
+        initial={{ opacity: 0, x: 200 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 200 }}
+      >
+        {isOpenMobileNav ? (
+          <MobileNav isOpen={isOpenMobileNav} setIsOpen={setIsOpenMobileNav} />
+        ) : (
+          <div className=" flex items-center justify-between w-full">
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className=" flex items-center justify-center"
+              onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
+            >
+              <HiOutlineMenuAlt2 className="text-headingColor text-4xl" />
+            </motion.div>
+            <Link href={"/"}>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <p className="text-headingColor text-xl font-bold">
+                  NAB
+                </p>
+                <img  src="./logo.png" alt="Logo" className="w-8 object-cover" />
+              </motion.div>
+            </Link>
+            
+          </div>
+        )}
+      </motion.div>
+        <div className="md:flex hidden  flex-row-reverse gap-x-2 relative h-fit">
           {isClient && user && Object.keys(user).length > 0 && (
             <button
               className="p-2 rounded-secondary hover:bg-slate-100 transition-colors"
@@ -86,8 +120,8 @@ const Header = () => {
           <Auth />
           <MyCart />
         </div>
-      </nav>
-    </Container>
+      </nav> 
+            </div>  
   );
 };
 

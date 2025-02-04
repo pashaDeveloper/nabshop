@@ -4,21 +4,7 @@ const { nabApi } = require("../nab");
 
 const productApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
-    // add new product
-    addProduct: builder.mutation({
-      query: (body) => ({
-        url: "/product/add-product",
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body,
-      }),
-
-      invalidatesTags: ["Product", "Brand", "Category", "Store", "User"],
-    }),
-
-    // get all products
+   
     getProducts: builder.query({
       query: () => ({
         url: "/product/get-products",

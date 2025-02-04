@@ -12,6 +12,11 @@ const unitSchema = new mongoose.Schema(
       trim: true,
       maxLength: [50, "عنوان تگ نباید بیشتر از 50 کاراکتر باشد"],
     },
+    value: {
+      type: Number,
+      required: [true, "مقدار عددی واحد الزامی است"],
+      min: [0, "مقدار نمی‌تواند منفی باشد"],
+    },
     description: {
       type: String,
       trim: true,

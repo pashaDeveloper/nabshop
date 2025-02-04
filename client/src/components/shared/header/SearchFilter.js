@@ -83,13 +83,13 @@ const SearchFilter = () => {
             type="search"
             name="search"
             id="search"
-            placeholder="🔎 Type any product's title or keyword..."
+            placeholder="🔎 عنوان یا کلمه کلیدی هر محصول را تایپ کنید..."
             className="!rounded w-full text-center"
             onChange={handleSearch}
           />
           <div className="flex flex-row items-center gap-x-2 text-xs">
             <hr className="flex-1" />
-            Your Search Results
+            نتیجه جستجوی شما
             <hr className="flex-1" />
           </div>
           <div className="overflow-y-auto scrollbar-hide flex flex-col gap-y-8 h-full">

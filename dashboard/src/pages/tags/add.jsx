@@ -158,7 +158,6 @@ const AddTag = ({ isOpen, onClose }) => {
             },
           })}
         />
-        {/* نمایش خطا برای توضیحات */}
         {errors.description && (
           <span className="text-xs text-red-500">{errors.description.message}</span>
         )}

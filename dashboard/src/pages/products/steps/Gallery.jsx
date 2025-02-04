@@ -3,7 +3,7 @@ import NavigationButton from "@/components/shared/button/NavigationButton";
 import GalleryUpload from "@/components/shared/gallery/GalleryUpload";
 import DisplayImages from "@/components/shared/gallery/DisplayImages";
 
-const GalleryStep = ({ nextStep, errors, setGallery, register }) => {
+const GalleryStep = ({ nextStep,prevStep, setGallery, register }) => {
   const [galleryPreviews, setGalleryPreviews] = useState([]);
 
   return (
@@ -26,8 +26,10 @@ const GalleryStep = ({ nextStep, errors, setGallery, register }) => {
         />
       </div>
 
-      <div className="flex justify-start mt-12">
+      <div className=" flex justify-between mt-12 mt-12">
         <NavigationButton direction="next" onClick={nextStep} />
+                <NavigationButton direction="prev" onClick={prevStep} />
+        
       </div>
     </>
   );

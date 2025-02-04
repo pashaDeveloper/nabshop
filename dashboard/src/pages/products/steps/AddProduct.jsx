@@ -10,6 +10,7 @@ import Title from "./Title";
 import Gallery from "./Gallery";
 import Features from "./Features";
 import Campaign from "./Campaign";
+import ProductStatus from "./ProductStatus";
 
 const StepAddProduct = () => {
   const [thumbnail, setThumbnail] = useState(null);
@@ -19,11 +20,13 @@ const StepAddProduct = () => {
   const [completedSteps, setCompletedSteps] = useState({});
   const [invalidSteps, setInvalidSteps] = useState({});
   const [features, setFeatures] = useState([{ title: "", content: [""] }]);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const {
     register,
     setValue,
     reset,
+    control,
     formState: { errors },
     trigger,
     handleSubmit,
@@ -31,21 +34,23 @@ const StepAddProduct = () => {
   } = useForm({
     mode: "onChange",
   });
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const onSubmit = async (data) => {
+    const selectedTags2 = selectedTags.map(tag => tag.id);
+
     const formData = new FormData();
-
-    formData.append("title", data.title);
-    formData.append("summary", data.summary);
-    formData.append("price", data.price);
-
     formData.append("thumbnail", thumbnail);
     for (let i = 0; i < gallery.length; i++) {
       formData.append("gallery", gallery[i]);
     }
-
+    formData.append("title", data.title);
+    formData.append("summary", data.summary);
+    formData.append("description", data.description);
+    formData.append("category", data.category);
     formData.append("features", JSON.stringify(features));
+    formData.append("discountAmount", data.discountAmount);
+    formData.append("isFeatured", data.isFeatured);
     formData.append(
       "campaign",
       JSON.stringify({
@@ -53,16 +58,23 @@ const StepAddProduct = () => {
         state: data.campaignState,
       })
     );
+    formData.append("tags", JSON.stringify(selectedTags2));
+
     formData.append(
       "variations",
-      JSON.stringify({
-        sizes: Array.from(data.sizes).map(
-          (option) => option.value
-        ),
-      })
+      JSON.stringify(
+        data.variations.map((variation) => ({
+          unit: variation.unit, 
+          price: variation.price,
+          lowStockThreshold: variation.lowStockThreshold,
+          stock: variation.stock,
+        }))
+      )
     );
-    formData.append("category", data.category);
-   addProduct(formData)
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+    addProduct(formData);
   };
 
   useEffect(() => {
@@ -202,6 +214,17 @@ const StepAddProduct = () => {
             errors={errors}
             prevStep={prevStep}
             nextStep={nextStep}
+            watch={watch}
+            control={control}
+          />
+        );
+        case 6:
+        return (
+          <ProductStatus
+            register={register}
+            errors={errors}
+            setSelectedOptions={setSelectedTags}
+            selectedOptions={selectedTags}
           />
         );
       default:
@@ -230,9 +253,9 @@ const StepAddProduct = () => {
   return (
     <form
       action=""
-      className="w-full max-w-xl  flex flex-col gap-y-4"
+      className="w-full max-w-xl  flex flex-col p-2 gap-y-4  "
       onSubmit={handleSubmit(onSubmit)}
-    >
+    > 
       <StepIndicator
         currentStep={currentStep}
         totalSteps={totalSteps}

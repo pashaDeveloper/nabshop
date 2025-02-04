@@ -4,7 +4,7 @@ import Button from "@/components/shared/button/Button";
 import { useAddUnitMutation } from "@/services/unit/unitApi";
 import { toast } from "react-hot-toast";
 import Modal from "@/components/shared/modal/Modal";
-import Dropdown from "../../components/shared/dropDown/Dropdown";
+import Dropdown from "@/components/shared/dropDown/Dropdown";
 import { useGetCategoriesQuery } from "@/services/category/categoryApi";
 import { useForm, Controller } from "react-hook-form";
 
@@ -58,13 +58,11 @@ const AddUnit = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isAdding) {
       toast.loading("در حال افزودن  برچسب...", { id: "addUnit" });
-
     }
 
     if (addData) {
       toast.success(addData?.description, { id: "addUnit" });
       onClose();
-
     }
 
     if (addError?.data) {
@@ -75,9 +73,12 @@ const AddUnit = ({ isOpen, onClose }) => {
   function handleAddUnit(data) {
     const formData = {
       title: data.title,
+      value: data.value,
       description: data.description,
       category: data.category,
     };
+    console.log(formData);
+
     addUnit(formData);
   }
 
@@ -111,6 +112,25 @@ const AddUnit = ({ isOpen, onClose }) => {
                 })}
               />
             </label>
+            {/* value */}
+            <label htmlFor="value" className="w-full flex flex-col gap-y-1">
+              <span className="text-sm">مقدار عددی*</span>
+              <input
+  type="number"
+  name="value"
+  id="value"
+  step="any" // یا step="0.1"
+  required
+  {...register("value", {
+    required: "مقدار عددی الزامی است",
+    min: {
+      value: 0,
+      message: "مقدار عددی نمی‌تواند منفی باشد",
+    },
+    valueAsNumber: true,
+  })}
+/>
+            </label>
 
             {/* description */}
             <label
@@ -137,29 +157,28 @@ const AddUnit = ({ isOpen, onClose }) => {
             <div className="flex flex-col gap-y-2 w-full ">
               <div className="flex-1 flex items-center justify-between gap-2 gap-y-2 w-full">
                 <div className="flex flex-col flex-1">
-                    <Controller
-                      control={control}
-                      name="category" 
-                      rules={{ required: "انتخاب دسته‌بندی الزامی است" }}
-                      render={({ field }) => (
-                        <div className="flex flex-col gap-y-2 w-full">
-                          <label
-                            htmlFor="category"
-                            className="flex flex-col gap-y-2"
-                          >
-                            دسته‌بندی
-                            <Dropdown
-                              items={categoryOptions}
-                              sendId={true}
-                              className="w-full h-12"
-                              handleSelect={field.onChange}
-                              value={field.value}
-                            />
-                          </label>
-                         
-                        </div>
-                      )}
-                    />
+                  <Controller
+                    control={control}
+                    name="category"
+                    rules={{ required: "انتخاب دسته‌بندی الزامی است" }}
+                    render={({ field }) => (
+                      <div className="flex flex-col gap-y-2 w-full">
+                        <label
+                          htmlFor="category"
+                          className="flex flex-col gap-y-2"
+                        >
+                          دسته‌بندی
+                          <Dropdown
+                            items={categoryOptions}
+                            sendId={true}
+                            className="w-full h-12"
+                            handleSelect={field.onChange}
+                            value={field.value}
+                          />
+                        </label>
+                      </div>
+                    )}
+                  />
                 </div>
                 <div className="mt-7 flex justify-start">
                   <button
