@@ -12,11 +12,11 @@ export const PopularProductCard = ({ image, title, subTitle, price, isLiked }) =
   
     {/* Product Image */}
     <div className="mt-4 flex justify-center">
-      <div className="w-36 h-36 bg-white rounded-full relative     opacity-15 shadow-custom  flex items-center justify-center">
+      <div className="w-40 h-54 bg-white rounded-full relative     opacity-15 shadow-custom  flex items-center justify-center">
         <img src={image} alt={title} className="w-full h-full object-contain" />
       </div>
     </div>
-  
+    
     {/* Texts */}
     <div className="mt-6 text-left">
       <h3 className="text-xl font-semibold">{title}</h3>

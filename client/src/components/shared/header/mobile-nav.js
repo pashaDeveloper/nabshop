@@ -3,6 +3,7 @@
 import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 const MobileNav = ({
   isOpen,
   setIsOpen,
@@ -50,16 +51,15 @@ const MobileNav = ({
         className={`flex items-center justify-center w-full  h-72 gap-10 flex-col`}
       >
         <Link onClick={() => setIsOpen(!isOpen)} href={'/menu'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          Menu
-        </Link>
+فروشگاه        </Link>
         <Link onClick={() => setIsOpen(!isOpen)} href={'services'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          Services
+          خدمات
         </Link>
         <Link onClick={() => setIsOpen(!isOpen)} href={'/about'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          About
+          درباره ما
         </Link>
         <p onClick={handleToggleContact} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          Contact
+          تماس با ما
         </p>
       </div>
 
@@ -73,7 +73,7 @@ const MobileNav = ({
           whileHover={{ scale: 1.1 }}
           className="flex items-center gap-2 cursor-pointer"
         >
-          <img src={"./logo.png"} alt="Logo" className="w-16 object-cover" />
+          <Image src={"/logo.png"} width={300} height={300} alt="Logo" className="w-16 object-cover" />
           <p className="text-headingColor text-3xl font-bold">NAB</p>
         </motion.div>
       </Link>

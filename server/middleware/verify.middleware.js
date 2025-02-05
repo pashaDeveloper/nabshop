@@ -30,7 +30,7 @@ async function verify(req, res, next) {
     res.status(401).json({
       acknowledgement: false,
       message: "Unauthorized",
-      description: "لطفا برای ادامه وارد حساب کاربری خودش شوید",
+      description: "لطفا  وارد حساب کاربری خود شوید",
     });
   }
 }

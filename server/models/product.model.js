@@ -39,7 +39,7 @@ const productSchema = new mongoose.Schema(
       required: [true, "لطفاً خلاصه محصول را وارد کنید"],
       trim: true,
       minlength: [20, "خلاصه محصول باید حداقل ۲۰ کاراکتر باشد"],
-      maxlength: [30, "خلاصه محصول نمی‌تواند بیشتر از ۳۰ کاراکتر باشد"],
+      maxlength: [50, "خلاصه محصول نمی‌تواند بیشتر از 50 کاراکتر باشد"],
     },
     description: {
       type: String,

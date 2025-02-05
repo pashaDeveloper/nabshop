@@ -39,6 +39,25 @@ exports.addCategory = async (req, res) => {
 /* get all categories */
 exports.getCategories = async (res) => {
   const categories = await Category.find()
+  .populate({
+    path: "products",
+    select: "_id",
+  })
+  .populate({
+    path: "creator",
+    select: "name avatar", // دریافت نام و آواتار سازنده
+  });
+  console.log(categories)
+  res.status(200).json({
+    acknowledgement: true,
+    message: "Ok",
+    description: "دسته بندی ها با موفقیت دریافت شدند",
+    data: categories,
+  });
+};
+
+exports.getProductCategories = async (res) => {
+  const categories = await Category.find()
     .populate({
       path: "products",
       select: "_id",
@@ -56,7 +75,6 @@ exports.getCategories = async (res) => {
 /* get a category */
 exports.getCategory = async (req, res) => {
   const category = await Category.findById(req.params.id);
-  console.log(category)
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",

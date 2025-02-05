@@ -12,14 +12,19 @@ const Banner1 = () => {
 
   return (
     <Container >
-      <div className="grid md:grid-cols-3  mt-28 justify-center grid-cols-1 md:gap-4">
+      <div className="grid md:grid-cols-3 mt-24  md:mt-28 justify-center grid-cols-1 md:gap-4">
         <div className="col-span-2 h-full flex flex-col gap-y-4 ">
           
     
-       <div
-        className="bg-[#ddfbff]    w-full h-fit md:mt-5 rounded-primary relative flex flex-col gap-y-8 lg:px-22 lg:py-[80px] md:pt-8 pb-0 "
-        style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
-      >
+        <div
+  className="w-full h-fit md:mt-5 rounded-primary relative flex flex-col gap-y-8 lg:px-22 lg:py-[80px] md:pt-8 pb-0"
+  style={{
+    backgroundImage: "url(/assets/home/banner/dots.svg), linear-gradient(to top right, #ef4444, #ef4444)", // ترتیب صحیح: تصویر پس‌زمینه و سپس گرادیانت  
+    backgroundSize: "cover", // تنظیم اندازه پس‌زمینه
+    backgroundPosition: "center", // تنظیم موقعیت تصویر پس‌زمینه
+  }}
+>
+  {/* محتویات دیگر اینجا */}
         <Image
           src="/assets/home/banner/model1.png"
           alt="model"
@@ -31,18 +36,18 @@ const Banner1 = () => {
   <div className="md:col-span-3 hidden md:flex p-4">
   </div>
   <div className="md:col-span-2 flex flex-col gap-4 p-4">
-  <h1 className="md:text-6xl font-nozha text-6xl w-full text-right">
+  <h1 className="md:text-6xl text-white font-nozha text-6xl w-full text-right">
   نقل و حلوای {" "}
-  <span className="md:text-6xl text-rose-500" >ناب</span>
+  <span className="md:text-6xl text-black" >ناب</span>
    
   <br/>
   </h1>
   <h1 className="md:text-3xl font-nozha text-4xl w-full text-right ">
 
    طعمی از جنس {" "}
-   <span className="text-fuchsia-500" >اصالت</span>
+   <span className="text-white" >اصالت</span>
    {" "}  و 
-    <span className="text-fuchsia-500" > لذت خالص </span>
+    <span className="text-white" > لذت خالص </span>
    
    
     </h1>

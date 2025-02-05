@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Main>
-        <main className="flex flex-col gap-y-20 w-full bg-primary">
+        <main className="flex flex-col gap-y-20 w-full bg-lightbg">
           <Banner1 />
           <NewArrivals />
           <Banner2 />

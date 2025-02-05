@@ -12,7 +12,6 @@ import { motion } from "framer-motion";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import Link from "next/link";
 import MobileNav from "./mobile-nav";
-
 const Header = () => {
   const user = useSelector((state) => state?.auth?.user);
   const [isClient, setIsClient] = useState(false);
@@ -42,12 +41,12 @@ const Header = () => {
        <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-2 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
        <div className="md:flex flex-row gap-x-4 hidden items-center relative">
   
-  <img
-    src="./logo.png"
+  <Image
+    src={"/logo.png"}
     alt="logo"
-    width={45}
-    height={45}
-    className="h-[45px] object-contain md:block cursor-pointer"
+    width={300}
+    height={300}
+    className="h-12 w-12 object-contain md:block cursor-pointer"
     onClick={() => window.open("/", "_self")}
   />
 </div>
@@ -60,7 +59,7 @@ const Header = () => {
                   className={
                     "text-sm text-black w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent" +
                     " " +
-                    (selectedNiche === niche.title ? "bg-[#673DE6] text-white" : "")
+                    (selectedNiche === niche.title ? "bg-[#ef4444] text-white" : "")
                   }
                   onClick={() => setSelectedNiche(niche.title)}
                 >
@@ -100,8 +99,14 @@ const Header = () => {
                 <p className="text-headingColor text-xl font-bold">
                   NAB
                 </p>
-                <img  src="./logo.png" alt="Logo" className="w-8 object-cover" />
-              </motion.div>
+                <Image
+    src={"/logo.png"}
+    alt="logo"
+    width={300}
+    height={300}
+    className="h-[45px] w-[45px] object-contain md:block cursor-pointer"
+    onClick={() => window.open("/", "_self")}
+  />              </motion.div>
             </Link>
             
           </div>

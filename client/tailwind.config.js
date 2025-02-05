@@ -11,7 +11,9 @@ module.exports = {
         'custom': '0px 0px 60px rgba(32, 155, 208, 0.4)',
       },
       colors: {
-        primary: "#f5f3f3",
+        primary: "#ef4444",
+        secondary: "#f87171",
+        lightbg: "#f5f3f3",
         headingColor: "#2e2e2e",
         cartNumBg: "#e80013",
         textColor: "#515151",

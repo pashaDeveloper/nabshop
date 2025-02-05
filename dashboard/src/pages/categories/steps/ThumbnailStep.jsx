@@ -30,6 +30,8 @@ const ThumbnailStep = ({ nextStep, errors ,register,thumbnail,setThumbnail}) => 
           setThumbnail={setThumbnail}
           title={"لطفا یک تصویر بند انگشتی انتخاب کنید"}
           maxFiles={1}
+          register={register('thumbnail')}
+
         />
       </label>
       {errors?.thumbnail && (

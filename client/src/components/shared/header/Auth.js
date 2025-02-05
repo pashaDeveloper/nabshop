@@ -8,7 +8,7 @@ const Auth = () => {
 
 
   return (
-    <div classNmae="flex items-center">
+    <div className="flex items-center">
      <Link
   className="p-2 rounded-secondary flex items-center hover:bg-slate-100  transition-colors"
   href="/auth/signin">

@@ -32,7 +32,7 @@ const Detail = () => {
   return (
     <Main>
       <Container>
-        <div className="h-full w-full flex flex-col gap-y-20">
+        <div className="h-full w-full flex flex-col gap-y-20 mt-28">
           <div className="grid grid-cols-12 gap-8">
             {productLoading || !product ? (
               <>

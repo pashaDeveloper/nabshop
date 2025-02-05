@@ -79,12 +79,12 @@ const TitleStep = ({ register, errors, prevStep, nextStep }) => {
               message: "خلاصه باید حداقل ۱۵ کاراکتر داشته باشد",
             },
             maxLength: {
-              value: 30,
-              message: "خلاصه نباید بیشتر از ۳۰ کاراکتر باشد",
+              value: 50,
+              message: "خلاصه نباید بیشتر از 50 کاراکتر باشد",
             },
         })}
           placeholder="خلاصه"
-          maxLength="30"
+          maxLength="50"
           className="p-2 rounded border "
         />
         {errors.summary && (
