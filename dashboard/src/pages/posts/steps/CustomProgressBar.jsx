@@ -1,14 +1,15 @@
 import React from 'react';
-import { FaAddressCard } from "react-icons/fa";
-import {BranchIcon,ContentIcon,RankIcon,Gallery} from '@/utils/SaveIcon';
+import Content from '@/components/icons/Content';
+import Gallery from '@/components/icons/Gallery';
+import Branch from '@/components/icons/Branch';
+import Rank from '@/components/icons/Rank';
 const steps = [
   {
     number: 1,
     label:'مشخصات کارت',
     required: true,
     icon: (
-      <FaAddressCard size={25} />
-
+<></>
     ),
   },
   {
@@ -16,7 +17,7 @@ const steps = [
     label: 'تصویر و محتوا',
     required: true,
     icon: (
-      <ContentIcon />
+      <Content />
 
     ),
   },
@@ -34,7 +35,7 @@ const steps = [
     label: 'شاخه بندی',
     required: true,
     icon: (
-      <BranchIcon />
+      <Branch />
 
     ),
   },
@@ -51,7 +52,7 @@ const steps = [
     label: 'SEO',
     required: false,
     icon: (
-      <RankIcon />
+      <Rank />
     ),
   },
 ];

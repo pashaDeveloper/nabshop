@@ -1,10 +1,8 @@
 // Step3.js
 import React from 'react';
-import { FaPlus, FaTag } from "react-icons/fa";
-import MultiSelectDropdown from "@/components/shared/multiSelectDropdown/MultiSelectDropdown";
-import SearchableDropdown from "@/components/shared/dropdownmenu/SearchableDropdown";
 import { Controller } from "react-hook-form";
-import {TagIcon} from "@/utils/SaveIcon"
+import  Plus  from '@/components/icons/Plus';
+import MultiSelect from "@/components/shared/dropdown/MultiSelect";
 
 const Step4 = ({
   tagsOptions,
@@ -52,7 +50,7 @@ const Step4 = ({
                 onClick={openTagModal}
                 aria-label="افزودن تگ جدید"
               >
-                <FaPlus />
+                <Plus />
               </button>
             </div>
           </div>
@@ -67,21 +65,14 @@ const Step4 = ({
             <div className="flex flex-col flex-1">
               <label htmlFor="category" className="flex flex-col gap-y-2">
                 دسته‌بندی
-                <Controller
-                  control={control}
-                  name="category"
-                  rules={{ required: 'انتخاب دسته‌بندی الزامی است' }}
-                  render={({ field: { onChange, value } }) => (
-                    <SearchableDropdown
-                    items={categoryOptions}
-                      handleSelect={onChange}
-                      value={value}
-                      sendId={true}
-                      errors={errors.category}
-                      className={"w-full h-12"}
-                    />
-                  )}
-                />
+                  <MultiSelect
+                            items={tags}
+                            selectedItems={selectedOptions}
+                            handleSelect={handleOptionsChange}
+                            className="w-full"
+                            name="tags"
+                            icon={<Tag size={24} />}
+                          />
               </label>
             </div>
             <div className="mt-7 flex justify-start">
@@ -91,7 +82,7 @@ const Step4 = ({
                 onClick={openCategoryModal}
                 aria-label="افزودن دسته‌بندی جدید"
               >
-                <FaPlus />
+                <Plus />
               </button>
             </div>
           </div>

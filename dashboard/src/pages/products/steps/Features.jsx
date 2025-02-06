@@ -2,7 +2,7 @@ import React ,{useState} from "react";
 import NavigationButton from "@/components/shared/button/NavigationButton";
 import Plus from "@/components/icons/Plus"
 import Minus from "@/components/icons/Minus"
-const Features = ({ register, errors, prevStep, nextStep,features,setFeatures }) => {
+const Features = ({  prevStep, nextStep,features,setFeatures }) => {
   function handleAddFeature() {
     setFeatures([...features, { title: "", content: [""] }]);
   }

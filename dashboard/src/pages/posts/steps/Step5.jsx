@@ -1,13 +1,11 @@
 // Step4.js
-import React from 'react';
-import Dropdown from "@/components/shared/dropdownmenu/Dropdown";
-import SearchableDropdown from "@/components/shared/dropdownmenu/SearchableDropdown";
+import React from "react";
 import { useFieldArray, Controller } from "react-hook-form";
-import { FiPlus } from "react-icons/fi";
-import SocialInformationField from './SocialInformationField';
+import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { toast } from "react-hot-toast";
+import  Plus  from "@/components/icons/Plus";
 
-const Step5 = ({ register, errors, control,getValues }) => {
+const Step5 = ({ register, errors, control, getValues }) => {
   const {
     fields: informationFields,
     append: informationAppend,
@@ -18,9 +16,13 @@ const Step5 = ({ register, errors, control,getValues }) => {
   });
 
   const timeOptions = Array.from({ length: 60 }, (_, index) => {
-    const minutes = index + 1; 
+    const minutes = index + 1;
     const label = minutes === 60 ? "1 ساعت" : `${minutes} دقیقه`;
-    return { id: minutes, value: label, description: `زمان تخمینی خواندن: ${label}` };
+    return {
+      id: minutes,
+      value: label,
+      description: `زمان تخمینی خواندن: ${label}`,
+    };
   });
 
   const maxInformationCount = 3; // حداکثر تعداد لینک‌ها
@@ -37,8 +39,18 @@ const Step5 = ({ register, errors, control,getValues }) => {
             render={({ field: { onChange, value } }) => (
               <Dropdown
                 options={[
-                  { id: 1, value: 'public', label: 'عمومی', description: 'عمومی' },
-                  { id: 2, value: 'private', label: 'خصوصی', description: 'خصوصی' }
+                  {
+                    id: 1,
+                    value: "public",
+                    label: "عمومی",
+                    description: "عمومی",
+                  },
+                  {
+                    id: 2,
+                    value: "private",
+                    label: "خصوصی",
+                    description: "خصوصی",
+                  },
                 ]}
                 placeholder="به صورت پیش فرض عمومی است"
                 value={value}
@@ -50,7 +62,9 @@ const Step5 = ({ register, errors, control,getValues }) => {
             )}
           />
           {errors.visibility && (
-            <span className="text-red-500 text-sm">{errors.visibility.message}</span>
+            <span className="text-red-500 text-sm">
+              {errors.visibility.message}
+            </span>
           )}
         </label>
 
@@ -61,17 +75,21 @@ const Step5 = ({ register, errors, control,getValues }) => {
             control={control}
             name="readTime"
             render={({ field: { onChange, value } }) => (
-              <SearchableDropdown
+              <Dropdown
                 items={timeOptions}
-                handleSelect={onChange} 
-                value={value} 
-                errors={errors.readTime}
-                placeholder="یک زمان تخمینی برای مطالعه انتخاب کن"
+                placeholder="انتخاب مدت زمان مطالعه"
+                value={value}
+                onChange={onChange}
+                sendId={true} // تغییر به true
+                className="w-full"
+                error={errors?.variations?.[index]?.unit}
               />
             )}
           />
           {errors.readTime && (
-            <span className="text-red-500 text-sm">{errors.readTime.message}</span>
+            <span className="text-red-500 text-sm">
+              {errors.readTime.message}
+            </span>
           )}
         </label>
       </div>
@@ -100,11 +118,13 @@ const Step5 = ({ register, errors, control,getValues }) => {
               if (informationFields.length < maxInformationCount) {
                 informationAppend({ name: "FaInstagram" });
               } else {
-                toast.error(`شما نمی‌توانید بیش از ${maxInformationCount} مورد اضافه کنید.`);
+                toast.error(
+                  `شما نمی‌توانید بیش از ${maxInformationCount} مورد اضافه کنید.`
+                );
               }
             }}
           >
-            <FiPlus className="w-4 h-4" /> افزودن
+            <Plus className="w-4 h-4" /> افزودن
           </button>
         </div>
       </label>

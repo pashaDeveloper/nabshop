@@ -210,6 +210,8 @@ gallery: {
   },
   { timestamps: true }
 );
+const defaultDomain = process.env.NEXT_PUBLIC_CLIENT_URL;
+
 productSchema.pre("save", async function (next) {
   if (!this.isNew || this.productId) {
     return next();
@@ -272,7 +274,9 @@ productSchema.pre("save", async function (next) {
           this.metaTitle = this.title.length > 60 ? this.title.substring(0, 57) + "..." : this.title;
           this.metaDescription = this.summary.length > 160 ? this.summary.substring(0, 157) + "..." : this.summary;
         }
-
+        if (!this.canonicalUrl) {
+          this.canonicalUrl = `${defaultDomain}/post/${this.slug}/${this.postId || encodeURIComponent(this._id)}`;
+        }
         /* تنظیم کلیدواژه‌های متا */
         const tags = await Tag.find({ _id: { $in: this.tags } });
         const tagKeywords = tags.map((tag) => tag.title);

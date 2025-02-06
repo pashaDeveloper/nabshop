@@ -7,7 +7,6 @@ import {
   useUpdatePostMutation
 } from "@/services/post/postApi";
 import { useGetTagsForDropDownMenuQuery } from "@/services/tag/tagApi";
-import { useGetCategoriesForDropDownMenuQuery } from "@/services/category/categoryApi";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { Edit, Back, Apply, Reject, Accept } from "@/utils/SaveIcon";
@@ -62,19 +61,7 @@ const Info = () => {
     data: fetchData,
     error: fetchError
   } = useGetPostQuery(id);
-  const {
-    isLoading: tagFetching,
-    data: fetchTagData,
-    error: fetchTagError
-  } = useGetTagsForDropDownMenuQuery();
-  const {
-    isLoading: categoryFetching,
-    data: fetchCategoryData,
-    error: fetchCategoryError
-  } = useGetCategoriesForDropDownMenuQuery();
-  const categories = Array.isArray(fetchCategoryData?.data)
-    ? fetchCategoryData.data
-    : [];
+
   const categoryOptions = categories?.map((category) => ({
     id: category._id,
     value: category.title,

@@ -331,6 +331,36 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   </div>
                 </NavLink>
               </li>
+              {/* Posts  */}
+              <li
+                className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${
+                  pathname.includes("Posts") &&
+                  "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
+                }`}
+              >
+                <NavLink
+                  end
+                  to="/posts"
+                  className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
+                    pathname.includes("Posts")
+                      ? ""
+                      : "hover:text-gray-900 dark:hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <Unit
+                      className={`shrink-0 fill-current ${
+                        pathname.includes("Posts")
+                          ? "text-violet-500"
+                          : "text-gray-400 dark:text-gray-500"
+                      }`}
+                    />
+                    <span className="text-sm font-medium mr-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                      پست ها
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
               {/* Products */}
               <li
                 className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${

@@ -38,6 +38,7 @@ app.use("/api/favorite", require("./routes/favorite.route"));
 app.use("/api/review", require("./routes/review.route"));
 app.use("/api/payment", require("./routes/payment.route"));
 app.use("/api/purchase", require("./routes/purchase.route"));
+app.use("/api/post", require("./routes/post.route"));
 
 /* global error handler */
 app.use(error);
