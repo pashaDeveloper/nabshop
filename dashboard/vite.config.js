@@ -12,6 +12,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'), // تعریف alias برای src
       '@tailwindConfig': path.resolve(__dirname, 'tailwind.config.js'),
+      '@ckeditor': path.resolve(__dirname, 'node_modules/@ckeditor'),
+
     },
   },
   optimizeDeps: {
