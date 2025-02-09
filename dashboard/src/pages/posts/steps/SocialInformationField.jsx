@@ -1,14 +1,15 @@
 import React from 'react';
-import Dropdown from "@/components/shared/dropdownmenu/Dropdown";
+import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { Controller } from 'react-hook-form';
-import { CgTrash } from "react-icons/cg";
-import { FaInstagram, FaTwitter, FaTelegramPlane } from "react-icons/fa";
-
-const SocialInformationField = ({ control, index, remove, errors, getValues }) => {
+import Trash from "@/components/icons/Trash";
+import Telegram from "@/components/icons/Telegram";
+import Instagram from "@/components/icons/Instagram";
+import X from "@/components/icons/X";
+const SocialInformationField = ({ control, index, remove, errors }) => {
   const iconOptions = [
-    { id: 1, value: "FaInstagram", label: "", description: "لینک به اینستاگرام", icon: <FaInstagram className="text-pink-500 w-5 h-5" /> },
-    { id: 2, value: "FaTwitter", label: "", description: "لینک به توییتر", icon: <FaTwitter className="text-blue-500 w-5 h-5" /> },
-    { id: 3, value: "FaTelegramPlane", label: "", description: "لینک به تلگرام", icon: <FaTelegramPlane className="text-blue-600 w-5 h-5" /> },
+    { id: 1, value: "FaInstagram", label: "", description: "لینک به اینستاگرام", icon: <Instagram className="text-pink-500 w-5 h-5" /> },
+    { id: 2, value: "FaTwitter", label: "", description: "لینک به توییتر", icon: <X className="text-blue-500 w-5 h-5" /> },
+    { id: 3, value: "FaTelegramPlane", label: "", description: "لینک به تلگرام", icon: <Telegram className="text-blue-600 w-5 h-5" /> },
   ];
 
   const urlPatterns = {
@@ -27,7 +28,7 @@ const SocialInformationField = ({ control, index, remove, errors, getValues }) =
           defaultValue="FaInstagram" // مقدار پیش‌فرض
           render={({ field: { onChange, value } }) => (
             <Dropdown
-              options={iconOptions} // لیست آیکون‌ها
+              items={iconOptions} // لیست آیکون‌ها
               placeholder="انتخاب آیکون"
               value={value}
               onChange={onChange} // تغییر مقدار name
@@ -79,7 +80,7 @@ const SocialInformationField = ({ control, index, remove, errors, getValues }) =
           className="p-1 rounded"
           onClick={() => remove(index)}
         >
-          <CgTrash className="w-6 h-6 text-gray-500 hover:text-red-500" />
+          <Trash className="w-6 h-6 text-gray-500 hover:text-red-500" />
         </button>
       </div>
 

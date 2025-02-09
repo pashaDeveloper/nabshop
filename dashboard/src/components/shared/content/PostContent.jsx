@@ -1,6 +1,9 @@
 import SkeletonText from "@/components/shared/skeleton/SkeletonText";
 import SkeletonImage from "@/components/shared/skeleton/SkeletonImage";
-
+import React, { useState ,useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Pagination, FreeMode } from "swiper/modules";
 const PostHeader = ({ isLoading, avatar, author, publishDate }) => (
   <div className="flex flex-row-reverse col-span-1 justify-between items-center py-2 px-2">
     <div className="flex items-center flex-row-reverse">
@@ -19,7 +22,7 @@ const PostHeader = ({ isLoading, avatar, author, publishDate }) => (
         </>
       ) : (
         <>
-          <Image
+          <img
             src={avatar}
             alt="User"
             width={40} // عرض تصویر به پیکسل
@@ -46,27 +49,72 @@ const PostHeader = ({ isLoading, avatar, author, publishDate }) => (
   </div>
 );
 
-const PostMedia = ({ isLoading, thumbnailPreview }) => (
-  <div className="w-full h-96 relative">
-    {isLoading || !thumbnailPreview ? (
-      <SkeletonImage showSize={false} />
-    ) : thumbnailPreview.type === "image" ? (
-      <Image
-        src={thumbnailPreview.url}
-        alt="Feature Preview"
-        layout="fill" // تنظیم اندازه تصویر به اندازه والد
-        objectFit="cover" // استفاده از خاصیت object-fit: cover
-        className="rounded-none" // اعمال گرد نشدن گوشه‌ها
-      />
-    ) : (
-      <video
-        src={thumbnailPreview.url}
-        controls
-        className="w-full h-full object-cover"
-      />
-    )}
-  </div>
-);
+const PostMedia = ({ isLoading, galleryPreview }) => {
+  const [mainMedia, setMainMedia] = useState(null);
+  const [mainType, setMainType] = useState("image");
+
+  useEffect(() => {
+    if (galleryPreview?.length > 0) {
+      const firstMedia = galleryPreview[0];
+      setMainMedia(firstMedia?.url);
+      setMainType(firstMedia?.type || "image");
+    }
+  }, [galleryPreview]);
+
+  return (
+    <div className="w-full h-96 relative">
+      {/* بررسی بارگذاری یا خالی بودن گالری */}
+      {isLoading || galleryPreview?.length === 0 ? (
+        <SkeletonImage showSize={false} />
+      ) : 
+      
+      <Swiper
+      slidesPerView={1.2} // نمایش اولین اسلاید کامل و ۲۰٪ از اسلاید بعدی
+      spaceBetween={10} // فاصله بین هر اسلاید
+      freeMode={true} // حرکت آزادانه بین اسلایدها
+      modules={[Pagination, FreeMode]} // افزودن ماژول‌ها
+      className="w-full h-96 z-5" // تنظیم اندازه Swiper
+    >
+      {isLoading || galleryPreview?.length === 0 ? (
+        <>
+          {[1, 2, 3, 4].map((_, index) => (
+            <SwiperSlide key={index} className="w-full h-full">
+              <SkeletonImage showSize={false} />
+            </SwiperSlide>
+          ))}
+        </>
+      ) : (
+        <>
+          {galleryPreview.map((media, index) => (
+            <SwiperSlide key={index} className="w-full h-full">
+              {media.type === "video" ? (
+                <video
+                  controls
+                  src={media.url}
+                  className="rounded w-full h-full object-cover"
+                >
+                  مرورگر شما از پخش این ویدیو پشتیبانی نمی‌کند.
+                </video>
+              ) : (
+                <img
+                  src={media.url}
+                  alt="Thumbnail"
+                  className="rounded w-full h-full object-cover"
+                />
+              )}
+            </SwiperSlide>
+          ))}
+        </>
+      )}
+    </Swiper>
+    }
+
+      
+    </div>
+  );
+};
+
+
 
 const PostContent = ({ content, isLoading }) => (
   <div className="text-base leading-8 my-5 px-2 text-justify">
@@ -189,7 +237,7 @@ const PostComments = ({ comments }) => (
 const Post = ({
   title,
   content,
-  thumbnailPreview,
+  galleryPreview,
   isLoading,
   comments,
   avatar,
@@ -204,7 +252,7 @@ const Post = ({
         author={author}
         publishDate={publishDate}
       />
-      <PostMedia isLoading={isLoading} thumbnailPreview={thumbnailPreview} />
+      <PostMedia isLoading={isLoading} galleryPreview={galleryPreview} />
       <PostContent content={content} isLoading={isLoading} />
       <PostComments comments={comments} />
     </div>

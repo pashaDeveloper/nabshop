@@ -1,35 +1,15 @@
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
-import ThumbnailUpload from "@/components/shared/gallery/ThumbnailUpload";
 import Modal from "@/components/shared/modal/Modal";
 import NavigationButton from "@/components/shared/button/NavigationButton";
-import { Editor } from "@tinymce/tinymce-react";
 import RTEditor from "@/components/shared/editor/RTEditor";
 
-const Step2 = ({ setThumbnailPreview, setThumbnail, register, errors, nextStep, prevStep, control }) => {
+const Step2 = ({  register, errors, nextStep, prevStep, control }) => {
   const [editorData, setEditorData] = useState(``);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const handleImageUpload = (blobInfo, success, failure) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64Image = reader.result;
-        success(base64Image);
-        resolve(base64Image);
-      };
-
-      reader.onerror = (error) => {
-        failure("Image upload failed");
-        reject(error);
-      };
-
-      reader.readAsDataURL(blobInfo.blob());
-    });
-  };
 
   // حذف تگ‌های HTML برای نمایش به صورت متن ساده
   const stripHtmlTags = (html) => {
@@ -41,19 +21,10 @@ const Step2 = ({ setThumbnailPreview, setThumbnail, register, errors, nextStep, 
   return (
     <div className="flex flex-col">
       {/* آپلود تصویر */}
-      <label htmlFor="gallery" className="flex flex-col text-center gap-y-2">
-        تصویر عنوان وبلاگ
-        <ThumbnailUpload
-          setThumbnailPreview={setThumbnailPreview}
-          setThumbnail={setThumbnail}
-          register={register("Thumbnail", { required: "آپلود تصویر عنوان الزامی است" })}
-          maxFiles={1}
-        />
-      </label>
-      {errors.gallery && <span className="text-red-500 text-sm">{errors.gallery.message}</span>}
+      
 
       {/* ویرایشگر متن */}
-      <label htmlFor="content" className="flex flex-col gap-y-4 w-full h-[200px]">
+      <label htmlFor="content" className="flex flex-col gap-y-4 w-full h-[300px]">
         * محتوا  
         <Controller
             name="content"
@@ -74,7 +45,7 @@ const Step2 = ({ setThumbnailPreview, setThumbnail, register, errors, nextStep, 
                         <span className="text-red-500 text-sm">{errors.content.message}</span>
                     )}
 
-                    <Modal isOpen={isModalOpen} onClose={closeModal} className="h-[90vh] !rounded-md !w-full">
+                    <Modal isOpen={isModalOpen} onClose={closeModal} className="h-[90vh] !rounded-md !w-full !m-0">
                         <RTEditor
                             value={editorData} 
                             onChange={(value) => {
@@ -97,9 +68,8 @@ const Step2 = ({ setThumbnailPreview, setThumbnail, register, errors, nextStep, 
         />
       </label>
 
-     
       {/* دکمه‌های ناوبری */}
-      <div className="flex justify-between mt-12">
+      <div className="flex justify-between mt-12 right-0 absolute bottom-2 w-full px-8">
         <NavigationButton direction="next" onClick={nextStep} />
         <NavigationButton direction="prev" onClick={prevStep} />
       </div>

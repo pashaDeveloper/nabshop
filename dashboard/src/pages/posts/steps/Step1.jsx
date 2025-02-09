@@ -71,8 +71,8 @@ message: "توضیحات باید حداقل ۳۰ کاراکتر باشد",
     <span className="text-red-500 text-sm">{errors.publishDate.message}</span>
   )}
 </label>
-<div className="flex justify-between mt-12">
-        <NavigationButton direction="next" onClick={nextStep} />
+<div className="flex justify-between mt-12 right-0 absolute bottom-2 w-full px-8">
+<NavigationButton direction="next" onClick={nextStep} />
 
       </div>  
     </>

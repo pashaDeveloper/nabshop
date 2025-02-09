@@ -47,8 +47,6 @@ height:70vh;
 top:60px !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @media print {
 	body {
@@ -64,16 +62,30 @@ top:60px !important;
 }
 
 .ck-content {
-	font-family: 'Lato';
-	line-height: 1.6;
-	word-break: break-word;
-}
+	direction: rtl;
+	text-align: right;
+	font-family: 'IranSans', Arial, sans-serif;
+  }
 
 .editor-container_classic-editor .editor-container__editor {
 	min-width: 300px;
 	max-width: 1435px;
-}
+  }
+  
+  /* تنظیمات برای موبایل */
+  @media (max-width: 768px) {
+	.editor-container_classic-editor .editor-container__editor {
+	  min-width: 200px; /* کاهش حداقل عرض */
+	  max-width: 470px; /* استفاده از عرض کامل صفحه */
+	}
+  }
 
+  @media (max-width: 375px) {
+	.editor-container_classic-editor .editor-container__editor {
+	  min-width: 200px; /* کاهش حداقل عرض */
+	  max-width: 380px; /* استفاده از عرض کامل صفحه */
+	}
+  }
 .ck-content h3.category {
 	font-family: 'Oswald';
 	font-size: 20px;

@@ -68,7 +68,7 @@ const MultiSelect = ({
         onClick={() => setIsOpen((prev) => !prev)}
         className={`inline-flex justify-between items-center px-2 py-2 text-center text-sm font-medium text-gray-700 bg-white dark:!bg-[#0a2d4d] border border-gray-300 dark:border-blue-500  rounded-md shadow-sm focus:outline-none ${className}`}
       >
-        <div className="flex gap-1 overflow-x-hidden overflow-y-hidden scrollbar-hidden w-[320px] whitespace-nowrap">
+        <div className="flex gap-1 h-full overflow-x-hidden overflow-y-hidden scrollbar-hidden w-full whitespace-nowrap">
           {selectedItems.length > 0 ? (
             selectedItems.map((item) => (
               <div
@@ -128,6 +128,7 @@ const MultiSelect = ({
                 }`}
               >
                 {item.value}
+                
               </li>
             ))}
             {filteredItems.length === 0 && (
@@ -138,18 +139,25 @@ const MultiSelect = ({
           </ul>
         </div>
       )}
-      {tooltipContent && (
-        <div
-          className="fixed bg-black/50 text-white text-sm text-wrap max-w-[150px] py-1 px-2 rounded-md shadow-lg backdrop-blur-md"
-          style={{
-            top: `${tooltipPosition.top}px`,
-            left: `${tooltipPosition.left}px`,
-            zIndex: 50,
-          }}
-        >
-          {tooltipContent}
-        </div>
-      )}
+    {tooltipContent && (
+  <div
+    className="absolute bg-red-600/70 text-white text-xs text-center py-1 px-2 rounded-md shadow-lg backdrop-blur-md text-justify transition-opacity duration-200"
+    style={{
+      // پایین آیتم
+      left: "30%", // وسط آیتم
+      transform: "translateX(-50%)", // وسط‌چین کردن دقیق
+      marginTop: "4px", // ایجاد فاصله از آیتم
+      whiteSpace: "wrap", // جلوگیری از شکستن متن
+      pointerEvents: "none", // جلوگیری از تداخل با کلیک
+      zIndex: 50,
+      opacity: tooltipContent ? 1 : 0, // ناپدید شدن در صورت نبودن متن
+    }}
+  >
+    {tooltipContent}
+  </div>
+)}
+
+
     </div>
   );
 };

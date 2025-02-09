@@ -12,7 +12,7 @@ function Add() {
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [galleryPreview, setGalleryPreview] = useState([]);
   const [editorData, setEditorData] = useState("");
-
+  const [gallery, setGallery] = useState(null);
   const totalSteps = 5;
   const {
     register,
@@ -30,11 +30,12 @@ function Add() {
     watch("publishDate") || new Date().toISOString().split("T")[0];
   const defaultValues = useMemo(() => {
     return {
-      name: user?.name,
-      avatar: user?.avatar,
-      id: user?._id,
+      name: user?.user.name,
+      avatar: user?.user.avatar,
+      id: user?.user._id,
     };
   }, [user]);
+
   return (
     <section className="w-screen relative  h-screen bg-slate-200 dark:bg-slate-800 overflow-hidden flex justify-center items-center p-4 ">
       <div className="wave "></div>
@@ -43,13 +44,16 @@ function Add() {
       <div className="w-full h-full flex flex-col ">
         <CustomProgressBar currentStep={currentStep} totalSteps={totalSteps} />
         <div className="grid grid-cols-1  md:grid-cols-3 gap-4">
-          <div className="w-full bg-white h-fit  justify-center dark:bg-gray-900 z-50 flex flex-col gap-y-4  p-4 rounded-primary shadow-lg">
+          <div className="w-full flex justify-center bg-white h-[550px] relative justify-center dark:bg-gray-900 z-50 flex flex-col gap-y-4  p-4 rounded-primary shadow-lg">
             <AddPost
               currentStep={currentStep}
               totalSteps={totalSteps}
               publishDate={publishDate}
               setCurrentStep={setCurrentStep}
+              galleryPreview={galleryPreview}
+              setGallery={setGallery}
               setThumbnailPreview={setThumbnailPreview}
+              setGalleryPreview={setGalleryPreview}
               editorData={editorData}
               setEditorData={setEditorData}
               handleSubmit={handleSubmit}
@@ -58,7 +62,10 @@ function Add() {
               trigger={trigger}
               control={control}
             />
+<div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center">
+
             <ThemeToggle />
+            </div>
           </div>
           <div className="w-full">
             <PostCard
@@ -74,7 +81,7 @@ function Add() {
             <PostContent
               title={watch("title")}
               content={watch("content")}
-              thumbnailPreview={thumbnailPreview}
+              galleryPreview={galleryPreview}
               publishDate={publishDate}
               like={0}
               view={0}

@@ -4,8 +4,8 @@ import { useFieldArray, Controller } from "react-hook-form";
 import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { toast } from "react-hot-toast";
 import  Plus  from "@/components/icons/Plus";
-
-const Step5 = ({ register, errors, control, getValues }) => {
+import SocialInformationField  from "./SocialInformationField"; 
+const Step5 = ({ register, errors, control }) => {
   const {
     fields: informationFields,
     append: informationAppend,
@@ -106,7 +106,6 @@ const Step5 = ({ register, errors, control, getValues }) => {
               index={index}
               remove={informationRemove}
               errors={errors}
-              getValues={getValues}
             />
           ))}
 

@@ -79,7 +79,7 @@ const Dropdown = ({
         disabled={isReadOnly}
       >
         <span className="ml-2 dark:text-gray-100 flex justify-center text-center">
-          {selectedItem ? selectedItem.value : "یک مورد را انتخاب کنید"}
+          {selectedItem ? selectedItem.value : ""}
         </span>
         {!isReadOnly && (
           <span className=" dark:text-gray-100">
@@ -124,18 +124,23 @@ const Dropdown = ({
           </ul>
         </div>
       )}
-      {tooltipContent && (
-        <div
-          className="fixed bg-black/50 text-white text-sm text-wrap max-w-[150px] py-1 px-2 rounded-md shadow-lg backdrop-blur-md"
-          style={{
-            top: `${tooltipPosition.top}px`,
-            left: `${tooltipPosition.left}px`,
-            zIndex: 50,
-          }}
-        >
-          {tooltipContent}
-        </div>
-      )}
+       {tooltipContent && (
+  <div
+    className="absolute bg-red-600/70 text-white text-xs text-center py-1 px-2 rounded-md shadow-lg backdrop-blur-md text-justify transition-opacity duration-200"
+    style={{
+      // پایین آیتم
+      left: "30%", // وسط آیتم
+      transform: "translateX(-50%)", // وسط‌چین کردن دقیق
+      marginTop: "4px", // ایجاد فاصله از آیتم
+      whiteSpace: "wrap", // جلوگیری از شکستن متن
+      pointerEvents: "none", // جلوگیری از تداخل با کلیک
+      zIndex: 50,
+      opacity: tooltipContent ? 1 : 0, // ناپدید شدن در صورت نبودن متن
+    }}
+  >
+    {tooltipContent}
+  </div>
+)}
     </div>
   );
 };

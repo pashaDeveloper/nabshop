@@ -22,24 +22,21 @@ const PostCard = ({
     className="flex flex-col  justify-center rtl dark:text-white w-full cursor-pointer"
     >
       <div className="relative transition-color ease-linear delay-100 hover:border-primary flex sm:flex-row    rounded-primary shadow-lg w-full  mx-auto p-3 border dark:border-gray-700 dark:bg-gray-800/70 bg-white/80 ">
-      <div className="w-1/3 grid place-items-center mb-8">
+      <div className="w-1/3 grid place-items-center ">
       {!thumbnailPreview ? (
         <SkeletonImage borderRadius="rounded-xl" />
-      ) : thumbnailPreview.type === "image" ? (
-        <Image
-          src={thumbnailPreview.url}
-          alt="Feature Preview"
-          width={500} // عرض مورد نظر را وارد کنید
-          height={500} // ارتفاع مورد نظر را وارد کنید
-          className="w-full h-full object-cover rounded-xl"
-        />
       ) : (
-        <video
-          src={thumbnailPreview.url}
-          controls
-          className="w-full h-full object-cover rounded-xl"
+
+
+        <img
+        src={thumbnailPreview}
+        alt="Feature Preview"
+        width={500} // عرض مورد نظر را وارد کنید
+        height={500} // ارتفاع مورد نظر را وارد کنید
+        className="w-full h-full object-cover rounded-xl"
         />
-      )}
+      )
+    }
     </div>
         <div className="w-2/3 space-y-2 mb-8 px-2 flex flex-col">
           <div className="lg:flex justify-between items-center hidden gap-2">
@@ -95,7 +92,7 @@ const PostCard = ({
 
 {avatar && (
   <div className="text-center rounded-full flex justify-center">
-    <Image
+    <img
       src={avatar}
       alt="avatar"
       height={300}
@@ -103,7 +100,7 @@ const PostCard = ({
       className="lg:!h-9 lg:!w-9 h-7 w-7 rounded-full text-center"
     />
     {author !== superAdmin?.name && superAdmin?.avatar && (
-      <Image
+      <img
         alt={superAdmin?.name}
         title={superAdmin?.name}
         src={superAdmin?.avatar}

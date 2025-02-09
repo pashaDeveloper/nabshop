@@ -151,7 +151,11 @@ gallery: {
       type: ObjectId,
       ref: "Category",
     },
-
+    qrCode: {
+      type: String,
+      required: false, // چون ممکنه بعضی محصولات QR نداشته باشن
+    },
+    
     buyers: [
       {
         type: ObjectId,
@@ -169,6 +173,24 @@ gallery: {
       type: Boolean,
       default: false,
     },
+    scans: [
+      {
+        user: {
+          type: ObjectId,
+          ref: "User",
+        },
+        role: {
+          type: String,
+          enum: ["admin", "superAdmin", "buyyer"],
+          default: "unknown",
+        },
+        scannedAt: {
+          type: Date,
+          default: Date.now,
+        },
+        userAgent: String, // اطلاعات دستگاه اسکن‌کننده
+      }
+    ],
     tags: [
       {
         type: ObjectId,
@@ -215,6 +237,26 @@ const defaultDomain = process.env.NEXT_PUBLIC_CLIENT_URL;
 productSchema.pre("save", async function (next) {
   if (!this.isNew || this.productId) {
     return next();
+  }
+  try {
+    // تولید productId
+    const counter = await Counter.findOneAndUpdate(
+      { name: "productId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    this.productId = counter.seq;
+
+    const productUrl = `${defaultDomain}/scan/${this._id}`;
+    
+    // تولید QR Code
+    const qrCodeDataUrl = await QRCode.toDataURL(productUrl);
+    this.qrCode = qrCodeDataUrl;
+
+    next();
+  } catch (error) {
+    console.error("خطا در تولید QR Code:", error);
+    next(error);
   }
 
   try {

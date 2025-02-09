@@ -17,13 +17,18 @@ const AddPost = ({
   publishDate,
   setCurrentStep,
   setThumbnailPreview,
+  setGalleryPreview,
+  galleryPreview,
+  setGallery ,
   editorData,
   errors,
   handleSubmit,
   register,
   trigger,
   setEditorData,
-  control 
+  selectedTags,
+  control ,
+
 }) => {
   const [completedSteps, setCompletedSteps] = useState({});
   const [invalidSteps, setInvalidSteps] = useState({});
@@ -82,8 +87,7 @@ const AddPost = ({
       case 2:
         return (
           <Step2
-            setThumbnailPreview={setThumbnailPreview}
-            setThumbnail={setThumbnail}
+
             editorData={editorData}
             setEditorData={setEditorData}
             register={register}
@@ -97,10 +101,15 @@ const AddPost = ({
       case 3:
         return (
           <Step3
-            setGallery={setGallery}
+          setThumbnailPreview={setThumbnailPreview}
+          setThumbnail={setThumbnail}
+          setGallery ={setGallery}
             galleryPreview={galleryPreview}
             setGalleryPreview={setGalleryPreview}
             register={register}
+            errors={ errors}
+            nextStep={nextStep}
+                         prevStep={prevStep}
           />
         );
 
@@ -108,16 +117,10 @@ const AddPost = ({
         return (
           <Step4
             selectedTags={selectedTags}
-            handleTagsChange={handleTagsChange}
-            tagsOptions={tagsOptions}
-            categoryOptions={categoryOptions}
-            openTagModal={openTagModal}
-            openCategoryModal={openCategoryModal}
             register={register}
             errors={errors}
-            clearErrors={clearErrors}
-            control={control}
-            setValue={setValue}
+            nextStep={nextStep}
+            prevStep={prevStep}
           />
         );
       case 5:
@@ -126,11 +129,9 @@ const AddPost = ({
             register={register}
             errors={errors}
             control={control}
-            getValues={getValues}
           />
         );
-      case 6:
-        return <Step6 />;
+     
       default:
         return null;
     }

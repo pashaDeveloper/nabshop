@@ -1,21 +1,74 @@
 // Step3.js
-import React from 'react';
+import React ,{useMemo ,useEffect }  from 'react';
 import { Controller } from "react-hook-form";
 import  Plus  from '@/components/icons/Plus';
+import  Tag  from '@/components/icons/Tag';
 import MultiSelect from "@/components/shared/dropdown/MultiSelect";
-
+import Dropdown from "@/components/shared/dropdown/Dropdown";
+import { useGetTagsQuery } from "@/services/tag/tagApi";
+import { useGetCategoriesQuery } from "@/services/category/categoryApi";
+import NavigationButton from "@/components/shared/button/NavigationButton";
+import { toast } from "react-hot-toast";
 const Step4 = ({
   tagsOptions,
   categoryOptions,
-  openTagModal,
-  openCategoryModal,
   errors,
-  control,
-  setValue
+  selectedTags,
+  selectedCategory,
+   nextStep, prevStep,
 }) => {
-  const handleTagChange = (selectedTags) => {
-    setValue("tags", selectedTags);
+  const {
+    isLoading: fetchingTags,
+    data: fetchTagsData,
+    error: fetchTagsError,
+  } = useGetTagsQuery();
+  const {
+    isLoading: fetchingCategories,
+    data: fetchCategoriesData,
+    error: fetchCategoriesError,
+  } = useGetCategoriesQuery();
+  const tags = useMemo(
+    () =>
+      fetchTagsData?.data?.map((tag) => ({
+        id: tag._id,
+        value: tag.title, 
+        label: tag.title, 
+        description: tag.description, 
+      })) || [],
+    [fetchTagsData]
+  );
+  const categories = useMemo(
+    () =>
+      fetchCategoriesData?.data?.map((category) => ({
+        id: category._id,
+        value: category.title, 
+        label: category.title, 
+        description: category.description, 
+      })) || [],
+    [fetchCategoriesData]
+  );
+  const handleOptionsChange = (newSelectedOptions) => {
+    setSelectedOptions(newSelectedOptions);
   };
+
+  useEffect(() => {
+    if (fetchingTags) {
+      toast.loading("در حال دریافت دسته بندی ...", { id: "fetchTags" });
+    }
+
+    if (fetchTagsData) {
+      toast.success(fetchTagsData?.description, {
+        id: "fetchTags",
+      });
+    }
+
+    if (fetchTagsError) {
+      toast.error(fetchTagsError?.data?.description, {
+        id: "fetchTags",
+      });
+    }
+  }, [fetchingTags, fetchTagsData, fetchTagsError]);
+
 
   return (
     <>
@@ -24,30 +77,23 @@ const Step4 = ({
         <div className="flex flex-col gap-y-2 w-full ">
           <div className="flex-1 flex items-center justify-between gap-2 gap-y-2 w-full">
             <div className="flex flex-col flex-1">
-              <label htmlFor="tags" className="flex flex-col gap-y-2 w-full">
-                تگ‌ها
-                <Controller
-                  control={control}
-                  name="tags"
-                  rules={{ required: 'انتخاب تگ الزامی است' }}
-                  render={({ field: { onChange, value } }) => (
-                    <MultiSelectDropdown
-                      items={tagsOptions}
-                      selectedItems={value || []}
-                      handleSelect={handleTagChange}
-                      icon={<TagIcon />}
-                      placeholder="چند مورد انتخاب کنید"
-                      className={"w-full h-12"}
-                    />
-                  )}
-                />
-              </label>
+            <label htmlFor="tag" className="w-full flex flex-col gap-y-1">
+          <span className="text-sm">برچسب*</span>
+          <MultiSelect
+            items={tags}
+            selectedItems={selectedTags}
+            handleSelect={handleOptionsChange}
+            className="w-full"
+            name="tags"
+            icon={<Tag size={24} />}
+          />
+        </label>
             </div>
             <div className="mt-7 flex justify-start">
               <button
                 type="button"
                 className="p-4 bg-green-400 dark:bg-blue-600 text-white rounded hover:bg-green-600 dark:hover:bg-blue-400 transition-colors"
-                onClick={openTagModal}
+           
                 aria-label="افزودن تگ جدید"
               >
                 <Plus />
@@ -65,21 +111,18 @@ const Step4 = ({
             <div className="flex flex-col flex-1">
               <label htmlFor="category" className="flex flex-col gap-y-2">
                 دسته‌بندی
-                  <MultiSelect
-                            items={tags}
-                            selectedItems={selectedOptions}
-                            handleSelect={handleOptionsChange}
-                            className="w-full"
-                            name="tags"
-                            icon={<Tag size={24} />}
-                          />
+                <Dropdown
+                    items={categories}
+                      sendId={true}
+                      errors={errors.category}
+                      className={"w-full h-12"}
+                    />
               </label>
             </div>
             <div className="mt-7 flex justify-start">
               <button
                 type="button"
                 className="p-4 bg-green-400 dark:bg-blue-600 text-white rounded hover:bg-green-600 dark:hover:bg-blue-400 transition-colors"
-                onClick={openCategoryModal}
                 aria-label="افزودن دسته‌بندی جدید"
               >
                 <Plus />
@@ -91,20 +134,9 @@ const Step4 = ({
           )}
         </div>
 
-        {/* بخش بلاگ ویژه بودن */}
-        <div className="flex flex-col gap-y-2 w-full ">
-          <label className="inline-flex items-center cursor-pointer justify-start w-full">
-            <span className="ml-3 text-right">آیا این بلاگ ویژه است؟</span>
-            <input
-              type="checkbox"
-              className="sr-only peer"
-              id="isFeatured"
-              {...control.register('isFeatured')}
-            />
-            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-          </label>
-        </div>
+      
       </div>
+      <div className="flex justify-between mt-12 right-0 absolute bottom-2 w-full px-8">         <NavigationButton direction="next" onClick={nextStep} />         <NavigationButton direction="prev" onClick={prevStep} />       </div>
     </>
   );
 };
