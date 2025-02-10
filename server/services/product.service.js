@@ -14,7 +14,6 @@ exports.addProduct = async (req, res) => {
   const { features, campaign, variations,tags, ...otherInformation } = req.body;
   let thumbnail = null;
   let gallery = [];
-console.log(req.body)
   const parsedFeatures = JSON.parse(features);
   const parsedCampaign = JSON.parse(campaign);
   const parsedVariations = JSON.parse(variations);
@@ -42,6 +41,7 @@ console.log(req.body)
     tags:parsedTags,
     thumbnail,
     gallery,
+
   });
 
   // add product id to category, brand and store
@@ -49,9 +49,7 @@ console.log(req.body)
     $push: { products: product._id },
   });
 
-  await Store.findByIdAndUpdate(product.store, {
-    $push: { products: product._id },
-  });
+
 
   res.status(201).json({
     acknowledgement: true,

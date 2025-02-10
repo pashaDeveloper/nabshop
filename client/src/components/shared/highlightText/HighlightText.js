@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const Title = ({ title, center = false }) => {
+const HighlightText = ({ title, center = false }) => {
   return (
     <div className={`relative ${center ? "text-center" : "text-right"}`}>
       {/* متن با افکت ظاهر شدن */}
@@ -24,4 +24,4 @@ const Title = ({ title, center = false }) => {
   );
 };
 
-export default Title;
+export default HighlightText;

@@ -21,6 +21,10 @@ router.post(
   "/add-post",
   verify,
   authorize("superAdmin", "admin"),
+  upload('post').fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "gallery", maxCount: 10 },
+  ]),
   postController.addPost
 );
 

@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 
 function Add() {
   const [currentStep, setCurrentStep] = useState(1);
+  
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [galleryPreview, setGalleryPreview] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [editorData, setEditorData] = useState("");
   const [gallery, setGallery] = useState(null);
   const totalSteps = 5;
@@ -20,7 +22,8 @@ function Add() {
     handleSubmit,
     watch,
     trigger,
-    control 
+    control,
+    getValues,
   } = useForm({
     mode: "onChange",
   });
@@ -50,8 +53,9 @@ function Add() {
               totalSteps={totalSteps}
               publishDate={publishDate}
               setCurrentStep={setCurrentStep}
-              galleryPreview={galleryPreview}
+              gallery={gallery}
               setGallery={setGallery}
+              galleryPreview={galleryPreview}
               setThumbnailPreview={setThumbnailPreview}
               setGalleryPreview={setGalleryPreview}
               editorData={editorData}
@@ -61,10 +65,12 @@ function Add() {
               errors={errors}
               trigger={trigger}
               control={control}
+              getValues={getValues}
+              setSelectedTags={setSelectedTags}
+              selectedTags={selectedTags}
             />
-<div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center">
-
-            <ThemeToggle />
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center">
+              <ThemeToggle />
             </div>
           </div>
           <div className="w-full">
@@ -77,10 +83,11 @@ function Add() {
               avatar={defaultValues?.avatar?.url}
             />
           </div>
-          <div className="w-full">
+          <div className="w-full min-h-[300px] max-h-[550px] overflow-y-auto">
             <PostContent
               title={watch("title")}
               content={watch("content")}
+              selectedTags={selectedTags}
               galleryPreview={galleryPreview}
               publishDate={publishDate}
               like={0}

@@ -114,14 +114,7 @@ function DisplayBrands() {
                   setIsOpen(true);
                 }}
               >
-                <Image
-                  src={brand?.logo?.url}
-                  alt={brand?.logo?.public_id}
-                  width={50}
-                  height={50}
-                  className="rounded h-[50px] w-[50px] object-cover"
-                />
-
+               
                 <div className="flex flex-col gap-y-2">
                   <h2 className="text-xl">{brand?.title}</h2>
                   <p className="flex flex-row gap-x-1 items-center rounded-primary">

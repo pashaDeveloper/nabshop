@@ -9,6 +9,8 @@ import Metrics from "@/components/shared/tools/Metrics";
 import StatusIndicator from "@/components/shared/tools/StatusIndicator";
 import SkeletonItem from "@/components/shared/skeleton/SkeletonItem";
 import Pagination from "@/components/shared/pagination/Pagination";
+import { useNavigate } from 'react-router-dom';
+
 import { useSelector } from "react-redux";
 
 const Posts = () => {
@@ -26,6 +28,7 @@ const Posts = () => {
   });
 
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoading) {
@@ -60,24 +63,20 @@ const Posts = () => {
           data?.data?.length > 0 &&
           data?.data?.map((post) => (
             <div
-              key={post.id}
+              key={post._id}
               className="mt-4 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2  transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-100 dark:hover:bg-slate-700 dark:text-white"
-              onClick={() => router.push(`/dashboard/posts/info/${post.id}`)}
-            >
+              onClick={() => navigate(`/dashboard/posts/info/${post._id}`)}
+              >
               <div className=" col-span-11 lg:col-span-3 text-center flex items-center">
                 <StatusIndicator isActive={post.status === "active"} />
                 <div className=" py-2 flex flex-row gap-x-2 hover:text-white transition-colors rounded-full cursor-pointer  items-center">
-                  {post?.featuredImage.type === "image" ? (
-                   <Image
-                   src={post?.featuredImage?.url || "/placeholder.png"}
+                   <img
+                   src={post?.thumbnail?.url || "/placeholder.png"}
                    height={100}
                    width={100}
                    className="h-[60px] w-[60px] rounded-full object-cover"
                  />
-                  ) : (
-                    <div className="h-[60px] w-[60px] rounded-full bg-gray-300 animate-pulse"></div> // Skeleton Loader
-
-                  )}
+                 
 
                   <article className="flex-col flex gap-y-2  ">
                     <span className="line-clamp-1 text-base ">

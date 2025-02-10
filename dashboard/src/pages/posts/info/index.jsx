@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Panel from "@/layouts/Panel";
-import { useRouter } from "next/router";
+import ControlPanel from "../../ControlPanel";
+import { useNavigate } from 'react-router-dom';
 import {
   useDeletePostMutation,
   useGetPostQuery,
   useUpdatePostMutation
 } from "@/services/post/postApi";
-import { useGetTagsForDropDownMenuQuery } from "@/services/tag/tagApi";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { Edit, Back, Apply, Reject, Accept } from "@/utils/SaveIcon";
-import { MdOutlineTag } from "react-icons/md";
 import SkeletonText from "@/components/shared/skeleton/SkeletonText";
 import { Controller } from "react-hook-form";
-import SearchableDropdown from "@/components/shared/dropdownmenu/SearchableDropdown";
+import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { useForm, FormProvider } from "react-hook-form";
 import RTEditor from "@/components/shared/editor/RTEditor";
 import Modal from "@/components/shared/modal/Modal";
-import GalleryUpload from "@/components/shared/gallery/ThumbnailUpload";
-import { FiTrash } from "react-icons/fi";
 import DeleteModal from "@/components/shared/modal/DeleteModal";
-import Image from 'next/image';
 
 const Info = () => {
-  const router = useRouter();
+  const router = useNavigate();
   const user = useSelector((state) => state?.auth);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -274,7 +268,7 @@ const Info = () => {
 
   return (
     <>
-      <Panel>
+      <ControlPanel>
         <div className="flex flex-col gap-y-4">
           <div>
             <div className="flex items-center justify-between ">
@@ -604,7 +598,7 @@ const Info = () => {
             </div>
           </div>
         </div>
-      </Panel>
+      </ControlPanel>
       {isModalOpen && (
         <div
           className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-opacity-70 transition-all ease-in-out duration-500"

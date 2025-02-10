@@ -4,6 +4,8 @@ import React, { useState ,useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Pagination, FreeMode } from "swiper/modules";
+import  Tag  from '@/components/icons/Tag';
+
 const PostHeader = ({ isLoading, avatar, author, publishDate }) => (
   <div className="flex flex-row-reverse col-span-1 justify-between items-center py-2 px-2">
     <div className="flex items-center flex-row-reverse">
@@ -116,18 +118,36 @@ const PostMedia = ({ isLoading, galleryPreview }) => {
 
 
 
-const PostContent = ({ content, isLoading }) => (
-  <div className="text-base leading-8 my-5 px-2 text-justify">
+const PostContent = ({ content, isLoading,title ,selectedTags }) => (
+  <>
+  <div className="text-lg flex mt-4 justify-center">{title}</div>
+  <div className="text-base leading-8 my-1 px-2 text-justify">
     {content ? (
       <div
-        dangerouslySetInnerHTML={{
-          __html: content
-        }}
+      dangerouslySetInnerHTML={{
+        __html: content
+      }}
       ></div>
     ) : (
       <SkeletonText lines={8} />
     )}
+
+{selectedTags.length > 0 ? (
+            selectedTags.map((item) => (
+              <div
+                key={item.id}
+                className="bg-blue-100  text-blue-700 px-2 py-1 rounded-md flex items-center gap-1 "
+              >
+               <span className="mr-1"><Tag /></span>
+                {item.value}
+               
+              </div>
+            ))
+          ) : (
+            <SkeletonText lines={1} />
+          )}
   </div>
+    </>
 );
 
 const PostComments = ({ comments }) => (
@@ -242,7 +262,8 @@ const Post = ({
   comments,
   avatar,
   author,
-  publishDate
+  publishDate,
+  selectedTags
 }) => {
   return (
     <div className="relative bg-white dark:bg-gray-800 dark:text-gray-100 rounded-lg shadow-lg">
@@ -253,7 +274,7 @@ const Post = ({
         publishDate={publishDate}
       />
       <PostMedia isLoading={isLoading} galleryPreview={galleryPreview} />
-      <PostContent content={content} isLoading={isLoading} />
+      <PostContent content={content} isLoading={isLoading} title={title } selectedTags={selectedTags} />
       <PostComments comments={comments} />
     </div>
   );

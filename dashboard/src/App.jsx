@@ -11,6 +11,7 @@ import Users from "./pages/users/index";
 import { Toaster } from "react-hot-toast";
 import Tags from "./pages/tags";
 import Posts from "./pages/posts";
+import PostInfo from "./pages/posts/info/index";
 import AddPost from "./pages/posts/add";
 import Units from "./pages/units";
 import Categories from "./pages/categories";
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/categories/add" element={<AddCategory />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/products/add" element={<AddProduct />} />
+          <Route path="/posts/info/:id" element={<PostInfo />} />
         </Routes>
       </Auth>
     </Providers>

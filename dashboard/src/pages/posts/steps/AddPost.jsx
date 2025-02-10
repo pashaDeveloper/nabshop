@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState,useEffect  } from "react";
 
 import NavigationButton from "@/components/shared/button/NavigationButton";
 import Step1 from "./Step1";
@@ -7,10 +6,9 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
-import Step6 from "./Step6";
 import SendButton from "@/components/shared/button/SendButton";
 import { toast } from "react-hot-toast";
-
+import { useAddPostMutation } from "@/services/Post/PostApi";
 const AddPost = ({
   totalSteps,
   currentStep,
@@ -19,60 +17,70 @@ const AddPost = ({
   setThumbnailPreview,
   setGalleryPreview,
   galleryPreview,
-  setGallery ,
+  setGallery,
   editorData,
   errors,
   handleSubmit,
   register,
   trigger,
   setEditorData,
+  setSelectedTags,
   selectedTags,
-  control ,
-
+  control,
+  getValues,
+  gallery,
 }) => {
   const [completedSteps, setCompletedSteps] = useState({});
   const [invalidSteps, setInvalidSteps] = useState({});
-  const [thumbnail , setThumbnail ] = useState({});
-
+  const [thumbnail, setThumbnail] = useState({});
+  const [addPost, { isLoading, data, error }] = useAddPostMutation();
 
   const onSubmit = async (data) => {
     const selectedTags2 = selectedTags.map((tag) => tag.id);
 
     const formData = new FormData();
+    console.log(data)
     formData.append("thumbnail", thumbnail);
     for (let i = 0; i < gallery.length; i++) {
       formData.append("gallery", gallery[i]);
     }
     formData.append("title", data.title);
-    formData.append("summary", data.summary);
     formData.append("description", data.description);
+    formData.append("content", data.content);
+    formData.append("publishDate", data.publishDate);
     formData.append("category", data.category);
-    formData.append("features", JSON.stringify(features));
-    formData.append("discountAmount", data.discountAmount);
     formData.append("isFeatured", data.isFeatured);
+    formData.append("visibility", data.visibility);
+    formData.append("readTime", data.readTime);
     formData.append(
-      "campaign",
-      JSON.stringify({
-        title: data.campaignTitle,
-        state: data.campaignState,
-      })
-    );
-    formData.append("tags", JSON.stringify(selectedTags2));
-
-    formData.append(
-      "variations",
+      "socialLinks",
       JSON.stringify(
-        data.variations.map((variation) => ({
-          unit: variation.unit,
-          price: variation.price,
-          lowStockThreshold: variation.lowStockThreshold,
-          stock: variation.stock,
+        data.socialLinks.map((socialLink) => ({
+          name: socialLink.name, 
+          url: socialLink.url,
         }))
       )
     );
-
-    addProduct(formData);
+     formData.append("tags", JSON.stringify(selectedTags2));
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+    addPost(formData);
   };
+
+   useEffect(() => {
+      if (isLoading) {
+        toast.loading("در حال افزودن پست...", { id: "addPost" });
+      }
+  
+      if (data) {
+        toast.success(data?.description, { id: "addPost" });
+      }
+  
+      if (error?.data) {
+        toast.error(error?.data?.description, { id: "addPost" });
+      }
+    }, [isLoading, data, error]);
   const renderStepContent = (step) => {
     switch (step) {
       case 1:
@@ -87,7 +95,6 @@ const AddPost = ({
       case 2:
         return (
           <Step2
-
             editorData={editorData}
             setEditorData={setEditorData}
             register={register}
@@ -101,26 +108,29 @@ const AddPost = ({
       case 3:
         return (
           <Step3
-          setThumbnailPreview={setThumbnailPreview}
-          setThumbnail={setThumbnail}
-          setGallery ={setGallery}
+            setThumbnailPreview={setThumbnailPreview}
+            setThumbnail={setThumbnail}
             galleryPreview={galleryPreview}
+            setGallery={setGallery}
+            gallery={gallery}
             setGalleryPreview={setGalleryPreview}
             register={register}
-            errors={ errors}
+            errors={errors}
             nextStep={nextStep}
-                         prevStep={prevStep}
+            prevStep={prevStep}
           />
         );
 
       case 4:
         return (
           <Step4
+            setSelectedTags={setSelectedTags}
             selectedTags={selectedTags}
             register={register}
             errors={errors}
             nextStep={nextStep}
             prevStep={prevStep}
+            control={control}
           />
         );
       case 5:
@@ -129,17 +139,15 @@ const AddPost = ({
             register={register}
             errors={errors}
             control={control}
+            getValues={getValues}
           />
         );
-     
+
       default:
         return null;
     }
   };
 
-  const handleBack = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1));
-  };
 
   const nextStep = async () => {
     let valid = false;
@@ -222,7 +230,7 @@ const AddPost = ({
       {renderStepContent(currentStep)}
 
       {currentStep === totalSteps && (
-        <div className="flex justify-between mt-12">
+        <div className="flex justify-between mt-12 right-0 absolute bottom-2 w-full px-8">
           <SendButton />
           <NavigationButton direction="prev" onClick={prevStep} />
         </div>

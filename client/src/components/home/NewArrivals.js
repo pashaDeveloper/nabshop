@@ -6,7 +6,7 @@ import Card from "../shared/Card";
 import { useGetProductsQuery } from "@/services/product/productApi";
 import ProductCard from "../shared/skeletonLoading/ProductCard";
 import { toast } from "react-hot-toast";
-import Title from "@/components/shared/title/Title";
+import HighlightText from "@/components/shared/highlightText/HighlightText";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -34,7 +34,7 @@ const NewArrivals = () => {
     <Container>
       <section className="flex flex-col gap-y-10">
         <h1 className="text-4xl w-fit">
-          <Title title={"محصولات جدید ما"} center />
+          <HighlightText title={"محصولات جدید ما"} center />
         </h1>
 
         {/* دسکتاپ: نمایش در گرید */}
@@ -61,7 +61,7 @@ const NewArrivals = () => {
             spaceBetween={10} // فاصله بین اسلایدها
             freeMode={true}
             modules={[Pagination, FreeMode]}
-            className="w-full h-screen z-5"
+            className="w-full h-full  z-5"
           >
             {productsLoading || !productsLoading && products?.length === 0 ? (
               <>

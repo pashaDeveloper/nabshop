@@ -47,7 +47,6 @@ exports.getCategories = async (res) => {
     path: "creator",
     select: "name avatar", // دریافت نام و آواتار سازنده
   });
-  console.log(categories)
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
@@ -56,13 +55,15 @@ exports.getCategories = async (res) => {
   });
 };
 
+
+
+
 exports.getProductCategories = async (res) => {
   const categories = await Category.find()
     .populate({
       path: "products",
       select: "_id",
     });
-
   const filteredCategories = categories.filter(category => category.products.length > 0);
 
   res.status(200).json({

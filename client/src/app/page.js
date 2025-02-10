@@ -10,6 +10,7 @@ import NicheExplorer from "@/components/home/NicheExplorer";
 import Steps from "@/components/home/Steps";
 import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
+import Post from "@/components/home/posts/Post";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <main className="flex flex-col gap-y-20 w-full bg-lightbg">
           <Banner1 />
           <NewArrivals />
+          <Post/>
           <Banner2 />
           <ExpertChoice />
           <NicheExplorer />

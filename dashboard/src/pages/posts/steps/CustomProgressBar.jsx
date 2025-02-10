@@ -47,14 +47,7 @@ const steps = [
 <span className="si--settings-duotone "></span>
     ),
   },
-  {
-    number: 6,
-    label: 'SEO',
-    required: false,
-    icon: (
-      <Rank />
-    ),
-  },
+ 
 ];
 
 const CustomProgressBar = ({ currentStep }) => {

@@ -28,18 +28,17 @@ const Card = ({ index, product, ...rest }) => {
   const favorite = user?.favorites?.find(
     (fav) => fav?.product?._id === product?._id
   );
-console.log(product)
   return (
     <div
       {...rest}
-      className="relative group   bg-white  rounded-2xl shadow-lg p-6  group cursor-pointer"
+      className="relative group  mb-8 bg-white  rounded-2xl shadow-lg p-6  group cursor-pointer"
       onClick={() =>
         router.push(
           `/product?product_id=${
             product?._id
           }&product_title=${product?.title
             .replace(/ /g, "-")
-            .toLowerCase()}}`
+            .toLowerCase()}`
         )
       }
 

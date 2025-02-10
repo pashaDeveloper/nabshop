@@ -25,7 +25,7 @@ const Step1 = ({publishDate,register,errors,nextStep}) => {
             },
           })}
           placeholder="عنوان پست" 
-          maxLength="50"
+          maxLength="45"
           className="p-2 rounded border w-full"
         />
         {errors.title && (
@@ -37,7 +37,7 @@ const Step1 = ({publishDate,register,errors,nextStep}) => {
     <textarea
       name="description"
       id="description"
-      maxLength={276}
+      maxLength={72}
       placeholder="توضیحات پست را وارد کنید..."
       className="p-2 rounded h-[170px]
        border w-full form-textarea"

@@ -3,11 +3,12 @@ import React, { useState, useRef, useEffect } from "react";
 const Dropdown = ({
   items = [],
   value,
-  handleSelect, // قدیمی
-  onChange, // جدید: به عنوان prop از Controller دریافت می‌شود
+  handleSelect,
+  onChange,
   sendId = false,
   className = "h-12 w-full",
   isReadOnly = false,
+  iconOnly = false, // اضافه شده
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,19 +18,19 @@ const Dropdown = ({
   const [selectedItem, setSelectedItem] = useState(() => {
     return items.find((item) => item.value === value) || null;
   });
+
   const filteredItems = items.filter((item) => item?.value?.includes(searchTerm));
 
   const handleItemSelect = (item) => {
     if (!isReadOnly) {
       setSelectedItem(item);
-      // اگر handleSelect موجود است، از آن استفاده کن، در غیر اینصورت از onChange استفاده کن.
       if (handleSelect) {
         handleSelect(sendId ? item.id : item.value);
       } else if (onChange) {
         onChange(sendId ? item.id : item.value);
       }
-      setIsOpen(false); // بستن dropdown
-      setTooltipContent(""); // پاک کردن tooltip بعد از انتخاب آیتم
+      setIsOpen(false);
+      setTooltipContent("");
     }
   };
 
@@ -79,10 +80,10 @@ const Dropdown = ({
         disabled={isReadOnly}
       >
         <span className="ml-2 dark:text-gray-100 flex justify-center text-center">
-          {selectedItem ? selectedItem.value : ""}
+          {iconOnly && selectedItem?.icon ? selectedItem.icon : selectedItem?.value || ""}
         </span>
-        {!isReadOnly && (
-          <span className=" dark:text-gray-100">
+        {!isReadOnly && !iconOnly && (
+          <span className="dark:text-gray-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5 -mr-1"
@@ -101,46 +102,43 @@ const Dropdown = ({
       </button>
       {isOpen && (
         <div className="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-50 p-2">
-          {/* Search input */}
           <input
             type="text"
             placeholder="جستجو کن"
             className="w-full px-4 py-2 border-b dark:border-gray-700 focus:outline-none dark:bg-gray-800"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <ul className="max-h-40 overflow-y-auto flex mt-2 flex-col gap-y-2 ">
-            {/* Dropdown items */}
+          <ul className="max-h-40 overflow-y-auto flex mt-2 flex-col gap-y-2">
             {filteredItems.map((item) => (
               <li
                 key={item.id}
                 onClick={() => handleItemSelect(item)}
                 onMouseEnter={(e) => handleMouseEnter(e, item.description)}
                 onMouseLeave={handleMouseLeave}
-                className="relative px-4 py-2 bg-gray-100 hover:bg-blue-100 dark:bg-gray-700 dark:hover:bg-gray-900 rounded-md cursor-pointer group"
+                className={`marker:relative  bg-gray-100 hover:bg-blue-100   ${iconOnly ?"flex justify-center":"px-2 py-2"} dark:bg-gray-700 dark:hover:bg-gray-900 rounded-md cursor-pointer group`}
               >
-                <span>{item.value}</span>
+                {iconOnly ? item.icon : item.value}
               </li>
             ))}
           </ul>
         </div>
       )}
-       {tooltipContent && (
-  <div
-    className="absolute bg-red-600/70 text-white text-xs text-center py-1 px-2 rounded-md shadow-lg backdrop-blur-md text-justify transition-opacity duration-200"
-    style={{
-      // پایین آیتم
-      left: "30%", // وسط آیتم
-      transform: "translateX(-50%)", // وسط‌چین کردن دقیق
-      marginTop: "4px", // ایجاد فاصله از آیتم
-      whiteSpace: "wrap", // جلوگیری از شکستن متن
-      pointerEvents: "none", // جلوگیری از تداخل با کلیک
-      zIndex: 50,
-      opacity: tooltipContent ? 1 : 0, // ناپدید شدن در صورت نبودن متن
-    }}
-  >
-    {tooltipContent}
-  </div>
-)}
+      {tooltipContent && (
+        <div
+          className="absolute bg-red-600/70 text-white text-xs text-center py-1 px-2 rounded-md shadow-lg backdrop-blur-md text-justify transition-opacity duration-200"
+          style={{
+            left: "30%",
+            transform: "translateX(-50%)",
+            marginTop: "4px",
+            whiteSpace: "wrap",
+            pointerEvents: "none",
+            zIndex: 50,
+            opacity: tooltipContent ? 1 : 0,
+          }}
+        >
+          {tooltipContent}
+        </div>
+      )}
     </div>
   );
 };

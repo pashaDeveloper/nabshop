@@ -60,15 +60,11 @@ const postSchema =  new mongoose.Schema(
       maxLength: [300, "توضیحات نمی‌تواند بیشتر از ۳۰۰ کاراکتر باشد"],
       required: [true, "توضیحات الزامی است"],
     },
-    featuredImage: {
+    thumbnail: {
       url: {
         type: String,
-        required: [true, "عکس شاخص الزامی است"],
-      },
-      type: {
-        type: String,
-        enum: ["image", "video","unknown"],
-        required: true,
+        required: [true, "لطفاً لینک تصویر بندانگشتی را وارد کنید"],
+        default: "https://placehold.co/296x200.png",
       },
       public_id: {
         type: String,
@@ -82,11 +78,6 @@ const postSchema =  new mongoose.Schema(
             type: String,
             default: "https://placehold.co/296x200.png",
         
-          },
-          type: {
-            type: String,
-            enum: ["image", "video","unknown"],
-            required: true,
           },
           public_id: {
             type: String,
@@ -109,10 +100,7 @@ const postSchema =  new mongoose.Schema(
       maxLength: [160, "متا توضیحات نمی‌تواند بیشتر از ۱۶۰ کاراکتر باشد"],
       default: "",
     },
-    metaKeywords: {
-      type: [String],
-      default: [],
-    },
+
     canonicalUrl: {
       type: String,
       required: false,
@@ -143,12 +131,7 @@ const postSchema =  new mongoose.Schema(
         ref: "Post",
       },
     ],
-    relatedMagzine: [
-      {
-        type: ObjectId,
-        ref: "Magzine",
-      },
-    ],
+
     relatedEvents: [
       {
         type: ObjectId,
@@ -186,114 +169,78 @@ const postSchema =  new mongoose.Schema(
       ref: "User",
       required: [true, "شناسه نویسنده الزامی است"],
     },
-    bookmarkedBy: [
-      {
-        type: ObjectId,
-        ref: "User",
-      },
-    ],
-    likes: [
-      {
-        type: ObjectId,
-        ref: "like", 
-      },
-    ],
-    dislikes: [
-      {
-        type: ObjectId,
-        ref: "like",
-      },
-    ],
-    comments: [
-      {
-        type: ObjectId,
-        ref: "Comment", 
-      },
-    ],
+
     views: {
       type: Number,
       default: 0,
       min: [0, "تعداد بازدید نمی‌تواند منفی باشد"],
     },
-    socialLinks: {
-      type: [socialLinkSchema],
-      default: [],
-    },
+    socialLinks: [
+      {
+        name: { type: String, required: true },
+        url: { type: String, required: true },
+      }
+    ],
     ...baseSchema.obj,
   },
   { timestamps: true }
 );
 
-postSchema.virtual('likeCount').get(function() {
-  return this.likes ? this.likes.length : 0;
-});
 
-postSchema.virtual('dislikeCount').get(function() {
-  return this.dislikes ? this.dislikes.length : 0;
-});
-
-postSchema.virtual('rating').get(function() {
-  const totalReactions = this.likes.length + this.dislikes.length;
-  if (totalReactions === 0) return 0;
-
-  const likeRatio = this.likes.length / totalReactions;
-  return Math.round((likeRatio * 5 + Number.EPSILON) * 100) / 100; 
-});
 
 const defaultDomain = process.env.NEXT_PUBLIC_CLIENT_URL;
 
 
 postSchema.pre("save", async function (next) {
-  if (this.isNew) {
-    this.postId = await getNextSequenceValue("postId");
-  }
+  try {
+    // تنظیم postId با استفاده از Counter
+    const counter = await Counter.findOneAndUpdate(
+      { name: "postId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
 
-  if (!this.canonicalUrl) {
-    const slugPart = this.slug ? this.slug : encodeURIComponent(this.title);
-    this.canonicalUrl = `${defaultDomain}/post/${slugPart}/${encodeURIComponent(this._id)}`;
-  }
+    this.postId = counter.seq;
 
-  if (
-    this.isModified("title") ||
-    this.isModified("category") ||
-    !this.metaTitle ||
-    !this.metaDescription ||
-    !this.metaKeywords || 
-    this.metaKeywords.length === 0
-  ) {
-    try {
+    // تنظیم canonicalUrl در صورت نبود مقدار
+    if (!this.canonicalUrl) {
+      const slugPart = this.slug ? this.slug : encodeURIComponent(this.title);
+      this.canonicalUrl = `${defaultDomain}/post/${slugPart}`;
+    }
+
+    // بررسی تغییرات و تنظیم metaTitle و metaDescription
+    if (
+      this.isModified("title") ||
+      this.isModified("category") ||
+      !this.metaTitle ||
+      !this.metaDescription
+    ) {
       const category = await Category.findById(this.category);
       const categoryTitle = category ? category.title : "عمومی";
-      const summaryText = this.summary ? this.summary : this.description || "";
+      const descriptionText = this.description ? this.description : "";
 
-      // تولید متا تایتل
+      // **تولید metaTitle**
       let combinedMetaTitle = `${this.title} | ${categoryTitle}`;
       if (combinedMetaTitle.length > 60) {
         combinedMetaTitle = combinedMetaTitle.substring(0, 57) + "...";
       }
       this.metaTitle = combinedMetaTitle;
 
-      // تولید متا دیسکریپشن
-      let combinedMetaDescription = `${summaryText} | ${categoryTitle}`;
+      // **تولید metaDescription**
+      let combinedMetaDescription = `${descriptionText} | ${categoryTitle}`;
       if (combinedMetaDescription.length > 160) {
         combinedMetaDescription = combinedMetaDescription.substring(0, 157) + "...";
       }
       this.metaDescription = combinedMetaDescription;
-
-      // تنظیم کلمات کلیدی
-      const tags = Array.isArray(this.tags) ? await Tag.find({ _id: { $in: this.tags } }) : [];
-      this.metaKeywords = tags.length ? tags.map(tag => tag.title).slice(0, 10) : [];
-      
-    } catch (error) {
-      console.error("خطا در تنظیم metaTitle، metaDescription و metaKeywords:", error);
     }
-  }
 
-  next();
+    next(); // ✅ `next()` فقط یک‌بار و در انتهای پردازش اجرا می‌شود.
+  } catch (error) {
+    console.error("خطا در تنظیم metaTitle، metaDescription و canonicalUrl:", error);
+    next(error); // اگر خطایی رخ دهد، `next(error)` را فراخوانی می‌کنیم تا مانع ذخیره‌سازی شود.
+  }
 });
 
-postSchema.set("toJSON", { virtuals: true });
-postSchema.set("toObject", { virtuals: true });
 
 const Post = mongoose.model("Post", postSchema);
 
