@@ -1,5 +1,5 @@
 # انتخاب تصویر پایه
-FROM node:18-alpine
+FROM node:18
 
 # تنظیم دایرکتوری کاری داخل کانتینر
 WORKDIR /app
