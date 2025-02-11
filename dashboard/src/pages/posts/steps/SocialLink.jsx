@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dropdown from "@/components/shared/dropdown/Dropdown";
+// import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { Controller } from "react-hook-form";
 import Trash from "@/components/icons/Trash";
 import Telegram from "@/components/icons/Telegram";
@@ -37,7 +37,7 @@ const SocialLink = ({ control, index, remove, errors }) => {
       <div className="grid items-center grid-cols-12 gap-x-2">
         {/* انتخاب شبکه اجتماعی */}
         <div className="col-span-2">
-          <Controller
+          {/* <Controller
             control={control}
             name={`socialLinks.${index}.name`}
             defaultValue="FaInstagram"
@@ -53,7 +53,7 @@ const SocialLink = ({ control, index, remove, errors }) => {
                 error={errors?.socialLinks?.[index]?.name}
               />
             )}
-          />
+          /> */}
         </div>
 
         {/* لینک */}

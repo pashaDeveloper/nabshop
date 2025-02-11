@@ -1,7 +1,7 @@
 // Step4.js
 import React from "react";
 import { useFieldArray, Controller } from "react-hook-form";
-import Dropdown from "@/components/shared/dropdown/Dropdown";
+// import Dropdown from "@/components/shared/dropdown/Dropdown";
 import  Plus  from "@/components/icons/Plus";
 import SocialLink  from "./SocialLink"; 
 const Step5 = ({ register, errors, control,getValues }) => {
@@ -32,7 +32,7 @@ const Step5 = ({ register, errors, control,getValues }) => {
         {/* دسترسی */}
         <label htmlFor="visibility" className="flex flex-col gap-y-2 w-full">
           دسترسی
-          <Controller
+          {/* <Controller
             control={control}
             name="visibility"
             render={({ field: { onChange, value } }) => (
@@ -59,7 +59,7 @@ const Step5 = ({ register, errors, control,getValues }) => {
                 error={errors.visibility}
               />
             )}
-          />
+          /> */}
           {errors.visibility && (
             <span className="text-red-500 text-sm">
               {errors.visibility.message}
@@ -70,7 +70,7 @@ const Step5 = ({ register, errors, control,getValues }) => {
         {/* تخمین مدت زمان مطالعه */}
         <label htmlFor="readTime" className="flex flex-col gap-y-2 w-full">
           تخمین مدت زمان مطالعه
-          <Controller
+          {/* <Controller
             control={control}
             name="readTime"
             render={({ field: { onChange, value } }) => (
@@ -84,7 +84,7 @@ const Step5 = ({ register, errors, control,getValues }) => {
                 error={errors?.variations?.[index]?.unit}
               />
             )}
-          />
+          /> */}
           {errors.readTime && (
             <span className="text-red-500 text-sm">
               {errors.readTime.message}

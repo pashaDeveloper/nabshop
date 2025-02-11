@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { setUnit } from "@/features/unit/unitSlice";
 import StatusSwitch from "@/components/shared/button/StatusSwitch";
 import { useGetCategoriesQuery } from "@/services/category/categoryApi";
-import Dropdown from "@/components/shared/dropDown/Dropdown";
+// import Dropdown from "@/components/shared/dropDown/Dropdown";
 import { useForm, Controller } from "react-hook-form";
 
 const UpdateUnit = ({ id }) => {
@@ -193,7 +193,7 @@ const UpdateUnit = ({ id }) => {
                 </label>
               </div>
               <div className="flex flex-col gap-y-2 w-full">
-                <Controller
+                {/* <Controller
                   control={control}
                   name="category"
                   render={({ field }) => (
@@ -205,7 +205,7 @@ const UpdateUnit = ({ id }) => {
                       value={field.value || fetchData?.data?.category?._id || ""}
                     />
                   )}
-                />
+                /> */}
                 {errors.category && <span className="text-red-500 text-xs">{errors.category.message}</span>}
               </div>
 

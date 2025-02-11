@@ -420,7 +420,7 @@ const Info = () => {
                         className="flex flex-col gap-y-2 "
                       >
                         دسته‌بندی
-                        <Controller
+                        {/* <Controller
                           control={control}
                           name="category"
                           rules={{ required: "انتخاب دسته‌بندی الزامی است" }}
@@ -436,7 +436,7 @@ const Info = () => {
                               className={"w-[300px]"}
                             />
                           )}
-                        />
+                        /> */}
                       </label>
                       <button
                         className="appearance-none w-9 h-9"
