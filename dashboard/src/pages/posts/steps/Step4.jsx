@@ -3,7 +3,7 @@ import React, { useMemo, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import Plus from "@/components/icons/Plus";
 import Tag from "@/components/icons/Tag";
-import MultiSelect from "@/components/shared/dropdown/MultiSelect";
+// import MultiSelect from "@/components/shared/dropdown/MultiSelect";
 import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { useGetTagsQuery } from "@/services/tag/tagApi";
 import { useGetCategoriesQuery } from "@/services/category/categoryApi";
@@ -97,14 +97,14 @@ const Step4 = ({
             <div className="flex flex-col flex-1">
               <label htmlFor="tag" className="w-full flex flex-col gap-y-1">
                 <span className="text-sm">برچسب*</span>
-                <MultiSelect
+                {/* <MultiSelect
                   items={tags}
                   selectedItems={selectedTags}
                   handleSelect={handleOptionsChange}
                   className="w-full"
                   name="tags"
                   icon={<Tag size={24} />}
-                />
+                /> */}
               </label>
             </div>
             <div className="mt-7 flex justify-start">

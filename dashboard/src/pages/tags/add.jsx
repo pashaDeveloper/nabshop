@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Minus from "@/components/icons/Minus";
 import Plus from "@/components/icons/Plus";
 import Button from "@/components/shared/button/Button";
-import {MultiSelect} from "@/components/shared/dropdown/MultiSelect";
+// import MultiSelect from "@/components/shared/dropdown/MultiSelect";
 import { useAddTagMutation } from "@/services/tag/tagApi";
 import { toast } from "react-hot-toast";
 import Modal from "@/components/shared/modal/Modal";
@@ -207,14 +207,14 @@ const AddTag = ({ isOpen, onClose }) => {
 
     {/* انتخاب ربات‌ها */}
     ربات‌ها*
-    <MultiSelect
+    {/* <MultiSelect
       items={robotOptions}
       selectedItems={selectedOptions}
       handleSelect={handleOptionsChange}
       className="w-full"
       name="robots"
       icon={<Robot size={24} />}
-    />
+    /> */}
 
     <Button type="submit" className="py-2 mt-4 mb-4 bg-black">
       ایجاد کردن

@@ -1,7 +1,7 @@
 import Minus from "@/components/icons/Minus";
 import Plus from "@/components/icons/Plus";
 import Button from "@/components/shared/button/Button";
-import MultiSelect from "@/components/shared/dropdown/MultiSelect";
+// import MultiSelect from "@/components/shared/dropdown/MultiSelect";
 import { useGetTagQuery, useUpdateTagMutation } from "@/services/tag/tagApi";
 import { toast } from "react-hot-toast";
 import Modal from "@/components/shared/modal/Modal";
@@ -269,14 +269,14 @@ const UpdateTag = ({ id }) => {
               </div>
               {/* انتخاب ربات‌ها */}
               ربات‌ها*
-              <MultiSelect
+              {/* <MultiSelect
                 items={robotOptions}
                 selectedItems={selectedOptions}
                 handleSelect={handleOptionsChange}
                 className="w-full"
                 name="robots"
                 icon={<Robot size={24} />}
-              />
+              /> */}
               <div className="flex flex-col gap-y-2 w-full ">
                 <StatusSwitch
                   label="وضعیت"
