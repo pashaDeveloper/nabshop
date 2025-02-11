@@ -4,25 +4,18 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  define: {
-    'process.env': process.env
-  },
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // تعریف alias برای src
-      '@tailwindConfig': path.resolve(__dirname, 'tailwind.config.js'),
-
+      '@': path.resolve(__dirname, 'src'),
     },
   },
-  optimizeDeps: {
-    include: [
-      '@tailwindConfig',
-    ]
-  }, 
+  define: {
+    'import.meta.env.VITE_BASE_URL': JSON.stringify(process.env.VITE_BASE_URL || 'http://localhost:8080/api'),
+  },
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,
     }
-  } 
+  }
 })
