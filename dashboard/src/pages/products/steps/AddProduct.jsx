@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import NavigationButton from "@/components/shared/button/NavigationButton";
 import { useForm } from "react-hook-form";
 import SendButton from "@/components/shared/button/SendButton";
-import { useAddProductMutation } from "@/services/Product/ProductApi";
+import { useAddProductMutation } from "@/services/product/productApi";
 import ThumbnailStep from "./Thumbnail";
 import StepIndicator from "./StepIndicator";
 import Title from "./Title";
