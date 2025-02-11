@@ -8,7 +8,7 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 import SendButton from "@/components/shared/button/SendButton";
 import { toast } from "react-hot-toast";
-import { useAddPostMutation } from "@/services/Post/PostApi";
+import { useAddPostMutation } from "@/services/post/postApi";
 const AddPost = ({
   totalSteps,
   currentStep,
