@@ -10,19 +10,22 @@ const app = express();
 
 /* allowed origins */
 const allowedOrigins = [
-  process.env.NEXT_PUBLIC_CLIENT_URL,
-  process.env.NEXT_PUBLIC_DASHBOARD_URL,
+  process.env.NEXT_PUBLIC_CLIENT_URL,  // دامنه‌های مجاز برای درخواست‌ها
+  process.env.NEXT_PUBLIC_DASHBOARD_URL, // می‌توانید دامنه‌های دیگری هم اضافه کنید
 ];
-/* middleware connections */
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.header("Access-Control-Allow-Methods", "GET, PATCH, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+
+/* cors configuration */
+const corsOptions = {
+  origin: allowedOrigins,  // دامنه‌های مجاز
+  methods: ["GET", "POST", "PATCH", "DELETE"],  // روش‌های مجاز
+  allowedHeaders: ["Content-Type", "Authorization"],  // هدرهای مجاز
+  credentials: true,  // اگر نیاز به ارسال کوکی‌ها و session دارید
+};
+
+// استفاده از cors برای تمام درخواست‌ها
+app.use(cors(corsOptions));
+
+// middleware برای پردازش درخواست‌ها
 app.use(express.json());
 
 /* router level connections */
