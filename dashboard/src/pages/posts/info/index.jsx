@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import SkeletonText from "@/components/shared/skeleton/SkeletonText";
 import { Controller } from "react-hook-form";
-import Dropdown from "@/components/shared/dropDown/Dropdown";
+import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { useForm, FormProvider } from "react-hook-form";
 import RTEditor from "@/components/shared/editor/RTEditor";
 import Modal from "@/components/shared/modal/Modal";
