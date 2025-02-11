@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import Expand from "@/components/icons/Expand";
 import Calendar from "@/components/icons/Calendar";
-import Messages from "@/components/icons/messages";
+import Messages from "@/components/icons/Messages";
 import Dashboard from "@/components/icons/Dashboard";
 import User from "@/components/icons/User";
 import Category from "@/components/icons/Category";
