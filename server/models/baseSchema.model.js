@@ -5,7 +5,7 @@ const baseSchema =  new mongoose.Schema(
     status: {
       type: String,
       enum: ["active", "inactive"],
-      default: "active",
+      default: "inactive",
     },
     isDeleted: {
       type: Boolean,

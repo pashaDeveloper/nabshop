@@ -42,7 +42,11 @@ const upload = (bucketName) => {
   const minioUploadMiddleware = (fieldConfig) => async (req, res, next) => {
     multerInstance.fields(fieldConfig)(req, res, async (err) => {
       if (err) {
-        return res.status(400).json({ success: false, message: err.message });
+        return res.status(400).json({ 
+          acknowledgement: false, 
+          message: "Bad Request", 
+          description: err.message 
+        });
       }
 
       const dateFolder = getDateFolder();
@@ -86,7 +90,11 @@ const upload = (bucketName) => {
         next();
       } catch (error) {
         console.error("Error uploading to MinIO:", error);
-        res.status(500).json({ success: false, message: "Error uploading files" });
+        res.status(500).json({
+          acknowledgement: false,
+          message: "Internal Server Error",
+          description: `خطا در بارگذاری فایل‌ها به MinIO: ${error.message}`,
+        });
       }
     });
   };

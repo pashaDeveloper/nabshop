@@ -18,7 +18,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Signing up...", { id: "signup" });
+      toast.loading("در حال ورود...", { id: "signup" });
     }
 
     if (data) {

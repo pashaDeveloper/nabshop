@@ -12,18 +12,18 @@ const UpdateUser = ({ setIsOpen }) => {
   const [updateUser, { isLoading, data, error }] = useUpdateUserInfoMutation();
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Updating User Information...", {
+      toast.loading("در حال بروزرسانی اطلاعات کاربرn...", {
         id: "updateUser",
       });
     }
 
     if (data) {
-      toast.success(data?.message, { id: "updateUser" });
+      toast.success(data?.description, { id: "updateUser" });
       setIsOpen(false);
     }
 
     if (error?.data) {
-      toast.error(error?.data?.message, {
+      toast.error(error?.data?.description, {
         id: "updateUser",
       });
     }

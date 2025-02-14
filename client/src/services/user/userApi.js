@@ -3,18 +3,6 @@ const { nabApi } = require("../nab");
 
 const userApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
-    // get all users
-    getUsers: builder.query({
-      query: () => ({
-        url: "/user/all-users",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }),
-
-      providesTags: ["User"],
-    }),
 
     // get user
     getUser: builder.query({
@@ -43,19 +31,7 @@ const userApi = nabApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
-    // user single user
-    updateUserInfo: builder.mutation({
-      query: ({ id, body }) => ({
-        url: `/user/update-user/${id}`,
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body,
-      }),
 
-      invalidatesTags: ["User"],
-    }),
 
     // delete user
     deleteUser: builder.mutation({
@@ -70,40 +46,15 @@ const userApi = nabApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
-    // get seller request
-    getSellerRequest: builder.query({
-      query: () => ({
-        url: "/user/seller-review",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }),
 
-      providesTags: ["User"],
-    }),
 
-    // review seller
-    reviewSeller: builder.mutation({
-      query: ({ id, body }) => ({
-        url: `/user/seller-review?id=${id}`,
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body,
-      }),
-
-      invalidatesTags: ["User"],
-    }),
+ 
   }),
 });
 
 export const {
-  useGetUsersQuery,
   useGetUserQuery,
   useUpdateUserMutation,
-  useUpdateUserInfoMutation,
   useDeleteUserMutation,
   useGetSellerRequestQuery,
   useReviewSellerMutation,

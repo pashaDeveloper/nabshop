@@ -13,40 +13,44 @@ const token = require("../utils/token.util");
 /* sign up an user */
 exports.signUp = async (req, res) => {
   const { body, file } = req;
-  const { name, email, password, phone ,avatarUrl} = body; 
+  const { name, email, password, phone, avatarUrl } = body;
 
   if (!name || !email || !password || !phone) {
     return res.status(400).json({
       acknowledgement: false,
       message: "درخواست نادرست",
       description: "همه فیلدها الزامی است",
-      isSuccess: false,
+      isSuccess: false
     });
   }
 
   const existingUser = await User.findOne({
-    $or: [{ email: email }, { phone: phone }],
+    $or: [{ email: email }, { phone: phone }]
   });
-if (existingUser) {
+  if (existingUser) {
     return {
-        success: false,
-        message: "کاربری با این ایمیل یا شماره تلفن قبلاً ثبت‌نام کرده است. لطفاً به صفحه ورود بروید.",
-        redirectToLogin: true,
+      success: false,
+      message:
+        "کاربری با این ایمیل یا شماره تلفن قبلاً ثبت‌نام کرده است. لطفاً به صفحه ورود بروید.",
+      redirectToLogin: true
     };
-}
-
-
-if (req.uploadedFiles && req.uploadedFiles["avatar"] && req.uploadedFiles["avatar"].length > 0) {
-  avatar = {
-      url: req.uploadedFiles["avatar"][0].url,
-      public_id: req.uploadedFiles["avatar"][0].key,
   }
-}else{
-  avatar = {
-    url: avatarUrl,
-    public_id: null,
-}
-}
+
+  if (
+    req.uploadedFiles &&
+    req.uploadedFiles["avatar"] &&
+    req.uploadedFiles["avatar"].length > 0
+  ) {
+    avatar = {
+      url: req.uploadedFiles["avatar"][0].url,
+      public_id: req.uploadedFiles["avatar"][0].key
+    };
+  } else {
+    avatar = {
+      url: avatarUrl,
+      public_id: null
+    };
+  }
   const userCount = await User.countDocuments();
   const role = userCount === 0 ? "superAdmin" : "buyer";
   const status = userCount === 0 ? "active" : "inactive";
@@ -56,8 +60,8 @@ if (req.uploadedFiles && req.uploadedFiles["avatar"] && req.uploadedFiles["avata
     email: body.email,
     password: body.password,
     phone: body.phone,
-    role:role,
-    status:status,
+    role: role,
+    status: status,
     avatar
   });
 
@@ -76,12 +80,12 @@ if (req.uploadedFiles && req.uploadedFiles["avatar"] && req.uploadedFiles["avata
 /* sign in an user */
 exports.signIn = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-console.log('user',user)
+  console.log("user", user);
   if (!user) {
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",
-      description: "کاربر یافت نشد",
+      description: "کاربر یافت نشد"
     });
   } else {
     const isPasswordValid = user.comparePassword(
@@ -93,14 +97,14 @@ console.log('user',user)
       res.status(401).json({
         acknowledgement: false,
         message: "Unauthorized",
-        description: "رمز عبور صحیح نیست",
+        description: "رمز عبور صحیح نیست"
       });
     } else {
       if (user.status === "inactive") {
         res.status(401).json({
           acknowledgement: false,
           message: "Unauthorized",
-          description: "Your seller account in a review state",
+          description: "حساب شما در حال حاضر  غیر فعال است لطفا منتظر بمانید"
         });
       } else {
         const accessToken = token({
@@ -108,14 +112,14 @@ console.log('user',user)
           name: user.name,
           email: user.email,
           role: user.role,
-          status: user.status,
+          status: user.status
         });
 
         res.status(200).json({
           acknowledgement: true,
           message: "OK",
-          description: "Login successful",
-          accessToken,
+          description: "شمابا موفقیت ورود کردید",
+          accessToken
         });
       }
     }
@@ -126,11 +130,11 @@ console.log('user',user)
 exports.forgotPassword = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
-  if (!user) {  
+  if (!user) {
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",
-      description: "کاربر یافت نشد",
+      description: "کاربر یافت نشد"
     });
   } else {
     const hashedPassword = user.encryptedPassword(req.body.password);
@@ -144,60 +148,55 @@ exports.forgotPassword = async (req, res) => {
     res.status(200).json({
       acknowledgement: true,
       message: "OK",
-      description: "Password reset successful",
+      description: "پسورد کاربر با موفقیت تغییر کرد"
     });
   }
 };
 
 /* login persistance */
 exports.persistLogin = async (req, res) => {
-  
   const user = await User.findById(req.user._id).populate([
     {
       path: "cart",
-      populate: [
-        { path: "product", populate: [ "category"] },
-        "user",
-      ],
+      populate: [{ path: "product", populate: ["category"] }, "user"]
     },
     {
       path: "reviews",
-      populate: ["product", "reviewer"],
+      populate: ["product", "reviewer"]
     },
     {
       path: "favorites",
       populate: [
         {
           path: "product",
-          populate: ["category"],
+          populate: ["category"]
         },
-        "user",
-      ],
+        "user"
+      ]
     },
     {
       path: "purchases",
-      populate: ["customer", "products.product"],
+      populate: ["customer", "products.product"]
     },
-    "products",
+    "products"
   ]);
 
   if (!user) {
     res.status(404).json({
       acknowledgement: false,
       message: "Not Found",
-      description: "کاربر یافت نشد",
+      description: "کاربر یافت نشد"
     });
   } else {
     res.status(200).json({
       acknowledgement: true,
       message: "OK",
       description: "ورود با موفقیت انجام شد",
-      data: user,
+      data: user
     });
   }
 };
 
-  
 /* get all users */
 exports.getUsers = async (res) => {
   const users = await User.find();
@@ -206,7 +205,7 @@ exports.getUsers = async (res) => {
     acknowledgement: true,
     message: "OK",
     description: "دریافت موفق کاربران",
-    data: users,
+    data: users
   });
 };
 
@@ -218,7 +217,7 @@ exports.getUser = async (req, res) => {
     acknowledgement: true,
     message: "OK",
     description: `اطلاعات کاربر${user.name}' با موفقیت دریافت شد`,
-    data: user,
+    data: user
   });
 };
 
@@ -226,211 +225,208 @@ exports.getUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const existingUser = await User.findById(req.user._id);
   const user = req.body;
-  if (!req.body.avatar && req.file) {
-    await remove(existingUser.avatar?.public_id);
 
-    user.avatar = {
-      url: req.file.path,
-      public_id: req.file.filename,
+  // بررسی عدم تغییر نقش superAdmin
+  if (user.role === "superAdmin") {
+    return res.status(403).json({
+      acknowledgement: false,
+      message: "Forbidden",
+      description: "کاربر مدیر کل قابل ویرایش نیست",
+    });
+  }
+
+  // حذف تصویر آواتار قدیمی اگر تصویر جدیدی ارسال شده
+  if (
+    req.uploadedFiles &&
+    req.uploadedFiles["avatar"] &&
+    req.uploadedFiles["avatar"].length > 0
+  ) {
+    // حذف تصویر قبلی از سرویس ذخیره‌سازی
+    await remove("avatar", existingUser.avatar?.public_id);
+
+    // تنظیم تصویر جدید
+    avatar = {
+      url: req.uploadedFiles["avatar"][0].url,
+      public_id: req.uploadedFiles["avatar"][0].key,
+    };
+  } else if (!req.body.avatarUrl) {
+    // اگر تصویر جدید نیست، حذف تصویر قبلی
+    if (existingUser.avatar?.public_id) {
+      await remove("avatar", existingUser.avatar.public_id);
+    }
+
+    // در صورت عدم ارسال آدرس جدید برای تصویر، مقدار پیش‌فرض
+    avatar = {
+      url: null,
+      public_id: null,
     };
   }
 
+  // به‌روزرسانی اطلاعات کاربر
   const updatedUser = await User.findByIdAndUpdate(
     existingUser._id,
-    { $set: user },
+    {
+      $set: {
+        ...user,
+        avatar, // اطمینان از ارسال تصویر جدید
+      },
+    },
     {
       runValidators: true,
+      new: true, // اطمینان از اینکه داده‌های به‌روزرسانی‌شده برگردند
     }
   );
 
   res.status(200).json({
     acknowledgement: true,
     message: "OK",
-    description: `${updatedUser.name}'s information updated successfully`,
+    description: `اطلاعات ${updatedUser.name} با موفقیت تغییر کرد`,
   });
 };
+
 
 /* update user information */
 exports.updateUserInfo = async (req, res) => {
   const existingUser = await User.findById(req.params.id);
   const user = req.body;
 
-  if (!req.body.avatar && req.file) {
-    await remove(existingUser.avatar?.public_id);
+  // بررسی عدم تغییر نقش superAdmin
+  if (user.role === "superAdmin") {
+    return res.status(403).json({
+      acknowledgement: false,
+      message: "دسترسی ممنوع",
+      description: "کاربر مدیر کل قابل ویرایش نیست",
+    });
+  }
 
-    user.avatar = {
-      url: req.file.path,
-      public_id: req.file.filename,
+  // متغیر avatar برای ذخیره‌سازی اطلاعات آواتار جدید
+  let avatar = existingUser.avatar;
+
+  // حذف تصویر آواتار قدیمی اگر تصویر جدیدی ارسال شده
+  if (
+    req.uploadedFiles &&
+    req.uploadedFiles["avatar"] &&
+    req.uploadedFiles["avatar"].length > 0
+  ) {
+    // حذف تصویر قبلی از سرویس ذخیره‌سازی
+    await remove("avatar", existingUser.avatar?.public_id);
+
+    // تنظیم تصویر جدید
+    avatar = {
+      url: req.uploadedFiles["avatar"][0].url,
+      public_id: req.uploadedFiles["avatar"][0].key,
+    };
+  } else if (req.body.avatarUrl) {
+    // اگر تصویر جدید نیست، حذف تصویر قبلی
+    if (existingUser.avatar?.public_id) {
+      await remove("avatar", existingUser.avatar.public_id);
+    }
+
+    // در صورت عدم ارسال آدرس جدید برای تصویر، مقدار پیش‌فرض
+    avatar = {
+      url: null,
+      public_id: null,
     };
   }
 
+  // به‌روزرسانی اطلاعات کاربر همراه با آواتار جدید
   const updatedUser = await User.findByIdAndUpdate(
     existingUser._id,
-    { $set: user },
+    { $set: { ...user, avatar } },  // اضافه کردن avatar به فیلدهای بروزرسانی
     {
-      runValidators: true,
+      runValidators: true,  // اجرای اعتبارسنجی
+      new: true  // دریافت داده‌های به‌روزرسانی‌شده
     }
   );
 
   res.status(200).json({
     acknowledgement: true,
     message: "OK",
-    description: `${updatedUser.name}'s information updated successfully`,
+    description: `اطلاعات ${updatedUser.name} با موفقیت تغییر کرد`
   });
 };
+
 
 /* delete user information */
 exports.deleteUser = async (req, res) => {
-  const user = await User.findByIdAndDelete(req.params.id);
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    {
+      isDeleted: true,
+      deletedAt: Date.now(),
+    },
+    { new: true }
+  );
 
-  // remove user avatar
-  await remove(user.avatar?.public_id);
-
-  // remove user cart
+  if (!user) {
+    return res.status(404).json({
+      acknowledgement: false,
+      message: "کاربر یافت نشد",
+    });
+  }
+  if (user.role === "superAdmin") {
+    return res.status(403).json({
+      acknowledgement: false,
+      "message": "ممنوع",
+      description: "کاربر مدیر کل قابل حذف نیست",
+    });
+  }
+  
+  // Soft delete user cart
   if (user.cart.length > 0) {
-    user.cart.forEach(async (cart) => {
-      await Cart.findByIdAndDelete(cart._id);
-    });
-  }
-
-  // remove user favorites
-  if (user.favorites.length > 0) {
-    user.favorites.forEach(async (favorite) => {
-      await Favorite.findByIdAndDelete(favorite._id);
-    });
-  }
-
-  // remove user reviews
-  if (user.reviews.length > 0) {
-    user.reviews.forEach(async (review) => {
-      await Review.findByIdAndDelete(review._id);
-    });
-  }
-
-  // remove user purchases
-  if (user.purchases.length > 0) {
-    user.purchases.forEach(async (purchase) => {
-      await Purchase.findByIdAndDelete(purchase._id);
-    });
-  }
-
-  // remove store
-  if (user.store) {
-    const store = await Store.findByIdAndDelete(user.store);
-
-    // remove store thumbnail
-    await remove(store?.thumbnail?.public_id);
-
-    // remove store products
-    store.products.forEach(async (prod) => {
-      const product = await Product.findByIdAndDelete(prod);
-
-      // remove product thumbnail
-      await remove(product?.thumbnail?.public_id);
-
-      // remove product gallery
-      product.gallery.forEach(async (gallery) => {
-        await remove(gallery?.public_id);
-      });
-
-      // remove product reviews
-      product.reviews.forEach(async (review) => {
-        await Review.findByIdAndDelete(review._id);
-      });
-    });
-  }
-
-  // remove category
-  if (user.category) {
-    const category = await Category.findByIdAndDelete(user.category);
-
-    // remove category thumbnail
-    await remove(category?.thumbnail?.public_id);
-
-    // remove category products
-    category.products.forEach(async (prod) => {
-      const product = await Product.findByIdAndDelete(prod);
-
-      // remove product thumbnail
-      await remove(product?.thumbnail?.public_id);
-
-      // remove product gallery
-      product.gallery.forEach(async (gallery) => {
-        await remove(gallery?.public_id);
-      });
-
-      // remove product reviews
-      product.reviews.forEach(async (review) => {
-        await Review.findByIdAndDelete(review._id);
-      });
-    });
-  }
-
-  // remove brand
-  if (user.brand) {
-    const brand = await Brand.findByIdAndDelete(user.brand);
-
-    // remove brand logo
-    await remove(brand?.logo?.public_id);
-
-    // remove brand products
-    brand.products.forEach(async (prod) => {
-      const product = await Product.findByIdAndDelete(prod);
-
-      // remove product thumbnail
-      await remove(product?.thumbnail?.public_id);
-
-      // remove product gallery
-      product.gallery.forEach(async (gallery) => {
-        await remove(gallery?.public_id);
-      });
-
-      // remove product reviews
-      product.reviews.forEach(async (review) => {
-        await Review.findByIdAndDelete(review._id);
-      });
-    });
-  }
-
-  // remove user from product's buyers array
-  if (user.products.length > 0) {
-    await Product.updateMany(
-      {},
-      {
-        $pull: {
-          buyers: user._id,
-        },
-      }
+    await Cart.updateMany(
+      { _id: { $in: user.cart } },
+      { isDeleted: true, deletedAt: Date.now() }
     );
   }
 
+  // Soft delete user favorites
+  if (user.favorites.length > 0) {
+    await Favorite.updateMany(
+      { _id: { $in: user.favorites } },
+      { isDeleted: true, deletedAt: Date.now() }
+    );
+  }
+
+  // Soft delete user reviews
+  if (user.reviews.length > 0) {
+    await Review.updateMany(
+      { _id: { $in: user.reviews } },
+      { isDeleted: true, deletedAt: Date.now() }
+    );
+  }
+
+  // Soft delete user purchases
+  if (user.purchases.length > 0) {
+    await Purchase.updateMany(
+      { _id: { $in: user.purchases } },
+      { isDeleted: true, deletedAt: Date.now() }
+    );
+  }
+
+  // Soft delete category if exists
+  if (user.category) {
+    await Category.findByIdAndUpdate(user.category, {
+      isDeleted: true,
+      deletedAt: Date.now(),
+    });
+
+    // Soft delete products of the category
+    await Product.updateMany(
+      { category: user.category },
+      { isDeleted: true, deletedAt: Date.now() }
+    );
+  }
+
+  // Remove user from product buyers array
+  await Product.updateMany(
+    { buyers: user._id },
+    { $pull: { buyers: user._id } }
+  );
+
   res.status(200).json({
     acknowledgement: true,
     message: "OK",
-    description: `${user.name}'s information deleted successfully`,
-  });
-};
-
-// seller request & approve
-exports.getSellers = async (res) => {
-  const users = await User.find({ role: "seller", status: "inactive" }).populate(["brand", "category", "store"]);
-
-  res.status(200).json({
-    acknowledgement: true,
-    message: "OK",
-    description: "Sellers retrieved successfully",
-    data: users,
-  });
-};
-
-exports.reviewSeller = async (req, res) => {
-  await User.findByIdAndUpdate(req.query.id, {
-    $set: req.body,
-  });
-
-  res.status(200).json({
-    acknowledgement: true,
-    message: "OK",
-    description: "Seller reviewed successfully",
+    description: ` کاربر${user.name}'s با موفقیت حذف شد`
   });
 };

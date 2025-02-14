@@ -20,7 +20,6 @@ function Users() {
   const [isOpen, setIsOpen] = useState(false);
   const users = useMemo(() => data?.data || [], [data]);
   const [filter, setFilter] = useState("all");
-
   const filteredUsers = useMemo(
     () => users.filter((user) => user?.role === filter || filter === "all"),
     [users, filter]

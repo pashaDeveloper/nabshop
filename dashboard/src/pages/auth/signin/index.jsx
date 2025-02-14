@@ -1,17 +1,16 @@
-
 import React, { useEffect } from "react";
 import Spinner from "@/components/shared/Spinner";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSignInMutation } from "@/services/auth/authApi";
 import { toast } from "react-hot-toast";
 import ThemeToggle from "@/components/ThemeToggle";
-
+import logo from "/logo.png";
 const Signin = () => {
   const [signin, { isLoading, data, error }] = useSignInMutation();
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Signing in...", { id: "signin" });
+      toast.loading("در حال ورود...", { id: "signin" });
     }
 
     if (data) {
@@ -37,22 +36,21 @@ const Signin = () => {
 
   return (
     <section className="w-screen relative h-screen overflow-hidden flex justify-center items-center p-4 ">
-    <div className="wave "></div>
-    <div className="wave wave2 "></div>
-    <div className="wave wave3"></div>
-    <div className="max-w-md w-full bg-white dark:bg-gray-900 z-50 flex flex-col gap-y-4  p-8 rounded-primary shadow-lg">
-    <div className="flex flex-row items-center gap-x-2">
-    <hr className="w-full   dark:border-gray-600" />{" "}
-    <img
-            src="/logo.png"
+      <div className="wave "></div>
+      <div className="wave wave2 "></div>
+      <div className="wave wave3"></div>
+      <div className="max-w-md w-full bg-white dark:bg-gray-900 z-50 flex flex-col gap-y-4  p-8 rounded-primary shadow-lg">
+        <div className="flex flex-row items-center gap-x-2">
+          <hr className="w-full   dark:border-gray-600" />{" "}
+          <img
+            src={logo}
             alt="logo"
             width={141}
             height={40}
             className="max-w-full cursor-pointer"
-          
           />
           <hr className="w-full   dark:border-gray-600" />
-          </div>
+        </div>
         <form
           action=""
           className="w-full flex flex-col gap-y-4"
@@ -97,9 +95,9 @@ const Signin = () => {
             فراموشی رمز عبور
           </NavLink>
         </div>
-         <div className="flex flex-row justify-center items-center gap-x-2 text-xs">
-                  <ThemeToggle />
-                </div>
+        <div className="flex flex-row justify-center items-center gap-x-2 text-xs">
+          <ThemeToggle />
+        </div>
       </div>
     </section>
   );
