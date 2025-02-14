@@ -35,11 +35,11 @@ const DeleteUser = ({ id }) => {
     }
 
     if (fetchData) {
-      toast.success(fetchData?.message, { id: "fetchUser" });
+      toast.success(fetchData?.description, { id: "fetchUser" });
     }
 
     if (fetchError?.data) {
-      toast.error(fetchError?.data?.message, { id: "fetchUser" });
+      toast.error(fetchError?.data?.description, { id: "fetchUser" });
     }
 
     if (deleting) {
@@ -47,12 +47,12 @@ const DeleteUser = ({ id }) => {
     }
 
     if (deleteData) {
-      toast.success(deleteData?.message, { id: "deleteUser" });
+      toast.success(deleteData?.description, { id: "deleteUser" });
       setIsOpen(false);
     }
 
     if (deleteError?.data) {
-      toast.error(deleteError?.data?.message, { id: "deleteUser" });
+      toast.error(deleteError?.data?.description, { id: "deleteUser" });
     }
   }, [fetching, fetchData, fetchError, deleting, deleteData, deleteError]);
 

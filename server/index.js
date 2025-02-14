@@ -9,8 +9,10 @@ const consoleMessage = require("./utils/console.util");
 const port = process.env.PORT || 3000;
 
 /* database connection */
+const uri = `${process.env.ATLAS_URI}/${process.env.DB_NAME}`;
+
 mongoose
-  .connect(process.env.ATLAS_URI, {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ControlPanel from "../ControlPanel";
 import Modal from "@/components/shared/modal/Modal";
-import {
-  useGetUsersQuery,
-} from "@/services/user/userApi";
+import { useGetUsersQuery } from "@/services/user/userApi";
 import { toast } from "react-hot-toast";
 import StatusIndicator from "@/components/shared/tools/StatusIndicator";
 import Edit from "@/components/icons/Edit";
@@ -27,7 +25,7 @@ function Users() {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Fetching Users...", { id: "allUsers" });
+      toast.loading("در حال دریافت کاربران...", { id: "allUsers" });
     }
     if (data) {
       toast.success(data?.description, { id: "allUsers" });
@@ -111,7 +109,7 @@ function Users() {
         {filteredUsers?.map((user) => (
           <div
             key={user?._id}
-            className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-100 dark:hover:bg-gray-800 dark:text-slate-100"
+            className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-50 dark:hover:bg-gray-800 dark:text-slate-100"
           >
             <div className="col-span-11 lg:col-span-3 text-center flex items-center">
               <StatusIndicator isActive={user.status === "active"} />
@@ -179,10 +177,8 @@ function Users() {
                   >
                     <Edit className="w-5 h-5" />
                   </span>
-                  <span
-                    
-                  >
-                 <DeleteUser id={user?._id} />
+                  <span>
+                    <DeleteUser id={user?._id} />
                   </span>
                 </article>
               </div>
@@ -207,8 +203,5 @@ function Users() {
     </ControlPanel>
   );
 }
-
-
-
 
 export default Users;
