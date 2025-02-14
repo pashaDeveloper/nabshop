@@ -18,38 +18,37 @@ const Header = () => {
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
   }, []);
   const niches = [
     {
       title: "محصولات",
-      icon: <Brand />,
+      icon: <Brand />
     },
     {
       title: "دسته بندی",
-      icon: <Category />,
+      icon: <Category />
     },
     {
       title: "مجله",
-      icon: <Store />,
-    },
+      icon: <Store />
+    }
   ];
   const [selectedNiche, setSelectedNiche] = useState("Category");
 
   return (
     <div className=" relative flex justify-center">
-       <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-2 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
-       <div className="md:flex flex-row gap-x-4 hidden items-center relative">
-  
-  <Image
-    src={"/logo.png"}
-    alt="logo"
-    width={300}
-    height={300}
-    className="h-12 w-12 object-contain md:block cursor-pointer"
-    onClick={() => window.open("/", "_self")}
-  />
-</div>
+      <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-2 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
+        <div className="md:flex flex-row gap-x-4 hidden items-center relative">
+          <Image
+            src={"/logo.png"}
+            alt="logo"
+            width={300}
+            height={300}
+            className="h-12 w-12 object-contain md:block cursor-pointer"
+            onClick={() => window.open("/", "_self")}
+          />
+        </div>
         <div className="bg-neutral-100/70 rounded-primary  hidden md:flex">
           <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
             <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white overflow-x-auto scrollbar-hide">
@@ -59,7 +58,9 @@ const Header = () => {
                   className={
                     "text-sm text-black w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent" +
                     " " +
-                    (selectedNiche === niche.title ? "bg-[#ef4444] text-white" : "")
+                    (selectedNiche === niche.title
+                      ? "bg-[#ef4444] text-white"
+                      : "")
                   }
                   onClick={() => setSelectedNiche(niche.title)}
                 >
@@ -70,48 +71,49 @@ const Header = () => {
             </div>
           </div>
           {selectedNiche === "Brand" && ""}
-          {selectedNiche === "Category" &&""}
+          {selectedNiche === "Category" && ""}
           {selectedNiche === "Store" && ""}
         </div>
         {/* Mobile */}
-      <motion.div
-        className="flex md:hidden w-full p-0 items-center justify-between"
-        initial={{ opacity: 0, x: 200 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 200 }}
-      >
-        {isOpenMobileNav ? (
-          <MobileNav isOpen={isOpenMobileNav} setIsOpen={setIsOpenMobileNav} />
-        ) : (
-          <div className=" flex items-center justify-between w-full">
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              className=" flex items-center justify-center"
-              onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
-            >
-              <HiOutlineMenuAlt2 className="text-headingColor text-4xl" />
-            </motion.div>
-            <Link href={"/"}>
+        <motion.div
+          className="flex md:hidden w-full p-0 items-center justify-between"
+          initial={{ opacity: 0, x: 200 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 200 }}
+        >
+          {isOpenMobileNav ? (
+            <MobileNav
+              isOpen={isOpenMobileNav}
+              setIsOpen={setIsOpenMobileNav}
+            />
+          ) : (
+            <div className=" flex items-center justify-between w-full">
               <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="flex items-center gap-2 cursor-pointer"
+                whileTap={{ scale: 0.9 }}
+                className=" flex items-center justify-center"
+                onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
               >
-                <p className="text-headingColor text-xl font-bold">
-                  NAB
-                </p>
-                <Image
-    src={"/logo.png"}
-    alt="logo"
-    width={300}
-    height={300}
-    className="h-[45px] w-[45px] object-contain md:block cursor-pointer"
-    onClick={() => window.open("/", "_self")}
-  />              </motion.div>
-            </Link>
-            
-          </div>
-        )}
-      </motion.div>
+                <HiOutlineMenuAlt2 className="text-headingColor text-4xl" />
+              </motion.div>
+              <Link href={"/"}>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <p className="text-headingColor text-xl font-bold">NAB</p>
+                  <Image
+                    src={"/logo.png"}
+                    alt="logo"
+                    width={300}
+                    height={300}
+                    className="h-[45px] w-[45px] object-contain md:block cursor-pointer"
+                    onClick={() => window.open("/", "_self")}
+                  />{" "}
+                </motion.div>
+              </Link>
+            </div>
+          )}
+        </motion.div>
         <div className="md:flex hidden  flex-row-reverse gap-x-2 relative h-fit">
           {isClient && user && Object.keys(user).length > 0 && (
             <button
@@ -125,8 +127,8 @@ const Header = () => {
           <Auth />
           <MyCart />
         </div>
-      </nav> 
-            </div>  
+      </nav>
+    </div>
   );
 };
 
