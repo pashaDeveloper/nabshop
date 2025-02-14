@@ -36,19 +36,26 @@ exports.addTag = async (req, res) => {
 };
 
 /* get all tags */
-exports.getTags = async (res) => {
+exports.getTags = async (req, res) => {
+  try {
+    const tags = await Tag.find({ isDeleted: false }).populate("creator");
 
-  const tags = await Tag.find().populate([
-    "creator",
-  ]);
-
-  res.status(200).json({
-    acknowledgement: true,
-    message: "Ok",
-    description: "تگ ها با موفقیت دریافت شدند",
-    data: tags,
-  });
+    res.status(200).json({
+      acknowledgement: true,
+      message: "Ok",
+      description: "تگ‌ها با موفقیت دریافت شدند",
+      data: tags,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      acknowledgement: false,
+      message: "خطای سرور",
+      description: "در هنگام دریافت تگ‌ها، خطایی رخ داده است",
+    });
+  }
 };
+
 
 /* get a tag */
 exports.getTag = async (req, res) => {
@@ -85,8 +92,20 @@ exports.updateTag = async (req, res) => {
 
 /* delete tag */
 exports.deleteTag = async (req, res) => {
-  const tag = await Tag.findByIdAndDelete(req.params.id);
-  await remove(tag.logo.public_id);
+  const tag = await Tag.findByIdAndUpdate(req.params.id,
+    {
+      isDeleted: true,
+      deletedAt: Date.now(),
+    },
+    { new: true }
+  );
+  if (!tag) {
+    return res.status(404).json({
+      acknowledgement: false,
+      message: "تگ پیدا نشد",
+      description: "تگی که می‌خواهید حذف کنید، وجود ندارد",
+    });
+  }
 
   await Product.updateMany({ tag: req.params.id }, { $unset: { tag: "" } });
   await User.findByIdAndUpdate(tag.creator, {

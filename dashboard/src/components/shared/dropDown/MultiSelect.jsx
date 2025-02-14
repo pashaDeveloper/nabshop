@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import Tooltip from "@/components/Tooltip"; // بسته به ساختار پوشه‌ها مسیر را اصلاح کن
 
 const MultiSelect = ({
   items = [],
@@ -6,13 +7,11 @@ const MultiSelect = ({
   handleSelect,
   placeholder = "میتوانید چند مورد را انتخاب کنید",
   className,
-  icon,
+  icon
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
-  const [tooltipContent, setTooltipContent] = useState("");
-  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const filteredItems = items.filter((item) =>
     item.value.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -47,19 +46,6 @@ const MultiSelect = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  const handleMouseEnter = (e, description) => {
-    const rect = e.target.getBoundingClientRect();
-    setTooltipContent(description);
-    setTooltipPosition({
-      top: rect.top + window.scrollY,
-      left: rect.right + 10,
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setTooltipContent("");
-  };
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -111,7 +97,7 @@ const MultiSelect = ({
           <input
             type="text"
             placeholder="جستجو کن"
-            className="w-full px-4 py-2 border-b dark:border-gray-700 focus:outline-none dark:bg-gray-800"
+            className="w-full px-4 py-2 border-b dark:border-gray-700 focus:outline-none dark:bg-gray-800 !z-10"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <ul className="max-h-40 overflow-y-auto mt-2 flex flex-col gap-1">
@@ -120,44 +106,23 @@ const MultiSelect = ({
                 key={item.id}
                 onClick={() => handleItemSelect(item)}
                 onMouseEnter={(e) => handleMouseEnter(e, item.description)}
-                onMouseLeave={handleMouseLeave}
                 className={`px-4 py-2 rounded-md cursor-pointer ${
                   selectedItems.some((selected) => selected.id === item.id)
                     ? "bg-blue-100 text-blue-700"
-                    : "bg-gray-100 hover:bg-blue-100 dark:bg-gray-700 dark:hover:bg-gray-900"
+                    : "bg-gray-100 hover:bg-blue-100 flex gap-x-4  dark:bg-gray-700 dark:hover:bg-gray-900"
                 }`}
               >
-                {item.value}
-                
+                <span>{item.value}</span>
+                {item.description && (
+                  <Tooltip position="left" bg="dark" size="sm">
+                    {item.description}
+                  </Tooltip>
+                )}
               </li>
             ))}
-            {filteredItems.length === 0 && (
-              <li className="text-gray-500 text-center py-2">
-                هیچ گزینه‌ای موجود نیست
-              </li>
-            )}
           </ul>
         </div>
       )}
-    {tooltipContent && (
-  <div
-    className="absolute bg-red-600/70 text-white text-xs text-center py-1 px-2 rounded-md shadow-lg backdrop-blur-md text-justify transition-opacity duration-200"
-    style={{
-      // پایین آیتم
-      left: "30%", // وسط آیتم
-      transform: "translateX(-50%)", // وسط‌چین کردن دقیق
-      marginTop: "4px", // ایجاد فاصله از آیتم
-      whiteSpace: "wrap", // جلوگیری از شکستن متن
-      pointerEvents: "none", // جلوگیری از تداخل با کلیک
-      zIndex: 50,
-      opacity: tooltipContent ? 1 : 0, // ناپدید شدن در صورت نبودن متن
-    }}
-  >
-    {tooltipContent}
-  </div>
-)}
-
-
     </div>
   );
 };

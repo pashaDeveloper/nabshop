@@ -332,10 +332,10 @@ exports.updateUserInfo = async (req, res) => {
   // به‌روزرسانی اطلاعات کاربر همراه با آواتار جدید
   const updatedUser = await User.findByIdAndUpdate(
     existingUser._id,
-    { $set: { ...user, avatar } },  // اضافه کردن avatar به فیلدهای بروزرسانی
+    { $set: { ...user, avatar } },  
     {
-      runValidators: true,  // اجرای اعتبارسنجی
-      new: true  // دریافت داده‌های به‌روزرسانی‌شده
+      runValidators: true, 
+      new: true  
     }
   );
 
