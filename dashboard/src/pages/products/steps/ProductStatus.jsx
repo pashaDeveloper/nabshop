@@ -3,7 +3,7 @@ import StatusSwitch from "@/components/shared/button/StatusSwitch";
 import { toast } from "react-hot-toast";
 import { useGetTagsQuery } from "@/services/tag/tagApi";
 import Tag from "@/components/icons/Tag";
-// import MultiSelect from "@/components/shared/dropdown/MultiSelect";
+import MultiSelect from "@/components/shared/dropdown/MultiSelect";
 
 const ProductStatus = ({ register, errors, selectedOptions, setSelectedOptions }) => {
   const {
@@ -50,14 +50,14 @@ const ProductStatus = ({ register, errors, selectedOptions, setSelectedOptions }
       <div className="flex flex-col gap-y-2 p-4 border rounded">
         <label htmlFor="tag" className="w-full flex flex-col gap-y-1">
           <span className="text-sm">برچسب*</span>
-          {/* <MultiSelect
+           <MultiSelect
             items={tags}
             selectedItems={selectedOptions}
             handleSelect={handleOptionsChange}
             className="w-full"
             name="tags"
             icon={<Tag size={24} />}
-          /> */}
+          /> 
         </label>
       </div>
       <StatusSwitch

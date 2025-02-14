@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import Dropdown from "@/components/shared/dropdown/Dropdown";
+import Dropdown from "@/components/shared/dropdown/Dropdown";
 import { Controller } from "react-hook-form";
 import Trash from "@/components/icons/Trash";
 
@@ -10,7 +10,7 @@ const UnitPrice = ({ control, index, remove, errors, units }) => {
         {/* انتخاب واحد */}
         <div className="col-span-7">
           <span>یک واحد انتخاب کنید</span>
-          {/* <Controller
+          <Controller
             control={control}
             name={`variations.${index}.unit`}
             defaultValue=""
@@ -30,7 +30,7 @@ const UnitPrice = ({ control, index, remove, errors, units }) => {
                 error={errors?.variations?.[index]?.unit}
               />
             )}
-          /> */}
+          /> 
         </div>
 
         {/* قیمت واحد */}

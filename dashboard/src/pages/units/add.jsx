@@ -4,7 +4,7 @@ import Button from "@/components/shared/button/Button";
 import { useAddUnitMutation } from "@/services/unit/unitApi";
 import { toast } from "react-hot-toast";
 import Modal from "@/components/shared/modal/Modal";
-// import Dropdown from "@/components/shared/dropDown/Dropdown";
+ import Dropdown from "@/components/shared/dropDown/Dropdown";
 import { useGetCategoriesQuery } from "@/services/category/categoryApi";
 import { useForm, Controller } from "react-hook-form";
 
@@ -168,13 +168,13 @@ const AddUnit = ({ isOpen, onClose }) => {
                           className="flex flex-col gap-y-2"
                         >
                           دسته‌بندی
-                          {/* <Dropdown
+                           <Dropdown
                             items={categoryOptions}
                             sendId={true}
                             className="w-full h-12"
                             handleSelect={field.onChange}
                             value={field.value}
-                          /> */}
+                          /> 
                         </label>
                       </div>
                     )}
