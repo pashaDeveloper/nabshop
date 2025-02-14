@@ -3,7 +3,7 @@ import StatusSwitch from "@/components/shared/button/StatusSwitch";
 import { toast } from "react-hot-toast";
 import { useGetTagsQuery } from "@/services/tag/tagApi";
 import Tag from "@/components/icons/Tag";
-import MultiSelect from "@/components/shared/dropdown/MultiSelect";
+import MultiSelect from "@/components/shared/dropDown/MultiSelect";
 
 const ProductStatus = ({ register, errors, selectedOptions, setSelectedOptions }) => {
   const {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dropdown from "@/components/shared/dropdown/Dropdown";
+import Dropdown from "@/components/shared/dropDown/Dropdown";
 import { Controller } from "react-hook-form";
 import Trash from "@/components/icons/Trash";
 import Telegram from "@/components/icons/Telegram";

@@ -1,7 +1,7 @@
 // Step4.js
 import React from "react";
 import { useFieldArray, Controller } from "react-hook-form";
-import Dropdown from "@/components/shared/dropdown/Dropdown";
+import Dropdown from "@/components/shared/dropDown/Dropdown";
 import  Plus  from "@/components/icons/Plus";
 import SocialLink  from "./SocialLink"; 
 const Step5 = ({ register, errors, control,getValues }) => {
