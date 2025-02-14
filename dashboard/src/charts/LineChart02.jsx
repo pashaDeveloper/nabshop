@@ -173,8 +173,8 @@ function LineChart02({
       <div className="px-5 py-3">
         <div className="flex flex-wrap justify-between items-end gap-y-2 gap-x-4">
           <div className="flex items-start">
-            <div className="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">$1,482</div>
-            <div className="text-sm font-medium text-red-700 px-1.5 bg-red-500/20 rounded-full">-22%</div>
+            <div className="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">1,482 ریال</div>
+            <div className="text-sm  text-red-700 px-1.5 bg-red-500/20 rounded-full">-22%</div>
           </div>
           <div className="grow mb-1">
             <ul ref={legend} className="flex flex-wrap gap-x-4 sm:justify-end"></ul>

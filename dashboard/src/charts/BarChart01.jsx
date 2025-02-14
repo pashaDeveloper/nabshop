@@ -140,7 +140,7 @@ function BarChart01({
               value.style.fontSize = tailwindConfig().theme.fontSize['3xl'][0];
               value.style.lineHeight = tailwindConfig().theme.fontSize['3xl'][1].lineHeight;
               value.style.fontWeight = tailwindConfig().theme.fontWeight.bold;
-              value.style.marginRight = tailwindConfig().theme.margin[2];
+              value.style.marginLeft = tailwindConfig().theme.margin[2];
               value.style.pointerEvents = 'none';
               const label = document.createElement('span');
               label.classList.add('text-gray-500', 'dark:text-gray-400');

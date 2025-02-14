@@ -21,14 +21,18 @@ export const hexToRGB = (h) => {
   return `${+r},${+g},${+b}`;
 };
 
-export const formatValue = (value) => Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  maximumSignificantDigits: 3,
-  notation: 'compact',
-}).format(value);
+export const formatValue = (value) => {
+  return Intl.NumberFormat('fa-IR', {
+    style: 'currency',
+    currency: 'IRR', // Iranian Rial (تومان)
+    maximumSignificantDigits: 3,
+    notation: 'compact',
+  }).format(value);
+};
 
-export const formatThousands = (value) => Intl.NumberFormat('en-US', {
-  maximumSignificantDigits: 3,
-  notation: 'compact',
-}).format(value);
+export const formatThousands = (value) => {
+  return Intl.NumberFormat('fa-IR', {
+    maximumSignificantDigits: 3,
+    notation: 'compact',
+  }).format(value);
+};

@@ -3,10 +3,13 @@ import { useDispatch } from "react-redux";
 import { usePersistLoginQuery } from "@/services/auth/authApi";
 import { addUser } from "@/features/auth/authSlice";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 const Auth = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { data: userData, error: userError } = usePersistLoginQuery();
   const user = useMemo(() => userData?.data || {}, [userData]);
   useEffect(() => {
@@ -17,6 +20,8 @@ const Auth = ({ children }) => {
 
     if (userError?.data) {
       toast.error(userError?.data?.description, { id: "auth" });
+      navigate("/signin");
+
     }
   }, [userData, userError, dispatch, user]);
 

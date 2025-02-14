@@ -8,17 +8,17 @@ import { tailwindConfig, hexToRGB } from '../../utils/Utils';
 
 function DashboardCard05() {
 
-  // IMPORTANT:
-  // Code below is for demo purpose only, and it's not covered by support.
-  // If you need to replace dummy data with real data,
-  // refer to Chart.js documentation: https://www.chartjs.org/docs/latest
+  // مهم:
+  // کد زیر فقط برای اهداف نمایشی است و توسط پشتیبانی پوشش داده نمی‌شود.
+  // اگر نیاز دارید که داده‌های ساختگی با داده‌های واقعی جایگزین شوند،
+  // به مستندات Chart.js مراجعه کنید: https://www.chartjs.org/docs/latest
 
-  // Fake real-time data
+  // داده‌های ساختگی برای زمان واقعی
   const [counter, setCounter] = useState(0);
   const [increment, setIncrement] = useState(0);
   const [range, setRange] = useState(35);
   
-  // Dummy data to be looped
+  // داده‌های ساختگی که باید تکرار شوند
   const data = [
     57.81, 57.75, 55.48, 54.28, 53.14, 52.25, 51.04, 52.49, 55.49, 56.87,
     53.73, 56.42, 58.06, 55.62, 58.16, 55.22, 58.67, 60.18, 61.31, 63.25,
@@ -30,7 +30,7 @@ function DashboardCard05() {
 
   const [slicedData, setSlicedData] = useState(data.slice(0, range));
 
-  // Generate fake dates from now to back in time
+  // تولید تاریخ‌های ساختگی از حالا به عقب
   const generateDates = () => {
     const now = new Date();
     const dates = [];
@@ -42,7 +42,7 @@ function DashboardCard05() {
 
   const [slicedLabels, setSlicedLabels] = useState(generateDates().slice(0, range).reverse());
 
-  // Fake update every 2 seconds
+  // بروزرسانی ساختگی هر ۲ ثانیه یکبار
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter(counter + 1);
@@ -50,7 +50,7 @@ function DashboardCard05() {
     return () => clearInterval(interval)
   }, [counter]);
 
-  // Loop through data array and update
+  // تکرار در آرایه داده‌ها و بروزرسانی
   useEffect(() => {
     setIncrement(increment + 1);
     if (increment + range < data.length) {
@@ -67,7 +67,7 @@ function DashboardCard05() {
   const chartData = {
     labels: slicedLabels,
     datasets: [
-      // Indigo line
+      // خط بنفش
       {
         data: slicedData,
         fill: true,
@@ -96,13 +96,13 @@ function DashboardCard05() {
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
       <header className="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60 flex items-center">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Real Time Value</h2>
-        <Tooltip className="ml-2">
-          <div className="text-xs text-center whitespace-nowrap">Built with <a className="underline" href="https://www.chartjs.org/" target="_blank" rel="noreferrer">Chart.js</a></div>
+        <h2 className=" text-gray-800 dark:text-gray-100">مقدار زمان واقعی</h2>
+        <Tooltip className="mr-2">
+          <div className="text-xs text-center whitespace-nowrap">ساخته شده با <a className="underline" href="https://www.chartjs.org/" target="_blank" rel="noreferrer">Chart.js</a></div>
         </Tooltip>
       </header>
-      {/* Chart built with Chart.js 3 */}
-      {/* Change the height attribute to adjust the chart height */}
+      {/* نمودار ساخته شده با Chart.js 3 */}
+      {/* تغییر ویژگی ارتفاع برای تنظیم ارتفاع نمودار */}
       <RealtimeChart data={chartData} width={595} height={248} />
     </div>
   );

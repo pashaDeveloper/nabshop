@@ -11,10 +11,7 @@ import DashboardCard06 from "../partials/dashboard/DashboardCard06";
 import DashboardCard07 from "../partials/dashboard/DashboardCard07";
 import DashboardCard08 from "../partials/dashboard/DashboardCard08";
 import DashboardCard09 from "../partials/dashboard/DashboardCard09";
-import DashboardCard10 from "../partials/dashboard/DashboardCard10";
-import DashboardCard11 from "../partials/dashboard/DashboardCard11";
-import DashboardCard12 from "../partials/dashboard/DashboardCard12";
-import DashboardCard13 from "../partials/dashboard/DashboardCard13";
+
 function Dashboard() {
   return (
     <ControlPanel>
@@ -23,7 +20,7 @@ function Dashboard() {
         {/* Left: Title */}
         <div className="mb-4 sm:mb-0">
           <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">
-            Dashboard
+            داشبورد
           </h1>
         </div>
 
@@ -43,7 +40,7 @@ function Dashboard() {
             >
               <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
             </svg>
-            <span className="max-xs:sr-only">Add View</span>
+            <span className="max-xs:sr-only">افزودن</span>
           </button>
         </div>
       </div>
@@ -68,14 +65,7 @@ function Dashboard() {
         <DashboardCard08 />
         {/* Stacked bar chart (Sales VS Refunds) */}
         <DashboardCard09 />
-        {/* Card (Customers) */}
-        <DashboardCard10 />
-        {/* Card (Reasons for Refunds) */}
-        <DashboardCard11 />
-        {/* Card (Recent Activity) */}
-        <DashboardCard12 />
-        {/* Card (Income/Expenses) */}
-        <DashboardCard13 />
+        
       </div>
     </ControlPanel>
   );

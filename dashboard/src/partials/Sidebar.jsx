@@ -121,7 +121,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                 •••
               </span>
               <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                Pages
+                صفحات
               </span>
             </h3>
             <ul className="mt-3">
@@ -185,14 +185,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Main
+                                اصلی
                               </span>
                             </NavLink>
                           </li>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to=""
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
                                 (isActive
@@ -201,7 +201,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Analytics
+                                انالیز
                               </span>
                             </NavLink>
                           </li>
