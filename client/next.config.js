@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost',"https://s3-console.noghlenab.com"], 
+    domains: ['localhost'], 
     remotePatterns: [
       {
         protocol: "https",
@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "res.cloudinary.com",
+        hostname: "s3-console.noghlenab.com",
         port: "",
         pathname: "**/*",
       },
