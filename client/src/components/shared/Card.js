@@ -21,45 +21,21 @@ import { ArrowRight } from "@/components/icons/ArrowRight";
 const Card = ({ index, product, ...rest }) => {
   const router = useRouter();
   const user = useSelector((state) => state?.auth?.user);
-  const [loading, setLoading] = useState(false);
 
   const favorite = user?.favorites?.find(
     (fav) => fav?.product?._id === product?._id
   );
-  const handleProductClick = () => {
-    setLoading(true); 
-    router.push(
-      `/product?product_id=${product?._id}&product_title=${product?.title
-        .replace(/ /g, "-")
-        .toLowerCase()}`
-    );
-  };
-  useEffect(() => {
-    // وقتی که صفحه لود شد و انتقال انجام گرفت، بارگذاری غیرفعال می‌شود
-    const handleRouteChange = () => {
-      setLoading(false);
-    };
-
-    // اضافه کردن event listener برای تغییرات در router
-    router.events.on("routeChangeStart", () => {
-      setLoading(true); // فعال کردن Spinner وقتی صفحه تغییر می‌کند
-    });
-
-    router.events.on("routeChangeComplete", handleRouteChange); // غیرفعال کردن Spinner بعد از لود شدن صفحه
-
-    return () => {
-      // حذف event listener
-      router.events.off("routeChangeStart", () => {
-        setLoading(true);
-      });
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
   return (
     <div
       {...rest}
       className="relative group  mb-8 bg-white  rounded-2xl shadow-lg p-6  group cursor-pointer"
-      onClick={handleProductClick} 
+      onClick={() =>
+        router.push(
+          `/product?product_id=${product?._id}&product_title=${product?.title
+            .replace(/ /g, "-")
+            .toLowerCase()}`
+        )
+      }
     >
       {favorite ? (
         <RemoveFromFavorite favorite={favorite} />
