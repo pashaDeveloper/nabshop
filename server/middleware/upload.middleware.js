@@ -28,14 +28,14 @@ const upload = (bucketName) => {
   const multerInstance = multer({
     storage,
     fileFilter: (_, file, cb) => {
-      const imageFormats = /jpg|jpeg|png/i; // فقط تصاویر قابل تبدیل هستند
+      const imageFormats = /jpg|jpeg|png|webp/i; // فقط تصاویر قابل تبدیل هستند
       const videoFormats = /mp4|avi|mkv/i; // ویدیوها تغییری نمی‌کنند
       const extension = file.originalname.split(".").pop().toLowerCase();
 
       if (imageFormats.test(extension) || videoFormats.test(extension)) {
         cb(null, true);
       } else {
-        cb(new Error("فرمت فایل باید تصویر (png/jpg/jpeg) یا ویدئو (mp4/avi/mkv) باشد"));
+        cb(new Error("فرمت فایل باید تصویر (png/jpg/jpeg/webp) یا ویدئو (mp4/avi/mkv) باشد"));
       }
     },
   });
