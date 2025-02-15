@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost'], 
+    domains: ['localhost',"https://s3-console.noghlenab.com"], 
     remotePatterns: [
       {
         protocol: "https",
