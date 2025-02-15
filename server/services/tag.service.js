@@ -4,6 +4,8 @@
 const Tag = require("../models/tag.model");
 const Product = require("../models/product.model");
 const User = require("../models/user.model");
+const Product = require("../models/product.model");
+const Post = require("../models/post.model");
 
 /* add new tag */
 exports.addTag = async (req, res) => {
@@ -36,7 +38,7 @@ exports.addTag = async (req, res) => {
 
 /* get all tags */
 exports.getTags = async (res) => {
-  const tags = await Tag.find()
+  const tags = await Tag.find({isDeleted:false})
   .populate({
     path: "creator",
     select: "name avatar", // دریافت نام و آواتار سازنده
@@ -92,6 +94,7 @@ exports.deleteTag = async (req, res) => {
     },
     { new: true }
   );
+    
   if (!tag) {
     return res.status(404).json({
       acknowledgement: false,

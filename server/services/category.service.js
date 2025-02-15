@@ -112,7 +112,6 @@ exports.updateCategory = async (req, res) => {
 /* delete category */
 exports.deleteCategory = async (req, res, next) => {
   const category = await Category.findByIdAndDelete(req.params.id);
-  await remove(category.thumbnail.public_id);
 
   await Product.updateMany(
     { category: req.params.id },
