@@ -51,7 +51,7 @@ const StepAddCategory = () => {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding Category...", { id: "addCategory" });
+      toast.loading("در حال افزودن دسته بندی...", { id: "addCategory" });
     }
 
     if (data) {

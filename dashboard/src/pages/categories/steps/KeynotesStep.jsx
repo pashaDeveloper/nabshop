@@ -56,7 +56,7 @@ const KeynotesStep = ({
                 onChange={(event) =>
                   handleKeynoteChange(index, event.target.value)
                 }
-                required
+                
               />
               {index !== 0 && (
                 <button

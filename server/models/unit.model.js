@@ -20,7 +20,7 @@ const unitSchema = new mongoose.Schema(
     description: {
       type: String,
       trim: true,
-      maxLength: [160, "توضیحات تگ نباید بیشتر از 160 کاراکتر باشد"],
+      maxLength: [300, "توضیحات تگ نباید بیشتر از 300 کاراکتر باشد"],
     },
     category: {
       type: ObjectId,

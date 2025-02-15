@@ -93,11 +93,11 @@ const MultiSelect = ({
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10 p-2">
+        <div className="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg  p-2">
           <input
             type="text"
             placeholder="جستجو کن"
-            className="w-full px-4 py-2 border-b dark:border-gray-700 focus:outline-none dark:bg-gray-800 !z-10"
+            className="w-full px-4 py-2 border-b dark:border-gray-700 focus:outline-none dark:bg-gray-800 "
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <ul className="max-h-40 overflow-y-auto mt-2 flex flex-col gap-1">
@@ -108,8 +108,8 @@ const MultiSelect = ({
                 onMouseEnter={(e) => handleMouseEnter(e, item.description)}
                 className={`px-4 py-2 rounded-md cursor-pointer ${
                   selectedItems.some((selected) => selected.id === item.id)
-                    ? "bg-blue-100 text-blue-700"
-                    : "bg-gray-100 hover:bg-blue-100 flex gap-x-4  dark:bg-gray-700 dark:hover:bg-gray-900"
+                    ? "bg-blue-100 text-blue-700  flex gap-x-4 "
+                    : "bg-gray-100 hover:bg-blue-100 dark:bg-gray-700 dark:hover:bg-gray-900  flex gap-x-4 "
                 }`}
               >
                 <span>{item.value}</span>

@@ -5,6 +5,7 @@ const baseSchema = require("./baseSchema.model");
 const Counter = require("./counter")
 const Category = require("./category.model");
 const Tag = require("./tag.model");
+const QRCode = require('qrcode');
 
 const productSchema = new mongoose.Schema(
   {
@@ -153,7 +154,7 @@ gallery: {
     },
     qrCode: {
       type: String,
-      required: false, // چون ممکنه بعضی محصولات QR نداشته باشن
+      required: false, 
     },
     
     buyers: [
@@ -248,7 +249,7 @@ productSchema.pre("save", async function (next) {
     this.productId = counter.seq;
 
     const productUrl = `${defaultDomain}/scan/${this._id}`;
-    
+    console.log(productUrl)
     // تولید QR Code
     const qrCodeDataUrl = await QRCode.toDataURL(productUrl);
     this.qrCode = qrCodeDataUrl;
