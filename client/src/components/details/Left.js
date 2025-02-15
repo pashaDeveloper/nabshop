@@ -9,27 +9,11 @@ const Left = ({ product }) => {
   // State to manage the main image
   const [mainImage, setMainImage] = useState(product.thumbnail?.url);
 
-  // Function to determine the column span class
-  function getColumnSpanClass(index, totalThumbnails) {
-    if (totalThumbnails === 1) {
-      return "col-span-12";
-    } else if (totalThumbnails === 2) {
-      return index <= 1 ? "col-span-6" : "col-span-6";
-    } else if (totalThumbnails === 3) {
-      return index === 0 ? "col-span-12" : "col-span-6";
-    } else if (totalThumbnails === 4) {
-      return "col-span-6";
-    } else if (totalThumbnails === 5) {
-      return index <= 1 ? "col-span-6" : "col-span-4";
-    } else {
-      return "";
-    }
-  }
+
 
   const hashTags = [
     ...(product?.category?.tags || []),
-    ...(product?.brand?.tags || []),
-    ...(product?.store?.tags || []),
+ 
   ].filter((tag) => tag !== undefined);
 
   return (
@@ -49,9 +33,8 @@ const Left = ({ product }) => {
               key={index}
               alt={thumbnail?.public_id}
               className={
-                "rounded object-cover max-w-full w-full h-full cursor-pointer" +
-                " " +
-                getColumnSpanClass(index, product.gallery.length)
+                "rounded object-cover max-w-full w-full h-full cursor-pointer" 
+               
               }
               width={480}
               height={200}
