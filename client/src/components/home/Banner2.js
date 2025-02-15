@@ -16,7 +16,7 @@ const Banner2 = ({ className }) => {
           style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
         >
           <Image
-            src="/assets/home/banner/kid.png"
+            src="/assets/home/banner/kid.webp"
             alt="model"
             height={872}
             width={600}

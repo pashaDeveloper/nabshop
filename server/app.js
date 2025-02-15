@@ -16,25 +16,21 @@ const allowedOrigins = [
 
 /* cors configuration */
 const corsOptions = {
-  origin: allowedOrigins,  // دامنه‌های مجاز
-  methods: ["GET", "POST", "PATCH", "DELETE"],  // روش‌های مجاز
-  allowedHeaders: ["Content-Type", "Authorization"],  // هدرهای مجاز
-  credentials: true,  // اگر نیاز به ارسال کوکی‌ها و session دارید
+  origin: allowedOrigins, 
+  methods: ["GET", "POST", "PATCH", "DELETE"], 
+  allowedHeaders: ["Content-Type", "Authorization"],  
+  credentials: true,  
 };
 
-// استفاده از cors برای تمام درخواست‌ها
 app.use(cors(corsOptions));
 
-// middleware برای پردازش درخواست‌ها
 app.use(express.json());
 
 /* router level connections */
-app.use("/api/brand", require("./routes/brand.route"));
 app.use("/api/unit", require("./routes/unit.route"));
 app.use("/api/tag", require("./routes/tag.route"));
 app.use("/api/category", require("./routes/category.route"));
 app.use("/api/product", require("./routes/product.route"));
-app.use("/api/store", require("./routes/store.route"));
 app.use("/api/user", require("./routes/user.route"));
 app.use("/api/cart", require("./routes/cart.route"));
 app.use("/api/favorite", require("./routes/favorite.route"));

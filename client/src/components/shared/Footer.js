@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React from "react";
@@ -20,131 +18,130 @@ const Footer = () => {
       paths: [
         {
           name: "طعم خاص",
-          path: "/",
+          path: "/"
         },
         {
           name: "ویژگی‌های ممتاز",
-          path: "/",
+          path: "/"
         },
         {
           name: "تیم تولید",
-          path: "/",
+          path: "/"
         },
         {
           name: "کیفیت خانگی",
-          path: "/",
+          path: "/"
         },
         {
           name: "تجربه متفاوت",
-          path: "/",
+          path: "/"
         },
         {
           name: "اخرین ویژگی",
-          path: "/",
-        },
-      ],
+          path: "/"
+        }
+      ]
     },
     {
       name: "منابع",
       paths: [
         {
           name: "دستور تهیه",
-          path: "/",
+          path: "/"
         },
         {
           name: "خواص نقل و حلوا",
-          path: "/",
+          path: "/"
         },
         {
           name: "سنت‌های مرتبط",
-          path: "/",
+          path: "/"
         },
         {
           name: "تاریخ نقل و حلوا",
-          path: "/",
-        },
-      ],
+          path: "/"
+        }
+      ]
     },
     {
       name: "درباره ما",
       paths: [
         {
           name: "تیم ناب",
-          path: "/",
+          path: "/"
         },
         {
           name: "کارگاه‌ه تولیدی",
-          path: "/",
+          path: "/"
         },
         {
           name: "حریم خصوصی",
-          path: "/",
+          path: "/"
         },
         {
           name: "قوانین و مقررات",
-          path: "/",
-        },
-      ],
+          path: "/"
+        }
+      ]
     },
     {
       name: "تماس با ما",
       paths: [
         {
           name: "پشتیبانی",
-          path: "/",
+          path: "/"
         },
         {
           name: "واحد فروش",
-          path: "/",
+          path: "/"
         },
         {
           name: "همکاری تبلیغاتی",
-          path: "/",
-        },
-      ],
+          path: "/"
+        }
+      ]
     },
     {
       name: "قوانین",
       paths: [
         {
           name: "ثبت شکایت",
-          path: "/",
+          path: "/"
         },
         {
           name: "شرایط خدمات",
-          path: "/",
+          path: "/"
         },
         {
           name: "قوانین و سیاست‌ها",
-          path: "/",
-        },
-      ],
+          path: "/"
+        }
+      ]
     },
     {
       name: "ارتباط با ما",
       paths: [
         {
           name: "اینستاگرام",
-          path: "https://www.instagram.com/nab/",
+          path: "https://www.instagram.com/nab/"
         },
         {
           name: "لینکدین",
-          path: "https://www.linkedin.com/in/nab/",
+          path: "https://www.linkedin.com/in/nab/"
         },
         {
           name: "گیت‌هاب",
-          path: "https://github.com/nab/",
-        },
-      ],
-    },
+          path: "https://github.com/nab/"
+        }
+      ]
+    }
   ];
-  
 
   return (
     <footer className="footer-1 bg-yellow-100 py-8 sm:py-12 m-6 p-6 rounded-xl">
       <div className="container mx-auto px-4 flex flex-col gap-y-10">
         <div className="flex md:flex-row md:flex-wrap md:justify-between flex-col gap-x-4 gap-y-8">
-           {sitemaps?.map((sitemap, index) => (
+          {sitemaps?.map((sitemap, index) => (
             <div key={index} className="flex flex-col gap-y-3">
               <h2 className="text-2xl">{sitemap.name}</h2>
               <div className="flex flex-col gap-y-1.5">
@@ -155,15 +152,18 @@ const Footer = () => {
                 ))}
               </div>
             </div>
-          ))} 
+          ))}
         </div>
-        <div><FooterLogo /> </div>
+        <div>
+          <FooterLogo />{" "}
+        </div>
         <hr />
         <p className="text-center">
-  &copy; {year} تمامی حقوق این اثر متعلق به نقل و حلواپزی ناب می‌باشد<br />طراحی و برنامه‌نویسی توسط مجید و امیر
-  </p>
-
-        </div>
+          &copy; {year} تمامی حقوق این اثر متعلق به نقل و حلواپزی ناب می‌باشد
+          <br />
+          طراحی و برنامه‌نویسی توسط مجید و امیر
+        </p>
+      </div>
     </footer>
   );
 };
