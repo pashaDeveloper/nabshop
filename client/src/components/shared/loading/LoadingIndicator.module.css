@@ -1,0 +1,66 @@
+/* LoadingIndicator.module.css */
+.loaderDots {
+    position: relative;
+    width: 6rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dot {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background-color: #10b981; /* Green color for light mode */
+    animation: loader-dots 0.6s infinite;
+  }
+  
+  .dot:nth-child(1) {
+    left: 0;
+    animation-name: loader-dots1;
+  }
+  
+  .dot:nth-child(2) {
+    left: 0;
+    animation-name: loader-dots2;
+  }
+  
+  .dot:nth-child(3) {
+    left: 1.25rem;
+    animation-name: loader-dots2;
+  }
+  
+  .dot:nth-child(4) {
+    left: 2.5rem;
+    animation-name: loader-dots3;
+  }
+  
+  @keyframes loader-dots1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes loader-dots2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+  
+  @keyframes loader-dots3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  

@@ -56,7 +56,7 @@ const Banner1 = () => {
 >
 
 
-    <Image
+    <Image 
       src="/assets/home/banner/model1.png"
       alt="model"
       height={872}

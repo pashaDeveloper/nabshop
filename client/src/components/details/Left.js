@@ -9,11 +9,11 @@ const Left = ({ product }) => {
   // State to manage the main image
   const [mainImage, setMainImage] = useState(product.thumbnail?.url);
 
-
+ 
 
   const hashTags = [
     ...(product?.category?.tags || []),
- 
+
   ].filter((tag) => tag !== undefined);
 
   return (
@@ -34,7 +34,6 @@ const Left = ({ product }) => {
               alt={thumbnail?.public_id}
               className={
                 "rounded object-cover max-w-full w-full h-full cursor-pointer" 
-               
               }
               width={480}
               height={200}

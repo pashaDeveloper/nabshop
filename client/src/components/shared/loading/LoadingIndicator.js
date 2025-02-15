@@ -3,19 +3,19 @@ import { useRouter } from "next/router";
 
 const LoadingIndicator = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // وضعیت لودینگ
 
   useEffect(() => {
     const handleRouteChangeStart = () => {
-      setLoading(true); 
+      setLoading(true); // شروع لودینگ
     };
 
     const handleRouteChangeComplete = () => {
-      setLoading(false); 
+      setLoading(false); // پایان لودینگ
     };
 
     const handleRouteChangeError = () => {
-      setLoading(false); 
+      setLoading(false); // در صورت بروز خطا
     };
 
     router.events.on("routeChangeStart", handleRouteChangeStart);
@@ -29,18 +29,27 @@ const LoadingIndicator = () => {
     };
   }, [router]);
 
+  // تابعی برای شروع لودینگ هنگام کلیک روی یک عنصر خاص
+  const handleItemClick = () => {
+    setLoading(true); // لودینگ را به صورت دستی فعال می‌کنیم
+    setTimeout(() => {
+      // در صورتی که بارگذاری اطلاعات طولانی شد می‌توانیم بعد از یک زمان مشخص لودینگ را متوقف کنیم
+      setLoading(false); 
+    }, 2000);  // فرض کنید بعد از 2 ثانیه لودینگ تمام می‌شود.
+  };
+
   return (
     <>
       {loading && (
-        <div className="fixed top-0 left-0  z-[9999] w-screen h-screen flex items-center justify-center " style={{ background: 'rgba(0, 0, 0, 0.6)' }}>
-          <div className="bg-white dark:bg-slate-900  shadow-lg py-6 px-14 rounded-lg flex items-center flex-col just">
-            <div className="loader-dots  relative w-24 h-6 mt-2 flex items-center justify-center">
+        <div className="fixed top-0 left-0 z-[9999] w-screen h-screen flex items-center justify-center" style={{ background: 'rgba(0, 0, 0, 0.6)' }}>
+          <div className="bg-white dark:bg-slate-900 shadow-lg py-6 px-14 rounded-lg flex items-center flex-col">
+            <div className="loader-dots relative w-24 h-6 mt-2 flex items-center justify-center">
               <div className="absolute mt-1 w-5 h-5 rounded-full bg-green-500 dark:bg-blue-500"></div>
               <div className="absolute mt-1 w-5 h-5 rounded-full bg-green-500 dark:bg-blue-500"></div>
               <div className="absolute mt-1 w-5 h-5 rounded-full bg-green-500 dark:bg-blue-500"></div>
               <div className="absolute mt-1 w-5 h-5 rounded-full bg-green-500 dark:bg-blue-500"></div>
             </div>
-            <div className="text-gray-500 dark:text-gray-100 text-lg  mt-2 text-center">
+            <div className="text-gray-500 dark:text-gray-100 text-lg mt-2 text-center">
               صبر کنید ...
             </div>
           </div>

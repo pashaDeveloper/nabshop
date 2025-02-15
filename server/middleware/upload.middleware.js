@@ -28,7 +28,7 @@ const upload = (bucketName) => {
   const multerInstance = multer({
     storage,
     fileFilter: (_, file, cb) => {
-      const supportedFormats = /jpg|jpeg|png|mp4|avi|mkv/i;
+      const supportedFormats = /jpg|jpeg|png|mp4|avi|mkv|webp/i;
       const extension = file.originalname.split(".").pop().toLowerCase();
 
       if (supportedFormats.test(extension)) {

@@ -8,6 +8,7 @@ import { IoAccessibilityOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import FooterLogo from "./FooterLogo";
 
 const Footer = () => {
   const router = useRouter();
@@ -156,6 +157,7 @@ const Footer = () => {
             </div>
           ))} 
         </div>
+        <div><FooterLogo /> </div>
         <hr />
         <p className="text-center">
   &copy; {year} تمامی حقوق این اثر متعلق به نقل و حلواپزی ناب می‌باشد<br />طراحی و برنامه‌نویسی توسط مجید و امیر
