@@ -4,7 +4,6 @@
 const Tag = require("../models/tag.model");
 const Product = require("../models/product.model");
 const User = require("../models/user.model");
-const remove = require("../utils/remove.util");
 
 /* add new tag */
 exports.addTag = async (req, res) => {
@@ -64,7 +63,7 @@ exports.getTag = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Tag fetched successfully",
+    description: "تگ با موفقیت دریافت شد",
     data: tag,
   });
 };
@@ -86,7 +85,7 @@ exports.updateTag = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Tag updated successfully",
+    description: "تگ با موفقیت ویرایش شد",
   });
 };
 
@@ -115,6 +114,6 @@ exports.deleteTag = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Tag deleted successfully",
+    description: "تگ با موفقیت حذف شد",
   });
 };
