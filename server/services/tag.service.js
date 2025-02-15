@@ -2,10 +2,7 @@
 
 /* internal import */
 const Tag = require("../models/tag.model");
-const Product = require("../models/product.model");
 const User = require("../models/user.model");
-const Product = require("../models/product.model");
-const Post = require("../models/post.model");
 
 /* add new tag */
 exports.addTag = async (req, res) => {
@@ -103,10 +100,7 @@ exports.deleteTag = async (req, res) => {
     });
   }
 
-  await Product.updateMany({ tag: req.params.id }, { $unset: { tag: "" } });
-  await User.findByIdAndUpdate(tag.creator, {
-    $unset: { tag: "" },
-  });
+
 
   res.status(200).json({
     acknowledgement: true,
