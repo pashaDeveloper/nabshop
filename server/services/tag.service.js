@@ -35,24 +35,18 @@ exports.addTag = async (req, res) => {
 };
 
 /* get all tags */
-exports.getTags = async (req, res) => {
-  try {
-    const tags = await Tag.find({ isDeleted: false }).populate("creator");
-
-    res.status(200).json({
-      acknowledgement: true,
-      message: "Ok",
-      description: "تگ‌ها با موفقیت دریافت شدند",
-      data: tags,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      acknowledgement: false,
-      message: "خطای سرور",
-      description: "در هنگام دریافت تگ‌ها، خطایی رخ داده است",
-    });
-  }
+exports.getTags = async (res) => {
+  const tags = await Tag.find()
+  .populate({
+    path: "creator",
+    select: "name avatar", // دریافت نام و آواتار سازنده
+  });
+  res.status(200).json({
+    acknowledgement: true,
+    message: "Ok",
+    description: "تگ ها با موفقیت دریافت شدند",
+    data: tags,
+  });
 };
 
 

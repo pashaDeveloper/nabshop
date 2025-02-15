@@ -23,15 +23,12 @@ const Tags = () => {
     search: searchTerm,
   });
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const totalPages = data ? Math.ceil(data.total / itemsPerPage) : 1;
 
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => setIsAddModalOpen(false);
-  const openDeleteModal = () => setIsDeleteModalOpen(false);
-  const closeDeleteModal = () => setIsDeleteModalOpen(false);
-
+console.log(data)
   useEffect(() => {
     if (isLoading) {
       toast.loading("در حال دریافت تگ‌ها...", { id: "tag-loading" });
