@@ -64,6 +64,7 @@ const CartButton = ({ product }) => {
                 <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
                   ${selectedUnit?.unit._id === variation.unit._id ? "opacity-100 visible" : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"}`}
                 >
+                  
                   {variation?.unit?.title}
                   {/* فلش Tooltip */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full border-8 border-transparent border-b-secondary"></div>

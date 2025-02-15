@@ -23,7 +23,6 @@ const UpdateUnit = ({ id }) => {
     control,
     formState: { errors },
   } = useForm();
-
   const {
     isLoading: fetching,
     data: fetchData,
@@ -47,7 +46,6 @@ const UpdateUnit = ({ id }) => {
         id: "fetchUnit",
       });
     }
-    console.log(fetchData);
     if (fetchData) {
       toast.success(fetchData?.message, { id: "fetchUnit" });
     }
@@ -202,7 +200,7 @@ const UpdateUnit = ({ id }) => {
                       sendId={true}
                       className="w-full h-12"
                       handleSelect={field.onChange}
-                      value={field.value || fetchData?.data?.category?._id || ""}
+                      value={field.value || fetchData?.data?.category || ""}
                     />
                   )}
                 /> 

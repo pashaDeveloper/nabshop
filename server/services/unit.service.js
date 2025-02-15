@@ -61,6 +61,8 @@ exports.getUnit = async (req, res) => {
 /* update unit */
 exports.updateUnit = async (req, res) => {
   let updatedUnit = req.body;
+  console.log("updatedUnit",updatedUnit)
+  console.log(req.params.id)
   await Unit.findByIdAndUpdate(req.params.id, updatedUnit);
   res.status(200).json({
     acknowledgement: true,
