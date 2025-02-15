@@ -33,7 +33,8 @@ const MyCart = () => {
   return (
     <>
         <button
-        className="p-2 rounded-secondary hover:bg-slate-100 transition-colors relative"
+        aria-label="سبد خرید"
+        className="p-2 rounded-secondary bg-slate-100 hover:bg-slate-200 transition-colors relative"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Cart className="h-6 w-6" />

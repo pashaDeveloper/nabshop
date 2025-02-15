@@ -115,16 +115,17 @@ const Header = () => {
           )}
         </motion.div>
         <div className="md:flex hidden  flex-row-reverse gap-x-2 relative h-fit">
-          {isClient && user && Object.keys(user).length > 0 && (
+          {isClient && user && Object.keys(user).length > 0 ? (
             <button
               className="p-2 rounded-secondary hover:bg-slate-100 transition-colors"
               onClick={() => window.open("/dashboard", "_self")}
             >
               <Dashboard className="h-6 w-6" />
             </button>
+          ) : (
+            <Auth />
           )}
           <SearchFilter />
-          <Auth />
           <MyCart />
         </div>
       </nav>
