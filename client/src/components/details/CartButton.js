@@ -111,8 +111,8 @@ const CartButton = ({ product }) => {
                       : "bg-secondary"
                   }`}
                   style={{
-                    width: `${15 + variation.unit.value * 12}px`,
-                    height: `${15 + variation.unit.value * 12}px`
+                    width: `${15 + variation.unit.value * 15}px`,
+                    height: `${15 + variation.unit.value * 15}px`
                   }}
                 >
                 {selectedUnit?.unit._id === variation.unit._id ? <TiTickOutline className="w-8 h-8 text-white" /> :"" }      
