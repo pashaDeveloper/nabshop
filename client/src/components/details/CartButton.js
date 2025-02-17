@@ -55,7 +55,7 @@ const CartButton = ({ product }) => {
                     className={`relative rounded-full flex items-center justify-center text-xl transition-all duration-300 ease-in-out
                   ${
                     selectedUnit?.unit._id === variation.unit._id
-                      ? "bg-primary outline-none ring-2 ring-primary dark:ring-green-300 ring-offset-4 dark:ring-offset-gray-800"
+                      ? "bg-primary outline-none ring-2 ring-primary  ring-offset-4 "
                       : "bg-secondary"
                   }`}
                     style={{
@@ -84,7 +84,7 @@ const CartButton = ({ product }) => {
                 </div>
               ))}
           </div>
-          <div className="flex gap-x-2 items-center justify-between p-4 md:p-0">
+          <div className="flex gap-x-2 items-center md:justify-start justify-between p-4 md:p-0">
             {discountedPrice < originalPrice && (
               <span className="text-red-500 block line-through text-sm">
                 {originalPrice.toLocaleString("fa-IR")} ریال
@@ -109,7 +109,7 @@ const CartButton = ({ product }) => {
                   className={`relative rounded-full flex items-center justify-center text-xl transition-all duration-300 ease-in-out
                   ${
                     selectedUnit?.unit._id === variation.unit._id
-                      ? "bg-primary outline-none ring-2 ring-primary dark:ring-green-300 ring-offset-4 "
+                      ? "bg-primary outline-none ring-2 ring-primary dark:ring-secondary ring-offset-4 "
                       : "bg-secondary"
                   }`}
                   style={{
@@ -141,7 +141,7 @@ const CartButton = ({ product }) => {
         <div className="flex justify-between md:mt-4 items-center gap-4 p-4">
           <div className="flex bg-white flex-row gap-x-2  items-center border px-1 py-0.5 rounded-secondary h-full">
             <button
-              className="border border-black/30 disabled:border-zinc-100 p-1.5 rounded-secondary"
+              className="border bg-primary  border-white/30 disabled:border-zinc-100 p-1.5 text-white rounded-secondary "
               onClick={() => setQty(qty - 1)}
               disabled={qty === 1}
             >
@@ -151,7 +151,7 @@ const CartButton = ({ product }) => {
               {qty}
             </span>
             <button
-              className="border border-black/30 disabled:border-zinc-100 p-1.5 rounded-secondary"
+              className="border bg-primary text-white border-white/30 disabled:border-zinc-100 p-1.5 rounded-secondary"
               onClick={() => setQty(qty + 1)}
             >
               <AiOutlinePlus className="w-4 h-4" />

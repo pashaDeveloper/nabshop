@@ -11,13 +11,14 @@ import Steps from "@/components/home/Steps";
 import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
 import Post from "@/components/home/posts/Post";
+import Hero from "@/components/home/hero/Hero";
 
 export default function Home() {
   return (
     <>
       <Main>
         <main className="flex flex-col gap-y-20 w-full bg-lightbg">
-          <Banner1 />
+          <Hero/>
           <NewArrivals />
           <Post/>
           <Banner2 />

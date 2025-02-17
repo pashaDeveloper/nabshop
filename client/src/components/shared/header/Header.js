@@ -38,7 +38,7 @@ const Header = () => {
 
   return (
     <div className=" relative flex justify-center">
-      <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-2 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
+      <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-3 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
         <div className="md:flex flex-row gap-x-4 hidden items-center relative">
           <Image
             src={"/logo.png"}
