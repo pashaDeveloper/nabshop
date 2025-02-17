@@ -15,7 +15,7 @@ const Left = ({ product }) => {
   console.log(product.tags);
   return (
     <section className="lg:col-span-6 md:col-span-6 col-span-12 flex flex-col gap-y-4">
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-4 relative">
         <LoadImage
           src={mainImage}
           alt="Main product"
@@ -37,16 +37,16 @@ const Left = ({ product }) => {
               onClick={() => setMainImage(thumbnail?.url)}
             />
           ))}
+
         </div>
-      </div>
-      <article className="flex flex-col gap-y-4">
-        <div className="flex flex-row gap-x-2.5">
-          <Badge className="text-purple-800 bg-purple-100">
+          <Badge className="absolute top-2 left-2 text-purple-800 bg-purple-100">
             {"در " +
               product?.variations?.length.toLocaleString("fa-IR") +
               " " +
               "وزن"}
           </Badge>
+          <div className="absolute top-2 right-2  flex flex-row gap-x-2.5">
+
           {product?.campaign?.state === "discount" && (
             <Badge className="text-cyan-800 bg-cyan-100 flex flex-row items-center gap-x-1">
               <Discount /> {product?.campaign?.title}
@@ -68,6 +68,9 @@ const Left = ({ product }) => {
             </Badge>
           )}
         </div>
+      </div>
+      <article className="flex flex-col gap-y-4">
+       
         <div className="flex flex-col gap-y-2.5">
           <DetailCard
             title={`از دسته بندی ${product?.category?.title}`}
