@@ -59,7 +59,7 @@ const Header = () => {
                     "text-sm text-black w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent" +
                     " " +
                     (selectedNiche === niche.title
-                      ? "bg-[#ef4444] text-white"
+                      ? "bg-primary text-white"
                       : "")
                   }
                   onClick={() => setSelectedNiche(niche.title)}

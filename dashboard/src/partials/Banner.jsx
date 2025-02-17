@@ -20,10 +20,15 @@ function Banner() {
                 href={liteLink}
                 target="_blank"
                 rel="noreferrer"
-              >
-              </a>{" "}
+              ></a>
+              <p>
+                {"کلیه حقوق این اثر متعلق به شرکت نقل و حلوا پزی "}
+                <span className="text-red-500 text-lg">ناب</span>
+                {
+                  " می باشد هر گونه کپی برداری یا استفاده غیر قانونی و ورود نا مجاز پی گرد قانونی در پی دارد"
+                }
+              </p>
               <span className="italic px-1.5"></span>{" "}
-              
             </div>
             <button
               className="text-gray-500 hover:text-gray-400 pl-2 ml-3 border-l border-gray-700/60"

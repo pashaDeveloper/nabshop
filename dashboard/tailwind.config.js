@@ -80,6 +80,8 @@ export default {
           900: '#941818',
           950: '#600F0F',
         },
+        primary: "#ef4444",
+        secondary: "#f87171",
         yellow: {
           50: '#FFF2C9',
           100: '#FFE7A0',

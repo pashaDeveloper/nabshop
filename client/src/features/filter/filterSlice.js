@@ -1,11 +1,10 @@
-
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   category: null,
-  brand: null,
   store: null,
+  priceRange: { min: 500, max: 50000 },
+  dateRange: { startDate: null, endDate: null }
 };
 
 const filterSlice = createSlice({
@@ -15,21 +14,24 @@ const filterSlice = createSlice({
     setCategory: (state, action) => {
       state.category = action.payload;
     },
-    setBrand: (state, action) => {
-      state.brand = action.payload;
+
+    setPriceRange: (state, action) => {
+      state.priceRange = action.payload;
     },
-    setStore: (state, action) => {
-      state.store = action.payload;
+
+    setDateRange: (state, action) => {
+      state.dateRange = action.payload;
     },
 
     clearFilter: (state) => {
       state.category = null;
-      state.brand = null;
-      state.store = null;
-    },
-  },
+      state.priceRange = { min: 50, max: 50000 };
+      state.dateRange = { startDate: null, endDate: null };
+      state.ratings = [];
+    }
+  }
 });
 
-export const { setCategory, setBrand, setStore, clearFilter } =
+export const { setCategory, setRatings, clearFilter,setDateRange,setPriceRange } =
   filterSlice.actions;
 export default filterSlice.reducer;

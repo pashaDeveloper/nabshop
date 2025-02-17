@@ -7,7 +7,7 @@ const productApi = nabApi.injectEndpoints({
    
     getProducts: builder.query({
       query: () => ({
-        url: "/product/get-products",
+        url: "/product/get-detail-products",
         method: "GET",
       }),
 

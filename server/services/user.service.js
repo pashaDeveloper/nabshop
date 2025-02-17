@@ -155,7 +155,9 @@ exports.forgotPassword = async (req, res) => {
 
 /* login persistance */
 exports.persistLogin = async (req, res) => {
-  const user = await User.findById(req.user._id).populate([
+  const user = await User.findById(req.user._id)
+  .select('-password -phone')
+  .populate([
     {
       path: "cart",
       populate: [{ path: "product", populate: ["category"] }, "user"]

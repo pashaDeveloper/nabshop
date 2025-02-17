@@ -1,6 +1,4 @@
-
-
-import {nabApi} from "../nab";
+import { nabApi } from "../nab";
 
 const productApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,22 +8,22 @@ const productApi = nabApi.injectEndpoints({
         url: "/product/add-product",
         method: "POST",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
         },
-        body,
+        body
       }),
 
-      invalidatesTags: ["Product", "Brand", "Category", "Store", "User"],
+      invalidatesTags: ["Product", "Category", "User"]
     }),
 
     // get all products
     getProducts: builder.query({
       query: () => ({
         url: "/product/get-products",
-        method: "GET",
+        method: "GET"
       }),
 
-      providesTags: ["Product"],
+      providesTags: ["Product"]
     }),
 
     // update product
@@ -34,32 +32,82 @@ const productApi = nabApi.injectEndpoints({
         url: `/product/update-product/${id}`,
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
         },
-        body,
+        body
       }),
 
-      invalidatesTags: ["Product", "Brand", "Category", "Store", "User"],
+      invalidatesTags: ["Product", "Category", "User"]
+    }),
+    //update prodduct Approve
+    updateProductApprove: builder.mutation({
+      query: ({ id }) => ({
+        url: `/product/update-product-approve/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        },
+        body: {}
+      }),
+      invalidatesTags: ["Product", "Category", "User"]
+    }),
+    // بازبینی محصول
+    updateProductReview: builder.mutation({
+      query: ({ id }) => ({
+        url: `/product/update-product-review/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        },
+        body: {}
+      }),
+      invalidatesTags: ["Product", "Category", , "User"]
+    }),
+
+    updateProductReject: builder.mutation({
+      query: ({ id, message }) => ({
+        url: `/product/update-product-reject/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        },
+        body: {
+          rejectedMessage: message // پیام رد
+        }
+      }),
+      invalidatesTags: ["Product", "Category", "User"]
+    }),
+
+    updateProductStatus: builder.mutation({
+      query: ({ id, message }) => ({
+        url: `/product/update-product-status/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        },
+        body: {}
+      }),
+      invalidatesTags: ["Product", "Category", "User"]
     }),
 
     // get a single product
     getProduct: builder.query({
       query: (id) => ({
         url: `/product/get-product/${id}`,
-        method: "GET",
+        method: "GET"
       }),
 
-      providesTags: ["Product"],
+      providesTags: ["Product"]
     }),
 
     // filtered products
     getFilteredProducts: builder.mutation({
       query: (query) => ({
         url: `/product/filtered-products?${query}`,
-        method: "GET",
+        method: "GET"
       }),
 
-      providesTags: ["Product"],
+      providesTags: ["Product"]
     }),
 
     // delete product
@@ -68,20 +116,24 @@ const productApi = nabApi.injectEndpoints({
         url: `/product/delete-product/${id}`,
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        }
       }),
 
-      invalidatesTags: ["Product", "Brand", "Category", "Store", "User"],
-    }),
-  }),
+      invalidatesTags: ["Product", "Category", "User"]
+    })
+  })
 });
 
 export const {
+  useUpdateProductApproveMutation,
+  useUpdateProductRejectMutation,
+  useUpdateProductReviewMutation,
+  useUpdateProductStatusMutation,
   useAddProductMutation,
   useGetProductsQuery,
   useUpdateProductMutation,
   useGetProductQuery,
   useGetFilteredProductsMutation,
-  useDeleteProductMutation,
+  useDeleteProductMutation
 } = productApi;

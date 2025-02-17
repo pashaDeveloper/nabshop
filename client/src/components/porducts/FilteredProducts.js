@@ -2,17 +2,16 @@
 
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import Card from "../shared/Card";
 import {
   useGetFilteredProductsMutation,
-  useGetFilteredProductsQuery,
 } from "@/services/product/productApi";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../shared/skeletonLoading/ProductCard";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
-import { setBrand, setCategory, setStore } from "@/features/filter/filterSlice";
+import {  setCategory,setPriceRange  } from "@/features/filter/filterSlice";
 
 const FilteredProducts = () => {
   const filter = useSelector((state) => state.filter);
@@ -24,9 +23,8 @@ const FilteredProducts = () => {
 
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
-  const brand = searchParams.get("brand");
   const category = searchParams.get("category");
-  const store = searchParams.get("store");
+  const price = searchParams.get("price");
 
   useEffect(() => {
     addFilter(new URLSearchParams(filter).toString());
@@ -51,21 +49,20 @@ const FilteredProducts = () => {
       });
     }
 
-    if (brand) dispatch(setBrand(brand));
     if (category) dispatch(setCategory(category));
-    if (store) dispatch(setStore(store));
+    if (price) dispatch(setPrice(price));
+
   }, [
     productsError,
     productsData,
     productsLoading,
-    brand,
     category,
-    store,
+    price,
     dispatch,
   ]);
 
   return (
-    <div className="lg:col-span-9 md:col-span-8 col-span-12">
+    <div className="lg:col-span-9 md:col-span-8 col-span-12 mt-24">
       <div className="flex flex-col gap-y-8">
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-x-6 gap-y-8">
           {productsLoading ||!productsLoading && products?.length === 0? (

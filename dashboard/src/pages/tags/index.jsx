@@ -2,7 +2,6 @@ import ControlPanel from "../ControlPanel";
 import React, { useState, useEffect } from "react";
 import { useGetTagsQuery } from "@/services/tag/tagApi";
 import AddTag from "./add";
-import DeleteModal from "@/components/shared/modal/DeleteModal";
 import { toast } from "react-hot-toast";
 import SkeletonItem from "@/components/shared/skeleton/SkeletonItem";
 import StatusIndicator from "@/components/shared/tools/StatusIndicator";

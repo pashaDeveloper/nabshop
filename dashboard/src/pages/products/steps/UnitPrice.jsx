@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Dropdown from "@/components/shared/dropDown/Dropdown";
 import { Controller } from "react-hook-form";
 import Trash from "@/components/icons/Trash";
+import NumberToPersianWord  from "number_to_persian_word";
 
 const UnitPrice = ({ control, index, remove, errors, units }) => {
   return (
     <div className="flex flex-col gap-y-1 w-full border rounded p-4">
-      <div className="grid items-center grid-cols-12 gap-x-2 ">
+      <div className="grid items-center grid-cols-12 gap-x-2">
         {/* انتخاب واحد */}
         <div className="col-span-7">
           <span>یک واحد انتخاب کنید</span>
@@ -30,7 +31,7 @@ const UnitPrice = ({ control, index, remove, errors, units }) => {
                 error={errors?.variations?.[index]?.unit}
               />
             )}
-          /> 
+          />
         </div>
 
         {/* قیمت واحد */}
@@ -61,6 +62,26 @@ const UnitPrice = ({ control, index, remove, errors, units }) => {
               )}
             />
           </div>
+        </div>
+      </div>
+
+      {/* قیمت به تومان (حروفی) */}
+      <div className="col-span-12 mt-2">
+        <div className="flex flex-row">
+          <Controller
+            control={control}
+            name={`variations.${index}.price`}
+            render={({ field: { value } }) => (
+              <span className="text-green-600 text-sm">
+               {"معادل : "} 
+                <span className="text-red-600">
+               {NumberToPersianWord.convert((value || 0) / 10)} تومان
+
+                </span>
+                {/* تبدیل قیمت به تومان و حروف فارسی */}
+              </span>
+            )}
+          />
         </div>
       </div>
 
@@ -129,6 +150,7 @@ const UnitPrice = ({ control, index, remove, errors, units }) => {
       >
         <Trash className="w-6 h-6 text-gray-500 hover:text-red-500" />
       </button>
+
       {/* نمایش پیام خطا */}
       {errors.variations?.[index]?.unit && (
         <span className="text-red-500 text-sm">

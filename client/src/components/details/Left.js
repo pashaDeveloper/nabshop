@@ -9,43 +9,43 @@ const Left = ({ product }) => {
   // State to manage the main image
   const [mainImage, setMainImage] = useState(product.thumbnail?.url);
 
- 
-
-  const hashTags = [
-    ...(product?.category?.tags || []),
-
-  ].filter((tag) => tag !== undefined);
-
+  const hashTags = [...(product?.category?.tags || [])].filter(
+    (tag) => tag !== undefined
+  );
+  console.log(product.tags);
   return (
     <section className="lg:col-span-6 md:col-span-6 col-span-12 flex flex-col gap-y-4">
-     <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-4">
         <LoadImage
           src={mainImage}
           alt="Main product"
           width={480}
           height={200}
-          className="rounded w-full h-full object-cover"
+          className="rounded w-full h-full object-cover border border-orange-300"
         />
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid grid-cols-7 gap-4 justify-center items-center">
           {product?.gallery?.map((thumbnail, index) => (
             <LoadImage
               src={thumbnail?.url}
               key={index}
               alt={thumbnail?.public_id}
               className={
-                "rounded object-cover max-w-full w-full h-full cursor-pointer" 
+                "rounded object-cover max-w-full border border-orange-300 w-full h-full cursor-pointer"
               }
               width={480}
               height={200}
-              onClick={() => setMainImage(thumbnail?.url)} 
+              onClick={() => setMainImage(thumbnail?.url)}
             />
           ))}
         </div>
-      </div> 
-       <article className="flex flex-col gap-y-4">
-         <div className="flex flex-row gap-x-2.5">
+      </div>
+      <article className="flex flex-col gap-y-4">
+        <div className="flex flex-row gap-x-2.5">
           <Badge className="text-purple-800 bg-purple-100">
-            {"در " + product?.variations?.sizes?.length + " " + "وزن"}
+            {"در " +
+              product?.variations?.length.toLocaleString("fa-IR") +
+              " " +
+              "وزن"}
           </Badge>
           {product?.campaign?.state === "discount" && (
             <Badge className="text-cyan-800 bg-cyan-100 flex flex-row items-center gap-x-1">
@@ -67,19 +67,33 @@ const Left = ({ product }) => {
               <Arrival /> {product?.campaign?.title}
             </Badge>
           )}
-        </div> 
-         <div className="flex flex-col gap-y-2.5">
+        </div>
+        <div className="flex flex-col gap-y-2.5">
           <DetailCard
             title={`از دسته بندی ${product?.category?.title}`}
             content={product?.category?.keynotes}
           />
           <div className="flex flex-row flex-wrap gap-1 mt-4">
             {hashTags.map((hashTag, index) => (
-              <span key={index} className="!text-xs border px-2 py-0.5 rounded-sm">{`#${hashTag}`}</span>
+              <span
+                key={index}
+                className="!text-xs border px-2 py-0.5 rounded-sm"
+              >{`#${hashTag}`}</span>
             ))}
           </div>
-        </div> 
-      </article> 
+        </div>
+        <div className="flex flex-col gap-y-2.5">
+          <div className="flex flex-col gap-y-2.5">
+            {product?.tags?.map((tag, index) => (
+              <DetailCard
+                key={index}
+                title={tag.title}
+                content={tag?.keynotes} // آرایه رشته‌ها
+              />
+            ))}
+          </div>
+        </div>
+      </article>
     </section>
   );
 };

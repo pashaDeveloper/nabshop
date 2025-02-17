@@ -32,7 +32,7 @@ const Banner2 = ({ className }) => {
               با نقل و حلوای ناب، طعم اصیل و خانگی را تجربه کنید. محصولی باکیفیت، تهیه‌شده از بهترین مواد اولیه، برای شیرین کردن لحظات شما. ارسال به سراسر کشور با تضمین تازگی!
               </p>
               <button className="px-8 py-4 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow w-fit mt-4"
-              onClick={() => router.push("https://devhasibulislam.vercel.app/")}>
+              onClick={() => router.push("/products")}>
               تجربه کنید
               </button>
             </div>

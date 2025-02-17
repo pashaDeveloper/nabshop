@@ -19,6 +19,8 @@
     "ckeditor5-premium-features": "44.1.0",
     "clsx": "^2.1.1",
     "moment": "^2.29.4",
+    "number_to_persian_word": "^1.5.3",
+    "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-day-picker": "^9.4.1",
     "react-dom": "^18.2.0",

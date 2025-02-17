@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
@@ -25,16 +23,16 @@ const NicheExplorer = () => {
   const niches = [
     {
       title: "محصولات",
-      icon: <Brand />,
+      icon: <Brand />
     },
     {
       title: "دسته بندی",
-      icon: <Category />,
+      icon: <Category />
     },
     {
       title: "مجله",
-      icon: <Store />,
-    },
+      icon: <Store />
+    }
   ];
 
   const [selectedNiche, setSelectedNiche] = useState("Category");
@@ -60,7 +58,7 @@ const NicheExplorer = () => {
                   onClick={() => setSelectedNiche(niche.title)}
                 >
                   {niche.icon}
-                  {niche.title}
+                  <span className={"hidden md:flex "+(selectedNiche === niche.title ? "bg-black text-white" : "") }>{niche.title}</span>
                 </button>
               ))}
             </div>
@@ -78,7 +76,7 @@ function DisplayBrands() {
   const {
     data: brandsData,
     error: brandsError,
-    isLoading: fetchingBrands,
+    isLoading: fetchingBrands
   } = useGetBrandsQuery();
 
   const brands = useMemo(() => brandsData?.data || [], [brandsData]);
@@ -89,7 +87,7 @@ function DisplayBrands() {
   useEffect(() => {
     if (brandsError) {
       toast.error(brandsError?.data?.description, {
-        id: "brands-data",
+        id: "brands-data"
       });
     }
   }, [brandsError]);
@@ -114,7 +112,6 @@ function DisplayBrands() {
                   setIsOpen(true);
                 }}
               >
-               
                 <div className="flex flex-col gap-y-2">
                   <h2 className="text-xl">{brand?.title}</h2>
                   <p className="flex flex-row gap-x-1 items-center rounded-primary">
@@ -219,7 +216,7 @@ function DisplayCategories() {
   const {
     data: categoriesData,
     error: categoriesError,
-    isLoading: fetchingCategories,
+    isLoading: fetchingCategories
   } = useGetCategoriesQuery();
 
   const categories = useMemo(
@@ -233,7 +230,7 @@ function DisplayCategories() {
   useEffect(() => {
     if (categoriesError) {
       toast.error(categoriesError?.data?.description, {
-        id: "categories-data",
+        id: "categories-data"
       });
     }
   }, [categoriesError]);
@@ -271,7 +268,7 @@ function DisplayCategories() {
                   <p className="flex flex-row gap-x-1 items-center rounded-primary">
                     <BsBoxSeam />{" "}
                     <span className="group-hover:text-indigo-500 text-xs transition-colors">
-                      {category?.products?.length} Products
+                      {category?.products?.length} محصول
                     </span>
                   </p>
                 </div>
@@ -293,7 +290,7 @@ function DisplayCategories() {
       </div>
 
       {!fetchingCategories && categories?.length === 0 && (
-        <p className="text-sm">Oops! No categories found!</p>
+        <p className="text-sm">هیچ دسته بندی یافت نشد!</p>
       )}
 
       {isOpen && (
@@ -370,7 +367,7 @@ function DisplayStores() {
   const {
     data: storesData,
     error: storesError,
-    isLoading: fetchingStores,
+    isLoading: fetchingStores
   } = useGetStoresQuery();
 
   const stores = useMemo(() => storesData?.data || [], [storesData]);
@@ -381,7 +378,7 @@ function DisplayStores() {
   useEffect(() => {
     if (storesError) {
       toast.error(storesError?.data?.description, {
-        id: "stores-data",
+        id: "stores-data"
       });
     }
   }, [storesError]);

@@ -18,6 +18,7 @@ import Categories from "./pages/categories";
 import AddCategory from "./pages/categories/add";
 import Products from "./pages/products";
 import AddProduct from "./pages/products/add";
+import UpdateProduct from "./pages/products/update/index";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route exact path="/categories/add" element={<AddCategory />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/products/add" element={<AddProduct />} />
+          <Route exact path="/products/update/:product_id" element={<UpdateProduct />} />
           <Route path="/posts/info/:id" element={<PostInfo />} />
         </Routes>
       </Auth>

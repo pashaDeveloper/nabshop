@@ -3,7 +3,7 @@
 "use client";
 
 import React from "react";
-import { BiChevronDown, BiChevronRight, BiChevronUp } from "react-icons/bi";
+import { BiChevronDown, BiChevronLeft, BiChevronUp } from "react-icons/bi";
 
 const DetailCard = ({ title, content }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -35,7 +35,7 @@ const DetailCard = ({ title, content }) => {
               className="text-sm flex flex-row items-start gap-x-1.5 line-clamp-1"
             >
               <span className="">
-                <BiChevronRight className="h-4 w-4" />
+                <BiChevronLeft className="h-4 w-4" />
               </span>{" "}
               {content}
             </p>

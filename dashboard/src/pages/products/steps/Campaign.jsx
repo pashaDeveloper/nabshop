@@ -104,21 +104,21 @@ const Campaign = ({ register, errors, watch, control, prevStep, nextStep }) => {
               name="discountAmount"
               id="discountAmount"
               {...register("discountAmount", {
-                required: "وارد کردن مقدار تخفیف الزامی است",
-                min: { value: 1, message: "مقدار تخفیف باید حداقل ۱ باشد" },
+                required: "وارد کردن درصد تخفیف الزامی است",
+                min: { value: 1, message: "درصد تخفیف باید حداقل ۱ باشد" },
                 max: {
                   value: 99,
-                  message: "مقدار تخفیف نباید بیشتر از ۹۹ باشد",
+                  message: "درصد تخفیف نباید بیشتر از ۹۹ باشد",
                 },
               })}
               className="w-full border p-2 rounded mt-2"
-              placeholder="مقدار تخفیف را وارد کنید"
+              placeholder="درصد تخفیف را وارد کنید"
             />
           )}
         </label>
         <label
           htmlFor="variations"
-          className="flex w-full flex-col gap-y-2 p-2 max-h-[200px] overflow-y-auto"
+          className="flex w-full flex-col gap-y-2 p-2 max-h-[300px] overflow-y-auto"
         >
           <span className="text-sm">درج قیمت بر اساس واحد*</span>
 

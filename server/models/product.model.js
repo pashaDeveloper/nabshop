@@ -5,7 +5,6 @@ const baseSchema = require("./baseSchema.model");
 const Counter = require("./counter")
 const Category = require("./category.model");
 const Tag = require("./tag.model");
-const QRCode = require('qrcode');
 
 const productSchema = new mongoose.Schema(
   {
@@ -101,7 +100,19 @@ gallery: {
       default: 0,
       min: [0, "تعداد بازدید نمی‌تواند منفی باشد"],
     },
-
+    publishStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+      required: [true, "وضعیت انتشار الزامی است"]
+    },
+    rejectMessage: {
+      type: String,
+      required: function() {
+        return this.publishStatus === "rejected";
+      },
+      message: "لطفاً دلیل رد شدن را وارد کنید"
+    },
     variations: [
       {
         unit: {
@@ -157,13 +168,6 @@ gallery: {
       required: false, 
     },
     
-    buyers: [
-      {
-        type: ObjectId,
-        ref: "User",
-      },
-    ],
-
     reviews: [
       {
         type: ObjectId,
@@ -173,6 +177,10 @@ gallery: {
     isFeatured: {
       type: Boolean,
       default: false,
+    },
+    creator: {
+      type: ObjectId,
+      ref: "User",
     },
     scans: [
       {
@@ -248,11 +256,10 @@ productSchema.pre("save", async function (next) {
     );
     this.productId = counter.seq;
 
-    const productUrl = `${defaultDomain}/scan/${this._id}`;
-    console.log(productUrl)
-    // تولید QR Code
-    const qrCodeDataUrl = await QRCode.toDataURL(productUrl);
-    this.qrCode = qrCodeDataUrl;
+    const productUrl = `${defaultDomain}/product?product_id=${this._id}&product_title=${this.title
+      .replace(/ /g, "-")
+      .toLowerCase()}`;
+    this.qrCode = productUrl;
 
     next();
   } catch (error) {
@@ -289,8 +296,6 @@ productSchema.pre("save", async function (next) {
     } else {
       this.stockStatus = "in-stock";
     }
-
-    // سایر تنظیمات مربوط به metaTitle، metaDescription و metaKeywords
     if (
       this.isModified("title") ||
       !this.metaTitle ||
@@ -299,31 +304,19 @@ productSchema.pre("save", async function (next) {
     ) {
       try {
         const category = await Category.findById(this.category);
-        if (category) {
-          let combinedMetaTitle = `${this.title} | ${category.title}`;
-          if (combinedMetaTitle.length > 60) {
-            const excessLength = combinedMetaTitle.length - 60;
-            combinedMetaTitle = `${this.title.substring(0, this.title.length - excessLength)} | ${category.title}`;
-          }
-          this.metaTitle = combinedMetaTitle;
-
-          let combinedMetaDescription = `${this.summary} | ${category.title}`;
-          if (combinedMetaDescription.length > 160) {
-            const excessLength = combinedMetaDescription.length - 160;
-            combinedMetaDescription = `${this.summary.substring(0, this.summary.length - excessLength)} | ${category.title}`;
-          }
-          this.metaDescription = combinedMetaDescription;
+        if (category && category.title) {
+          this.metaTitle = `${this.title} | ${category.title}`.substring(0, 60);
+          this.metaDescription = `${this.summary} | ${category.title}`.substring(0, 160);
         } else {
-          this.metaTitle = this.title.length > 60 ? this.title.substring(0, 57) + "..." : this.title;
-          this.metaDescription = this.summary.length > 160 ? this.summary.substring(0, 157) + "..." : this.summary;
+          this.metaTitle = this.metaTitle || this.title.substring(0, 60);
+          this.metaDescription = this.metaDescription || this.summary.substring(0, 160);
         }
-        if (!this.canonicalUrl) {
-          this.canonicalUrl = `${defaultDomain}/post/${this.slug}/${this.postId || encodeURIComponent(this._id)}`;
+        
+        if (!this.metaKeywords || this.metaKeywords.length === 0) {
+          const tags = await Tag.find({ _id: { $in: this.tags } }).select("title");
+          this.metaKeywords = tags.length > 0 ? tags.map(tag => tag.title).slice(0, 10) : ["محصول جدید"];
         }
-        /* تنظیم کلیدواژه‌های متا */
-        const tags = await Tag.find({ _id: { $in: this.tags } });
-        const tagKeywords = tags.map((tag) => tag.title);
-        this.metaKeywords = tagKeywords.slice(0, 10);
+        
       } catch (error) {
         console.error("خطا در تنظیم metaTitle، metaDescription و metaKeywords:", error);
       }

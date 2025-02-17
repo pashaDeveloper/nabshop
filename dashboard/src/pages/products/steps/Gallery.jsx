@@ -26,7 +26,7 @@ const GalleryStep = ({ nextStep,prevStep, setGallery, register }) => {
         />
       </div>
 
-      <div className=" flex justify-between mt-12 mt-12">
+      <div className=" flex justify-between mt-12">
         <NavigationButton direction="next" onClick={nextStep} />
                 <NavigationButton direction="prev" onClick={prevStep} />
         

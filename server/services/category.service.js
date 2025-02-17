@@ -59,11 +59,11 @@ exports.getCategories = async (res) => {
 
 
 exports.getProductCategories = async (res) => {
-  const categories = await Category.find()
-    .populate({
-      path: "products",
-      select: "_id",
-    });
+  const categories = await Category.find().populate({
+    path: "products",
+    match: { isDeleted: false, status: "active" ,publishStatus:"approved"},
+    select: "_id",
+  });
   const filteredCategories = categories.filter(category => category.products.length > 0);
 
   res.status(200).json({

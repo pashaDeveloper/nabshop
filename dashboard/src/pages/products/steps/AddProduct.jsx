@@ -11,6 +11,7 @@ import Gallery from "./Gallery";
 import Features from "./Features";
 import Campaign from "./Campaign";
 import ProductStatus from "./ProductStatus";
+import AddTag from "../../tags/add";
 
 const StepAddProduct = () => {
   const [thumbnail, setThumbnail] = useState(null);
@@ -21,7 +22,9 @@ const StepAddProduct = () => {
   const [invalidSteps, setInvalidSteps] = useState({});
   const [features, setFeatures] = useState([{ title: "", content: [""] }]);
   const [selectedTags, setSelectedTags] = useState([]);
-
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const openAddModal = () => setIsAddModalOpen(true);
+  const closeAddModal = () => setIsAddModalOpen(false);
   const {
     register,
     setValue,
@@ -30,14 +33,14 @@ const StepAddProduct = () => {
     formState: { errors },
     trigger,
     handleSubmit,
-    watch,
+    watch
   } = useForm({
-    mode: "onChange",
+    mode: "onChange"
   });
   const totalSteps = 6;
 
   const onSubmit = async (data) => {
-    const selectedTags2 = selectedTags.map(tag => tag.id);
+    const selectedTags2 = selectedTags.map((tag) => tag.id);
 
     const formData = new FormData();
     formData.append("thumbnail", thumbnail);
@@ -55,7 +58,7 @@ const StepAddProduct = () => {
       "campaign",
       JSON.stringify({
         title: data.campaignTitle,
-        state: data.campaignState,
+        state: data.campaignState
       })
     );
     formData.append("tags", JSON.stringify(selectedTags2));
@@ -64,14 +67,14 @@ const StepAddProduct = () => {
       "variations",
       JSON.stringify(
         data.variations.map((variation) => ({
-          unit: variation.unit, 
+          unit: variation.unit,
           price: variation.price,
           lowStockThreshold: variation.lowStockThreshold,
-          stock: variation.stock,
+          stock: variation.stock
         }))
       )
     );
- 
+
     addProduct(formData);
   };
 
@@ -123,10 +126,20 @@ const StepAddProduct = () => {
           setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
           return;
         }
+        valid = await trigger("description");
+        if (!valid) {
+          toast.error("لطفاً توضیحات محصول را وارد کنید");
+          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
+          return;
+        }
+        valid = await trigger("category");
+        if (!valid) {
+          toast.error("لطفاً دسته بندی محصول را وارد کنید");
+          setInvalidSteps((prev) => ({ ...prev, [currentStep]: true }));
+          return;
+        }
         break;
 
-     
-      
       case 4:
         valid = await trigger("features");
         if (!valid) {
@@ -179,6 +192,7 @@ const StepAddProduct = () => {
           <Gallery
             setGallery={setGallery}
             nextStep={nextStep}
+            prevStep={prevStep}
             register={register}
             errors={errors.gallery}
           />
@@ -192,8 +206,7 @@ const StepAddProduct = () => {
             nextStep={nextStep}
           />
         );
-      
-      
+
       case 4:
         return (
           <Features
@@ -216,14 +229,15 @@ const StepAddProduct = () => {
             control={control}
           />
         );
-        case 6:
+      case 6:
         return (
           <ProductStatus
-            register={register}
-            errors={errors}
-            setSelectedOptions={setSelectedTags}
-            selectedOptions={selectedTags}
-          />
+          register={register}
+          errors={errors}
+          setSelectedOptions={setSelectedTags}
+          selectedOptions={selectedTags}
+          setIsAddModalOpen={setIsAddModalOpen}
+        />
         );
       default:
         return null;
@@ -249,28 +263,32 @@ const StepAddProduct = () => {
   };
 
   return (
-    <form
-      action=""
-      className="w-full max-w-xl  flex flex-col p-2 gap-y-4  "
-      onSubmit={handleSubmit(onSubmit)}
-    > 
-      <StepIndicator
-        currentStep={currentStep}
-        totalSteps={totalSteps}
-        onStepClick={handleStepClick}
-        completedSteps={completedSteps}
-        invalidSteps={invalidSteps}
-      />
+    <>
+      <form
+        action=""
+        className="w-full max-w-xl  flex flex-col p-2 gap-y-4  "
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <StepIndicator
+          currentStep={currentStep}
+          totalSteps={totalSteps}
+          onStepClick={handleStepClick}
+          completedSteps={completedSteps}
+          invalidSteps={invalidSteps}
+        />
 
-      {renderStepContent(currentStep)}
+        {renderStepContent(currentStep)}
 
-      {currentStep === totalSteps && (
-        <div className="flex justify-between mt-12">
-          <SendButton />
-          <NavigationButton direction="prev" onClick={prevStep} />
-        </div>
-      )}
-    </form>
+        {currentStep === totalSteps && (
+          <div className="flex justify-between mt-12">
+            <SendButton />
+            <NavigationButton direction="prev" onClick={prevStep} />
+          </div>
+        )}
+      </form>
+      {isAddModalOpen && <AddTag isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />}
+
+    </>
   );
 };
 

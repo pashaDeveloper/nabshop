@@ -8,7 +8,7 @@ const StatusSwitch = ({ label, id, register, defaultChecked, onChange }) => {
         type="checkbox"
         className="sr-only peer"
         id={id}
-        {...register(id)}
+        {...(register ? register(id) : {})}
         defaultChecked={defaultChecked}
         onChange={onChange}
       />

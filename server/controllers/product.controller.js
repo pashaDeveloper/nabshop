@@ -25,6 +25,16 @@ exports.getProducts = async (req, res, next) => {
   }
 };
 
+exports.getDetailsProducts = async (req, res, next) => {
+  try {
+    await productService.getDetailsProducts(res);
+  } catch (error) {
+    next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
+  }
+};
+
 /* update product */
 exports.updateProduct = async (req, res, next) => {
   try {
@@ -35,6 +45,47 @@ exports.updateProduct = async (req, res, next) => {
     console.log(`Route: ${req.url} || Method: ${req.method}`);
   }
 };
+
+exports.updateApproveProduct = async (req, res, next) => {
+  try {
+    await productService.updateApproveProduct(req, res);
+  } catch (error) {
+    next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
+  }
+};
+
+exports.updateRejectProduct = async (req, res, next) => {
+  try {
+    await productService.updateRejectProduct(req, res);
+  } catch (error) {
+    next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
+  }
+};
+
+exports.updateReviewProduct = async (req, res, next) => {
+  try {
+    await productService.updateReviewProduct(req, res);
+  } catch (error) {
+    next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
+  }
+};
+
+exports.updateStatusProduct = async (req, res, next) => {
+  try {
+    await productService.updateStatusProduct(req, res);
+  } catch (error) {
+    next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
+  }
+};
+
 
 /* get a single product */
 exports.getProduct = async (req, res, next) => {

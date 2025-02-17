@@ -148,7 +148,7 @@ const Categories = () => {
                   )}
 
                   {!categoriesLoading && categories?.length === 0 && (
-                    <p className="text-xs">Oops! No categories found!</p>
+                    <p className="text-xs">هیچ دسته بندی یافت نشد</p>
                   )}
                 </>
               )}

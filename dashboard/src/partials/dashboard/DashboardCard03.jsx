@@ -105,7 +105,7 @@ function DashboardCard03() {
       <div className="px-5 pt-5">
         <header className="flex justify-between items-start mb-2">
           <h2 className="text-lg  text-gray-800 dark:text-gray-100 mb-2">
-            ثبت‌نام‌ها
+            اعضای ما
           </h2>
           {/* Menu button */}
           <EditMenu align="right" className="relative inline-flex">
@@ -136,7 +136,7 @@ function DashboardCard03() {
           </EditMenu>
         </header>
         <div className="text-xs  text-gray-400 dark:text-gray-500 uppercase mb-1">
-          میزان ثبت‌نام
+          اعضا
         </div>
         <div className="flex items-start">
           <div className="text-3xl  text-gray-800 dark:text-gray-100 mr-2">

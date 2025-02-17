@@ -1,4 +1,3 @@
-
 /* external import */
 const express = require("express");
 
@@ -20,26 +19,57 @@ router.post(
   "/add-product",
   verify,
   authorize("superAdmin", "admin"),
-  upload('product').fields([
+  upload("product").fields([
     { name: "thumbnail", maxCount: 1 },
-    { name: "gallery", maxCount: 10 },
+    { name: "gallery", maxCount: 10 }
   ]),
   productController.addProduct
 );
 
 // get all products
-router.get("/get-products", productController.getProducts);
+router.get(
+  "/get-products",
+  productController.getProducts
+);
+router.get("/get-detail-products", productController.getDetailsProducts);
 
 // update product
 router.patch(
   "/update-product/:id",
   verify,
   authorize("superAdmin", "admin"),
-  upload('product').fields([
+  upload("product").fields([
     { name: "thumbnail", maxCount: 1 },
-    { name: "gallery", maxCount: 5 },
+    { name: "gallery", maxCount: 5 }
   ]),
   productController.updateProduct
+);
+
+router.patch(
+  "/update-product-approve/:id",
+  verify,
+  authorize("superAdmin"),
+  productController.updateApproveProduct
+);
+router.patch(
+  "/update-product-reject/:id",
+  verify,
+  authorize("superAdmin"),
+  productController.updateRejectProduct
+);
+
+router.patch(
+  "/update-product-review/:id",
+  verify,
+  authorize("admin"),
+  productController.updateReviewProduct
+);
+
+router.patch(
+  "/update-product-status/:id",
+  verify,
+  authorize("superAdmin","admin"),
+  productController.updateStatusProduct
 );
 
 // get a single product
