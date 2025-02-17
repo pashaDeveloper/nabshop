@@ -10,7 +10,7 @@ import Image from 'next/image'
 const Post = () => {
   return (
     <section
-      className="bg-no-repeat bg-contain bg-center h-full py-12 dark:bg-gray-900 "
+      className="bg-no-repeat bg-contain bg-center h-full py-12 "
       style={{
         backgroundImage:
           "url(/assets/home-page/offer/tree1.svg), url(/assets/home-page/offer/tree2.svg)",
