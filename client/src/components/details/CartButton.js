@@ -6,6 +6,7 @@ import Bag from "../icons/Bag";
 import Spinner from "../shared/Spinner";
 import { useAddToCartMutation } from "@/services/cart/cartApi";
 import { toast } from "react-hot-toast";
+import { TiTickOutline } from "react-icons/ti";
 
 const CartButton = ({ product }) => {
   const [qty, setQty] = useState(1);
@@ -40,7 +41,7 @@ const CartButton = ({ product }) => {
       ? originalPrice * (1 - product.discountAmount / 100)
       : originalPrice;
   return (
-    <section className="flex h-[180px] !z-[99999] flex-row mb-24 bg-gray-50 dark:bg-gray-600 rounded-t-primary md:rounded-none shadow-t-lg md:shadow-none items-start md:items-center md:bg-white dark:gap-x-4 md:h-full backdrop-blur-md bg-opacity-50 md:bg-opacity-100">
+    <section className="flex h-[220px] !z-[99999] flex-row mb-24 bg-gray-50 dark:bg-gray-600 rounded-t-primary md:rounded-none shadow-t-lg md:shadow-none items-start md:bg-white dark:gap-x-4 md:h-full backdrop-blur-md bg-opacity-50 md:bg-opacity-100">
       <div className="flex-flex-col gap-y-8 md:w-fit w-full">
         <div className="flex flex-col gap-y-12">
           <div className=" hidden md:flex  flex-wrap gap-4  items-center">
@@ -62,8 +63,8 @@ const CartButton = ({ product }) => {
                       height: `${20 + variation.unit.value * 10}px`
                     }}
                   >
-                    {/* Tooltip */}
-                    <div
+  {selectedUnit?.unit._id === variation.unit._id ? <TiTickOutline className="w-8 h-8 text-white" /> :"" }                 
+     <div
                       className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
                   ${
                     selectedUnit?.unit._id === variation.unit._id
@@ -93,7 +94,9 @@ const CartButton = ({ product }) => {
             </span>
           </div>
         </div>
-        <div className=" flex md:hidden  justify-center flex-wrap gap-4  items-center">
+     
+        <div className="flex justify-between md:mt-4 items-center gap-4 p-4">
+        <div className=" flex md:hidden flex-col   justify-start flex-wrap gap-4  items-center">
           {" "}
           {[...(product?.variations || [])]
             .sort((a, b) => Number(a.unit.value) - Number(b.unit.value))
@@ -101,7 +104,7 @@ const CartButton = ({ product }) => {
               <div key={variation?._id} className="relative">
                 <button
                   onClick={() => handleUnitClick(variation)}
-                  className={`relative rounded-full flex items-center justify-center text-xl transition-all duration-300 ease-in-out
+                  className={`relative rounded-full flex flex-col items-center justify-center text-xl transition-all duration-300 ease-in-out
                   ${
                     selectedUnit?.unit._id === variation.unit._id
                       ? "bg-primary outline-none ring-2 ring-primary dark:ring-green-300 ring-offset-4 dark:ring-offset-gray-800"
@@ -112,25 +115,29 @@ const CartButton = ({ product }) => {
                     height: `${20 + variation.unit.value * 10}px`
                   }}
                 >
+                {selectedUnit?.unit._id === variation.unit._id ? <TiTickOutline className="w-8 h-8 text-white" /> :"" }      
                   {/* Tooltip */}
                   <div
-                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 z-50 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
+                    className={`absolute top-full right-1/2 -translate-x-1/2 mt-3  px-2 py-1 z-50 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
                   ${
                     selectedUnit?.unit._id === variation.unit._id
                       ? "opacity-100 visible"
                       : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
                   }`}
+                  style={{
+                    transform: 'rotate(-90deg)', // چرخاندن به سمت چپ
+                    transformOrigin: 'top left' // محل چرخش در بالای سمت چپ
+                  }}
                   >
                     {variation?.unit?.title}
                     {/* فلش Tooltip */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full border-8 border-transparent border-b-secondary"></div>
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full border-8 border-transparent border-b-secondary rotate-180" ></div>
                   </div>
                 </button>
               </div>
             ))}
         </div>
-        <div className="flex justify-center mt-4 items-center gap-4 p-4">
-          <div className="flex bg-white flex-row gap-x-2 mt-4 items-center border px-1 py-0.5 rounded-secondary h-full">
+          <div className="flex bg-white flex-row gap-x-2  items-center border px-1 py-0.5 rounded-secondary h-full">
             <button
               className="border border-black/30 disabled:border-zinc-100 p-1.5 rounded-secondary"
               onClick={() => setQty(qty - 1)}
