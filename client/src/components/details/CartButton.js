@@ -41,7 +41,7 @@ const CartButton = ({ product }) => {
       ? originalPrice * (1 - product.discountAmount / 100)
       : originalPrice;
   return (
-    <section className="flex h-[220px] !z-[99999] flex-row mb-24 bg-gray-50 dark:bg-gray-600 rounded-t-primary md:rounded-none shadow-t-lg md:shadow-none items-start md:bg-white dark:gap-x-4 md:h-full backdrop-blur-md bg-opacity-50 md:bg-opacity-100">
+    <section className="flex h-[220px] !z-[99999] flex-row mb-24 bg-gray-50  rounded-t-primary md:rounded-none shadow-t-lg md:shadow-none items-start md:bg-white dark:gap-x-4 md:h-full  border md:border-none">
       <div className="flex-flex-col gap-y-8 md:w-fit w-full">
         <div className="flex flex-col gap-y-12">
           <div className=" hidden md:flex  flex-wrap gap-4  items-center">
@@ -111,8 +111,8 @@ const CartButton = ({ product }) => {
                       : "bg-secondary"
                   }`}
                   style={{
-                    width: `${20 + variation.unit.value * 10}px`,
-                    height: `${20 + variation.unit.value * 10}px`
+                    width: `${15 + variation.unit.value * 12}px`,
+                    height: `${15 + variation.unit.value * 12}px`
                   }}
                 >
                 {selectedUnit?.unit._id === variation.unit._id ? <TiTickOutline className="w-8 h-8 text-white" /> :"" }      
