@@ -118,7 +118,7 @@ const CartButton = ({ product }) => {
                 {selectedUnit?.unit._id === variation.unit._id ? <TiTickOutline className="w-8 h-8 text-white" /> :"" }      
                   {/* Tooltip */}
                   <div
-                    className={`absolute top-full right-1/2 -translate-x-1/2 mt-3  px-2 py-1 z-50 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
+                    className={`absolute top-full right-1/2 -translate-x-1/2 mt-3  px-2 py-1  bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
                   ${
                     selectedUnit?.unit._id === variation.unit._id
                       ? "opacity-100 visible"
