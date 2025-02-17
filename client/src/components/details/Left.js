@@ -12,7 +12,6 @@ const Left = ({ product }) => {
   const hashTags = [...(product?.category?.tags || [])].filter(
     (tag) => tag !== undefined
   );
-  console.log(product.tags);
   return (
     <section className="lg:col-span-6 md:col-span-6 col-span-12 flex flex-col gap-y-4">
       <div className="flex flex-col gap-y-4 relative">
