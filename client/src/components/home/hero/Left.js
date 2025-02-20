@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+"use client"
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,12 +19,12 @@ function Left() {
   return (
     <div className="col-span-1 h-full min-h-[450px] w-full flex flex-col relative px-3 ">
       <div className="absolute w-full top-1/2  flex justify-between z-50">
-        <div className="custom-prev -right-5 absolute flex justify-center items-center p-4 border-4  rounded-full cursor-pointer text-gray-700  w-8 h-8 bg-white border-white text-lg ">
+        <div className="custom-prev -right-5 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white border-lightbg -lg text-lg">
           <span>
             <IoIosArrowForward size={30} />
           </span>
         </div>
-        <div className="custom-next absolute -left-0 flex items-center cursor-pointer justify-center bg-white  p-4  rounded-full text-gray-700 w-8 h-8 border-white border-4 ">
+        <div className="custom-prev left-0 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white border-lightbg  text-lg">
           <span>
             <IoIosArrowBack size={30} />
           </span>
@@ -35,7 +36,7 @@ function Left() {
              overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(to top, #ed1945, #ed1945), url(/assets/home-page/banner/dots.svg)",
+            "linear-gradient(to top, #ed1945, #ed1945), url(/assets/home/banner/dots.svg)",
           backgroundBlendMode: "overlay" // ترکیب گرادینت با تصویر پس‌زمینه
         }}
       >
@@ -84,6 +85,8 @@ function Left() {
                   src="/assets/home/banner/cake1.webp"
                   height={872}
                   width={500}
+                  alt={"banner1"}
+
                   className="w-80 ml-4 block md:mr-auto"
                 />
               </motion.div>
@@ -104,22 +107,23 @@ function Left() {
                 حلوا با عطر و طعم بی‌نظیر، مناسب برای مجالس و مهمانی‌ها
               </p>
               <div className="absolute flex -bottom-8 left-44 md:flex">
-              <motion.div
-                animate={{ y: ["0px", "20px", "0px"] }}
-                transition={{
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 3
-                }}
-              >
-                <Image
-                  src="/assets/home/banner/cake2.webp"
-                  height={1200}
-                  width={1200}
-                  className="w-48 ml-4 block md:mr-auto"
-                />
-              </motion.div>
-            </div>
+                <motion.div
+                  animate={{ y: ["0px", "20px", "0px"] }}
+                  transition={{
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 3
+                  }}
+                >
+                  <Image
+                    src="/assets/home/banner/cake2.webp"
+                    height={524}
+                    width={483}
+                    alt={"banner2"}
+                    className="w-48 ml-4 block md:mr-auto"
+                  />
+                </motion.div>
+              </div>
             </div>
             <div className="absolute flex -bottom-8 -left-44 md:flex">
               <motion.div
@@ -132,8 +136,9 @@ function Left() {
               >
                 <Image
                   src="/assets/home/banner/cake3.webp"
-                  height={872}
-                  width={500}
+                  height={500}
+                  width={835}
+                  alt={"banner3"}
                   className="w-56 ml-4 block md:mr-auto"
                 />
               </motion.div>
@@ -167,6 +172,8 @@ function Left() {
                   src="/assets/home/banner/cake4.webp"
                   height={872}
                   width={500}
+                  alt={"banner4"}
+
                   className="w-80 ml-4 block md:mr-auto"
                 />
               </motion.div>

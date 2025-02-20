@@ -71,7 +71,7 @@ exports.getProducts = async (res) => {
       populate: {
         path: "unit",
         select: "title value"
-      } 
+      }
     });
 
   res.status(200).json({
@@ -139,15 +139,57 @@ exports.getProduct = async (req, res) => {
       .populate({
         path: "variations.unit",
         select: "title value"
-      }).populate({
-        path: "tags", 
-        select: "title keynotes" 
+      })
+      .populate({
+        path: "tags",
+        select: "title keynotes"
       });
     res.status(200).json({
       acknowledgement: true,
       message: "Ok",
       description: "محصول با موفقیت دریافت شد",
       data: product
+    });
+  } catch (error) {
+    res.status(500).json({
+      acknowledgement: false,
+      message: "خطایی رخ داد",
+      description: error.message
+    });
+  }
+};
+
+// get cart proct
+exports.getProductCart = async (req, res) => {
+  try {
+
+    const query = req.query.query;
+    const parsedProducts = JSON.parse(query);
+    const products = await Promise.all(
+      parsedProducts.map(async (item) => {
+        return await Product.findOne(
+          { _id: item.product },
+          { title: 1, thumbnail: 1, variations: { $elemMatch: { unit: item.unit } } }
+        ).populate("variations.unit", "title")
+        .lean(); 
+      })
+    );
+    const filteredProducts = products.filter(product => product);
+
+    const finalProducts = filteredProducts.map(product => ({
+      _id: product._id,
+      title: product.title,
+      thumbnail: product.thumbnail,
+      variations: product.variations.map(variation => ({
+        unit: variation.unit?.title,
+        price: variation.price
+      }))
+    }));
+    res.status(200).json({
+      acknowledgement: true,
+      message: "Ok",
+      description: "محصولات با موفقیت دریافت شدند",
+      data: finalProducts
     });
   } catch (error) {
     res.status(500).json({

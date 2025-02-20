@@ -2,6 +2,7 @@
 // import Image from "next/image";
 import React from "react";
 import Image from 'next/image'
+import Enamad from "./Enamad";
 
 const FooterPayment = () => {
   const methods = [
@@ -54,7 +55,7 @@ const FooterPayment = () => {
                 />
             </span>
           ))}
-        
+        <Enamad />
         </div>
         
       </div>

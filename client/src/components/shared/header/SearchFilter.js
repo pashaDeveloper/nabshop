@@ -1,5 +1,5 @@
 
-
+"use client"
 import Search from "@/components/icons/Search";
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "../Modal";

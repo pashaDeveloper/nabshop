@@ -1,42 +1,56 @@
-
-
 /* internal imports */
 const Cart = require("../models/cart.model");
 const User = require("../models/user.model");
+const Session = require("../models/session.model");
 
 /* add to cart */
 exports.addToCart = async (req, res) => {
-  const user = await User.findById(req.user._id);
-  const { product, quantity } = req.body;
+  const { product, quantity, unit } = req.body;
+  const user = await User.findById(req?.user?._id);
+  const guest = await Session.findOne({ sessionId: req.sessionData.sessionId });
+  if (user) {
+    const cart = await Cart.create({
+      product: product,
+      quantity: quantity,
+      unit: unit,
+      user: user._id
+    });
+    await User.findByIdAndUpdate(user._id, {
+      $push: { cart: cart._id }
+    });
+  } else {
+    console.log("guest", guest);
 
-  const cart = await Cart.create({
-    user: user._id,
-    product: product,
-    quantity: quantity,
-  });
-
-  await User.findByIdAndUpdate(user._id, {
-    $push: { cart: cart._id },
-  });
+    const cart = await Cart.create({
+      product: product,
+      quantity: quantity,
+      unit: unit,
+      guest: guest.userId
+    });
+    await Session.findOneAndUpdate(
+      { sessionId: guest.sessionId }, 
+      { $push: { cart: cart._id } }, 
+      { new: true } 
+    );
+  }
 
   res.status(201).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Product added to cart successfully",
+    description: "محصول با موفقیت به سبد خرید اضافه شد"
   });
 };
 
 /* get from cart */
 exports.getFromCart = async (res) => {
-
   const cart = await Cart.find().populate(["user", "product"]);
-  console.log("cart",cart)
+  console.log("cart", cart);
 
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
     description: "Cart fetched successfully",
-    data: cart,
+    data: cart
   });
 };
 
@@ -47,7 +61,7 @@ exports.updateCart = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Cart updated successfully",
+    description: "Cart updated successfully"
   });
 };
 
@@ -56,12 +70,12 @@ exports.deleteCart = async (req, res) => {
   const cart = await Cart.findByIdAndDelete(req.params.id);
 
   await User.findByIdAndUpdate(cart.user, {
-    $pull: { cart: cart._id },
+    $pull: { cart: cart._id }
   });
 
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Cart deleted successfully",
+    description: "Cart deleted successfully"
   });
 };

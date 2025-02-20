@@ -2,6 +2,7 @@ import React from "react";
 import SearchFilter from "./SearchFilter";
 import MyCart from "./MyCart";
 import Auth from "./Auth";
+import { TfiHeadphoneAlt } from "react-icons/tfi";
 
 function Navigation() {
   return (
@@ -13,7 +14,7 @@ function Navigation() {
 
         <div className="flex flex-col items-center  hover:text-blue-400 ">
           <div className="absolute bottom-8 shadow-2xl text-center flex items-center justify-center rounded-full border-4 text-3xl border-gray-50 hover:border-primary bg-primary w-16 h-16 p-2 text-white transition ease-in duration-200 ">
-            <i className="fas fa-phone-alt"></i>
+          <TfiHeadphoneAlt className="w-12 h-12" />
             <span className="animate-ping  border-primary absolute inline-flex h-full w-full rounded-full border-4 opacity-50"></span>
           </div>
         </div>

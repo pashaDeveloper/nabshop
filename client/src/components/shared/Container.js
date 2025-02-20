@@ -4,7 +4,7 @@ const Container = ({ className, children, ...props }) => {
   return (
     <section
       {...props}
-      className={" px-4 mx-auto w-full" + (className ? " " + className : "")}
+      className={" px-4 mx-auto w-full flex flex-col" + (className ? " " + className : "")}
     >
       {children}
     </section>

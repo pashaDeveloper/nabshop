@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Container from "./Container";
+import Container from "../Container";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

@@ -2,9 +2,9 @@
 
 /* external imports */
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
 const baseSchema = require("./baseSchema.model");
 const Counter = require("./counter")
+const { ObjectId } = mongoose.Schema.Types;
 
 /* create cart schema */
 const cartSchema = new mongoose.Schema(
@@ -28,6 +28,12 @@ const cartSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "Unit",
     },
+    guest: {
+      type: String,
+      required: function () {
+        return !this.user; 
+      },
+    },    
     // for quantity
     quantity: {
       type: Number,

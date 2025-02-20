@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import User from "@/components/icons/User";
 
 const Auth = () => {

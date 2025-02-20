@@ -8,20 +8,19 @@ const authApi = nabApi.injectEndpoints({
         return {
           url: "/user/sign-up",
           method: "POST",
-          body,
+          body
         };
       },
-      invalidatesTags: ["User"],
+      invalidatesTags: ["User"]
     }),
-    
 
     // signIn
     signIn: builder.mutation({
       query: (body) => ({
         url: "/user/sign-in",
         method: "POST",
-        body,
-      }),
+        body
+      })
     }),
 
     // forgot password
@@ -29,28 +28,29 @@ const authApi = nabApi.injectEndpoints({
       query: (userInfo) => ({
         url: "/user/forgot-password",
         method: "PATCH",
-        body: userInfo,
-      }),
+        body: userInfo
+      })
     }),
 
-   // persist login
+    // persist login
     persistLogin: builder.query({
       query: () => ({
         url: "/user/me",
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
         },
+        credentials: "include"
       }),
 
-      providesTags: ["User"],
-    }),
-  }),
+      providesTags: ["User"]
+    })
+  })
 });
 
 export const {
   useSignUpMutation,
   useSignInMutation,
   usePersistLoginQuery,
-  useForgotPasswordMutation,
+  useForgotPasswordMutation
 } = authApi;

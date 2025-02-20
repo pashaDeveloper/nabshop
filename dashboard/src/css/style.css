@@ -245,3 +245,12 @@ select {
 .reject-button {
   @apply border  border-red-600  py-2  bg-red-500/10 text-red-500 dark:text-red-500   text-center flex justify-center items-center transition-colors border-red-500/10 hover:bg-red-500/20  hover:!opacity-100 group-hover:opacity-70;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}

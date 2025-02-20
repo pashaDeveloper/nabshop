@@ -1,10 +1,10 @@
-
 /* external import */
 const express = require("express");
 
 /* middleware imports */
 const upload = require("../middleware/upload.middleware");
 const verify = require("../middleware/verify.middleware");
+const { initSession } = require("../middleware/session.middleware");
 
 /* internal import */
 const userController = require("../controllers/user.controller");
@@ -16,7 +16,11 @@ const router = express.Router();
 /* router methods integration */
 
 // sign up an user
-router.post("/sign-up",   upload("avatar").single("avatar"), userController.signUp);
+router.post(
+  "/sign-up",
+  upload("avatar").single("avatar"),
+  userController.signUp
+);
 
 // sign in an user
 router.post("/sign-in", userController.signIn);
@@ -25,28 +29,38 @@ router.post("/sign-in", userController.signIn);
 router.patch("/forgot-password", userController.forgotPassword);
 
 // login persistance
-router.get("/me", verify, userController.persistLogin);
+router.get("/me", verify,  userController.persistLogin);
 
 // get all users
-router.get("/all-users", verify, authorize("superAdmin"), userController.getUsers);
+router.get(
+  "/all-users",
+  verify,
+  authorize("superAdmin"),
+  userController.getUsers
+);
 
 // get single user
-router.get("/get-user/:id", verify, authorize("superAdmin"), userController.getUser);
+router.get(
+  "/get-user/:id",
+  verify,
+  authorize("superAdmin"),
+  userController.getUser
+);
 
 // update user information
 router.patch(
   "/update-information",
   verify,
   authorize("superAdmin", "admin"),
-  upload('avatar').single("avatar"),
+  upload("avatar").single("avatar"),
   userController.updateUser
 );
 
 router.patch(
   "/update-user/:id",
   verify,
-  authorize("superAdmin","admin"),
-  upload('avatar').single("avatar"),
+  authorize("superAdmin", "admin"),
+  upload("avatar").single("avatar"),
   userController.updateUserInfo
 );
 
@@ -57,12 +71,6 @@ router.delete(
   authorize("superAdmin", "admin"),
   userController.deleteUser
 );
-
-// seller request and approve
-router
-  .route("/seller-review")
-  .get(verify, authorize("superAdmin","admin"), userController.getSellers)
-  .patch(verify, authorize("superAdmin","admin"), userController.reviewSeller);
 
 /* export user router */
 module.exports = router;

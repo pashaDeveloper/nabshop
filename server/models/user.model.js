@@ -80,14 +80,12 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
 
-    // نقش کاربر
     role: {
       type: String,
       enum: ["superAdmin","admin","operator", "buyer"],
       default: "buyer",
     },
 
-    // سبد خرید
     cart: [
       {
         type: ObjectId,

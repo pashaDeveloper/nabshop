@@ -29,9 +29,9 @@ const KeynotesStep = ({
   };
   return (
     <>
-      {/* نکات کلیدی */}
-     {/* نکات کلیدی */}
-     <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+    <div className="flex flex-col  max-h-96 overflow-y-auto p-2">
+
+      <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
         <label htmlFor="keynotes" className="w-full flex flex-col gap-y-4">
           <p className="text-sm flex flex-row justify-between items-center">
             نکات کلیدی*
@@ -77,6 +77,8 @@ const KeynotesStep = ({
 
         <NavigationButton direction="prev" onClick={prevStep} />
       </div>
+      </div>
+  
     </>
   );
 };

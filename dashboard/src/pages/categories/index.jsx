@@ -4,7 +4,7 @@ import AddButton from "@/components/shared/button/AddButton";
 import { setCategories } from "@/features/category/categorySlice";
 import {
   useDeleteCategoryMutation,
-  useGetCategoriesQuery,
+  useGetCategoriesQuery
 } from "@/services/category/categoryApi";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -22,7 +22,7 @@ function Categories() {
     data: categoriesData,
     error: categoriesError,
     isLoading: categoriesLoading,
-    refetch: categoryRefetch,
+    refetch: categoryRefetch
   } = useGetCategoriesQuery();
   const categories = useMemo(
     () => categoriesData?.data || [],
@@ -49,7 +49,7 @@ function Categories() {
     categoriesData,
     categoriesLoading,
     dispatch,
-    categories,
+    categories
   ]);
   const [deleteCategory, { isLoading, data, error }] =
     useDeleteCategoryMutation();
@@ -102,7 +102,7 @@ function Categories() {
               <div className="lg:col-span-4 lg:flex hidden text-sm md:block">
                 توضیحات
               </div>
-         
+
               <div className="lg:col-span-2 lg:flex hidden text-sm md:block">
                 برچسب
               </div>
@@ -116,13 +116,16 @@ function Categories() {
             {categories.map((category) => (
               <div
                 key={category?._id}
-                className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-100 dark:hover:bg-gray-800 dark:text-slate-100"
+                className="mt-4 p-1 grid grid-cols-12 rounded-xl cursor-pointer border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white px-2 transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-50 dark:hover:bg-gray-800 dark:text-slate-100"
               >
                 <div className="col-span-10 lg:col-span-3 text-center flex items-center">
                   <StatusIndicator isActive={category.status === "active"} />
                   <div className="py-2 flex justify-center items-center gap-x-2 text-right">
                     <img
-                      src={category?.thumbnail?.url ||category?.creator?.avatar?.url}
+                      src={
+                        category?.thumbnail?.url ||
+                        category?.creator?.avatar?.url
+                      }
                       alt={``}
                       height={100}
                       width={100}
@@ -156,10 +159,9 @@ function Categories() {
                   </article>
                 </div>
 
-               
                 <div className="lg:col-span-2 hidden gap-2 lg:flex justify-left items-center text-right">
                   <span className="w-52 overflow-x-auto scrollbar-hide text-sm flex flex-row gap-x-2">
-                    {category?.tags?.map((tag, index) => (
+                    {category.tags.map((tag, index) => (
                       <span
                         key={index}
                         className="border px-1 py-0.5 rounded-sm whitespace-nowrap"
@@ -171,14 +173,15 @@ function Categories() {
                 </div>
                 <div className="lg:col-span-2 hidden gap-2 lg:flex justify-left items-center text-right">
                   <span className="w-52 overflow-x-auto scrollbar-hide text-sm flex flex-row gap-x-2">
-                    {category?.keynotes?.map((keynote, index) => (
-                      <span
-                        key={index}
-                        className="border px-1 py-0.5 rounded-sm whitespace-nowrap"
-                      >
-                        {keynote}
-                      </span>
-                    ))}
+                    {category?.keynotes?.length > 0 &&
+                      category?.keynotes?.map((keynote, index) => (
+                        <span
+                          key={index}
+                          className="border px-1 py-0.5 rounded-sm whitespace-nowrap"
+                        >
+                          {keynote}
+                        </span>
+                      ))}
                   </span>
                 </div>
                 <div className="col-span-2 md:col-span-1 gap-2 text-center flex justify-center items-center">
@@ -207,7 +210,7 @@ function Categories() {
           isOpen={isDeleteModalOpen}
           onDelete={() => deleteCategory(selectedCategory?._id)}
           onClose={closeDeleteModal}
-          message={`آیا مطمئن هستید که می‌خواهید دسته‌بندی "${selectedCategory?.title}" را حذف کنید؟`} 
+          message={`آیا مطمئن هستید که می‌خواهید دسته‌بندی "${selectedCategory?.title}" را حذف کنید؟`}
         />
       )}
     </ControlPanel>

@@ -1,5 +1,5 @@
 
-
+"use client"
 import React from "react";
 import Container from "../shared/Container";
 import Image from "next/image";
@@ -18,9 +18,9 @@ const Banner2 = ({ className }) => {
           <Image
             src="/assets/home/banner/kid.webp"
             alt="model"
-            height={872}
-            width={600}
-            className="lg:absolute bottom-0 left-0 order-2"
+            height={904}
+            width={1024}
+            className="lg:absolute w-full md:w-1/2  bottom-0 left-0 order-2"
           />
           <article className="flex flex-col justify-start items-end order-1">
             <div className="flex flex-col  md:gap-y-8 gap-y-4 max-w-lg z-48 lg:ml-auto lg:mr-0 mr-auto">

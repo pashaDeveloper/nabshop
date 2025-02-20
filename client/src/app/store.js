@@ -1,4 +1,3 @@
-
 import { configureStore } from "@reduxjs/toolkit";
 import { nabApi } from "../services/nab";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -12,7 +11,7 @@ import favoriteSlice from "@/features/favorite/favoriteSlice";
 import cartSlice from "@/features/cart/cartSlice";
 import purchaseSlice from "@/features/purchase/purchaseSlice";
 import filterSlice from "@/features/filter/filterSlice";
-
+import postSlice from "@/features/post/postSlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,12 +25,12 @@ export const store = configureStore({
     cart: cartSlice,
     purchase: purchaseSlice,
     filter: filterSlice,
-
+    post: postSlice
     // productFilter: productFilterSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(nabApi.middleware),
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== "production"
 });
 
 setupListeners(store.dispatch);

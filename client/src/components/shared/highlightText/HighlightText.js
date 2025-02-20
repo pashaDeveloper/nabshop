@@ -1,5 +1,5 @@
+"use client";
 import { motion } from "framer-motion";
-
 const HighlightText = ({ title, center = false }) => {
   return (
     <div className={`relative ${center ? "text-center" : "text-right"}`}>

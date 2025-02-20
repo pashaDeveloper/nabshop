@@ -22,7 +22,16 @@ const productApi = nabApi.injectEndpoints({
         url: `/product/get-product/${id}`,
         method: "GET",
       }),
+      providesTags: ["Product"],
+    }),
 
+    getCartProduct: builder.query({
+      query: (query) => ({
+        url: `/product/get-product-cart`,
+        method: "GET",
+        params: { query },
+
+      }),
       providesTags: ["Product"],
     }),
 
@@ -41,6 +50,7 @@ const productApi = nabApi.injectEndpoints({
 });
 
 export const {
+  useGetCartProductQuery,
   useGetProductsQuery,
   useGetProductQuery,
   useGetFilteredProductsMutation,

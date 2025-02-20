@@ -1,17 +1,15 @@
 
 
-"use client";
-import Banner1 from "@/components/home/Banner1";
+"use client"
+import Hero from "@/components/home/hero/Hero";
 import Banner2 from "@/components/home/Banner2";
 import Banner3 from "@/components/home/Banner3";
 import ExpertChoice from "@/components/home/ExpertChoice";
 import NewArrivals from "@/components/home/NewArrivals";
 import NicheExplorer from "@/components/home/NicheExplorer";
-import Steps from "@/components/home/Steps";
 import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
 import Post from "@/components/home/posts/Post";
-import Hero from "@/components/home/hero/Hero";
 
 export default function Home() {
   return (

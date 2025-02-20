@@ -24,7 +24,7 @@ const Signin = () => {
       return `${match[1]}-${match[2]}-${match[3]}`;
     }
     
-    return cleaned; // اگر هنوز کامل نشده، مقدار خام برگرده
+    return cleaned; 
   };
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ const Signin = () => {
   };
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Signing in...", { id: "signin" });
+      toast.loading("در حال ورود...", { id: "signin" });
     }
 
     if (data) {

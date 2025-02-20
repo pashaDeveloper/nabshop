@@ -69,7 +69,17 @@ const Left = ({ product }) => {
         </div>
       </div>
       <article className="flex flex-col gap-y-4">
-       
+      <div className="flex flex-col gap-y-2.5">
+          <div className="flex flex-col gap-y-2.5">
+            {product?.tags?.map((tag, index) => (
+              <DetailCard
+                key={index}
+                title={tag.title}
+                content={tag?.keynotes} // آرایه رشته‌ها
+              />
+            ))}
+          </div>
+        </div>
         <div className="flex flex-col gap-y-2.5">
           <DetailCard
             title={`از دسته بندی ${product?.category?.title}`}
@@ -84,17 +94,7 @@ const Left = ({ product }) => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-y-2.5">
-          <div className="flex flex-col gap-y-2.5">
-            {product?.tags?.map((tag, index) => (
-              <DetailCard
-                key={index}
-                title={tag.title}
-                content={tag?.keynotes} // آرایه رشته‌ها
-              />
-            ))}
-          </div>
-        </div>
+       
       </article>
     </section>
   );

@@ -12,6 +12,7 @@ const cartApi = nabApi.injectEndpoints({
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
+        credentials: "include",
         body,
       }),
 

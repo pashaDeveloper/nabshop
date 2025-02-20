@@ -31,7 +31,7 @@ const CartButton = ({ product }) => {
   }, [addingToCart, cartData, cartError]);
   const [selectedUnit, setSelectedUnit] = useState(product?.variations?.[0]);
 
-  // تغییر واحد زمانی که کاربر روی دکمه کلیک می‌کند
+
   const handleUnitClick = (unit) => {
     setSelectedUnit(unit);
   };
@@ -162,11 +162,11 @@ const CartButton = ({ product }) => {
             className="px-8 py-2 border border-primary rounded-secondary bg-primary hover:bg-primary/90 text-white transition-colors drop-shadow w-fit flex flex-row gap-x-2 items-center"
             disabled={qty === 0 || addingToCart}
             onClick={() => {
-              addToCart({
-                product: product._id,
-                quantity: qty,
-                unit: selectedUnit?.unit._id
-              });
+                             addToCart({
+                  product: product._id,
+                  quantity: qty,
+                  unit: selectedUnit?.unit._id
+            }) 
             }}
           >
             {addingToCart ? (

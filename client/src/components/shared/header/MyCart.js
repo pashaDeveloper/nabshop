@@ -1,7 +1,6 @@
-
-
+"use client";
 import Cart from "@/components/icons/Cart";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import OutsideClick from "../OutsideClick";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -13,10 +12,13 @@ import { useCreatePaymentMutation } from "@/services/payment/paymentApi";
 
 const MyCart = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const { user, session } = useSelector((state) => state.auth);
   const [removeFromCart, { isLoading, data, error }] =
     useDeleteFromCartMutation();
+
+
   useEffect(() => {
+  
     if (isLoading) {
       toast.loading("پاک کردن سبد خرید...", { id: "removeFromCart" });
     }
@@ -32,33 +34,33 @@ const MyCart = () => {
 
   return (
     <>
-        <button
+      <button
         aria-label="سبد خرید"
         className="p-2 rounded-secondary bg-slate-100 hover:bg-slate-200 transition-colors relative"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Cart className="h-6 w-6" />
 
-          {user?.cart?.length > 0 && (
+        {user?.cart?.length > 0 && (
           // <span className="h-2 w-2 bg-red-500 rounded-secondary absolute top-1 right-1"></span>
           <></>
-        )}  
-      </button>  
+        )}
+      </button>
 
-       {isOpen && (
+      {isOpen && (
         <OutsideClick
           onOutsideClick={() => setIsOpen(false)}
           className="absolute top-full right-0 w-80 h-96 overflow-y-auto bg-white border rounded p-4 flex flex-col gap-y-2.5"
         >
           <div className="w-full h-full flex flex-col gap-y-8">
-            {Object.keys(user).length === 0 || user?.cart?.length === 0 ? (
+            {Object.keys(user).length === 0 || user?.cart?.length === 0|| products.length===0 ?  (
               <p className="text-sm flex flex-row gap-x-1 items-center justify-center h-full w-full">
                 <Inform /> هیچ محصولی در سبد خرید یافت نشد!
               </p>
             ) : (
               <div className="h-full w-full flex flex-col gap-y-4">
                 <div className="h-full overflow-y-auto scrollbar-hide">
-                  {user?.cart?.map(({ product, quantity, _id }) => (
+                  {products.map(({ product, quantity, _id }) => (
                     <div
                       key={product?._id}
                       className="flex flex-row gap-x-2 transition-all border border-transparent p-2 rounded hover:border-black group relative"
@@ -95,7 +97,6 @@ const MyCart = () => {
                             </span>
                           </p>
                           <div className="flex flex-row gap-x-1">
-                           
                             <span className="whitespace-nowrap text-[10px] bg-blue-300/50 text-blue-500 border border-blue-500 px-1.5 rounded">
                               {product?.category?.title}
                             </span>
@@ -118,7 +119,7 @@ const MyCart = () => {
             )}
           </div>
         </OutsideClick>
-      )} 
+      )}
     </>
   );
 };
@@ -129,7 +130,9 @@ function Purchase({ cart }) {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("در حال انتقال به درگاه پرداخت بانک ملت...", { id: "createPayment" });
+      toast.loading("در حال انتقال به درگاه پرداخت بانک ملت...", {
+        id: "createPayment"
+      });
     }
 
     if (data) {
@@ -146,7 +149,7 @@ function Purchase({ cart }) {
     ({
       product: { title, thumbnail, price, summary, _id: pid },
       quantity,
-      _id: cid,
+      _id: cid
     }) => ({
       name: title,
       quantity,
@@ -154,19 +157,19 @@ function Purchase({ cart }) {
       thumbnail: thumbnail?.url,
       description: summary,
       pid,
-      cid,
+      cid
     })
   );
 
   return (
     <>
-       <button
+      <button
         type="button"
         className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow flex flex-row gap-x-2 items-center justify-center"
         onClick={() => createPayment(result)}
       >
         تسویه حساب
-      </button> 
+      </button>
     </>
   );
 }

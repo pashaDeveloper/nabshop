@@ -6,6 +6,8 @@ const express = require("express");
 /* middleware imports */
 const verify = require("../middleware/verify.middleware");
 const authorize = require("../middleware/authorize.middleware");
+const authSession = require("../middleware/authSession.middleware");
+const { initSession } = require("../middleware/session.middleware");
 
 /* internal import */
 const cartController = require("../controllers/cart.controller");
@@ -18,8 +20,6 @@ const router = express.Router();
 // add to cart
 router.post(
   "/add-to-cart",
-  verify,
-  authorize("buyer"),
   cartController.addToCart
 );
 

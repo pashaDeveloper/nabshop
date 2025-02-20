@@ -1,4 +1,5 @@
 import Auth from "./auth";
+import Session from "./session";
 import Providers from "./providers";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
       <body>
         <Providers>
           <Auth>{children}</Auth>
+          <Session>{children}</Session>
           <Toaster />
         </Providers>
       </body>

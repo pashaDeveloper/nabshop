@@ -21,8 +21,8 @@ const TagsStep = ({ register, errors,tags,setTags}) => {
   };
   return (
     <>
-     {/* برچسب‌ها */}
-     <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
+    <div className="flex flex-col  max-h-96 overflow-y-auto p-2">
+    <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
         <label htmlFor="tags" className="w-full flex flex-col gap-y-4">
           <p className="text-sm flex flex-row justify-between items-center">
             برچسب‌ها*
@@ -46,7 +46,6 @@ const TagsStep = ({ register, errors,tags,setTags}) => {
                 value={tag}
                
                 onChange={(event) => handleTagChange(index, event.target.value)}
-                required
               />
               {index !== 0 && (
                 <button
@@ -64,6 +63,7 @@ const TagsStep = ({ register, errors,tags,setTags}) => {
           ))}
           
         </label>
+      </div>
       </div>
 
       

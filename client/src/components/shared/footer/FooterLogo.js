@@ -7,7 +7,7 @@ const FooterLogo = () => {
       <article className="flex md:flex-col md:justify-normal md:items-start flex-row justify-between items-center gap-y-4">
         {/* <Logo /> */}
     
-        <div className="lg:hidden block">
+        <div className=" block">
           <FooterPayment />
         </div>
       </article>

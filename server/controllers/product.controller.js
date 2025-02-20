@@ -98,6 +98,17 @@ exports.getProduct = async (req, res, next) => {
   }
 };
 
+/* get a  product by cart */
+exports.getProductCart = async (req, res, next) => {
+  try {
+    await productService.getProductCart(req, res);
+  } catch (error) {
+    next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
+  }
+};
+
 /* filtered products */
 exports.getFilteredProducts = async (req, res, next) => {
   try {

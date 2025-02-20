@@ -32,6 +32,7 @@ router.get(
   productController.getProducts
 );
 router.get("/get-detail-products", productController.getDetailsProducts);
+router.get("/get-product-cart", productController.getProductCart);
 
 // update product
 router.patch(
@@ -64,6 +65,7 @@ router.patch(
   authorize("admin"),
   productController.updateReviewProduct
 );
+
 
 router.patch(
   "/update-product-status/:id",

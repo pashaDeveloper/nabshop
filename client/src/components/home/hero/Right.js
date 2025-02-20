@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { AiTwotoneFire } from "react-icons/ai";
 import Image from "next/image";
@@ -51,8 +52,8 @@ function Right() {
                 <Image
                   src="/assets/home/banner/model1.webp"
                   alt="model"
-                  height={872}
-                  width={500}
+                  height={1063}
+                  width={1024}
                   className="lg:w-[500px] lg:ml-0 md:ml-auto"
                 />
               </motion.div>
