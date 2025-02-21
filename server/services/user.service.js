@@ -80,7 +80,6 @@ exports.signUp = async (req, res) => {
 /* sign in an user */
 exports.signIn = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log("user", user);
   if (!user) {
     res.status(404).json({
       acknowledgement: false,

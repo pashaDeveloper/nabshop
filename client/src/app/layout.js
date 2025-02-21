@@ -37,8 +37,10 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <body>
         <Providers>
+          <Session>
           <Auth>{children}</Auth>
-          <Session>{children}</Session>
+          </Session>
+
           <Toaster />
         </Providers>
       </body>

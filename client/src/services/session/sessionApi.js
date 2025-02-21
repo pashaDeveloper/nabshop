@@ -11,12 +11,8 @@ const sessionApi = nabApi.injectEndpoints({
           credentials: "include",
         };
       },
-      invalidatesTags: ["SessionUser"]
+      invalidatesTags: ["Session"]
     }),
-
-
-
-
 
     // persist sesssion
     persistSession: builder.query({
@@ -27,7 +23,7 @@ const sessionApi = nabApi.injectEndpoints({
         credentials: "include"
       }),
 
-      providesTags: ["SessionUser"]
+      providesTags: ["Session"]
     })
   })
 });

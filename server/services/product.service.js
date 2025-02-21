@@ -4,6 +4,7 @@ const Category = require("../models/category.model");
 const remove = require("../utils/remove.util");
 const Review = require("../models/review.model");
 const User = require("../models/user.model");
+const Variation = require("../models/variation.model");
 
 /* add new product */
 exports.addProduct = async (req, res) => {
@@ -34,14 +35,20 @@ exports.addProduct = async (req, res) => {
     ...otherInformation,
     features: parsedFeatures,
     campaign: parsedCampaign,
-    variations: parsedVariations,
     tags: parsedTags,
     creator: req.user._id,
     thumbnail,
     gallery
   });
 
-  // add product id to category, brand and store
+  const variationDocs = await Promise.all(
+    parsedVariations.map(async (variation) => {
+      return await Variation.create({ ...variation, product: product._id });
+    })
+  );
+  product.variations = variationDocs.map(v => v._id);
+  await product.save();
+
   await Category.findByIdAndUpdate(product.category, {
     $push: { products: product._id }
   });
@@ -56,24 +63,22 @@ exports.addProduct = async (req, res) => {
 /* get all products */
 exports.getProducts = async (res) => {
   const products = await Product.find({ isDeleted: false })
-    .select(
-      "title thumbnail status summary productId _id createdAt creator  variations"
-    )
-    .populate("category", "title")
-    .populate({
-      path: "reviews",
-      options: { sort: { updatedAt: -1 } },
-      select: "reviewer"
-    })
-    .populate({
-      path: "variations",
-      select: "price stock unit lowStockThreshold",
-      populate: {
-        path: "unit",
-        select: "title value"
-      }
-    });
-
+  .select("title thumbnail status summary productId _id createdAt creator")
+  .populate("category", "title")
+  .populate({
+    path: "reviews",
+    options: { sort: { updatedAt: -1 } },
+    select: "reviewer"
+  })
+  .populate({
+    path: "variations",
+    select: "price stock unit lowStockThreshold",
+    populate: {
+      path: "unit",
+      select: "title value" // فیلدهای مورد نظر از واحد
+    }
+  });
+console.log(products)
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
@@ -104,10 +109,13 @@ exports.getDetailsProducts = async (res) => {
       ]
     })
     .populate({
-      path: "variations.unit",
-      select: "title value"
+      path: "variations",
+      select: "price unit ",
+      populate: {
+        path: "unit",
+        select: "title value" // فیلدهای مورد نظر از واحد
+      }
     });
-
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
@@ -137,8 +145,12 @@ exports.getProduct = async (req, res) => {
         select: "name avatar role" // دریافت نام و آواتار سازنده
       })
       .populate({
-        path: "variations.unit",
-        select: "title value"
+        path: "variations",
+        select: "price stock unit lowStockThreshold",
+        populate: {
+          path: "unit",
+          select: "title value" // فیلدهای مورد نظر از واحد
+        }
       })
       .populate({
         path: "tags",

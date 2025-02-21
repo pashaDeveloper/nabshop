@@ -21,7 +21,6 @@ const NewArrivals = () => {
   } = useGetProductsQuery();
   
   const products = useMemo(() => productsData?.data || [], [productsData]);
-
   useEffect(() => {
     if (productsError) {
       toast.error(productsError?.data?.description, {

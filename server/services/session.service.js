@@ -3,8 +3,9 @@ const Session = require("../models/session.model");
 
 async function initSession(req, res, next) {
   try {
+    console.log("sessionData");
+
     let sessionData = await Session.findOne({ sessionId: req.sessionID });
-    console.log("sessionData", sessionData);
     if (!sessionData) {
       req.session.userId = `guest_${Date.now()}`;
       sessionData = await Session.create({
@@ -32,9 +33,30 @@ async function initSession(req, res, next) {
 // get session
 async function getSession(req, res, next) {
   try {
-    const sessionData = await Session.findOne({ sessionId: req.sessionID });
-
-    if (!sessionData) {
+   const sessionData = await Session.findOne({ sessionId: req.sessionID })
+   .populate([
+    {
+      path: "cart",
+      select: "_id quantity",
+      populate: [
+        {
+          path: "product",
+          select: "title thumbnail discountAmount summary ",
+          populate: [{ path: "category", select: "title" }],
+        },
+        {
+          path: "variation",
+          select: "unit price",
+          populate: {
+            path: "unit",
+            select: "value title",
+          },
+        }
+      ],
+    },
+  ]);
+  console.log(sessionData)
+  if (!sessionData) {
       return res.status(404).json({
         acknowledgement: false,
         message: "یافت نشد",
@@ -49,7 +71,11 @@ async function getSession(req, res, next) {
       data: sessionData
     });
   } catch (err) {
-    next(err); 
+    return res.status(404).json({
+      acknowledgement: false,
+      message: "یافت نشد",
+      description: "نشست فعالی برای شما یافت نشد"
+    });
   }
 }
 

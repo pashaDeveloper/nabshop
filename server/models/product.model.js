@@ -115,24 +115,8 @@ gallery: {
     },
     variations: [
       {
-        unit: {
-          type: ObjectId,
-          ref: "Unit",
-        },
-        price: {
-          type: Number,
-          required: [true, "لطفاً قیمت را وارد کنید"],
-        },
-        stock: {
-          type: Number,
-          required: [true, "لطفاً تعداد موجود را وارد کنید"],
-          default: 0,
-        },
-        lowStockThreshold: {
-          type: Number,
-          required: [true, "لطفاً حد آستانه موجودی را مشخص کنید"],
-          default: 10,
-        },
+        type: ObjectId,
+        ref: "Variation",
       },
     ],
 
@@ -275,27 +259,7 @@ productSchema.pre("save", async function (next) {
     );
     this.productId = counter.seq;
 
-    // تنظیم وضعیت موجودی برای هر variation
-    if (this.variations && this.variations.length > 0) {
-      this.variations.forEach((variation) => {
-        if (variation.stock === 0) {
-          variation.stockStatus = "out-of-stock";
-        } else if (variation.stock < variation.lowStockThreshold) {
-          variation.stockStatus = "low-stock";
-        } else {
-          variation.stockStatus = "in-stock";
-        }
-      });
-    }
-
-    // تنظیم وضعیت کلی موجودی محصول
-    if (this.variations.some(variation => variation.stock === 0)) {
-      this.stockStatus = "out-of-stock";
-    } else if (this.variations.some(variation => variation.stock < variation.lowStockThreshold)) {
-      this.stockStatus = "low-stock";
-    } else {
-      this.stockStatus = "in-stock";
-    }
+   
     if (
       this.isModified("title") ||
       !this.metaTitle ||

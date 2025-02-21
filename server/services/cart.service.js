@@ -5,27 +5,28 @@ const Session = require("../models/session.model");
 
 /* add to cart */
 exports.addToCart = async (req, res) => {
-  const { product, quantity, unit } = req.body;
+  const { product, quantity, variation } = req.body;
   const user = await User.findById(req?.user?._id);
-  const guest = await Session.findOne({ sessionId: req.sessionData.sessionId });
+  const guest = await Session.findOne({ sessionId: req.sessionID });
+  console.log(req.sessionID)
+  console.log(variation)
   if (user) {
+
     const cart = await Cart.create({
       product: product,
       quantity: quantity,
-      unit: unit,
-      user: user._id
+      user: user._id,
+      variation,
     });
     await User.findByIdAndUpdate(user._id, {
       $push: { cart: cart._id }
     });
   } else {
-    console.log("guest", guest);
-
     const cart = await Cart.create({
       product: product,
       quantity: quantity,
-      unit: unit,
-      guest: guest.userId
+      guest: guest.userId,
+      variation,
     });
     await Session.findOneAndUpdate(
       { sessionId: guest.sessionId }, 
@@ -44,8 +45,6 @@ exports.addToCart = async (req, res) => {
 /* get from cart */
 exports.getFromCart = async (res) => {
   const cart = await Cart.find().populate(["user", "product"]);
-  console.log("cart", cart);
-
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",

@@ -11,16 +11,18 @@ import { setSession } from "@/features/auth/authSlice";
 const Session = ({ children }) => {
   const dispatch = useDispatch();
   const [createSession] = useCreateSessionMutation();
-  const { data: sessionData, error: sessionError } = usePersistSessionQuery();
-  const session = useMemo(() => sessionData?.data || {}, [sessionData]);
+  const { data: sessionData, error: sessionError, isFetching } = usePersistSessionQuery();
+
+  // مقدار session را فقط بعد از دریافت دیتا مقداردهی می‌کنیم
+  const session = useMemo(() => sessionData?.data || null, [sessionData]);
+
   useEffect(() => {
-    if (session && !sessionError &&sessionData?.data) {
+    if (!isFetching && session) {
       dispatch(setSession(session));
-    }
-    if (sessionError) {
+    } else if (!isFetching && sessionError) {
       createSession();
     }
-  }, [dispatch, createSession]);
+  }, [dispatch, session, sessionError, createSession, isFetching]);
 
   return <>{children}</>;
 };

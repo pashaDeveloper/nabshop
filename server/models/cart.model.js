@@ -24,21 +24,27 @@ const cartSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "User",
     },
-    unit: {
+    variation: {
       type: ObjectId,
-      ref: "Unit",
+      ref: "Variation",
+      required: true,
+
     },
     guest: {
       type: String,
       required: function () {
-        return !this.user; 
+        return !this.user;
       },
-    },    
-    // for quantity
+      default: null,
+    },
+    
+       
     quantity: {
       type: Number,
       default: 1,
+      min: [1, "حداقل مقدار باید ۱ باشد."],
     },
+    
 
     ...baseSchema.obj
   },

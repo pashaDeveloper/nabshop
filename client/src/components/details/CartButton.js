@@ -10,7 +10,6 @@ import { TiTickOutline } from "react-icons/ti";
 
 const CartButton = ({ product }) => {
   const [qty, setQty] = useState(1);
-
   const [
     addToCart,
     { isLoading: addingToCart, data: cartData, error: cartError }
@@ -165,7 +164,7 @@ const CartButton = ({ product }) => {
                              addToCart({
                   product: product._id,
                   quantity: qty,
-                  unit: selectedUnit?.unit._id
+                  variation: selectedUnit?._id
             }) 
             }}
           >

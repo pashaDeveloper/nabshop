@@ -16,7 +16,7 @@ const cartApi = nabApi.injectEndpoints({
         body,
       }),
 
-      invalidatesTags: ["Cart", "User"],
+      invalidatesTags: ["Cart", "User","Session"],
     }),
 
     // get from cart
@@ -42,7 +42,7 @@ const cartApi = nabApi.injectEndpoints({
         },
       }),
 
-      invalidatesTags: ["Cart", "User"],
+      invalidatesTags: ["Cart", "User","Session"],
     }),
   }),
 });
