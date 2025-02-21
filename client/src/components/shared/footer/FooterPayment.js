@@ -1,7 +1,6 @@
-
 // import Image from "next/image";
 import React from "react";
-import Image from 'next/image'
+import Image from "next/image";
 import Enamad from "./Enamad";
 
 const FooterPayment = () => {
@@ -9,23 +8,23 @@ const FooterPayment = () => {
     {
       id: 1,
       name: "ویزا",
-      logo: "/assets/payment-methods/visa.svg",
+      logo: "/assets/payment-methods/visa.svg"
     },
     {
       id: 2,
       name: "مسترکارت",
-      logo: "/assets/payment-methods/mastercard.svg",
+      logo: "/assets/payment-methods/mastercard.svg"
     },
     {
       id: 3,
       name: "پیپال",
-      logo: "/assets/payment-methods/paypal.svg",
+      logo: "/assets/payment-methods/paypal.svg"
     },
     {
       id: 4,
       name: "جیپی",
-      logo: "/assets/payment-methods/gpay.svg",
-    },
+      logo: "/assets/payment-methods/gpay.svg"
+    }
   ];
 
   // function toBase64(str) {
@@ -37,28 +36,27 @@ const FooterPayment = () => {
   // }
 
   return (
-    <section>
+    <section className="flex flex-row justify-between">
       <div className="flex flex-col gap-y-2">
         <h2 className="text-lg"> روش های پرداخت</h2>
-        <div className="flex flex-row flex-wrap gap-1.5">
+        <div className="flex flex-row  gap-1.5">
           {methods.map(({ id, name, logo }) => (
             <span key={id}>
-                <Image
-                  src={logo}
-                  alt={name}
-                  width={50}
-                  height={29}
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                  }}
-                />
+              <Image
+                src={logo}
+                alt={name}
+                width={50}
+                height={29}
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }}
+              />
             </span>
           ))}
-         <Enamad />
         </div>
-        
       </div>
+      <Enamad />
     </section>
   );
 };
