@@ -55,7 +55,7 @@ const FooterPayment = () => {
                 />
             </span>
           ))}
-        {/* <Enamad /> */}
+         <Enamad />
         </div>
         
       </div>
