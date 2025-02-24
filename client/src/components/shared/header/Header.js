@@ -1,137 +1,114 @@
-"use client"
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
+import MobileNav from "./mobileMenu/MobileNav";
+import Container from "../Container";
+import MobileMenu from "./mobileMenu/MobileMenu";
 import Image from "next/image";
+import Brand from "@/components/icons/Brand";
+import Store from "@/components/icons/Store";
 import Auth from "./Auth";
 import Dashboard from "@/components/icons/Dashboard";
 import SearchFilter from "./SearchFilter";
 import MyCart from "./MyCart";
 import { useSelector } from "react-redux";
-import Brand from "@/components/icons/Brand";
-import Category from "@/components/icons/Category";
-import Store from "@/components/icons/Store";
-import { motion } from "framer-motion";
-import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import Home from "@/components/icons/Home";
 import Link from "next/link";
-import MobileNav from "./mobile-nav";
-const Header = () => {
-  const user = useSelector((state) => state?.auth?.user);
-  const [isClient, setIsClient] = useState(false);
-  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
+import { usePathname } from "next/navigation";
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector((state) => state?.auth?.user);
+  const pathname = usePathname();
   const niches = [
     {
-      title: "محصولات",
-      icon: <Brand />
+      title: "صفحه اصلی",
+      icon: <Home />,
+      href: "/"
     },
     {
-      title: "دسته بندی",
-      icon: <Category />
+      title: "محصولات",
+      icon: <Brand />,
+      href: "/products"
     },
     {
       title: "مجله",
-      icon: <Store />
+      icon: <Store />,
+      href: "/blogs"
+    },
+    {
+      title: "درباره ما",
+      icon: <Store />,
+      href: "./about"
     }
   ];
-  const [selectedNiche, setSelectedNiche] = useState("Category");
 
   return (
-    <div className=" relative flex justify-center">
-      <nav className="rounded-xl fixed md:w-[95%] w-[90%] top-3 p-4 flex flex-row-reverse justify-between z-20 bg-white shadow-lg">
-        <div className="md:flex flex-row gap-x-4 hidden items-center relative">
-          <Image
-            src={"/logo.png"}
-            alt="logo"
-            width={300}
-            height={300}
-            className="h-12 w-12 object-contain md:block cursor-pointer"
-            onClick={() => window.open("/", "_self")}
-          />
-        </div>
-        <div className="bg-neutral-100/70 rounded-primary  hidden md:flex">
-          <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
-            <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white overflow-x-auto scrollbar-hide">
-              {niches.map((niche, index) => (
+    <>
+      <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />
+      <header>
+        <Container>
+          <nav className="fixed top-0 m-4  left-0 flex flex-row justify-between right-0 shadow-lg lg:grid lg:grid-cols-12 items-center z-[100000] p-4 bg-white dark:bg-slate-800 rounded-xl dark:text-gray-100">
+            <div className=" col-span-2 flex-row-reverse gap-x-2 relative h-fit">
+              <div className="md:hidden block col-span-0">
+                <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+              </div>
+              {user && Object.keys(user).length > 0 ? (
                 <button
-                  key={index}
-                  className={
-                    "text-sm text-black w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent" +
-                    " " +
-                    (selectedNiche === niche.title
-                      ? "bg-primary text-white"
-                      : "")
-                  }
-                  onClick={() => setSelectedNiche(niche.title)}
+                  className="p-2 rounded-secondary md:flex hidden  hover:bg-slate-100 transition-colors"
+                  onClick={() => window.open("/dashboard", "_self")}
                 >
-                  {niche.icon}
-                  {niche.title}
+                  <Dashboard className="h-6 w-6" />
                 </button>
-              ))}
+              ) : (
+                <div className="md:flex gap-2 hidden">
+                  <Auth />
+                  <SearchFilter />
+                  <MyCart />
+                  <ThemeToggle />
+                </div>
+              )}
             </div>
-          </div>
-          {selectedNiche === "Brand" && ""}
-          {selectedNiche === "Category" && ""}
-          {selectedNiche === "Store" && ""}
-        </div>
-        {/* Mobile */}
-        <motion.div
-          className="flex md:hidden w-full p-0 items-center justify-between"
-          initial={{ opacity: 0, x: 200 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 200 }}
-        >
-          {isOpenMobileNav ? (
-            <MobileNav
-              isOpen={isOpenMobileNav}
-              setIsOpen={setIsOpenMobileNav}
-            />
-          ) : (
-            <div className=" flex items-center justify-between w-full">
-              <motion.div
-                whileTap={{ scale: 0.9 }}
-                className=" flex items-center justify-center"
-                onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
-              >
-                <HiOutlineMenuAlt2 className="text-headingColor text-4xl" />
-              </motion.div>
-              <Link href={"/"}>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  <p className="text-headingColor text-xl font-bold">NAB</p>
-                  <Image
-                    src={"/logo.png"}
-                    alt="logo"
-                    width={300}
-                    height={300}
-                    className="h-[45px] w-[45px] object-contain md:block cursor-pointer"
-                    onClick={() => window.open("/", "_self")}
-                  />{" "}
-                </motion.div>
-              </Link>
+            <div className="col-span-8 rounded-primary hidden md:flex justify-center">
+              <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
+                <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white dark:bg-slate-800 overflow-x-auto scrollbar-hide">
+                  {niches.map((niche, index) => {
+                    const isActive = pathname === niche.href;
+                    return (
+                      <Link
+                        key={index}
+                        href={niche.href}
+                        className={`text-sm text-black dark:text-gray-100 w-44 text-center h-10 flex flex-row items-center gap-x-1 px-8 py-2 justify-center rounded-secondary border border-transparent transition ${
+                          isActive ? "bg-primary text-white" : ""
+                        }`}
+                      >
+                        {niche.icon}
+                        {niche.title}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          )}
-        </motion.div>
-        <div className="md:flex hidden  flex-row-reverse gap-x-2 relative h-fit">
-          {isClient && user && Object.keys(user).length > 0 ? (
-            <button
-              className="p-2 rounded-secondary hover:bg-slate-100 transition-colors"
-              onClick={() => window.open("/dashboard", "_self")}
-            >
-              <Dashboard className="h-6 w-6" />
-            </button>
-          ) : (
-            <Auth />
-          )}
-          <SearchFilter />
-          <MyCart />
-        </div>
-      </nav>
-    </div>
+            <div className="flex col-span-2 justify-between flex-row gap-x-1  items-center relative">
+              <div></div>
+              <div className="flex justify-center items-center">
+                <h2 className="text-2xl font-nozha" >نقل و حلوای ناب</h2>
+                <Image
+                  src={"/logo.png"}
+                  alt="logo"
+                  width={300}
+                  height={300}
+                  className="h-12 w-12 object-contain md:block cursor-pointer"
+                  onClick={() => window.open("/", "_self")}
+                />
+              </div>
+            </div>
+          </nav>
+        </Container>
+      </header>
+    </>
   );
 };
 
-export default Header;
+export default Navbar;

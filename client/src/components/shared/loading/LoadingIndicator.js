@@ -1,52 +1,34 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router"; // استفاده از next/router برای نسخه‌های قبل از 13
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const LoadingIndicator = () => {
-  const [loading, setLoading] = useState(false); // وضعیت لودینگ
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const pathname = usePathname(); // مسیر فعلی صفحه
 
   useEffect(() => {
-    if (!router) return; // بررسی اینکه router موجود است
-    const handleRouteChangeStart = () => {
-      setLoading(true); // شروع لودینگ
-    };
+    setLoading(true)
+    const timeout = setTimeout(() => setLoading(false), 500); 
 
-    const handleRouteChangeComplete = () => {
-      setLoading(false); // پایان لودینگ
-    };
+    return () => clearTimeout(timeout); 
+  }, [pathname]); 
 
-    const handleRouteChangeError = () => {
-      setLoading(false); // در صورت بروز خطا
-    };
-
-    // ثبت رویدادها
-    router.events.on("routeChangeStart", handleRouteChangeStart);
-    router.events.on("routeChangeComplete", handleRouteChangeComplete);
-    router.events.on("routeChangeError", handleRouteChangeError);
-
-    // پاک کردن رویدادها هنگام unmount
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChangeStart);
-      router.events.off("routeChangeComplete", handleRouteChangeComplete);
-      router.events.off("routeChangeError", handleRouteChangeError);
-    };
-  }, [router]); // اجرای این کد بعد از بارگذاری router
+  if (!loading) return null; 
 
   return (
-    <>
-      {loading && (
-        <div className="loading-overlay">
-          <div className="loading-content">
-            <div className="loader-dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
-            <div className="loading-text">صبر کنید ...</div>
-          </div>
+    <div className="loading-overlay">
+      <div className="loading-content flex flex-col items-center justify-center ">
+        <Image src="/logo.png" width={80} height={80} alt="Logo" priority />
+        <p>نقل و حلوای ناب</p>
+        <div className="loader-dots">
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
         </div>
-      )}
+      </div>
+
       <style jsx>{`
         .loading-overlay {
           position: fixed;
@@ -63,21 +45,22 @@ const LoadingIndicator = () => {
 
         .loading-content {
           background: white;
-          border-radius: 8px;
-          padding: 20px;
+          border-radius: 12px;
+          padding: 25px;
           text-align: center;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .loader-dots {
           display: flex;
-          justify-content: space-evenly;
-          margin-bottom: 10px;
+          justify-content: center;
+          gap: 8px;
+          margin: 10px 0;
         }
 
         .dot {
-          width: 10px;
-          height: 10px;
+          width: 12px;
+          height: 12px;
           border-radius: 50%;
           background-color: #4caf50;
           animation: dotAnimation 0.6s infinite alternate;
@@ -86,25 +69,24 @@ const LoadingIndicator = () => {
         .dot:nth-child(1) {
           animation-delay: 0s;
         }
-
         .dot:nth-child(2) {
           animation-delay: 0.2s;
         }
-
         .dot:nth-child(3) {
           animation-delay: 0.4s;
         }
-
         .dot:nth-child(4) {
           animation-delay: 0.6s;
         }
 
         @keyframes dotAnimation {
           0% {
-            transform: scale(0);
+            transform: scale(0.8);
+            opacity: 0.3;
           }
           100% {
-            transform: scale(1);
+            transform: scale(1.2);
+            opacity: 1;
           }
         }
 
@@ -114,7 +96,7 @@ const LoadingIndicator = () => {
           font-weight: bold;
         }
       `}</style>
-    </>
+    </div>
   );
 };
 

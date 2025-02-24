@@ -93,7 +93,7 @@ const MultiSelect = ({
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg  p-2">
+        <div className="absolute mt-2 w-full bg-white dark:bg-gray-800 border border-gray-300 z-40 dark:border-gray-700 rounded-md shadow-lg  p-2">
           <input
             type="text"
             placeholder="جستجو کن"
@@ -105,7 +105,6 @@ const MultiSelect = ({
               <li
                 key={item.id}
                 onClick={() => handleItemSelect(item)}
-                onMouseEnter={(e) => handleMouseEnter(e, item.description)}
                 className={`px-4 py-2 rounded-md cursor-pointer ${
                   selectedItems.some((selected) => selected.id === item.id)
                     ? "bg-blue-100 text-blue-700  flex gap-x-4 "

@@ -13,6 +13,9 @@ import Tags from "./pages/tags";
 import Posts from "./pages/posts";
 import PostInfo from "./pages/posts/info/index";
 import AddPost from "./pages/posts/add";
+import Blogs from "./pages/blogs";
+import BlogInfo from "./pages/blogs/info/index";
+import AddBlog from "./pages/blogs/add";
 import Units from "./pages/units";
 import Categories from "./pages/categories";
 import AddCategory from "./pages/categories/add";
@@ -44,6 +47,8 @@ function App() {
           <Route exact path="/units" element={<Units />} />
           <Route exact path="/posts" element={<Posts />} />
           <Route exact path="/posts/add" element={<AddPost />} />
+          <Route exact path="/blogs" element={<Blogs />} />
+          <Route exact path="/blogs/add" element={<AddBlog/>} />
           <Route exact path="/categories/add" element={<AddCategory />} />
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/products/add" element={<AddProduct />} />

@@ -14,7 +14,7 @@ const SendButton = ({ isLoading }) => {
           <>
               
            <Send className="h-6 w-6 transition-transform duration-300 transform group-hover:translate-x-1 group-focus:translate-x-1" />
-            <span className="mr-2">ارسال فرم</span>
+            <span className="mr-2">ارسال</span>
           </>
         )}
       </button>

@@ -37,7 +37,7 @@ const Step1 = ({publishDate,register,errors,nextStep}) => {
     <textarea
       name="description"
       id="description"
-      maxLength={72}
+      maxLength={225}
       placeholder="توضیحات پست را وارد کنید..."
       className="p-2 rounded h-[170px]
        border w-full form-textarea"

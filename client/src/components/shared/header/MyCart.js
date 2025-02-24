@@ -29,7 +29,7 @@ const MyCart = () => {
     <>
       <button
         aria-label="سبد خرید"
-        className="p-2 rounded-secondary bg-slate-100 hover:bg-slate-200 transition-colors relative"
+        className="p-2 rounded-secondary bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors relative"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Cart className="h-6 w-6" />
@@ -46,7 +46,7 @@ const MyCart = () => {
       {isOpen && (
         <OutsideClick
           onOutsideClick={() => setIsOpen(false)}
-          className="absolute top-full right-0 w-80 h-96 overflow-y-auto bg-white border rounded p-4 flex flex-col gap-y-2.5"
+          className="absolute top-full right-0 w-80 h-96 overflow-y-auto bg-white dark:bg-slate-900 border border-primary rounded p-4 flex flex-col gap-y-2.5"
         >
           <div className="w-full h-full flex flex-col gap-y-8">
             {cartItems.length === 0 ? (

@@ -3,6 +3,8 @@ import Session from "./session";
 import Providers from "./providers";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import ThemeProvider from "@/utils/ThemeContext";
+import LoadingIndicator from "@/components/shared/loading/LoadingIndicator";
 
 export const metadata = {
   metadataBase: new URL("https://noglenab.com"),
@@ -15,10 +17,9 @@ export const metadata = {
       "نقل و حلوا پزی ناب ارائه‌دهنده بهترین و خوشمزه‌ترین حلواهای تازه با طعم‌های متنوع و اصیل. تجربه‌ای شیرین و لذیذ برای تمام سلیقه‌ها. به ما اعتماد کنید برای خرید حلواهای خوشمزه و تازه.",
     url: "https://noglenab.com",
     siteName: "نقل و حلوا پزی ناب",
-    images:
-      "https://noglenab.com/images/og-halwa.jpg", // لینک تصویر مربوطه را وارد کن
+    images: "https://noglenab.com/images/og-halwa.jpg", // لینک تصویر مربوطه را وارد کن
     locale: "fa_IR",
-    type: "website",
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
@@ -26,10 +27,8 @@ export const metadata = {
     title: "نقل و حلوا پزی ناب - بهترین حلوا در شهر",
     description:
       "نقل و حلوا پزی ناب ارائه‌دهنده بهترین و خوشمزه‌ترین حلواهای تازه با طعم‌های متنوع و اصیل. تجربه‌ای شیرین و لذیذ برای تمام سلیقه‌ها. به ما اعتماد کنید برای خرید حلواهای خوشمزه و تازه.",
-    image:
-      "https://noglenab.com/images/og-halwa.jpg", // لینک تصویر مربوطه را وارد کن
-  },
-  
+    image: "https://noglenab.com/images/og-halwa.jpg" // لینک تصویر مربوطه را وارد کن
+  }
 };
 
 export default function RootLayout({ children }) {
@@ -38,7 +37,10 @@ export default function RootLayout({ children }) {
       <body>
         <Providers>
           <Session>
-          <Auth>{children}</Auth>
+            <ThemeProvider>
+            <LoadingIndicator />
+              <Auth>{children}</Auth>
+            </ThemeProvider>
           </Session>
 
           <Toaster />

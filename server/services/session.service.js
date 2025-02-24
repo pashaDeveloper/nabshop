@@ -3,7 +3,6 @@ const Session = require("../models/session.model");
 
 async function initSession(req, res, next) {
   try {
-    console.log("sessionData");
 
     let sessionData = await Session.findOne({ sessionId: req.sessionID });
     if (!sessionData) {
@@ -14,7 +13,6 @@ async function initSession(req, res, next) {
         role: "buyer"
       });
 
-      console.log("sessionData", sessionData);
     } else {
       await sessionData.incrementVisitCount();
     }
@@ -55,7 +53,6 @@ async function getSession(req, res, next) {
       ],
     },
   ]);
-  console.log(sessionData)
   if (!sessionData) {
       return res.status(404).json({
         acknowledgement: false,

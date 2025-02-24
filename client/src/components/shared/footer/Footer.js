@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import Container from "../Container";
-import { IoAccessibilityOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import FooterLogo from "./FooterLogo";
 
@@ -138,8 +135,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="footer-1 bg-yellow-100 py-8 sm:py-12 m-6 p-6 rounded-xl">
-      <div className="container mx-auto px-4 flex flex-col gap-y-10">
+    <footer className="footer-1   p-4 sm:py-12 bg-lightbg dark:bg-slate-900">
+      <div className="container mx-auto px-4 flex flex-col gap-y-10 bg-yellow-50 dark:bg-slate-800  p-6 rounded-xl text-gray-900 dark:text-gray-100">
         <div className="flex md:flex-row md:flex-wrap md:justify-between flex-col gap-x-4 gap-y-8">
           {sitemaps?.map((sitemap, index) => (
             <div key={index} className="flex flex-col gap-y-3">

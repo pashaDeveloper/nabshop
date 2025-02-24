@@ -60,27 +60,6 @@ const Signup = () => {
 
     formData.append("name", e.target.name.value);
     formData.append("email", e.target.email.value);
-
-    // Password validation regex
-    // const passwordRegex =
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,20}$/;
-
-    // if (!e.target.password.value.match(passwordRegex)) {
-    //   alert(
-    //     "Password must have at least 1 uppercase, 1 lowercase, 1 symbol, and 1 number. Password length should be between 8 and 20 characters."
-    //   );
-    //   return;
-    // }
-
-    // Phone number validation regex
-    // const phoneRegex = /^\+88\d{11}$/;
-
-    // if (!e.target.phone.value.match(phoneRegex)) {
-    //   alert(
-    //     "Phone number must start with +88 and have a total length of 14 digits."
-    //   );
-    //   return;
-    // }
     formData.append("avatar", avatar);
     formData.append("phone", e.target.phone.value);
     formData.append("password", e.target.password.value);
@@ -93,7 +72,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="min-w-full min-h-screen flex justify-center items-center p-4">
+    <section className="min-w-full min-h-screen flex justify-center items-center p-4 bg-lightbg dark:bg-slate-900">
       <div className="max-w-md w-full flex flex-col gap-y-4 border p-8 rounded-primary">
         <div className="flex flex-row items-center gap-x-2">
           <hr className="w-full" />

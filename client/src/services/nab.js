@@ -17,7 +17,8 @@ export const nabApi = createApi({
     "Purchase",
     "Review",
     "Post",
-    "Session"
+    "Session",
+    "Blog"
   ],
   endpoints: () => ({}),
 });

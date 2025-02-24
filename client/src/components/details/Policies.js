@@ -12,25 +12,25 @@ const Policies = () => {
       title: "ارسال رایگان",
       detail: "برای خریدهای بالای ۵۰۰ هزار تومان",
       icon: <Shipping />,
-      className: "bg-red-50",
+      className: "bg-red-50 dark:bg-rose-600",
     },
     {
       title: "بازگشت آسان",
       detail: "امکان بازگشت محصول تا ۷ روز.",
       icon: <Return />,
-      className: "bg-sky-50",
+      className: "bg-sky-50 dark:bg-sky-600",
     },
     {
       title: "تحویل سریع",
       detail: "ارسال به سراسر کشور در کوتاه‌ترین زمان.",
       icon: <Delivery />,
-      className: "bg-green-50",
+      className: "bg-green-50 dark:bg-green-600",
     },
     {
       title: "تضمین کیفیت",
       detail: "تازه‌ترین نقل و حلوا.",
       icon: <Policy />,
-      className: "bg-amber-50",
+      className: "bg-amber-50 dark:bg-amber-600",
     },
     
   ];
@@ -45,7 +45,7 @@ const Policies = () => {
           {policy.icon}
           <article className="flex flex-col gap-y-0.5">
             <h2 className="text-lg">{policy.title}</h2>
-            <p className="text-sm">{policy.detail}</p>
+            <p className="text-sm dark:text-gray-100">{policy.detail}</p>
           </article>  
         </div>
       ))}

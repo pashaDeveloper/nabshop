@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import Search from "@/components/icons/Search";
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "../Modal";
@@ -16,7 +15,7 @@ const SearchFilter = () => {
   const {
     data: productsData,
     error: productsError,
-    isLoading: productsLoading,
+    isLoading: productsLoading
   } = useGetProductsQuery();
   const products = useMemo(() => productsData?.data || [], [productsData]);
   const router = useRouter();
@@ -67,8 +66,8 @@ const SearchFilter = () => {
   return (
     <>
       <button
-      aria-label="جستجو"
-        className="p-2 rounded-secondary bg-slate-100 hover:bg-slate-200 transition-colors"
+        aria-label="جستجو"
+        className="p-2 rounded-secondary bg-slate-100  dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
         onClick={() => setOpen(!open)}
       >
         <Search className="h-6 w-6" />
@@ -77,7 +76,7 @@ const SearchFilter = () => {
       <Modal
         isOpen={open}
         onClose={() => setOpen(false)}
-        className="lg:w-1/3 md:w-3/4 w-full h-96 md:mx-0 mx-4 !z-[9999] bg-white p-8 drop-shadow-2xl"
+        className="lg:w-1/3 md:w-3/4 w-full h-96 md:mx-0 mx-4 !z-[9999] bg-white dark:bg-slate-900 p-8 drop-shadow-2xl"
       >
         <div className="flex flex-col gap-y-4 h-full">
           <input
@@ -85,7 +84,7 @@ const SearchFilter = () => {
             name="search"
             id="search"
             placeholder="🔎 عنوان یا کلمه کلیدی هر محصول را تایپ کنید..."
-            className="!rounded w-full text-center"
+            className="!rounded w-full text-center dark:bg-gray-900"
             onChange={handleSearch}
           />
           <div className="flex flex-row items-center gap-x-2 text-xs">
@@ -144,31 +143,51 @@ const SearchFilter = () => {
                               <h2
                                 className="text-base"
                                 dangerouslySetInnerHTML={{
-                                  __html: highlightedTitle,
+                                  __html: highlightedTitle
                                 }}
                               />
                               <p
                                 className="text-xs line-clamp-2"
                                 dangerouslySetInnerHTML={{
-                                  __html: highlightedSummary,
+                                  __html: highlightedSummary
                                 }}
                               />
                             </div>
                             <div className="flex flex-row justify-between gap-x-4 items-center">
                               <span className="text-xs flex flex-row items-baseline">
-                                $
-                                <span className="text-sm text-black">
-                                  {product?.price}.00
-                                </span>
+                                
+                                {product?.variations?.[0]?.price &&
+                                product?.discountAmount > 0 ? (
+                                  <>
+                                    {/* قیمت اصلی با خط خوردگی */}
+                                    <p className="text-xs text-red-500 line-through">
+                                      {new Intl.NumberFormat("fa-IR").format(
+                                        product?.variations?.[0]?.price
+                                      )}{" "}
+                                      ریال
+                                    </p>
+                                    {/* قیمت نهایی با تخفیف */}
+                                    <p className="text-xs mr-4 text-green-500 font-semibold">
+                                      {new Intl.NumberFormat("fa-IR").format(
+                                        product?.variations?.[0]?.price *
+                                          (1 - product?.discountAmount / 100)
+                                      )}{" "}
+                                      ریال
+                                    </p>
+                                  </>
+                                ) : (
+                                  // اگر تخفیفی وجود نداشت، فقط قیمت اصلی نمایش داده شود
+                                  <p className="text-xs text-blue-500 ">
+                                    {product?.variations?.[0]?.price
+                                      ? new Intl.NumberFormat("fa-IR").format(
+                                          product?.variations?.[0]?.price
+                                        ) + " ریال"
+                                      : "قیمتی موجود نیست"}
+                                  </p>
+                                )}
                               </span>
                               <div className="flex flex-row gap-x-1">
-                                <span className="whitespace-nowrap text-[10px] bg-purple-300/50 text-purple-500 border border-purple-500 px-1.5 rounded">
-                                  {product?.store?.title}
-                                </span>
-                                <span className="whitespace-nowrap text-[10px] bg-indigo-300/50 text-indigo-500 border border-indigo-500 px-1.5 rounded">
-                                  {product?.brand?.title}
-                                </span>
-                                <span className="whitespace-nowrap text-[10px] bg-blue-300/50 text-blue-500 border border-blue-500 px-1.5 rounded">
+                                <span className="whitespace-nowrap text-[10px] bg-blue-300/50 dark:text-blue-500 text-blue-500 border border-blue-500 px-1.5 rounded">
                                   {product?.category?.title}
                                 </span>
                               </div>

@@ -8,8 +8,7 @@ import { useRouter } from "next/navigation";
 import { useGetProductsQuery } from "@/services/product/productApi";
 import ExpertCard from "../shared/skeletonLoading/ExpertCard";
 import { toast } from "react-hot-toast";
-import { MdDelete } from "react-icons/md";
-import { motion } from "framer-motion";
+
 const ExpertChoice = ({ className }) => {
   const router = useRouter();
 

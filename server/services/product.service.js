@@ -149,7 +149,7 @@ exports.getProduct = async (req, res) => {
         select: "price stock unit lowStockThreshold",
         populate: {
           path: "unit",
-          select: "title value" // فیلدهای مورد نظر از واحد
+          select: "title value description" // فیلدهای مورد نظر از واحد
         }
       })
       .populate({

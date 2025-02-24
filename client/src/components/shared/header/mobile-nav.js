@@ -1,83 +1,71 @@
-// import React from 'react'
-
-import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
-const MobileNav = ({
-  isOpen,
-  setIsOpen,
-}) => {
-  const handleToggleCart = () => {
-    dispatch({
-      type: "TOGGLE_CART",
-      showCart: !showCart,
-    });
-  };
-  const handleToggleContact = () => {
-    dispatch({
-      type: "TOGGLE_CONTACT_FORM",
-      showContactForm: !showContactForm,
-    });
-  }
-  return (
-    <div className="flex fixed inset-0 flex-col bg-white backdrop-blur-sm items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
-      <motion.div className="flex items-center justify-between w-screen h-24  px-10">
-        <motion.div
-          whileTap={{ scale: 0.9 }}
-          whileHover={{ scale: 1.1 }}
-          initial={{ opacity: 0, x: 200 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 200 }}
-          className="relative flex items-center justify-center text-textColor"
-          onClick={handleToggleCart}
-        >
-          <MdShoppingBasket className="text-4xl cursor-pointer" />
-         
-        </motion.div>
-        <motion.div
-          whileTap={{ scale: 0.9 }}
-          initial={{ opacity: 0, x: 200 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 200 }}
-          className="relative flex items-center justify-center text-textColor"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <MdOutlineRestaurantMenu className="text-headingColor text-4xl" />
-          
-        </motion.div>
-      </motion.div>
-      <div
-        className={`flex items-center justify-center w-full  h-72 gap-10 flex-col`}
-      >
-        <Link onClick={() => setIsOpen(!isOpen)} href={'/menu'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-فروشگاه        </Link>
-        <Link onClick={() => setIsOpen(!isOpen)} href={'services'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          خدمات
-        </Link>
-        <Link onClick={() => setIsOpen(!isOpen)} href={'/about'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          درباره ما
-        </Link>
-        <p onClick={handleToggleContact} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
-          تماس با ما
-        </p>
-      </div>
+import Shop from "@/components/icons/Shop";
+import Home from "@/components/icons/Home";
+import User from "@/components/icons/User";
+import Category from "@/components/icons/Category";
+import Rules from "@/components/icons/Rules";
+import About from "@/components/icons/About";
+import Phone from "@/components/icons/Phone";
 
-      <Link
-        href={"/"}
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center  justify-center w-full"
-      >
-        <motion.div
-          whileTap={{ scale: 0.9 }}
-          whileHover={{ scale: 1.1 }}
-          className="flex items-center gap-2 cursor-pointer"
+const MobileNav = ({ isOpen, setIsOpen }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 200 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 200 }}
+      className={"fixed  z-20  inset-0 flex-col backdrop-blur-sm items-start justify-start w-screen h-screen overflow-y-hidden" + ' ' + (isOpen ? 'flex' : "hidden")}
+
+    >
+      <section className="relative w-full h-full">
+        <div
+          className="relative z-[1000000] w-full h-full"
+          onClick={(e) => {
+            setIsOpen(false)
+            e.stopPropagation()
+          }} // Prevents closing when clicking inside the menu
         >
-          <Image src={"/logo.png"} width={300} height={300} alt="Logo" className="w-16 object-cover" />
-          <p className="text-headingColor text-3xl font-bold">NAB</p>
-        </motion.div>
-      </Link>
-    </div>
+          {isOpen ?
+
+            <div className="flex absolute overflow-y-auto overflow-x-hidden w-2/3 h-2/3 items-center rounded-lg bg-white dark:bg-darkbg justify-start gap-10 flex-col top-1/2 right-5 transform pt-8 -translate-y-1/2">
+              {[
+                { href: "/menu", icon: <Home  />, text: "صفحه اصلی" },
+                { href: "/menu", icon: <Category />, text: "دسته بندی خدمات" },
+                { href: "/store", icon: <Shop  />, text: "فروشگاه" },
+                { href: "/services", icon: <User />, text: "حساب کاربری" },
+                { href: "/terms", icon: <Rules />, text: "قوانین و مقررات" },
+                { href: "/about", icon: <About />, text: "درباره ما" },
+                { href: "/contact", icon: <Phone />, text: "تماس با ما" },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1 }}
+                  initial={{ opacity: 0, x: 200 }}
+                  animate={{ opacity: 1, x: 0, transition: { delay: index * 0.1 } }}
+                  exit={{ opacity: 0, x: 200 }}
+                  className="w-full"
+                >
+                  <Link
+                    onClick={() => setIsOpen(false)} // Close the menu when a link is clicked
+                    href={item.href}
+                    className="flex items-center text-base text-textColor dark:text-primary dark:hover:text-secondary  cursor-pointer hover:text-headingColor w-full px-5 gap-3 duration-100 transition-all ease-in-out"
+                  >
+                    {item.icon}
+                    <span className="text-gray-800 dark:text-gray-100">
+
+                    {item.text}
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+            :
+            ''
+}
+        </div>
+      </section>
+    </motion.div>
   );
 };
 

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
 import CartButton from "./CartButton";

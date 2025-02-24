@@ -11,7 +11,7 @@ const DetailCard = ({ title, content }) => {
   return (
     <section className="relative flex flex-col gap-y-2.5">
       <div
-        className="flex flex-row justify-between items-start bg-slate-100/80 hover:bg-slate-200/60 rounded-primary px-4 py-2 cursor-pointer"
+        className="flex flex-row justify-between items-start bg-slate-100/80 hover:bg-slate-200/60 dark:bg-black rounded-primary px-4 py-2 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <h2 className={"line-clamp-1" + (isOpen ? " line-clamp-none" : "")}>

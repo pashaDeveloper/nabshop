@@ -80,8 +80,12 @@ select {
   @apply form-select rounded text-sm resize-none;
 }
 
-
-
+.custom-button {
+  @apply cursor-pointer rounded-full border border-green-500/5 dark:border-blue-500/5 bg-green-500/5 dark:bg-blue-500/5 p-2 text-green-500 dark:text-blue-500 transition-colors hover:border-green-500/10 dark:hover:border-blue-500/10 hover:bg-green-500/10 dark:hover:bg-blue-500/10 hover:!opacity-100 group-hover:opacity-70;
+}
+.category-button {
+  @apply cursor-pointer rounded-full border border-primary/10  bg-primary/5  p-2 text-primary dark:text-primary transition-colors hover:bg-primary/10  hover:!opacity-100 group-hover:opacity-70;
+}
 
 .swiper {
   width: 100%;
@@ -120,7 +124,7 @@ select {
   z-index: 10;
   width: 100%;
   height: 100%;
-  stroke-width: 4px;
+  strokeWidth: 4px;
   stroke: white;
   fill: none;
   stroke-dashoffset: calc(125.6px * (1 - var(--progress)));

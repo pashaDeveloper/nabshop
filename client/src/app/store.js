@@ -11,7 +11,7 @@ import favoriteSlice from "@/features/favorite/favoriteSlice";
 import cartSlice from "@/features/cart/cartSlice";
 import purchaseSlice from "@/features/purchase/purchaseSlice";
 import filterSlice from "@/features/filter/filterSlice";
-import postSlice from "@/features/post/postSlice";
+import postReducer  from "@/features/post/postSlice";
 
 export const store = configureStore({
   reducer: {
@@ -25,8 +25,7 @@ export const store = configureStore({
     cart: cartSlice,
     purchase: purchaseSlice,
     filter: filterSlice,
-    post: postSlice
-    // productFilter: productFilterSlice,
+    post: postReducer 
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(nabApi.middleware),

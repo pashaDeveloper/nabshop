@@ -53,14 +53,12 @@ const NewArrivals = () => {
           )}
         </div>
 
-        {/* موبایل: نمایش در اسلایدر */}
         <div className="block md:hidden  ">
           <Swiper
-            slidesPerView={1.2} // نمایش محصول اول کامل و ۲۰٪ از محصول بعدی
-            spaceBetween={10} // فاصله بین اسلایدها
-            freeMode={true}
+            slidesPerView={1.2} 
+            spaceBetween={10} 
             modules={[Pagination, FreeMode]}
-            className="w-full h-full  z-5"
+            className="w-full h-full  z-50"
           >
             {productsLoading || !productsLoading && products?.length === 0 ? (
               <>

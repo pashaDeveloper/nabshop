@@ -19,12 +19,12 @@ function Left() {
   return (
     <div className="col-span-1 h-full min-h-[450px] w-full flex flex-col relative px-3 ">
       <div className="absolute w-full top-1/2  flex justify-between z-50">
-        <div className="custom-prev -right-5 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white border-lightbg -lg text-lg">
+        <div className="custom-prev -right-5 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white border-lightbg dark:border-darkbg -lg text-lg">
           <span>
             <IoIosArrowForward size={30} />
           </span>
         </div>
-        <div className="custom-prev left-0 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white border-lightbg  text-lg">
+        <div className="custom-prev left-0 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer dark:border-darkbg text-gray-700 w-8 h-8 bg-white border-lightbg  text-lg">
           <span>
             <IoIosArrowBack size={30} />
           </span>
@@ -37,7 +37,7 @@ function Left() {
         style={{
           backgroundImage:
             "linear-gradient(to top, #ed1945, #ed1945), url(/assets/home/banner/dots.svg)",
-          backgroundBlendMode: "overlay" // ترکیب گرادینت با تصویر پس‌زمینه
+          backgroundBlendMode: "overlay" 
         }}
       >
         <Swiper

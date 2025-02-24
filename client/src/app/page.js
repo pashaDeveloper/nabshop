@@ -1,6 +1,5 @@
 
 
-"use client"
 import Hero from "@/components/home/hero/Hero";
 import Banner2 from "@/components/home/Banner2";
 import Banner3 from "@/components/home/Banner3";
@@ -10,17 +9,19 @@ import NicheExplorer from "@/components/home/NicheExplorer";
 import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
 import Post from "@/components/home/posts/Post";
+import Blog from "@/components/home/blogs/Blog";
 
 export default function Home() {
   return (
     <>
       <Main>
-        <main className="flex flex-col gap-y-20 w-full bg-lightbg">
+        <main className="flex flex-col gap-y-20 w-full bg-lightbg dark:bg-darkbg">
           <Hero/>
           <NewArrivals />
           <Post/>
           <Banner2 />
           <ExpertChoice />
+          <Blog/>
           <NicheExplorer />
           <Trending />
           <Banner3 />

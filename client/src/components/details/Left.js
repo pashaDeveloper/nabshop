@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import LoadImage from "../shared/LoadImage";
 import Discount from "../icons/Discount";

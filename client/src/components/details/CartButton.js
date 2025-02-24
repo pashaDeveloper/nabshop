@@ -29,8 +29,6 @@ const CartButton = ({ product }) => {
     }
   }, [addingToCart, cartData, cartError]);
   const [selectedUnit, setSelectedUnit] = useState(product?.variations?.[0]);
-
-
   const handleUnitClick = (unit) => {
     setSelectedUnit(unit);
   };
@@ -40,10 +38,10 @@ const CartButton = ({ product }) => {
       ? originalPrice * (1 - product.discountAmount / 100)
       : originalPrice;
   return (
-    <section className="flex h-[170px] !z-[99999] flex-row mb-24 bg-gray-50  rounded-t-primary md:rounded-none shadow-t-lg md:shadow-none items-start md:bg-white dark:gap-x-4 md:h-full  border md:border-none">
+    <section className="flex h-[200px] !z-[90000] flex-row mb-24 bg-gray-50  rounded-t-primary md:rounded-none shadow-t-lg md:shadow-none items-start md:bg-white dark:bg-slate-900 md:dark:bg-[#121212] dark:gap-x-4 md:h-full  border dark:border-slate-600 md:border-none">
       <div className="flex-flex-col gap-y-8 md:w-fit w-full">
         <div className="flex flex-col gap-y-12">
-          <div className=" hidden md:flex  flex-wrap gap-4  items-center">
+          <div className=" hidden md:flex mt-6  flex-wrap gap-4  items-center">
             {" "}
             {[...(product?.variations || [])]
               .sort((a, b) => Number(a.unit.value) - Number(b.unit.value))
@@ -54,7 +52,7 @@ const CartButton = ({ product }) => {
                     className={`relative rounded-full flex items-center justify-center text-xl transition-all duration-300 ease-in-out
                   ${
                     selectedUnit?.unit._id === variation.unit._id
-                      ? "bg-primary outline-none ring-2 ring-primary  ring-offset-4 "
+                      ? "bg-primary outline-none ring-2 ring-primary  ring-offset-4 dark:ring-offset-[#121212] "
                       : "bg-secondary"
                   }`}
                     style={{
@@ -67,6 +65,19 @@ const CartButton = ({ product }) => {
                     ) : (
                       ""
                     )}
+                    <div
+                      className={`absolute bottom-full  left-1/2 -translate-x-1/2 mb-4 px-2 py-1 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300 whitespace-nowrap
+    ${
+      selectedUnit?.unit._id === variation.unit._id
+        ? "opacity-100 visible"
+        : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+    }`}
+                    >
+                      
+                      {variation?.unit?.description}
+                      {/* فلش Tooltip بالا */}
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full border-8 border-transparent border-t-secondary"></div>
+                    </div>
                     <div
                       className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
                   ${
@@ -105,10 +116,10 @@ const CartButton = ({ product }) => {
               <div key={variation?._id} className="relative">
                 <button
                   onClick={() => handleUnitClick(variation)}
-                  className={`relative rounded-full flex items-center justify-center text-xl transition-all duration-300 ease-in-out
+                  className={`relative rounded-full flex items-center justify-center text-xl transition-all duration-300 ease-in-out mt-9
                   ${
                     selectedUnit?.unit._id === variation.unit._id
-                      ? "bg-primary outline-none ring-2 ring-primary dark:ring-secondary ring-offset-4 "
+                      ? "bg-primary outline-none ring-2 ring-primary dark:ring-secondary ring-offset-4 dark:ring-offset-slate-900"
                       : "bg-secondary"
                   }`}
                   style={{
@@ -121,8 +132,21 @@ const CartButton = ({ product }) => {
                   ) : (
                     ""
                   )}
+                    <div
+                      className={`absolute bottom-full  left-1/2 -translate-x-1/2 mb-4 px-2 py-1 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300 whitespace-nowrap
+    ${
+      selectedUnit?.unit._id === variation.unit._id
+        ? "opacity-100 visible"
+        : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+    }`}
+                    >
+                      
+                      {variation?.unit?.description}
+                      {/* فلش Tooltip بالا */}
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full border-8 border-transparent border-t-secondary"></div>
+                    </div>
                   <div
-                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 z-[99999] py-1 bg-secondary text-white text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
+                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 z-[99999] py-1 bg-secondary text-white   text-sm rounded shadow-lg transition-opacity duration-300  whitespace-nowrap
                   ${
                     selectedUnit?.unit._id === variation.unit._id
                       ? "opacity-100 visible"
@@ -131,14 +155,14 @@ const CartButton = ({ product }) => {
                   >
                     {variation?.unit?.title}
                     {/* فلش Tooltip */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full border-8 border-transparent border-b-secondary"></div>
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full border-8 border-transparent border-b-secondary dark:"></div>
                   </div>
                 </button>
               </div>
             ))}
         </div>
         <div className="flex justify-between md:mt-4 items-center gap-4 p-4">
-          <div className="flex bg-white flex-row gap-x-2  items-center border px-1 py-0.5 rounded-secondary h-full">
+          <div className="flex bg-white md:dark:bg-[#121212] dark:bg-slate-900 flex-row gap-x-2  items-center border px-1 py-0.5 rounded-secondary h-full">
             <button
               className="border bg-primary  border-white/30 disabled:border-zinc-100 p-1.5 text-white rounded-secondary "
               onClick={() => setQty(qty - 1)}
@@ -161,11 +185,11 @@ const CartButton = ({ product }) => {
             className="px-8 py-2 border border-primary rounded-secondary bg-primary hover:bg-primary/90 text-white transition-colors drop-shadow w-fit flex flex-row gap-x-2 items-center"
             disabled={qty === 0 || addingToCart}
             onClick={() => {
-                             addToCart({
-                  product: product._id,
-                  quantity: qty,
-                  variation: selectedUnit?._id
-            }) 
+              addToCart({
+                product: product._id,
+                quantity: qty,
+                variation: selectedUnit?._id
+              });
             }}
           >
             {addingToCart ? (

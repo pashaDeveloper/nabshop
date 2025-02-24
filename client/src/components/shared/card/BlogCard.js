@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import SkeletonText from "@/components/shared/skeleton/SkeletonText";
-import SkeletonImage from "@/components/shared/skeleton/SkeletonImage";
+import SkeletonText from "@/components/shared/skeletonLoading/SkeletonText";
+import SkeletonImage from "@/components/shared/skeletonLoading/SkeletonImage";
 import { TfiHeart } from "react-icons/tfi";
 import { PiBookmarkSimpleDuotone } from "react-icons/pi";
-import { Star } from "@/utils/SaveIcon";
+import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import {
   MdOutlineFlight,
   MdTravelExplore,
@@ -13,31 +12,17 @@ import {
   MdLuggage,
   MdOutlineLanguage
 } from "react-icons/md";
+import Link from "next/link";
 
-const BlogCard = ({
-  id,
-  index,
-  title,
-  description,
-  thumbnailPreview,
-  publishDate,
-  authorId,
-  superAdmin,
-  isLoading,
-  slug
-}) => {
-  const router = useRouter();
-
+const BlogCard = ({ blog, isLoading }) => {
   return (
-    <div
-      key={id || index}
-      onClick={() =>
-        id ? router.push(`/blog/${slug}/${id}`) : console.log("ID is missing")
-      }
-      className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white dark:bg-gray-800  border dark:border-gray-700 bg-clip-border text-gray-700 shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
+    <Link
+      key={blog?._id }
+      href={`/blog/${blog?.slug}/${blog?._id}`}
+      className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white  border dark:bg-darkbg  bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
     >
       <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
-        {!thumbnailPreview && (
+        {!blog?.thumbnail && (
           <SkeletonImage
             width={1150}
             height={500}
@@ -47,7 +32,7 @@ const BlogCard = ({
           />
         )}
         <Image
-          src={thumbnailPreview ||"/placeholder.png"}
+          src={blog?.thumbnail?.url || "/placeholder.png"}
           alt="Blog Image"
           width={1150}
           height={500}
@@ -76,99 +61,99 @@ const BlogCard = ({
       <div className="px-6 py-2">
         <div className="mb-3 flex items-center justify-between">
           <h5 className="block  text-md tracking-normal dark:text-blue-100 min-w-[80%] ">
-            {title ? `${title}` : <SkeletonText lines={1} />}
+            {blog?.title ? `${blog?.title}` : <SkeletonText lines={1} />}
           </h5>
           <p className="flex items-center gap-1.5 text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
-            <Star />
+            <AiFillStar />
             5.0
           </p>
         </div>
         <div className="  text-base text-justify leading-relaxed text-gray-700 dark:text-blue-100 antialiased line-clamp-4  overflow-hidden text-ellipsis break-words">
-          {description ? description : <SkeletonText lines={5} />}
+          {blog?.description ? blog?.description : <SkeletonText lines={5} />}
         </div>
         <div className="absolute bottom-1 right-1 w-full px-3">
-  {/* آیکون‌ها */}
-  <div className="group inline-flex flex-wrap items-center gap-3">
-    <span
-      data-tooltip-target="flight"
-      aria-label="پرواز"
-      title="پرواز"
-      className="custom-button !p-3"
-    >
-      <MdOutlineFlight className="h-6 w-6" />
-    </span>
-    <span
-      data-tooltip-target="explore"
-      aria-label="جهان‌گردی"
-      title="جهان‌گردی"
-      className="custom-button !p-3"
-    >
-      <MdTravelExplore className="h-6 w-6" />
-    </span>
-    <span
-      data-tooltip-target="location"
-      aria-label="موقعیت مکانی"
-      title="موقعیت مکانی"
-      className="custom-button !p-3"
-    >
-      <MdLocationOn className="h-6 w-6" />
-    </span>
-    <span
-      data-tooltip-target="luggage"
-      aria-label="چمدان"
-      title="چمدان"
-      className="custom-button !p-3"
-    >
-      <MdLuggage className="h-6 w-6" />
-    </span>
-    <span
-      data-tooltip-target="language"
-      aria-label="زبان و ارتباطات"
-      title="زبان و ارتباطات"
-      className="custom-button !p-3"
-    >
-      <MdOutlineLanguage className="h-6 w-6" />
-    </span>
-  </div>
+          {/* آیکون‌ها */}
+          <div className="group inline-flex flex-wrap items-center gap-3">
+            <span
+              data-tooltip-target="flight"
+              aria-label="پرواز"
+              title="پرواز"
+              className="custom-button !p-3"
+            >
+              <MdOutlineFlight className="h-6 w-6" />
+            </span>
+            <span
+              data-tooltip-target="explore"
+              aria-label="جهان‌گردی"
+              title="جهان‌گردی"
+              className="custom-button !p-3"
+            >
+              <MdTravelExplore className="h-6 w-6" />
+            </span>
+            <span
+              data-tooltip-target="location"
+              aria-label="موقعیت مکانی"
+              title="موقعیت مکانی"
+              className="custom-button !p-3"
+            >
+              <MdLocationOn className="h-6 w-6" />
+            </span>
+            <span
+              data-tooltip-target="luggage"
+              aria-label="چمدان"
+              title="چمدان"
+              className="custom-button !p-3"
+            >
+              <MdLuggage className="h-6 w-6" />
+            </span>
+            <span
+              data-tooltip-target="language"
+              aria-label="زبان و ارتباطات"
+              title="زبان و ارتباطات"
+              className="custom-button !p-3"
+            >
+              <MdOutlineLanguage className="h-6 w-6" />
+            </span>
+          </div>
 
-  {/* تاریخ و عکس */}
-  <div className="flex items-center justify-between w-full mt-3">
-    {/* تاریخ */}
-    <div className="text-sm dark:text-gray-100 w-full ml-2">
-      {publishDate ? (
-        <span>
-          {new Date(publishDate).toLocaleDateString("fa-IR", {
-            weekday: "long"
-          })}{" "}
-          - {new Date(publishDate).toLocaleDateString("fa-IR")}
-        </span>
-      ) : (
-        <SkeletonText lines={1} />
-      )}
-    </div>
+          {/* تاریخ و عکس */}
+          <div className="flex items-center justify-between w-full mt-3">
+            {/* تاریخ */}
+            <div className="text-sm dark:text-gray-100 w-full ml-2">
+              {blog?.publishDate ? (
+                <span>
+                  {new Date(blog?.publishDate).toLocaleDateString("fa-IR", {
+                    weekday: "long"
+                  })}{" "}
+                  - {new Date(blog?.publishDate).toLocaleDateString("fa-IR")}
+                </span>
+              ) : (
+                <SkeletonText lines={1} />
+              )}
+            </div>
 
-    {/* عکس نویسنده */}
-    <div className="flex items-center">
-      {isLoading || !authorId ? (
-        <div className="dark:!border-gray-600 text-center rounded-full flex justify-center">
-          <SkeletonImage
-            height={30}
-            width={30}
-            showSize={false}
-            borderRadius="rounded-full lg:!w-9 lg:!h-9"
-          />
-        </div>
-      ) : (
-        <div className="text-center rounded-full flex justify-center">
-          <Image
-            alt={authorId?.name}
-            title={authorId?.name}
-            src={authorId?.avatar?.url}
-            width={36}
-            height={36}
-            className="relative inline-block rounded-full object-cover object-center hover:z-10"
-          />
-          {authorId?.name !== superAdmin?.name && (
+            {/* عکس نویسنده */}
+            <div className="flex items-center">
+              {isLoading || !blog?.creator._id ? (
+                <div className="dark:!border-gray-600 text-center rounded-full flex justify-center">
+                  <SkeletonImage
+                    height={30}
+                    width={30}
+                    showSize={false}
+                    borderRadius="rounded-full lg:!w-9 lg:!h-9"
+                  />
+                </div>
+              ) : (
+                <div className="text-center rounded-full flex justify-center">
+                  <Image
+                    alt={blog?.creator?.name}
+                    title={blog?.creator?.name}
+                    src={blog?.creator?.avatar?.url}
+                    width={36}
+                    height={36}
+                    className="relative inline-block rounded-full object-cover object-center hover:z-10"
+                  />
+                  {/* {blog?.creator?.name !== superAdmin?.name && (
             <Image
               alt={authorId?.name}
               title={authorId?.name}
@@ -177,15 +162,14 @@ const BlogCard = ({
               height={36}
               className="relative inline-block rounded-full object-cover object-center hover:z-10"
             />
-          )}
+          )} */}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      )}
-    </div>
-  </div>
-</div>
-
       </div>
-    </div>
+    </Link>
   );
 };
 

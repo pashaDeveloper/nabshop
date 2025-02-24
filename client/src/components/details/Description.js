@@ -42,7 +42,7 @@ const Description = ({ product }) => {
   return (
     <section className="flex flex-col gap-y-2.5">
       <div className="flex flex-row gap-x-2 items-center">
-        <span className="whitespace-nowrap text-sm text-black">
+        <span className="whitespace-nowrap text-sm text-black dark:text-gray-100">
           جزئیات این محصول
         </span>
         <hr className="w-full" />
@@ -50,13 +50,13 @@ const Description = ({ product }) => {
       <article className="flex flex-col gap-y-4">
         <p className="text-sm">{product?.summary}</p>
         <button
-          className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow w-fit flex flex-row gap-x-2 items-center"
+          className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow w-fit flex flex-row gap-x-2 items-center dark:text-gray-100"
           onClick={() => setIsOpen(!isOpen)}
         >
           نظرات
         </button>
         <div className="flex flex-row gap-x-2 items-center">
-          <span className="whitespace-nowrap text-sm text-black">
+          <span className="whitespace-nowrap text-sm text-black dark:text-gray-100">
 ویزگی های این محصول          </span>
           <hr className="w-full" />
         </div>
@@ -75,7 +75,7 @@ const Description = ({ product }) => {
         <Modal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          className="p-6 lg:w-1/3 md:w-1/2 w-full h-96"
+          className="p-6 lg:w-1/3 md:w-1/2 w-full h-96 dark:bg-slate-900"
         >
           <section className="h-full flex flex-col gap-y-6">
             <form
@@ -88,7 +88,7 @@ const Description = ({ product }) => {
                 name="comment"
                 id="comment"
                 placeholder="اگر ایده یا نظری دارید خوشحال می شویم با ما در میان بگذارید"
-                className="w-full text-sm"
+                className="w-full text-sm dark:bg-slate-700"
               />
               <input
                 type="number"
@@ -97,12 +97,12 @@ const Description = ({ product }) => {
                 min="1"
                 max="5"
                 placeholder="مقدار"
-                className="w-fit text-sm"
+                className="w-fit text-sm dark:bg-slate-700"
               />
               <input
                 type="submit"
                 value="ثبت"
-                className="text-sm p-2 border bg-black text-white rounded cursor-pointer"
+                className="text-sm p-2 border dark:border-gray-600 bg-black text-white rounded cursor-pointer"
               />
             </form>
 
