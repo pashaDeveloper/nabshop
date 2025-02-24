@@ -6,7 +6,6 @@ import { useGetBlogQuery } from "@/services/blog/blogApi";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
 import { toast } from "react-hot-toast";
-import Blogs from "@/components/home/blogs/Blogs";
 import HighlightText from "@/components/shared/highlightText/HighlightText";
 import BlogsContent from "@/components/details/blog/BlogContent";
 

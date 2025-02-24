@@ -2,7 +2,7 @@
 import Container from "@/components/shared/Container";
 import HighlightText from "@/components/shared/highlightText/HighlightText";
 import React from "react";
-import Blogs from "./Blogs";
+import Blogs from "@/components/home/blogs/Blogs";
 
 const Blog = () => {
   return (

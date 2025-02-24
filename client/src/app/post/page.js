@@ -10,9 +10,6 @@ import { useGetPostQuery } from "@/services/post/postApi";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
 import { toast } from "react-hot-toast";
-import Posts from "@/components/home/posts/Posts";
-import Blogs from "@/components/home/blogs/Blogs";
-import LastPost from "@/components/home/posts/LastPost";
 import HighlightText from "@/components/shared/highlightText/HighlightText";
 
 const Detail = () => {
