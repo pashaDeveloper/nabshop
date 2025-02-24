@@ -1,25 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SkeletonText from "@/components/shared/skeletonLoading/SkeletonText";
 import SkeletonImage from "@/components/shared/skeletonLoading/SkeletonImage";
 import { TfiHeart } from "react-icons/tfi";
 import { PiBookmarkSimpleDuotone } from "react-icons/pi";
 import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
-import {
-  MdOutlineFlight,
-  MdTravelExplore,
-  MdLocationOn,
-  MdLuggage,
-  MdOutlineLanguage
-} from "react-icons/md";
-import Link from "next/link";
+import Bottle from "@/components/icons/category/Bottle";
+import Cake from "@/components/icons/category/Cake";
+import Noghl1 from "@/components/icons/category/Noghl1";
+import Noghl2 from "@/components/icons/category/Noghl2";
+import Halva1 from "@/components/icons/category/Halva1";
+import { useRouter } from "next/navigation";
 
 const BlogCard = ({ blog, isLoading }) => {
+    const router = useRouter();
+  
   return (
-    <Link
-      key={blog?._id }
-      href={`/blog/${blog?.slug}/${blog?._id}`}
-      className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white  border dark:bg-darkbg  bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
+    <div
+    onClick={() =>
+      router.push(
+        `/blog?blog_id=${
+          blog?._id
+        }&blog_title=${blog?.title
+          .replace(/ /g, "-")
+          .toLowerCase()}`
+      )
+    }       
+       key={blog?._id }
+      className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white dark:bg-darkCard  border dark:border-gray-800   bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
     >
       <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
         {!blog?.thumbnail && (
@@ -75,44 +83,44 @@ const BlogCard = ({ blog, isLoading }) => {
           {/* آیکون‌ها */}
           <div className="group inline-flex flex-wrap items-center gap-3">
             <span
-              data-tooltip-target="flight"
-              aria-label="پرواز"
-              title="پرواز"
+              data-tooltip-target="noghl"
+              aria-label="نقل و شیرینی"
+              title="نقل و شیرینی"
               className="custom-button !p-3"
             >
-              <MdOutlineFlight className="h-6 w-6" />
+              <Noghl1 className="!w-8 !h-8 "  />
             </span>
             <span
-              data-tooltip-target="explore"
-              aria-label="جهان‌گردی"
-              title="جهان‌گردی"
+              data-tooltip-target="sweets"
+              aria-label="شیرینی سنتی"
+              title="شیرینی سنتی"
               className="custom-button !p-3"
             >
-              <MdTravelExplore className="h-6 w-6" />
+              <Noghl2 className="!w-8 !h-8" />
             </span>
             <span
-              data-tooltip-target="location"
-              aria-label="موقعیت مکانی"
-              title="موقعیت مکانی"
+              data-tooltip-target="herbal"
+              aria-label="عرقیجات سنتی"
+              title="عرقیجات سنتی"
               className="custom-button !p-3"
             >
-              <MdLocationOn className="h-6 w-6" />
+              <Bottle className="!w-8 !h-8" />
             </span>
             <span
-              data-tooltip-target="luggage"
-              aria-label="چمدان"
-              title="چمدان"
+              data-tooltip-target="halva"
+              aria-label="حلوا و دسر"
+              title="حلوا و دسر"
               className="custom-button !p-3"
             >
-              <MdLuggage className="h-6 w-6" />
+              <Halva1 className="!w-8 !h-8" />
             </span>
             <span
-              data-tooltip-target="language"
-              aria-label="زبان و ارتباطات"
-              title="زبان و ارتباطات"
+              data-tooltip-target="cake"
+              aria-label="کیک و دسر"
+              title="کیک و دسر"
               className="custom-button !p-3"
             >
-              <MdOutlineLanguage className="h-6 w-6" />
+              <Cake className="!w-8 !h-8" />
             </span>
           </div>
 
@@ -169,7 +177,7 @@ const BlogCard = ({ blog, isLoading }) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -1,12 +1,13 @@
 import React from "react";
 
-const noghl2 = ({ className, ...props }) => {
+const Noghl2 = ({ className, ...props }) => {
   return (
     <svg
       {...props}
       className={"w-3.5 h-3.5" + (className ? " " + className : "")}
       version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-      viewBox="0 0 925.95 733.4" style="enable-background:new 0 0 925.95 733.4;" xmlSpace="preserve">
+      fill="currentColor"
+      viewBox="0 0 925.95 733.4"  xmlSpace="preserve">
    <g>
      <path d="M885.91,346.64c-11.08-16.09-26.71-27.29-43.37-36.94c-13.45-7.79-28.03-13.07-42.82-17.76c-2.33-0.74-4.78-1.23-5.92-4.01
        c-8.25-20.13-23.1-32.54-44.27-37.28c-2.95-0.66-3.02-2.24-3.23-4.55c-1.01-11.07-3.63-21.54-10.22-30.89
@@ -573,4 +574,4 @@ const noghl2 = ({ className, ...props }) => {
   );
 };
 
-export default noghl2;
+export default Noghl2;

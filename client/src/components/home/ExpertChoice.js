@@ -8,16 +8,17 @@ import { useRouter } from "next/navigation";
 import { useGetProductsQuery } from "@/services/product/productApi";
 import ExpertCard from "../shared/skeletonLoading/ExpertCard";
 import { toast } from "react-hot-toast";
+import HighlightText from "../shared/highlightText/HighlightText";
 
 const ExpertChoice = ({ className }) => {
   const router = useRouter();
-
   const {
     data: productsData,
     error: productsError,
     isLoading: productsLoading
   } = useGetProductsQuery();
   const products = useMemo(() => productsData?.data || [], [productsData]);
+  console.log(products)
 
   useEffect(() => {
     if (productsError) {
@@ -27,14 +28,13 @@ const ExpertChoice = ({ className }) => {
 
   return (
     <Container className={className ? className : ""}>
-      
       <section className="flex flex-col gap-y-10">
-        <h1 className="text-4xl">
-      <span className="">محبوب‌ترین‌ها</span>
+        <h1 className="text-4xl w-fit">
+          <HighlightText title={"محبوب‌ ترین‌ محصولات"} />
         </h1>
 
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-6 gap-y-8">
-          {productsLoading ||!productsLoading && products?.length === 0 ? (
+          {productsLoading || (!productsLoading && products?.length === 0) ? (
             <>
               {[1, 2, 3, 4].map((_, index) => (
                 <ExpertCard key={index} />
@@ -85,12 +85,10 @@ const ExpertChoice = ({ className }) => {
 
                   <article className="flex flex-col gap-y-3.5">
                     <div className="flex flex-row items-center gap-x-1.5">
-                      <Badge className="text-indigo-800 bg-indigo-100">
-                        {product?.variations?.colors?.length + " " + "Colors"}
-                      </Badge>
+                     
                       <div className="h-5 border-l w-[1px]"></div>
                       <Badge className="text-purple-800 bg-purple-100">
-                        {product?.variations?.sizes?.length + " " + "Sizes"}
+                        { "در"+ product?.variations?.length + " " + "وزن"}
                       </Badge>
                     </div>
                     <div className="flex flex-col gap-y-4">
@@ -98,7 +96,33 @@ const ExpertChoice = ({ className }) => {
                       <div className="flex flex-row items-end justify-between">
                         <span className="flex items-center border-2 border-green-500 rounded py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium">
                           <span className="text-green-500 !leading-none">
-                            ${product?.price}.00
+                          <div className="text-left">
+              {product?.variations?.[0]?.price && product?.discountAmount > 0 ? (
+                <>
+                  <p className="text-sm text-red-500 line-through">
+                    {new Intl.NumberFormat("fa-IR").format(
+                      product?.variations?.[0]?.price
+                    )}{" "}
+                    ریال
+                  </p>
+                  <p className="text-lg text-green-500">
+                    {new Intl.NumberFormat("fa-IR").format(
+                      product?.variations?.[0]?.price *
+                        (1 - product?.discountAmount / 100)
+                    )}{" "}
+                    ریال
+                  </p>
+                </>
+              ) : (
+                <p className="text-lg text-blue-500">
+                  {product?.variations?.[0]?.price
+                    ? new Intl.NumberFormat("fa-IR").format(
+                        product?.variations?.[0]?.price
+                      ) + " ریال"
+                    : "قیمتی موجود نیست"}
+                </p>
+              )}
+              </div>
                           </span>
                         </span>
                         <span className="flex flex-row items-center gap-x-0.5">
@@ -115,7 +139,6 @@ const ExpertChoice = ({ className }) => {
             </>
           )}
         </div>
-        
       </section>
     </Container>
   );

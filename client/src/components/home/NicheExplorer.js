@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBrand } from "@/features/brand/brandSlice";
 import { setCategory } from "@/features/category/categorySlice";
 import { setStore } from "@/features/store/storeSlice";
+import HighlightText from "../shared/highlightText/HighlightText";
 
 const NicheExplorer = () => {
   const niches = [
@@ -40,13 +41,13 @@ const NicheExplorer = () => {
   return (
     <Container>
       <section className="flex flex-col gap-y-10">
-        <h1 className="text-4xl">
-          بیشترین جستجوی <span className="">کاربران</span>
+        <h1 className="text-4xl w-fit">
+          <HighlightText title={"بیشترین جستجوی کاربران"} />
         </h1>
 
-        <div className="bg-neutral-100/70 rounded-primary lg:p-24 md:p-12 p-6 flex flex-col gap-y-12">
+        <div className="bg-neutral-100/70 dark:bg-gray-600  rounded-primary lg:p-24 md:p-12 p-6 flex flex-col gap-y-12">
           <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
-            <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white overflow-x-auto scrollbar-hide">
+            <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white dark:bg-gray-800 dark:border-gray-600 overflow-x-auto scrollbar-hide">
               {niches.map((niche, index) => (
                 <button
                   key={index}
@@ -58,7 +59,7 @@ const NicheExplorer = () => {
                   onClick={() => setSelectedNiche(niche.title)}
                 >
                   {niche.icon}
-                  <span className={"hidden md:flex "+(selectedNiche === niche.title ? "bg-black text-white" : "") }>{niche.title}</span>
+                  <span className={"hidden md:flex "+(selectedNiche === niche.title ? "bg-black text-white " : "dark:text-white") }>{niche.title}</span>
                 </button>
               ))}
             </div>
@@ -249,7 +250,7 @@ function DisplayCategories() {
             {categories?.slice(0, 6)?.map((category, index) => (
               <div
                 key={index}
-                className="group border p-4 rounded-lg flex flex-col gap-y-4 hover:border-black transition-colors bg-white relative cursor-pointer"
+                className="group border p-4 rounded-lg flex flex-col gap-y-4 hover:border-black transition-colors bg-white relative dark:bg-darkCard dark:border-gray-900 cursor-pointer"
                 onClick={() => {
                   dispatch(setCategory(category));
                   setIsOpen(true);

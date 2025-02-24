@@ -11,16 +11,16 @@ const Banner3 = ({ className }) => {
   return (
     <Container className={className ? className : ""}>
       <div
-        className="bg-gray-50 h-full w-full mb-4 rounded-primary relative flex flex-col gap-y-8 lg:p-24 p-8"
+        className="bg-gray-50 dark:bg-yellow-500 h-full w-full mb-4 rounded-primary relative flex flex-col gap-y-8 lg:p-24 p-8"
         style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
       >
-        {/* <Image
+        <Image
           src="/assets/home/banner/halva.png"
           alt="حلوا و نقل"
           height={400}
           width={600}
-          className="lg:absolute bottom-0 right-0 rounded-md order-2"
-        /> */}
+          className="lg:absolute top-12 right-2 rounded-md order-2"
+        /> 
         <article className="flex flex-col justify-start items-end order-1">
           <div className="flex flex-col gap-y-4 max-w-lg z-48 lg:mr-auto lg:mr-0 mr-auto text-right">
             <h1 className="md:text-6xl text-4xl font-bold">طعم بی‌نظیر نقل و حلوا</h1>

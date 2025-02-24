@@ -139,4 +139,58 @@ select {
 .swiper-pagination span{
   background-color: white;
 }
+.profile-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(220, 233, 245, 1)  ;
+  background: rgba(220, 233, 245, 0.8);
+}
 
+.dark .profile-container{
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.2);
+
+}
+
+.profile-pic {
+  width: 92%;
+  height: 92%;
+  object-fit: cover;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.shine-effect::before,
+.shine-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background: rgba(220, 233, 245, 0.4)  ;
+  transform: skewX(-45deg);
+  border: 2px solid rgba(220, 233, 245, 0.8);
+  animation: shine 3s infinite;
+}
+
+.dark .shine-effect::before {
+  background: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 200%; 
+  }
+}

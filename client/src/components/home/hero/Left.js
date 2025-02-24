@@ -87,7 +87,7 @@ function Left() {
                   width={500}
                   alt={"banner1"}
 
-                  className="w-80 ml-4 block md:mr-auto"
+                  className="w-72 ml-4 block md:mr-auto"
                 />
               </motion.div>
             </div>
@@ -120,7 +120,7 @@ function Left() {
                     height={524}
                     width={483}
                     alt={"banner2"}
-                    className="w-48 ml-4 block md:mr-auto"
+                    className="w-72 ml-4 block md:mr-auto"
                   />
                 </motion.div>
               </div>
