@@ -1,8 +1,6 @@
 "use client"
 import React, { useMemo } from "react";
 import { useGetBlogsQuery } from "@/services/blog/blogApi";
-import SkeletonText from "@/components/shared/skeletonLoading/SkeletonText";
-import SkeletonImage from "@/components/shared/skeletonLoading/SkeletonImage";
 import BlogCard from "@/components/shared/card/BlogCard";
 
 const Blogs = () => {
