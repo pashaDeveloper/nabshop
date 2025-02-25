@@ -36,7 +36,11 @@ const Blog = () => {
             <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {isLoading
                 ? [...Array(4)].map((_, index) => <BlogCardSkeleton key={index} />)
-                : blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)}
+                // 
+                 : blogs.map((blog) => 
+                //  <BlogCard key={blog._id} blog={blog} />
+                 <></>
+                 )}
             </section>
           </div>
         </div>
