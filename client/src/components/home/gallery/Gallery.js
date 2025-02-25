@@ -21,70 +21,21 @@ const Gallery = () => {
   } = useGetGalleryQuery(selectedGalleryId, {
     skip: !selectedGalleryId
   });
-
   const galleryData = useMemo(() => fetchData?.data || {}, [fetchData]);
+  console.log(galleryData.length === 0);
   const containerRef = useRef(null);
   const [tab, setTab] = useState(null);
-
   useEffect(() => {
-
     if (data) {
-      setSelectedGalleryId(galleries[0]._id);
+      setSelectedGalleryId(galleries[0]?._id);
     }
     if (tab) {
       setSelectedGalleryId(tab);
     }
-  }, [isLoading,[tab]]);
+  }, [isLoading, [tab]]);
 
 
 
-  const renderSkeleton = () => {
-    return (
-      <section className="w-full h-full flex flex-col gap-y-12  ">
-        <div className="flex flex-col gap-y-12">
-          <article className="flex flex-col gap-y-4">
-            <div className="lg:text-5xl md:text-4xl text-3xl w-fit whitespace-normal">
-              <HighlightText title={"گالری تصاویر"} />
-            </div>
-            <p className="text-base">
-              با مرور گالری تصاویر، شما با کیفیت خدمات و راهکارهای ما آشنا
-              می‌شوید و می‌توانید ببینید که چگونه ما به مشتریان خود ارزش افزوده
-              می‌دهیم.
-            </p>
-          </article>
-        </div>
-
-        <div className="border border-primary/30  rounded-2xl bg-secondary/30  lg:p-12 md:p-6 p-3 animate-pulse">
-          <div className="grid grid-cols-12 items-center gap-4 h-[720px] overflow-hidden">
-            {Array.from({ length: 9 }).map((_, index) => (
-              <div
-                key={index}
-                className={`lg:col-span-3 md:col-span-6 col-span-12 border w-full bg-gray-300 drop-shadow rounded ${
-                  index % 2 === 0 ? "row-span-2 h-[364px]" : "h-[159px]"
-                }`}
-              ></div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  };
-
-  if (isLoading || fetching) {
-    return (
-      <section id="deals" className="h-full py-12">
-        <Container>{renderSkeleton()}</Container>
-      </section>
-    );
-  }
-
-  if (error || galleryData.length === 0) {
-    return (
-      <section id="deals" className="h-full py-12">
-        <Container>{renderSkeleton()}</Container>
-      </section>
-    );
-  }
 
   return (
     <section id="deals" className="h-full py-12 ">
@@ -126,23 +77,40 @@ const Gallery = () => {
 
               {/* گالری تصاویر */}
               <div className="relative">
-                <div
-                  className="grid grid-cols-12 items-center gap-4 h-[720px] overflow-y-hidden scrollbar-hide"
-                  ref={containerRef}
-                >
-                  {galleryData?.gallery?.map((image, index) => (
-                    <Image
-                      key={`${image._id}-${index}`}
-                      src={image.url}
-                      alt={""}
-                      height={(index + 1) % 2 === 0 ? 364 : 159}
-                      width={267}
-                      className={`lg:col-span-3 md:col-span-6 col-span-6 border w-full object-cover border-primary/30 drop-shadow rounded ${
-                        index % 2 === 0 ? "row-span-2 h-[364px]" : "h-[159px]"
-                      }`}
-                    />
-                  ))}
+                {/* گالری تصاویر */}
+                <div className="relative">
+                  <div
+                    className="grid grid-cols-12 items-center gap-4 h-[720px] overflow-y-hidden scrollbar-hide"
+                    ref={containerRef}
+                  >
+                    {galleryData?.gallery && galleryData.gallery.length > 0
+                      ? galleryData.gallery.map((image, index) => (
+                          <Image
+                            key={`${image._id}-${index}`}
+                            src={image.url}
+                            alt=""
+                            height={(index + 1) % 2 === 0 ? 364 : 159}
+                            width={267}
+                            className={`lg:col-span-3 md:col-span-6 col-span-6 border w-full object-cover border-primary/30 drop-shadow rounded ${
+                              index % 2 === 0
+                                ? "row-span-2 h-[364px]"
+                                : "h-[159px]"
+                            }`}
+                          />
+                        ))
+                      : Array.from({ length: 9 }).map((_, index) => (
+                          <div
+                            key={index}
+                            className={`lg:col-span-3 md:col-span-6 col-span-12 border w-full bg-gray-300 drop-shadow rounded animate-pulse ${
+                              index % 2 === 0
+                                ? "row-span-2 h-[364px]"
+                                : "h-[159px]"
+                            }`}
+                          ></div>
+                        ))}
+                  </div>
                 </div>
+
                 {/* دکمه‌های اسکرول */}
                 <div className="absolute top-4 right-4 flex flex-col gap-y-2">
                   <span
