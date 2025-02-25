@@ -38,7 +38,10 @@ const Blog = () => {
                 ? Array.from({ length: 3 }).map((_, index) => (
                     <BlogCardSkeleton key={index} />
                   ))
-                : blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)}
+                : blogs.map((blog) =>
+                <></>
+                 
+                 )}
             </section>
           </div>
         </div>
