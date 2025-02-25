@@ -33,13 +33,13 @@ const blogs = useMemo(() => data?.data || [], [data]);
           </article>
           <div>
           <section className="grid grid-cols-1 gap-4 sm:grid-cols-2  lg:grid-cols-3 ">
-        {isLoading || blogs.length === 0
+        {/* {isLoading || blogs.length === 0
           ? Array.from({ length: 4 }, (_, index) => (
             <BlogCard key={index}  />
             ))
           : blogs.map((blog, index) => <BlogCard key={index} blog={blog} isLoading={isLoading} />
           
-          )}
+          )} */}
       </section>          </div>
         </div>
       </Container>

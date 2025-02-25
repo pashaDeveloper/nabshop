@@ -4,7 +4,6 @@ const express = require("express");
 /* middleware imports */
 const upload = require("../middleware/upload.middleware");
 const verify = require("../middleware/verify.middleware");
-const { initSession } = require("../middleware/session.middleware");
 
 /* internal import */
 const userController = require("../controllers/user.controller");
