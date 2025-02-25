@@ -1,13 +1,14 @@
 // import Image from "next/image";
+"use client"
 import Container from "@/components/shared/Container";
 import HighlightText from "@/components/shared/highlightText/HighlightText";
 import React, { useMemo } from "react";
 import { useGetBlogsQuery } from "@/services/blog/blogApi";
 import BlogCard from "@/components/shared/card/BlogCard";
-const { isLoading, data } = useGetBlogsQuery();
-const blogs = useMemo(() => data?.data || [], [data]);
 
 const Blog = () => {
+  const { isLoading, data } = useGetBlogsQuery();
+const blogs = useMemo(() => data?.data || [], [data]);
   return (
     <section
       className="bg-no-repeat bg-contain bg-center h-full py-12 "
