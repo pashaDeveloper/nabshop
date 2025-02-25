@@ -10,12 +10,12 @@ const BlogCardSkeleton = () => {
         <SkeletonImage width={1150} height={500} borderRadius="rounded-xl" />
       </div>
 
-      <div className="px-2 py-4">
+      <div className="px-2 py-4 flex flex-col gap-y-2">
         {/* عنوان */}
-        <SkeletonText lines={1} className="w-3/4 h-5 mb-3" />
+        <SkeletonText lines={1} />
 
         {/* توضیحات */}
-        <SkeletonText lines={4} className="w-full h-4" />
+        <SkeletonText lines={4}  />
 
         {/* نویسنده و تاریخ */}
         <div className="flex items-center justify-between mt-4">

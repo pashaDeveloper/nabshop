@@ -3,7 +3,7 @@ import Container from "@/components/shared/Container";
 import HighlightText from "@/components/shared/highlightText/HighlightText";
 import React from "react";
 import { useGetBlogsQuery } from "@/services/blog/blogApi";
-// import BlogCard from "@/components/shared/card/BlogCard";
+import BlogCard from "@/components/shared/card/BlogCard";
 import BlogCardSkeleton from "@/components/shared/skeletonLoading/BlogCardSkeleton";
 
 const Blog = () => {
@@ -17,7 +17,7 @@ const Blog = () => {
         backgroundImage:
           "url(/assets/home/main/tree1.svg), url(/assets/home/main/tree2.svg)",
         backgroundPosition: "0% 0%, 100% 100%",
-        backgroundSize: "251px 300px, 251px 300px",
+        backgroundSize: "251px 300px, 251px 300px"
       }}
     >
       <Container>
@@ -34,13 +34,11 @@ const Blog = () => {
           </article>
           <div>
             <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-               {isLoading
-                ? [...Array(6)].map((_, index) => <BlogCardSkeleton key={index} />)
-                
-                 : blogs.map((blog) => 
-                //  <BlogCard key={blog._id} blog={blog} />
-                 <></>
-                 )}
+              {isLoading || blogs.length === 0
+                ? Array.from({ length: 3 }).map((_, index) => (
+                    <BlogCardSkeleton key={index} />
+                  ))
+                : blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)}
             </section>
           </div>
         </div>
