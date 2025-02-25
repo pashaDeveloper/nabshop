@@ -1,22 +1,22 @@
 import ControlPanel from "../ControlPanel";
 import React, { useState, useEffect } from "react";
-import { useGetUnitsQuery } from "@/services/unit/unitApi";
-import AddUnit from "./add";
+import { useGetGalleriesQuery } from "@/services/gallery/galleryApi";
+import AddGallery from "./add";
 import DeleteModal from "@/components/shared/modal/DeleteModal";
 import { toast } from "react-hot-toast";
 import SkeletonItem from "@/components/shared/skeleton/SkeletonItem";
 import StatusIndicator from "@/components/shared/tools/StatusIndicator";
 import Pagination from "@/components/shared/pagination/Pagination";
 import AddButton from "@/components/shared/button/AddButton";
-import DeleteUnit from "./DeleteUnit";
-import UpdateUnit from "./UpdateUnit";
+import DeleteGallery from "./DeleteGallery";
+import UpdateGallery from "./UpdateGallery";
 
-const Units = () => {
+const Galleries = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const { data, isLoading, error, refetch } = useGetUnitsQuery({
+  const { data, isLoading, error, refetch } = useGetGalleriesQuery({
     page: currentPage,
     limit: itemsPerPage,
     status: statusFilter === "all" ? undefined : statusFilter,
@@ -30,16 +30,16 @@ const Units = () => {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("در حال دریافت تگ‌ها...", { id: "unit-loading" });
+      toast.loading("در حال دریافت تگ‌ها...", { id: "gallery-loading" });
     }
     if (data && !isLoading) {
-      toast.dismiss("unit-loading");
+      toast.dismiss("gallery-loading");
     }
     if (data) {
-      toast.success(data?.description, { id: "unit-loading" });
+      toast.success(data?.description, { id: "gallery-loading" });
     }
     if (error?.data) {
-      toast.error(error?.data?.message, { id: "unit-loading" });
+      toast.error(error?.data?.message, { id: "gallery-loading" });
     }
   }, [data, error, isLoading]);
 
@@ -53,7 +53,7 @@ const Units = () => {
         {/* نمایش داده‌های تگ‌ها */}
         <div className="mt-8 w-full grid grid-cols-12 text-slate-400 px-4 ">
           <div className="col-span-11 lg:col-span-3  text-sm">
-            <span className="hidden lg:flex">نویسنده</span>
+            <span className="hidden lg:flex">عنوان</span>
             <span className="flex lg:hidden">نویسنده و عنوان</span>
           </div>
           <div className="col-span-8 lg:col-span-3 hidden lg:flex  text-sm">
@@ -68,16 +68,16 @@ const Units = () => {
         {isLoading || data?.data?.length == 0 ? (
           <SkeletonItem repeat={5} />
         ) : (
-          data.data.map((unit) => (
+          data.data.map((gallery) => (
             <div
-              key={unit._id}
+              key={gallery._id}
               className="mt-4 p-2 grid grid-cols-12 rounded-xl min-h-25 border border-gray-200 gap-2 dark:border-white/10 dark:bg-slate-800 bg-white transition-all dark:hover:border-slate-700 hover:border-slate-100 hover:bg-green-50/50 dark:hover:bg-gray-900 dark:text-slate-100 "
             >
               <div className="col-span-10 lg:col-span-3 text-center flex items-center">
-                <StatusIndicator isActive={unit.status === "active"} />
+                <StatusIndicator isActive={gallery.status === "active"} />
                 <div className="py-2 flex justify-center items-center gap-x-2 text-right">
                   <img
-                    src={unit?.creator?.avatar?.url || "/placeholder.png"}
+                    src={gallery?.thumbnail.url || "/placeholder.png"}
                     alt="Description of the image"
                     height={100}
                     width={100}
@@ -86,29 +86,31 @@ const Units = () => {
                   <article className="flex-col flex gap-y-2  ">
                     <span className="line-clamp-1 text-base ">
                       <span className="hidden lg:flex ">
-                        {unit?.creator?.name}
+                        {gallery?.title}
                       </span>
-                      <span className=" lg:hidden ">{unit?.title}</span>
+                      <span className=" lg:hidden ">
+                        {gallery?.creator?.name}
+                        </span>
                     </span>
                     <span className="text-xs hidden lg:flex">
-                      {new Date(unit.createdAt).toLocaleDateString("fa-IR")}
+                      {new Date(gallery.createdAt).toLocaleDateString("fa-IR")}
                     </span>
                     <span className=" lg:hidden text-xs line-clamp-1 ">
-                      {unit?.description
-                        ? unit?.description
-                        : new Date(unit.createdAt).toLocaleDateString("fa-IR")}
+                      {gallery?.description
+                        ? gallery?.description
+                        : new Date(gallery.createdAt).toLocaleDateString("fa-IR")}
                     </span>
                   </article>
                 </div>
               </div>
               <div className="lg:col-span-3 lg:flex  hidden  text-center  items-center">
                 <span className="break-words text-sm lg:text-sm text-right">
-                  {unit.title}
+                  {gallery.title}
                 </span>
               </div>
               <div className="lg:col-span-5 lg:flex hidden col-span-5 text-right  items-center">
                 <span className="text-sm lg:text-base overflow-hidden text-ellipsis block line-clamp-1 max-h-[1.2em]">
-                  {unit.description ? unit.description : "ندارد"}
+                  {gallery.description ? gallery.description : "ندارد"}
                 </span>
               </div>
 
@@ -117,11 +119,11 @@ const Units = () => {
                   <span
                   
                   >
-                    <UpdateUnit id={unit?._id} />
+                    <UpdateGallery id={gallery?._id} />
 
                   </span>
                   <span>
-                    <DeleteUnit id={unit?._id} />
+                    <DeleteGallery id={gallery?._id} />
                   </span>
                 </article>
               </div>
@@ -135,7 +137,7 @@ const Units = () => {
 
         {/* مودال افزودن/ویرایش */}
         {isAddModalOpen && (
-          <AddUnit
+          <AddGallery
             isOpen={isAddModalOpen}
             onClose={closeAddModal}
             onSuccess={refetch}
@@ -146,4 +148,4 @@ const Units = () => {
   );
 };
 
-export default Units;
+export default Galleries;

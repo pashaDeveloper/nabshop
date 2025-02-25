@@ -10,6 +10,7 @@ const GalleryUpload = ({
   istitle = true,
   iconSize = 5,
   border = true,
+  title = ""
 }) => {
   const handleGalleryPreview = (event) => {
     const files = event.target.files;
@@ -32,7 +33,7 @@ const GalleryUpload = ({
         const isVideo = file.type.startsWith("video/");
         previewItems.push({
           type: isVideo ? "video" : "image",
-          url: e.target.result,
+          url: e.target.result
         });
 
         if (previewItems.length === files.length) {
@@ -48,7 +49,7 @@ const GalleryUpload = ({
       <label htmlFor="featuredMedia" className="relative">
         <button
           type="button"
-          className={`py-1 px-4 flex flex-row gap-x-2 bg-green-100 dark:bg-blue-100 
+          className={`py-1 px-4 text-xs flex flex-row gap-x-2 bg-green-100 dark:bg-blue-100 
             ${
               border
                 ? "border border-green-900 cursor-pointer rounded-secondary"
@@ -56,7 +57,8 @@ const GalleryUpload = ({
             } dark:border-blue-900 text-green-900 dark:text-blue-900 w-fit`}
         >
           <CloudUpload className={`h-${iconSize} w-${iconSize}`} />
-          {istitle && `مجاز به انتخاب ${maxFiles} فایل (عکس یا ویدئو) می‌باشید.`}
+          {istitle &&
+            `مجاز به انتخاب ${maxFiles} فایل (عکس یا ویدئو) می‌باشید.`}
         </button>
         <input
           type="file"

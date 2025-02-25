@@ -21,26 +21,24 @@ const BlogsContent = ({
     { bg: "bg-pink-200", text: "text-pink-700" }
   ];
   return (
-    <div className="col-span-1  md:col-span-10 shadow  mt-96 order-1 md:order-2">
-      <div className="absolute inset-0 h-[400px]   z-20">
-        {!blog?.thumbnail?.url && (
-          <SkeletonImage
-            width={1150}
-            height={500}
-            showSize={true}
-            borderRadius=""
-            className=" h-[500px] "
-          />
-        )}
-        {blog?.thumbnail?.url && (
+    <div className="col-span-1  md:col-span-10 shadow  mt-[450px] order-1 md:order-2">
+      <div className="absolute inset-0  z-10">
+        { !blog?.thumbnail?.url && (
+          <SkeletonImage width={1150}  height={500} showSize={true} borderRadius="rounded-xl" className="z-50 h-[500px]" 
+
+           />
+        )} 
+        {blog?.thumbnail?.url &&(
+          
           <Image
-            src={blog?.thumbnail?.url}
-            alt="Feature Image"
-            width={1200}
-            height={500}
-            className=" object-cover w-[1200px]  h-[500px]"
-          />
-        )}
+          src={blog?.thumbnail?.url}
+          alt="Feature Image"
+          width={1200} 
+          height={500} 
+          className="w-full object-cover  h-[500px]"
+         />
+        )
+        }
       </div>
       <div className="max-w-3xl mx-auto ">
         <div className="relative rounded-full">

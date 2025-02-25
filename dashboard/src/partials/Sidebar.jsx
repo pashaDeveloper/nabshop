@@ -11,6 +11,9 @@ import Arrow from "@/components/icons/Arrow";
 import Product from "@/components/icons/Products";
 import Tag from "@/components/icons/Tag";
 import Unit from "@/components/icons/Unit";
+import Post from "@/components/icons/Post";
+import Blog from "@/components/icons/Blog";
+import Gallery from "@/components/icons/Gallery";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
   const location = useLocation();
@@ -331,10 +334,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   </div>
                 </NavLink>
               </li>
-              {/* Posts  */}
-              <li
+                {/* posts */}
+                <li
                 className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${
-                  pathname.includes("Posts") &&
+                  pathname.includes("post") &&
                   "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
                 }`}
               >
@@ -342,15 +345,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   end
                   to="/posts"
                   className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                    pathname.includes("Posts")
+                    pathname.includes("posts")
                       ? ""
                       : "hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
                   <div className="flex items-center">
-                    <Unit
+                    <Post
                       className={`shrink-0 fill-current ${
-                        pathname.includes("Posts")
+                        pathname.includes("posts")
                           ? "text-violet-500"
                           : "text-gray-400 dark:text-gray-500"
                       }`}
@@ -361,10 +364,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   </div>
                 </NavLink>
               </li>
-               {/* Posts  */}
-               <li
+                {/* blogs */}
+                <li
                 className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${
-                  pathname.includes("Posts") &&
+                  pathname.includes("blogs") &&
                   "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
                 }`}
               >
@@ -378,7 +381,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   }`}
                 >
                   <div className="flex items-center">
-                    <Unit
+                    <Blog
                       className={`shrink-0 fill-current ${
                         pathname.includes("blogs")
                           ? "text-violet-500"
@@ -386,7 +389,37 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       }`}
                     />
                     <span className="text-sm font-medium mr-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                     مجله
+                      مجله
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+                 {/* gallery */}
+                 <li
+                className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${
+                  pathname.includes("galleries") &&
+                  "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
+                }`}
+              >
+                <NavLink
+                  end
+                  to="/galleries"
+                  className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
+                    pathname.includes("galleries")
+                      ? ""
+                      : "hover:text-gray-900 dark:hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <Gallery
+                      className={`shrink-0 fill-current ${
+                        pathname.includes("galleries")
+                          ? "text-violet-500"
+                          : "text-gray-400 dark:text-gray-500"
+                      }`}
+                    />
+                    <span className="text-sm font-medium mr-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                      گالری
                     </span>
                   </div>
                 </NavLink>

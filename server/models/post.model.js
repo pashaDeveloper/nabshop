@@ -5,8 +5,7 @@ const Category = require("./category.model");
 const Counter = require("./counter")
 const baseSchema = require("./baseSchema.model");
 
-const socialLinkSchema =  new mongoose.Schema({
-  name: {
+const socialLinkSchema =  new mongoose.Schema({  name: {
     type: String,
     required: [true, "نام شبکه اجتماعی الزامی است"],
     trim: true,
@@ -234,10 +233,10 @@ postSchema.pre("save", async function (next) {
       this.metaDescription = combinedMetaDescription;
     }
 
-    next(); // ✅ `next()` فقط یک‌بار و در انتهای پردازش اجرا می‌شود.
+    next(); 
   } catch (error) {
     console.error("خطا در تنظیم metaTitle، metaDescription و canonicalUrl:", error);
-    next(error); // اگر خطایی رخ دهد، `next(error)` را فراخوانی می‌کنیم تا مانع ذخیره‌سازی شود.
+    next(error); 
   }
 });
 

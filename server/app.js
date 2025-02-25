@@ -53,6 +53,7 @@ app.use("/api/purchase", require("./routes/purchase.route"));
 app.use("/api/post", require("./routes/post.route"));
 app.use("/api/blog", require("./routes/blog.route"));
 app.use("/api/session", require("./routes/session.route"));
+app.use("/api/gallery", require("./routes/gallery.route"));
 
 /* global error handler */
 app.use(error);

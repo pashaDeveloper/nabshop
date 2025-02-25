@@ -6,6 +6,7 @@ import BlogCard from "@/components/shared/card/BlogCard";
 const Blogs = () => {
   const { isLoading, data } = useGetBlogsQuery();
   const blogs = useMemo(() => data?.data || [], [data]);
+  
   return (
     <>
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2  lg:grid-cols-3 ">

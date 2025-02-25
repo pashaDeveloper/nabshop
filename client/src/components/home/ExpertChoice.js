@@ -18,7 +18,6 @@ const ExpertChoice = ({ className }) => {
     isLoading: productsLoading
   } = useGetProductsQuery();
   const products = useMemo(() => productsData?.data || [], [productsData]);
-  console.log(products)
 
   useEffect(() => {
     if (productsError) {

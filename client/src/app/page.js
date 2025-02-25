@@ -10,6 +10,7 @@ import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
 import Post from "@/components/home/posts/Post";
 import Blog from "@/components/home/blogs/Blog";
+import Gallery from "@/components/home/gallery/Gallery";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
           <NicheExplorer />
           <Trending />
           <Banner3 />
+          <Gallery/>
         </main>
       </Main>
     </>

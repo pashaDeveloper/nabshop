@@ -24,7 +24,6 @@ const Blogs = () => {
     search: searchTerm,
     userId: user?._id
   });
-console.log(data)
   const navigate = useNavigate();
 
   useEffect(() => {
