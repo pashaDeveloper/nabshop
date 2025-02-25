@@ -9,7 +9,7 @@ import NicheExplorer from "@/components/home/NicheExplorer";
 import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
 import Post from "@/components/home/posts/Post";
-import Blog from "@/components/home/blogs/Blog";
+import Blog from "@/components/home/blogs/page";
 import Gallery from "@/components/home/gallery/Gallery";
 
 export default function Home() {
