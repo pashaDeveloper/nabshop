@@ -4,6 +4,7 @@ const BlogCard = ({ blog, isLoading }) => {
   
   return (
     <div
+    key={blog?._id}
     // onClick={() =>
     //   router.push(
     //     `/blog?blog_id=${

@@ -39,7 +39,7 @@ const Blog = () => {
                     <BlogCardSkeleton key={index} />
                   ))
                 : blogs.map((blog) =>
-                  <BlogCard key={blog._id} blog={blog} />
+                  <BlogCard blog={blog} />
                  )}
             </section>
           </div>
