@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Noghl1 from "@/components/icons/category/Noghl1";
 import Noghl2 from "@/components/icons/category/Noghl2";
-import Bottle from "@/components/icons/category/Bottle";
 const BlogCard = ({ blog, isLoading }) => {
   const router = useRouter();
 
@@ -95,7 +94,7 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Noghl2 className="!w-8 !h-8" />
             </span>
-              
+               {/*   
             <span
               data-tooltip-target="herbal"
               aria-label="عرقیجات سنتی"
@@ -104,7 +103,7 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Bottle className="!w-8 !h-8" />
             </span>
-           {/*
+       
             <span
               data-tooltip-target="halva"
               aria-label="حلوا و دسر"
