@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import Noghl1 from "@/components/icons/category/Noghl1";
 import Noghl2 from "@/components/icons/category/Noghl2";
 import Bottle from "@/components/icons/category/Bottle";
-import Halva1 from "@/components/icons/category/Halva1";
 const BlogCard = ({ blog, isLoading }) => {
   const router = useRouter();
 
@@ -105,6 +104,7 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Bottle className="!w-8 !h-8" />
             </span>
+           {/*
             <span
               data-tooltip-target="halva"
               aria-label="حلوا و دسر"
@@ -114,7 +114,7 @@ const BlogCard = ({ blog, isLoading }) => {
               <Halva1 className="!w-8 !h-8" />
             </span>
             
-            {/* <span
+            <span
               data-tooltip-target="cake"
               aria-label="کیک و دسر"
               title="کیک و دسر"
