@@ -3,7 +3,7 @@ import Container from "@/components/shared/Container";
 import HighlightText from "@/components/shared/highlightText/HighlightText";
 import React from "react";
 import { useGetBlogsQuery } from "@/services/blog/blogApi";
-// import BlogCard from "@/components/shared/card/BlogCard";
+import BlogCard from "@/components/shared/card/BlogCard";
 import BlogCardSkeleton from "@/components/shared/skeletonLoading/BlogCardSkeleton";
 
 const Blog = () => {
@@ -39,8 +39,7 @@ const Blog = () => {
                     <BlogCardSkeleton key={index} />
                   ))
                 : blogs.map((blog) =>
-                //  <BlogCard key={blog._id} blog={blog} />
-                 <></>
+                  <BlogCard key={blog._id} blog={blog} />
                  )}
             </section>
           </div>

@@ -10,23 +10,21 @@ import Cake from "@/components/icons/category/Cake";
 import Noghl1 from "@/components/icons/category/Noghl1";
 import Noghl2 from "@/components/icons/category/Noghl2";
 import Halva1 from "@/components/icons/category/Halva1";
-import { useRouter } from "next/navigation";
 
 const BlogCard = ({ blog, isLoading }) => {
-    const router = useRouter();
   
   return (
     <div
-    onClick={() =>
-      router.push(
-        `/blog?blog_id=${
-          blog?._id
-        }&blog_title=${blog?.title
-          .replace(/ /g, "-")
-          .toLowerCase()}`
-      )
-    }       
-       key={blog?._id }
+    // onClick={() =>
+    //   router.push(
+    //     `/blog?blog_id=${
+    //       blog?._id
+    //     }&blog_title=${blog?.title
+    //       .replace(/ /g, "-")
+    //       .toLowerCase()}`
+    //   )
+    // }       
+    //    key={blog?._id }
       className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white dark:bg-darkCard  border dark:border-gray-800   bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
     >
       {/* <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
