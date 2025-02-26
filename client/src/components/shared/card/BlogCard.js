@@ -18,15 +18,7 @@ const BlogCard = ({ blog, isLoading }) => {
   return (
     <div
     key={blog?._id}
-    onClick={() =>
-      router.push(
-        `/blog?blog_id=${
-          blog?._id
-        }&blog_title=${blog?.title
-          .replace(/ /g, "-")
-          .toLowerCase()}`
-      )
-    }       
+   
       className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white dark:bg-darkCard  border dark:border-gray-800   bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
     >
    <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"> 
