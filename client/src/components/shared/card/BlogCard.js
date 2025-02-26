@@ -6,6 +6,8 @@ import { PiBookmarkSimpleDuotone } from "react-icons/pi";
 import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Cake from "@/components/icons/category/Cake";
+import Halva1 from "@/components/icons/category/Halva1";
 import Noghl1 from "@/components/icons/category/Noghl1";
 const BlogCard = ({ blog, isLoading }) => {
   const router = useRouter();
@@ -93,7 +95,7 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Noghl2 className="!w-8 !h-8" />
             </span>
-          
+          */}
             <span
               data-tooltip-target="herbal"
               aria-label="عرقیجات سنتی"
@@ -119,7 +121,7 @@ const BlogCard = ({ blog, isLoading }) => {
               className="custom-button !p-3"
             >
               <Cake className="!w-8 !h-8" />
-            </span> */}
+            </span> 
                
           </div>
 
