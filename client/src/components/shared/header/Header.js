@@ -52,7 +52,9 @@ const Navbar = () => {
             <div className=" col-span-2 flex-row-reverse gap-x-2 relative h-fit">
               <div className="md:hidden block col-span-0">
                 <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+                
               </div>
+
               {user && Object.keys(user).length > 0 ? (
                 <button
                   className="p-2 rounded-secondary md:flex hidden  hover:bg-slate-100 transition-colors"
@@ -60,6 +62,7 @@ const Navbar = () => {
                 >
                   <Dashboard className="h-6 w-6" />
                 </button>
+                
               ) : (
                 <div className="md:flex gap-2 hidden">
                   <Auth />
@@ -68,6 +71,7 @@ const Navbar = () => {
                   <ThemeToggle />
                 </div>
               )}
+              
             </div>
             <div className="col-span-8 rounded-primary hidden md:flex justify-center">
               <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">

@@ -3,13 +3,14 @@ import { motion } from "framer-motion";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import Link from "next/link";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
+import ThemeToggle from "../../ThemeToggle/ThemeToggle";
 
 const MobileMenu = ({ isOpen, setIsOpen }) => {
 
   return (
     <div className="relative">
       <motion.div
-        className="flex md:hidden w-full p-0 items-center justify-between"
+        className="flex md:hidden w-full p-0 gap-4 items-center justify-between"
         initial={{ opacity: 0, x: 200 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 200 }}
@@ -33,7 +34,8 @@ const MobileMenu = ({ isOpen, setIsOpen }) => {
               />
             </Link>
           </div>
-      
+          <ThemeToggle />
+
       </motion.div>
     </div>
   );
