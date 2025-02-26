@@ -1,15 +1,4 @@
 import React from "react";
-import SkeletonText from "@/components/shared/skeletonLoading/SkeletonText";
-import SkeletonImage from "@/components/shared/skeletonLoading/SkeletonImage";
-import { TfiHeart } from "react-icons/tfi";
-import { PiBookmarkSimpleDuotone } from "react-icons/pi";
-import { AiFillStar } from "react-icons/ai";
-import Image from "next/image";
-import Bottle from "@/components/icons/category/Bottle";
-import Cake from "@/components/icons/category/Cake";
-import Noghl1 from "@/components/icons/category/Noghl1";
-import Noghl2 from "@/components/icons/category/Noghl2";
-import Halva1 from "@/components/icons/category/Halva1";
 
 const BlogCard = ({ blog, isLoading }) => {
   
