@@ -7,8 +7,9 @@ import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Noghl1 from "@/components/icons/category/Noghl1";
-import Cake from "@/components/icons/category/Cake";
 import Noghl2 from "@/components/icons/category/Noghl2";
+import Bottle from "@/components/icons/category/Bottle";
+import Halva1 from "@/components/icons/category/Halva1";
 const BlogCard = ({ blog, isLoading }) => {
   const router = useRouter();
 
@@ -95,7 +96,7 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Noghl2 className="!w-8 !h-8" />
             </span>
-               {/* 
+              
             <span
               data-tooltip-target="herbal"
               aria-label="عرقیجات سنتی"
@@ -112,15 +113,15 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Halva1 className="!w-8 !h-8" />
             </span>
-             */}
-            <span
+            
+            {/* <span
               data-tooltip-target="cake"
               aria-label="کیک و دسر"
               title="کیک و دسر"
               className="custom-button !p-3"
             >
               <Cake className="!w-8 !h-8" />
-            </span>
+            </span> */}
                
           </div>
 
