@@ -5,11 +5,8 @@ import { TfiHeart } from "react-icons/tfi";
 import { PiBookmarkSimpleDuotone } from "react-icons/pi";
 import { AiFillStar } from "react-icons/ai";
 import Image from "next/image";
-import Bottle from "@/components/icons/category/Bottle";
-import Cake from "@/components/icons/category/Cake";
-import Noghl2 from "@/components/icons/category/Noghl2";
-import Halva1 from "@/components/icons/category/Halva1";
 import { useRouter } from "next/navigation";
+import Noghl1 from "@/components/icons/category/Noghl1";
 
 const BlogCard = ({ blog, isLoading }) => {
   const router = useRouter();
@@ -78,7 +75,7 @@ const BlogCard = ({ blog, isLoading }) => {
         </div>
        <div className="absolute bottom-1 right-1 w-full px-3">
          <div className="group inline-flex flex-wrap items-center gap-3">
-            {/* 
+         
             <span
               data-tooltip-target="noghl"
               aria-label="نقل و شیرینی"
@@ -87,7 +84,8 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Noghl1 className="!w-8 !h-8 " />
             </span>
-            */}
+        
+               {/* 
             <span
               data-tooltip-target="sweets"
               aria-label="شیرینی سنتی"
@@ -120,6 +118,7 @@ const BlogCard = ({ blog, isLoading }) => {
             >
               <Cake className="!w-8 !h-8" />
             </span>
+                */}
           </div>
 
           <div className="flex items-center justify-between w-full mt-3">
