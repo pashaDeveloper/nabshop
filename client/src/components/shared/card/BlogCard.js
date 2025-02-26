@@ -1,23 +1,35 @@
 import React from "react";
+import SkeletonText from "@/components/shared/skeletonLoading/SkeletonText";
+import SkeletonImage from "@/components/shared/skeletonLoading/SkeletonImage";
+import { TfiHeart } from "react-icons/tfi";
+import { PiBookmarkSimpleDuotone } from "react-icons/pi";
+import { AiFillStar } from "react-icons/ai";
+import Image from "next/image";
+import Bottle from "@/components/icons/category/Bottle";
+import Cake from "@/components/icons/category/Cake";
+import Noghl1 from "@/components/icons/category/Noghl1";
+import Noghl2 from "@/components/icons/category/Noghl2";
+import Halva1 from "@/components/icons/category/Halva1";
+import { useRouter } from "next/navigation";
 
 const BlogCard = ({ blog, isLoading }) => {
+    const router = useRouter();
   
   return (
     <div
     key={blog?._id}
-    // onClick={() =>
-    //   router.push(
-    //     `/blog?blog_id=${
-    //       blog?._id
-    //     }&blog_title=${blog?.title
-    //       .replace(/ /g, "-")
-    //       .toLowerCase()}`
-    //   )
-    // }       
-    //    key={blog?._id }
+    onClick={() =>
+      router.push(
+        `/blog?blog_id=${
+          blog?._id
+        }&blog_title=${blog?.title
+          .replace(/ /g, "-")
+          .toLowerCase()}`
+      )
+    }       
       className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white dark:bg-darkCard  border dark:border-gray-800   bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
     >
-      {/* <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+   <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"> 
         {!blog?.thumbnail && (
           <SkeletonImage
             width={1150}
@@ -53,9 +65,9 @@ const BlogCard = ({ blog, isLoading }) => {
             <PiBookmarkSimpleDuotone size={30} />
           </span>
         </button>
-      </div> */}
+      </div> 
       <div className="px-6 py-2">
-        {/* <div className="mb-3 flex items-center justify-between">
+     <div className="mb-3 flex items-center justify-between">
           <h5 className="block  text-md tracking-normal dark:text-blue-100 min-w-[80%] ">
             {blog?.title ? `${blog?.title}` : <SkeletonText lines={1} />}
           </h5>
@@ -154,12 +166,12 @@ const BlogCard = ({ blog, isLoading }) => {
               height={36}
               className="relative inline-block rounded-full object-cover object-center hover:z-10"
             />
-          )} 
+          )}  */}
                 </div>
               )}
             </div>
           </div>
-        </div> */}
+        </div> 
       </div>
     </div>
   );
