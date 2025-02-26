@@ -23,7 +23,7 @@ const BlogCard = ({ blog, isLoading }) => {
       }
       className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white dark:bg-darkCard  border dark:border-gray-800   bg-clip-border shadow-lg h-[550px] hover:border-primary cursor-pointer dark:hover:border-blue-500"
     >
-      {/* <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+      <div className="relative mx-4 mt-4 h-60 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
         {!blog?.thumbnail && (
           <SkeletonImage
             width={1150}
@@ -59,7 +59,7 @@ const BlogCard = ({ blog, isLoading }) => {
             <PiBookmarkSimpleDuotone size={30} />
           </span>
         </button>
-      </div> */}
+      </div>
       <div className="px-6 py-2">
         <div className="mb-3 flex items-center justify-between">
           <h5 className="block  text-md tracking-normal dark:text-blue-100 min-w-[80%] ">
@@ -73,8 +73,8 @@ const BlogCard = ({ blog, isLoading }) => {
         <div className="  text-base text-justify leading-relaxed text-gray-700 dark:text-blue-100 antialiased line-clamp-4  overflow-hidden text-ellipsis break-words">
           {blog?.description ? blog?.description : <SkeletonText lines={5} />}
         </div>
-        {/* <div className="absolute bottom-1 right-1 w-full px-3">
-          <div className="group inline-flex flex-wrap items-center gap-3">
+       <div className="absolute bottom-1 right-1 w-full px-3">
+           {/* <div className="group inline-flex flex-wrap items-center gap-3">
             <span
               data-tooltip-target="noghl"
               aria-label="نقل و شیرینی"
@@ -116,7 +116,7 @@ const BlogCard = ({ blog, isLoading }) => {
               <Cake className="!w-8 !h-8" />
             </span>
           </div>
-
+*/}
           <div className="flex items-center justify-between w-full mt-3">
             <div className="text-sm dark:text-gray-100 w-full ml-2">
               {blog?.publishDate ? (
@@ -160,12 +160,12 @@ const BlogCard = ({ blog, isLoading }) => {
               height={36}
               className="relative inline-block rounded-full object-cover object-center hover:z-10"
             />
-          )}  
+          )}  */}
                 </div>
-              )}
+              )} 
             </div>
           </div>
-        </div> */}
+        </div> 
       </div>
     </div>
   );
