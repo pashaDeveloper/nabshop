@@ -111,19 +111,26 @@ exports.updateCategory = async (req, res) => {
 
 /* delete category */
 exports.deleteCategory = async (req, res, next) => {
-  const category = await Category.findByIdAndDelete(req.params.id);
 
-  await Product.updateMany(
-    { category: req.params.id },
-    { $unset: { category: "" } }
+  const category = await Category.findByIdAndUpdate(req.params.id,
+    {
+      isDeleted: true,
+      deletedAt: Date.now(),
+    },
+    { new: true }
   );
-  await User.findByIdAndUpdate(category.creator, {
-    $unset: { category: "" },
-  });
+    
+  if (!category) {
+    return res.status(404).json({
+      acknowledgement: false,
+      message: "دسته بندی پیدا نشد",
+      description: "دسته بندی  که می‌خواهید حذف کنید، وجود ندارد",
+    });
+  }
 
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "Category deleted successfully",
+    description: "دسته بندی با موفقیت حذف شد",
   });
 };

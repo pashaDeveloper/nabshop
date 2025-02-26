@@ -46,7 +46,7 @@ const MyCart = () => {
       {isOpen && (
         <OutsideClick
           onOutsideClick={() => setIsOpen(false)}
-          className="absolute top-full right-0 w-80 h-96 overflow-y-auto bg-white dark:bg-slate-900 border border-primary rounded p-4 flex flex-col gap-y-2.5"
+          className="absolute md:top-full bottom-full right-0 w-80 h-96 overflow-y-auto bg-white dark:bg-slate-900 border border-primary rounded p-4 flex flex-col gap-y-2.5"
         >
           <div className="w-full h-full flex flex-col gap-y-8">
             {cartItems.length === 0 ? (
