@@ -23,7 +23,6 @@ export default function Home() {
           <Banner2 />
           <ExpertChoice />
           <Blog/>
-          <NicheExplorer />
           <Trending />
           <Banner3 />
           <Gallery/>

@@ -12,49 +12,48 @@ const Sidebar = () => {
 
   let routes = [];
 
-  if (user?.role === "buyer") {
+  if (user?.userLevel === "verified") {
     routes = [
       {
         name: "پروفایل من",
         paths: [
           {
-            name: "مشاهده پروفایل",
-            path: "/dashboard/buyer/my-profile",
+            name: "پروفایل",
+            path: "/dashboard/buyer/my-profile"
           },
           {
-            name: "مشاهده خریدها",
-            path: "/dashboard/buyer/my-purchases",
-          },
-        ],
+            name: " خریدها",
+            path: "/dashboard/buyer/my-purchases"
+          }
+        ]
       },
       {
         name: "سبد خرید من",
         paths: [
           {
-            name: "مشاهده سبد خرید",
-            path: "/dashboard/buyer/my-cart",
+            name: "سبد خرید",
+            path: "/dashboard/buyer/my-cart"
           },
           {
-            name: "مشاهده لیست علاقه‌مندی‌ها",
-            path: "/dashboard/buyer/my-wishlist",
-          },
-        ],
+            name: "علاقه‌مندی‌ها",
+            path: "/dashboard/buyer/my-wishlist"
+          }
+        ]
       },
       {
         name: "نظرات من",
         paths: [
           {
             name: "مشاهده نظرات",
-            path: "/dashboard/buyer/my-reviews",
-          },
-        ],
-      },
+            path: "/dashboard/buyer/my-reviews"
+          }
+        ]
+      }
     ];
   }
 
-
   return (
-    <section className="md:col-span-2 col-span-12 overflow-hidden bg-white z-50 min-w-full max-w-lg px-2 overflow-y-auto md:block hidden">
+    <section className="md:col-span-2 col-span-12 overflow-hidden bg-white z-50 dark:bg-slate-800 min-w-full max-w-lg px-2 overflow-y-auto md:block hidden">
       <div className="w-full h-full flex flex-col gap-y-4">
         {routes.map((route, index) => (
           <div
@@ -103,7 +102,7 @@ const Sidebar = () => {
               d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
-          Go to Home
+          برو به صفحه اصلی{" "}
         </Link>
       </div>
     </section>

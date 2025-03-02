@@ -9,6 +9,7 @@ import { useDeleteFromCartMutation } from "@/services/cart/cartApi";
 import { toast } from "react-hot-toast";
 import Inform from "@/components/icons/Inform";
 import { useCreatePaymentMutation } from "@/services/payment/paymentApi";
+import Link from "next/link";
 
 const MyCart = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,12 +35,12 @@ const MyCart = () => {
       >
         <Cart className="h-6 w-6" />
         {cartItems.length > 0 && (
-          <div className="flex items-center absolute top-0 right-0">
+          <span className="flex items-center absolute top-0 right-0">
             <span className="relative ml-3 mr-0.5 flex h-3 w-3">
               <span className="animate-ping bg-red-400 absolute inline-flex h-full w-full rounded-full opacity-75"></span>
               <span className="relative inline-flex h-3 w-3 rounded-full bg-red-400"></span>
             </span>
-          </div>
+          </span>
         )}
       </button>
 
@@ -81,7 +82,9 @@ const MyCart = () => {
                             قیمت:
                             <span className="text-xs text-red-500 line-through">
                               {variation?.price
-                                ? `${variation.price.toLocaleString("fa-IR")} ریال`
+                                ? `${variation.price.toLocaleString(
+                                    "fa-IR"
+                                  )} ریال`
                                 : "?"}
                             </span>
                             {product.discountAmount && variation.price ? (
@@ -160,13 +163,13 @@ function Purchase({ cart }) {
   }));
 
   return (
-    <button
+    <Link
+    href={`/checkout`}
       type="button"
       className="px-8 py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow flex flex-row gap-x-2 items-center justify-center"
-      onClick={() => createPayment(result)}
     >
       تسویه حساب
-    </button>
+    </Link>
   );
 }
 

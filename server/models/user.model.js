@@ -1,196 +1,115 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const { ObjectId } = mongoose.Schema.Types;
 const baseSchema = require("./baseSchema.model");
-const Counter = require("./counter")
+const Counter = require("./counter");
+
 const userSchema = new mongoose.Schema(
   {
     userId: {
       type: Number,
+      unique: true
+    },
+    googleId: {
+      type: String,
       unique: true,
+      sparse: true
     },
     name: {
       type: String,
-      validate: {
-        validator: function (value) {
-          if (this.role === "admin" || this.role === "superAdmin") {
-            return !!value; 
-          }
-          return true;
-        },
-        message: "برای نقش مدیر یا مدیر کل، وارد کردن نام الزامی است",
-      },
       trim: true,
-      maxLength: [100, "نام شما باید حداکثر 100 کاراکتر باشد"],
+      maxLength: [100, "نام شما باید حداکثر 100 کاراکتر باشد"]
     },
-
     email: {
       type: String,
-      validate: {
-        validator: function (value) {
-          if (this.role === "admin" || this.role === "superAdmin") {
-            return validator.isEmail(value);
-          }
-          return true; 
-        },
-        message: "برای نقش مدیر یا مدیر کل، وارد کردن ایمیل معتبر الزامی است",
-      },
       validate: [validator.isEmail, "لطفا یک آدرس ایمیل معتبر وارد کنید"],
-      unique: [true, "این ایمیل قبلا ثبت شده است. لطفا ایمیل جدید وارد کنید"],
+      unique: true,
+      sparse: true
     },
-
-    // رمز عبور
-    password: {
+    emailVerified: {
+      type: Boolean,
+      default: false
+    },
+    phone: {
       type: String,
-      required: [true, "لطفا یک رمز عبور قوی وارد کنید"],
-      minLength: [6, "رمز عبور باید حداقل 6 کاراکتر باشد"],
-      maxLength: [20, "رمز عبور باید حداکثر 20 کاراکتر باشد"],
+      validate: {
+        validator: (value) => /^09\d{9}$/.test(value),
+        message: "شماره تماس معتبر نیست. باید با 09 شروع شود"
+      },
+      unique: true,
+      sparse: true
     },
-
-    // آواتار
+    phoneVerified: {
+      type: Boolean,
+      default: false
+    },
+    userLevel: {
+      type: String,
+      enum: ["basic", "verified", "completed"],
+      default: "basic"
+    },
     avatar: {
       url: {
         type: String,
-        default: "https://placehold.co/300x300.png",
-        validate: {
-          validator: function (value) {
-            if (this.role === "admin" || this.role === "superAdmin") {
-              return value && value !== "https://placehold.co/300x300.png"; 
-            }
-            return true; 
-          },
-          message: "برای نقش مدیر یا مدیر کل، وارد کردن آواتار الزامی است",
-        },
+        default: "https://placehold.co/300x300.png"
       },
       public_id: {
         type: String,
-        default: "N/A",
-      },
+        default: "N/A"
+      }
     },
-
-    // شماره تماس
-    phone: {
-      type: String,
-      required: [true, "لطفا شماره تماس خود را وارد کنید"],
-      validate: {
-        validator: (value) => /^09\d{9}$/.test(value),
-        message: "شماره تماس {VALUE} معتبر نیست. شماره باید 11 رقم باشد و با 09 شروع شود",
-      },
-      unique: true,
-    },
-
-    role: {
-      type: String,
-      enum: ["superAdmin","admin","operator", "buyer"],
-      default: "buyer",
-    },
-
-    cart: [
-      {
-        type: ObjectId,
-        ref: "Cart",
-      },
-    ],
-
-    // لیست علاقه‌مندی‌ها
-    favorites: [
-      {
-        type: ObjectId,
-        ref: "Favorite",
-      },
-    ],
-
-    // نظرات
-    reviews: [
-      {
-        type: ObjectId,
-        ref: "Review",
-      },
-    ],
-
-    // خریدها
-    purchases: [
-      {
-        type: ObjectId,
-        ref: "Purchase",
-      },
-    ],
-
-
-    // خرید محصولات
-    products: [
-      {
-        type: ObjectId,
-        ref: "Product",
-      },
-    ],
-
-    // آدرس
-    address: {
-      type: String,
-      default: "N/A",
-      trim: true,
-      maxLength: [500, "آدرس شما باید حداکثر 500 کاراکتر باشد"],
-    },
-
-
+    cart: [{ type: ObjectId, ref: "Cart" }],
+    favorites: [{ type: ObjectId, ref: "Favorite" }],
+    reviews: [{ type: ObjectId, ref: "Review" }],
+    purchases: [{ type: ObjectId, ref: "Purchase" }],
+    products: [{ type: ObjectId, ref: "Product" }],
+    addresses: [{ type: ObjectId, ref: "Address" }],
     ...baseSchema.obj
   },
   { timestamps: true }
 );
 
-/* رمزگذاری رمز عبور کاربر */
-userSchema.methods.encryptedPassword = function (password) {
-  const salt = bcrypt.genSaltSync(10);
-  const hashedPassword = bcrypt.hashSync(password, salt);
-
-  return hashedPassword;
-};
-
-/* میدلور برای رمزگذاری رمز عبور */
-userSchema.pre("save", async function (next) {
-  try {
-    // رمزگذاری رمز عبور در صورت تغییر
-    if (!this.isModified("password")) {
-      return next();
-    }
-
-    this.password = this.encryptedPassword(this.password);
-  } catch (error) {
-    next(error);
+/* بررسی اینکه کاربر حداقل شماره تلفن یا حساب گوگل داشته باشد */
+userSchema.pre("validate", function (next) {
+  if (!this.phone && !this.googleId) {
+    return next(
+      new Error("کاربر باید حداقل شماره تلفن یا حساب گوگل داشته باشد.")
+    );
   }
+  next();
 });
 
+/* مقداردهی `userId` از `Counter` */
 userSchema.pre("save", async function (next) {
   if (!this.isNew || this.userId) {
-    return next(); 
+    return next();
   }
-
   try {
-    // دریافت مقدار جدید از شمارنده
     const counter = await Counter.findOneAndUpdate(
       { name: "userId" },
       { $inc: { seq: 1 } },
-      { new: true, upsert: true } 
+      { new: true, upsert: true }
     );
-    
-
-    this.userId = counter.seq; 
+    this.userId = counter.seq;
     next();
   } catch (error) {
     next(error);
   }
 });
 
-/* مقایسه رمز عبور در زمان ورود */
-userSchema.methods.comparePassword = function (password, hash) {
-  const isPasswordValid = bcrypt.compareSync(password, hash);
-  return isPasswordValid;
-};
+userSchema.pre("save", function (next) {
+  if (this.googleId) {
+    this.userLevel = "verified";
+  } else if (this.phoneVerified || this.emailVerified) {
+    this.userLevel = "verified";
+  }
 
-/* ایجاد مدل کاربر */
+  if (this.addresses && this.addresses.length > 0) {
+    this.userLevel = "completed";
+  }
+
+  next();
+});
+
 const User = mongoose.model("User", userSchema);
-
-/* اکسپورت مدل کاربر */
 module.exports = User;

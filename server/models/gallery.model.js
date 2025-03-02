@@ -20,7 +20,7 @@ const gallerySchema = new mongoose.Schema(
 
        creator: {
       type: ObjectId,
-      ref: "User",
+      ref: "Admin",
       required: [true, "شناسه نویسنده الزامی است"],
     },
     thumbnail: {

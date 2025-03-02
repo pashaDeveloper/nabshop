@@ -164,7 +164,7 @@ gallery: {
     },
     creator: {
       type: ObjectId,
-      ref: "User",
+      ref: "Admin",
     },
     scans: [
       {

@@ -19,21 +19,21 @@ function Left() {
   return (
     <div className="col-span-1 h-full min-h-[450px] w-full flex flex-col relative px-3 ">
       <div className="absolute w-full top-1/2  flex justify-between z-50">
-        <div className="custom-prev -right-5 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white border-lightbg dark:border-darkbg -lg text-lg">
+        <div className="custom-prev -right-5 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer text-gray-700 w-8 h-8 bg-white dark:bg-gray-700 border-lightbg dark:border-darkbg -lg text-lg">
           <span>
-            <IoIosArrowForward size={30} />
+            <IoIosArrowForward size={30} className="dark:text-gray-100" />
           </span>
         </div>
-        <div className="custom-prev left-0 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer dark:border-darkbg text-gray-700 w-8 h-8 bg-white border-lightbg  text-lg">
+        <div className="custom-prev left-0 absolute flex justify-center items-center p-4 border-4 rounded-full cursor-pointer dark:border-darkbg text-gray-700 w-8 h-8 bg-white border-lightbg  text-lg dark:bg-gray-700">
           <span>
-            <IoIosArrowBack size={30} />
+            <IoIosArrowBack size={30} className="dark:text-gray-100"  />
           </span>
         </div>
       </div>
       <div
         className="w-full relative h-full rounded-xl mt-6 flex flex-col 
              bg-gradient-to-t bg-cover bg-center 
-             overflow-hidden"
+             overflow-hidden "
         style={{
           backgroundImage:
             "linear-gradient(to top, #ed1945, #ed1945), url(/assets/home/banner/dots.svg)",

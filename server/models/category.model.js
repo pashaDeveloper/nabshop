@@ -59,7 +59,7 @@ const categorySchema = new mongoose.Schema(
 
     creator: {
       type: ObjectId,
-      ref: "User",
+      ref: "Admin",
     },
 
     ...baseSchema.obj

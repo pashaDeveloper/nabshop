@@ -1,10 +1,9 @@
- 
-
 "use client";
 
 import Inform from "@/components/icons/Inform";
 import Trash from "@/components/icons/Trash";
 import Dashboard from "@/components/shared/layouts/Dashboard";
+import SkeletonItem from "@/components/shared/skeletonLoading/SkeletonItem";
 import { useDeleteFromCartMutation } from "@/services/cart/cartApi";
 import Image from "next/image";
 import React, { useEffect } from "react";
@@ -18,7 +17,7 @@ const Page = () => {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Removing item from cart...", { id: "removeFromCart" });
+      toast.loading("در حال حذف محصول از سبد خرید...", { id: "removeFromCart" });
     }
 
     if (data) {
@@ -33,89 +32,51 @@ const Page = () => {
   return (
     <Dashboard>
       {user?.cart?.length === 0 ? (
-        <p className="text-sm flex flex-row gap-x-1 items-center justify-center">
-          <Inform /> هیچ محصولی در سبد خرید شما وجود ندارد!
-        </p>
+        <SkeletonItem repeat={5} />
       ) : (
         <section className="w-full h-full">
           <div className="overflow-x-auto w-full">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-slate-100">
                 <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Thumbnail
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    تصویر
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Title
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    عنوان
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Quantity
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    تعداد
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Price ($)
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    قیمت ($)
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Gallery
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    گالری
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Sizes
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    سایزها
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Colors
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    رنگ‌ها
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Category
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    دسته‌بندی
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Brand
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    برند
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Store
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    فروشگاه
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase whitespace-nowrap"
-                  >
-                    Action
+                  <th className="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    عملیات
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {user?.cart?.map(({ product, quantity, _id }) => (
-                  <tr
-                    key={product?._id}
-                    className="odd:bg-white even:bg-gray-100 hover:odd:bg-gray-100"
-                  >
+                  <tr key={product?._id} className="odd:bg-white even:bg-gray-100 hover:odd:bg-gray-100">
                     <td className="px-6 py-4">
                       <Image
                         src={product?.thumbnail?.url}
@@ -131,14 +92,10 @@ const Page = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="whitespace-nowrap scrollbar-hide text-sm">
-                        {quantity}
-                      </span>
+                      <span className="whitespace-nowrap scrollbar-hide text-sm">{quantity}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="whitespace-nowrap scrollbar-hide text-sm">
-                        {product?.price * quantity}
-                      </span>
+                      <span className="whitespace-nowrap scrollbar-hide text-sm">{product?.price * quantity}</span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex -space-x-4">

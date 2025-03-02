@@ -1,37 +1,45 @@
 
 
 /* internal imports */
-const userService = require("../services/user.service");
+const adminService = require("../services/admin.service");
 
-exports.signUpWithPhone = async (req, res, next) => {
+/* sign up an admin */
+exports.signUp = async (req, res, next) => {
   try {
-    await userService.signUpWithPhone(req, res);
+    await adminService.signUp(req, res);
   } catch (error) {
     next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
   }
 };
 
-exports.verifyPhone = async (req, res, next) => {
+/* sign in an admin */
+exports.signIn = async (req, res, next) => {
   try {
-    await userService.verifyPhone(req, res);
+    await adminService.signIn(req, res);
   } catch (error) {
     next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
   }
 };
 
-exports.signUpWithGoogle = async (req, res, next) => {
+/* reset admin password */
+exports.forgotPassword = async (req, res, next) => {
   try {
-    await userService.signUpWithGoogle(req, res);
+    await adminService.forgotPassword(req, res);
   } catch (error) {
     next(error);
+  } finally {
+    console.log(`Route: ${req.url} || Method: ${req.method}`);
   }
 };
-
 
 /* login persistance */
 exports.persistLogin = async (req, res, next) => {
   try {
-    await userService.persistLogin(req, res);
+    await adminService.persistLogin(req, res);
   } catch (error) {
     next(error);
   } finally {
@@ -39,10 +47,10 @@ exports.persistLogin = async (req, res, next) => {
   }
 };
 
-/* get all users */
-exports.getUsers = async (req, res, next) => {
+/* get all admins */
+exports.getAdmins = async (req, res, next) => {
   try {
-    await userService.getUsers(res);
+    await adminService.getAdmins(res);
   } catch (error) {
     next(error);
   } finally {
@@ -50,10 +58,10 @@ exports.getUsers = async (req, res, next) => {
   }
 };
 
-/* get single user */
-exports.getUser = async (req, res, next) => {
+/* get single admin */
+exports.getAdmin = async (req, res, next) => {
   try {
-    await userService.getUser(req, res);
+    await adminService.getAdmin(req, res);
   } catch (error) {
     next(error);
   } finally {
@@ -61,10 +69,10 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
-/* update user information */
-exports.updateUser = async (req, res, next) => {
+/* update admin information */
+exports.updateAdmin = async (req, res, next) => {
   try {
-    await userService.updateUser(req, res);
+    await adminService.updateAdmin(req, res);
   } catch (error) {
     next(error);
   } finally {
@@ -72,10 +80,10 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 
-/* update user information */
-exports.updateUserInfo = async (req, res, next) => {
+/* update admin information */
+exports.updateAdminInfo = async (req, res, next) => {
   try {
-    await userService.updateUserInfo(req, res);
+    await adminService.updateAdminInfo(req, res);
   } catch (error) {
     next(error);
   } finally {
@@ -83,10 +91,10 @@ exports.updateUserInfo = async (req, res, next) => {
   }
 };
 
-/* delete user information */
-exports.deleteUser = async (req, res, next) => {
+/* delete admin information */
+exports.deleteAdmin = async (req, res, next) => {
   try {
-    await userService.deleteUser(req, res);
+    await adminService.deleteAdmin(req, res);
   } catch (error) {
     next(error);
   } finally {
@@ -97,7 +105,7 @@ exports.deleteUser = async (req, res, next) => {
 /* seller request & approve */
 exports.getSellers = async (req, res, next) => {
   try {
-    await userService.getSellers(res);
+    await adminService.getSellers(res);
   } catch (error) {
     next(error);
   } finally {
@@ -107,7 +115,7 @@ exports.getSellers = async (req, res, next) => {
 
 exports.reviewSeller = async (req, res, next) => {
   try {
-    await userService.reviewSeller(req, res);
+    await adminService.reviewSeller(req, res);
   } catch (error) {
     next(error);
   } finally {

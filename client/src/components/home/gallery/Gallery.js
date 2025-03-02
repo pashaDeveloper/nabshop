@@ -22,7 +22,6 @@ const Gallery = () => {
     skip: !selectedGalleryId
   });
   const galleryData = useMemo(() => fetchData?.data || {}, [fetchData]);
-  console.log(galleryData.length === 0);
   const containerRef = useRef(null);
   const [tab, setTab] = useState(null);
   useEffect(() => {

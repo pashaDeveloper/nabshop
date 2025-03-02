@@ -2,11 +2,11 @@ const { nabApi } = require("../nab");
 
 const authApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
-    // signUp
-    signUp: builder.mutation({
+    // signUp phone
+    signUpPhone: builder.mutation({
       query: (body) => {
         return {
-          url: "/user/sign-up",
+          url: "/user/sign-up-phone",
           method: "POST",
           body
         };
@@ -14,22 +14,30 @@ const authApi = nabApi.injectEndpoints({
       invalidatesTags: ["User"]
     }),
 
-    // signIn
-    signIn: builder.mutation({
-      query: (body) => ({
-        url: "/user/sign-in",
-        method: "POST",
-        body
-      })
+    // Verify phone
+    verifyPhone: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/user/verify-phone",
+          method: "POST",
+          credentials: "include",
+          body
+        };
+      },
+      invalidatesTags: ["User"]
     }),
 
-    // forgot password
-    forgotPassword: builder.mutation({
-      query: (userInfo) => ({
-        url: "/user/forgot-password",
-        method: "PATCH",
-        body: userInfo
-      })
+    // signUp google
+    signUpGoogle: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/user/sign-up-google",
+          method: "POST",
+          credentials: "include",
+          body
+        };
+      },
+      invalidatesTags: ["User"]
     }),
 
     // persist login
@@ -49,7 +57,9 @@ const authApi = nabApi.injectEndpoints({
 });
 
 export const {
-  useSignUpMutation,
+  useSignUpPhoneMutation,
+  useSignUpGoogleMutation,
+  useVerifyPhoneMutation,
   useSignInMutation,
   usePersistLoginQuery,
   useForgotPasswordMutation

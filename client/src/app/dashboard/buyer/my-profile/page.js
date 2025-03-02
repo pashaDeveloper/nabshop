@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import Inform from "@/components/icons/Inform";
@@ -8,7 +6,7 @@ import Modal from "@/components/shared/Modal";
 import Dashboard from "@/components/shared/layouts/Dashboard";
 import {
   useDeleteUserMutation,
-  useUpdateUserMutation,
+  useUpdateUserMutation
 } from "@/services/user/userApi";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -61,7 +59,7 @@ const Page = () => {
       email: event.target.email.value,
       phone: event.target.phone.value,
       address: event.target.address.value,
-      role: event.target.role.value,
+      role: event.target.role.value
     };
 
     // Add 'status' property for seller
@@ -90,11 +88,11 @@ const Page = () => {
           className="w-full flex flex-col gap-y-4"
           onSubmit={handleEditProfile}
         >
-          {/* avatar */}
+          {/* آواتار */}
           <div className="w-fit flex flex-col gap-y-4 p-4 border rounded">
             <Image
               src={avatarPreview || user?.avatar?.url}
-              alt={user?.avatar?.public_id || "avatar"}
+              alt={user?.avatar?.public_id || "آواتار"}
               width={96}
               height={96}
               className="w-full h-24 object-cover rounded"
@@ -104,7 +102,7 @@ const Page = () => {
               htmlFor="avatar"
               className="w-full flex flex-col gap-y-1 relative"
             >
-              <span className="text-sm cursor-pointer">Choose Avatar</span>
+              <span className="text-sm cursor-pointer">انتخاب آواتار</span>
               <input
                 type="file"
                 name="avatar"
@@ -117,11 +115,11 @@ const Page = () => {
             </label>
           </div>
 
-          {/* name & email */}
+          {/* نام و ایمیل */}
           <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-            {/* name */}
+            {/* نام */}
             <label htmlFor="name" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Name</span>
+              <span className="text-sm">نام</span>
               <input
                 type="text"
                 name="name"
@@ -131,9 +129,9 @@ const Page = () => {
               />
             </label>
 
-            {/* email */}
+            {/* ایمیل */}
             <label htmlFor="email" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Email</span>
+              <span className="text-sm">ایمیل</span>
               <input
                 type="email"
                 name="email"
@@ -144,11 +142,11 @@ const Page = () => {
             </label>
           </div>
 
-          {/* phone, role & address */}
+          {/* شماره تلفن، نقش و آدرس */}
           <div className="w-full flex flex-col gap-y-4 p-4 border rounded">
-            {/* phone */}
+            {/* شماره تلفن */}
             <label htmlFor="phone" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Phone</span>
+              <span className="text-sm">شماره تلفن</span>
               <input
                 type="text"
                 name="phone"
@@ -158,9 +156,9 @@ const Page = () => {
               />
             </label>
 
-            {/* address */}
+            {/* آدرس */}
             <label htmlFor="address" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Address</span>
+              <span className="text-sm">آدرس</span>
               <input
                 type="text"
                 name="address"
@@ -170,25 +168,25 @@ const Page = () => {
               />
             </label>
 
-            {/* role */}
+            {/* نقش */}
             <label htmlFor="role" className="w-full flex flex-col gap-y-1">
-              <span className="text-sm">Role</span>
+              <span className="text-sm">نقش</span>
               <select
                 name="role"
                 id="role"
                 value={user.role}
                 onChange={(e) => setUser({ ...user, role: e.target.value })}
               >
-                <option value="buyer">Buyer</option>
-                <option value="seller">Seller</option>
+                <option value="buyer">خریدار</option>
+                <option value="seller">فروشنده</option>
               </select>
             </label>
           </div>
 
-          {/* submit button */}
+          {/* دکمه ثبت تغییرات */}
           <input
             type="submit"
-            value="Update Profile"
+            value="به‌روزرسانی پروفایل"
             className="py-2 border border-black rounded bg-black hover:bg-black/90 text-white transition-colors drop-shadow cursor-pointer text-sm"
           />
         </form>
@@ -225,7 +223,7 @@ function DeleteUser() {
         className="py-2 border border-black rounded bg-red-900 hover:bg-red-900/90 text-white transition-colors drop-shadow cursor-pointer text-sm"
         onClick={() => setIsOpen(true)}
       >
-        Delete User
+        حذف حساب کاربری
       </button>
 
       {isOpen && (
@@ -236,24 +234,25 @@ function DeleteUser() {
         >
           <article className="flex flex-col gap-y-4">
             <p className="text-xs bg-yellow-500/50 text-black px-2 py-0.5 rounded-sm text-center">
-              Account will be deleted permanently!
+              حساب کاربری شما برای همیشه حذف خواهد شد!
             </p>
             <div className="flex flex-col gap-y-2">
-              <h1 className="text-xl">Are you sure?</h1>
+              <h1 className="text-xl">آیا مطمئن هستید؟</h1>
               <p className="text-sm flex flex-col gap-y-2">
-                You are about to lost following:
+                با حذف حساب، موارد زیر را از دست خواهید داد:
                 <p className="flex flex-col gap-y-1.5">
                   <span className="flex flex-row gap-x-1 items-center text-xs">
-                    <Inform /> {user?.cart?.length} products from cart
+                    <Inform /> {user?.cart?.length} محصول در سبد خرید
                   </span>
                   <span className="flex flex-row gap-x-1 items-center text-xs">
-                    <Inform /> {user?.favorites?.length} products from favorites
+                    <Inform /> {user?.favorites?.length} محصول در لیست
+                    علاقه‌مندی‌ها
                   </span>
                   <span className="flex flex-row gap-x-1 items-center text-xs">
-                    <Inform /> {user?.purchases?.length} purchases records
+                    <Inform /> {user?.purchases?.length} سابقه خرید
                   </span>
                   <span className="flex flex-row gap-x-1 items-center text-xs">
-                    <Inform /> {user?.products?.length} products all time records
+                    <Inform /> {user?.products?.length} محصولات ثبت‌شده
                   </span>
                 </p>
               </p>
@@ -263,13 +262,13 @@ function DeleteUser() {
                 className="text-white bg-slate-500 px-3 py-1.5 rounded text-sm"
                 onClick={() => setIsOpen(false)}
               >
-                No, cancel
+                خیر، انصراف
               </button>
               <button
                 className="flex flex-row gap-x-2 items-center text-white bg-red-500 px-3 py-1.5 rounded text-sm"
                 onClick={() => deleteUser(user?._id)}
               >
-                <Trash /> Yes, delete
+                <Trash /> بله، حذف شود
               </button>
             </div>
           </article>

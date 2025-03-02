@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import MobileNav from "./mobileMenu/MobileNav";
 import Container from "../Container";
 import MobileMenu from "./mobileMenu/MobileMenu";
@@ -7,10 +8,8 @@ import Image from "next/image";
 import Brand from "@/components/icons/Brand";
 import Store from "@/components/icons/Store";
 import Auth from "./Auth";
-import Dashboard from "@/components/icons/Dashboard";
 import SearchFilter from "./SearchFilter";
 import MyCart from "./MyCart";
-import { useSelector } from "react-redux";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import Home from "@/components/icons/Home";
 import Link from "next/link";
@@ -18,7 +17,6 @@ import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const user = useSelector((state) => state?.auth?.user);
   const pathname = usePathname();
   const niches = [
     {
@@ -48,30 +46,17 @@ const Navbar = () => {
       <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />
       <header>
         <Container>
-          <nav className="fixed top-0 m-4  left-0 flex flex-row justify-between right-0 shadow-lg lg:grid lg:grid-cols-12 items-center z-[100000] p-4 bg-white dark:bg-slate-800 rounded-xl dark:text-gray-100">
+          <nav className="fixed top-0 m-4  left-0 flex flex-row justify-between right-0 shadow-lg lg:grid lg:grid-cols-12 items-center z-50 p-4 bg-white dark:bg-slate-800 rounded-xl dark:text-gray-100">
             <div className=" col-span-2 flex-row-reverse gap-x-2 relative h-fit">
               <div className="md:hidden block col-span-0">
                 <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
-                
               </div>
-
-              {user && Object.keys(user).length > 0 ? (
-                <button
-                  className="p-2 rounded-secondary md:flex hidden  hover:bg-slate-100 transition-colors"
-                  onClick={() => window.open("/dashboard", "_self")}
-                >
-                  <Dashboard className="h-6 w-6" />
-                </button>
-                
-              ) : (
-                <div className="md:flex gap-2 hidden">
-                  <Auth />
-                  <SearchFilter />
-                  <MyCart />
-                  <ThemeToggle />
-                </div>
-              )}
-              
+              <div className="md:flex gap-2 hidden">
+                <Auth />
+                <SearchFilter />
+                <MyCart />
+                <ThemeToggle />
+              </div>
             </div>
             <div className="col-span-8 rounded-primary hidden md:flex justify-center">
               <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
@@ -97,7 +82,7 @@ const Navbar = () => {
             <div className="flex col-span-2 justify-between flex-row gap-x-1  items-center relative">
               <div></div>
               <div className="flex justify-center items-center">
-                <h2 className="text-2xl font-nozha" >نقل و حلوای ناب</h2>
+                <h2 className="text-2xl font-nozha">نقل و حلوای ناب</h2>
                 <Image
                   src={"/logo.png"}
                   alt="logo"

@@ -1,210 +1,64 @@
 "use client";
 
-import Trash from "@/components/icons/Trash";
-import Upload from "@/components/icons/Upload";
-import Spinner from "@/components/shared/Spinner";
-import { useSignUpMutation } from "@/services/auth/authApi";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-
-const Signup = () => {
+import React from "react";
+import Spinner from "@/components/shared/Spinner";
+import { motion } from "framer-motion";
+import Main from "@/components/shared/layouts/Main";
+import GoogleLogin from "./GoogleLogin";
+import MobileLogin from "./MobileLogin";
+const Signin = () => {
   const router = useRouter();
-  const [avatarPreview, setAvatarPreview] = useState(null);
-  const [avatar, setAvatar] = useState(null);
-  const [signup, { isLoading, data, error }] = useSignUpMutation();
 
-  useEffect(() => {
-    if (isLoading) {
-      toast.loading("در حال ورود...", { id: "signup" });
-    }
 
-    if (data) {
-      console.log(data)
-      if (data.isSuccess) {
-      toast.success(data?.description, { id: "signup" });
-      window.open("/auth/signin", "_self");
 
-      }else{
-        toast.error(data?.description, { id: "signup" });
-      }
- 
-    }
-    if (error?.data) {
-      toast.error(error?.data?.description, { id: "signup" });
-    }
-  }, [isLoading, data, error, router]);
 
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
-
-    if (!avatarPreview) {
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setAvatarPreview(reader.result);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    }
-  };
-
-  const handleSignup = async (e) => {
+  const handleSignin = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    formData.append("name", e.target.name.value);
-    formData.append("email", e.target.email.value);
-    formData.append("avatar", avatar);
-    formData.append("phone", e.target.phone.value);
-    formData.append("password", e.target.password.value);
-    console.log("Signup Form Data:", Array.from(formData)); // این خط بدنه درخواست را در کنسول چاپ می‌کند
-
-    signup(formData);
-
+    signin({ email: e.target.email.value, password: e.target.password.value });
     e.target.reset();
-    setAvatarPreview(null);
   };
 
-  return (
-    <section className="min-w-full min-h-screen flex justify-center items-center p-4 bg-lightbg dark:bg-slate-900">
-      <div className="max-w-md w-full flex flex-col gap-y-4 border p-8 rounded-primary">
-        <div className="flex flex-row items-center gap-x-2">
-          <hr className="w-full" />
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={141}
-            height={40}
-            className="max-w-full cursor-pointer"
-            onClick={() => router.push("/")}
-          />
-          <hr className="w-full" />
-        </div>
-        <form
-          action=""
-          className="w-full flex flex-col gap-y-4"
-          onSubmit={handleSignup}
-        >
-          <label
-            htmlFor="avatar"
-            className="flex flex-col gap-y-1 w-fit mx-auto items-center"
-          >
-            <div
-              className={
-                "h-[100px] w-[100px] rounded transition-colors flex flex-row justify-center items-center relative" +
-                " " +
-                (avatarPreview
-                  ? ""
-                  : "border-2 border-dashed hover:border-black")
-              }
-            >
-              {avatarPreview ? (
-                <div className="relative">
-                  <Image
-                    src={avatarPreview}
-                    alt="avatar"
-                    height={100}
-                    width={100}
-                    className="rounded h-[100px] w-[100px] object-cover"
-                  />
-                  <button
-                    className="absolute bottom-0 -right-10 p-1 rounded bg-red-500 text-white shadow-2xl"
-                    onClick={() => setAvatarPreview(null)}
-                  >
-                    <Trash />
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <span className="text-xs flex flex-col justify-center items-center gap-y-2 text-center">
-                    <Upload />
-                    Add Avatar <br /> 300x300
-                  </span>
 
-                  <input
-                    type="file"
-                    name="avatar"
-                    id="avatar"
-                    title="Dimension: 300x300"
-                    accept=".jpg, .jpeg, .png"
-                    className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                    onChange={handleAvatarChange}
-                    required
-                  />
-                </>
-              )}
+  return (
+    <Main>
+      <section className="w-full h-auto pt-24 md:pt-36 bg-lightbg dark:bg-slate-900">
+        <div className="container md:py-10 h-full">
+          <div className="flex justify-center items-center flex-wrap h-full g-3 text-gray-800">
+            <div className=" md:w-8/12 lg:w-6/12  md:mb-0 md:flex ">
+              <motion.div
+                whileHover={{
+                  rotate: [0, -10, 10, -10, 0]
+                }}
+                className="md:w-[400px] w-[200px] cursor-pointer"
+              >
+                <Image
+                  src={"/chef1.png"}
+                  width={600}
+                  height={600}
+                  alt="chef1"
+                  className="h-full"
+                />
+              </motion.div>
+            </div>{" "}
+            <div className="w-full md:w-[30rem]">
+              <form className="p-2">
+                <GoogleLogin />
+              </form>
+              <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                <p className="text-center text-textColor text-sm font-semibold mx-4 mb-0">
+                  یا
+                </p>
+              </div>
+                <MobileLogin />
             </div>
-          </label>
-          <label htmlFor="name" className="flex flex-col gap-y-1">
-            <span className="text-sm">Enter Your Name*</span>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="i.e. John Doe"
-              className=""
-              required
-            />
-          </label>
-          <label htmlFor="email" className="flex flex-col gap-y-1">
-            <span className="text-sm">Enter Your Email*</span>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="i.e. example@gmail.com"
-              className=""
-              required
-            />
-          </label>
-          <label htmlFor="password" className="flex flex-col gap-y-1">
-            <span className="text-sm">Enter Your Password*</span>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="i.e. Admin@123"
-              className=""
-              required
-            />
-          </label>
-          <label htmlFor="phone" className="flex flex-col gap-y-1">
-            <span className="text-sm">Enter Your Phone Number*</span>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              placeholder="i.e. +8801906315901"
-              className=""
-              required
-            />
-          </label>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="py-2 border border-black rounded-secondary bg-black hover:bg-black/90 text-white transition-colors drop-shadow disabled:bg-gray-200 disabled:border-gray-200 disabled:text-black/50 disabled:cursor-not-allowed flex flex-row justify-center items-center text-sm"
-          >
-            {isLoading ? <Spinner /> : "Sign Up"}
-          </button>
-        </form>
-        <div className="flex flex-row justify-center items-center gap-x-2 text-xs">
-          <Link href="/auth/signin" className="">
-            Sign In
-          </Link>
-          <span className="h-4 border-l" />
-          <Link href="/auth/forgot-password" className="">
-            Forgot Password
-          </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </Main>
   );
 };
 
-export default Signup;
+export default Signin;

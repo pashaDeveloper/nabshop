@@ -18,7 +18,7 @@ const Dashboard = ({ children }) => {
 
   let routes = [];
 
-  if (user?.role === "buyer") {
+  if (user?.userLevel === "verified") {
     routes = [
       {
         name: "پروفایل من",
@@ -70,12 +70,12 @@ const Dashboard = ({ children }) => {
 
   return (
     <main className="h-screen w-screen" dir="rtl">
-      <section className="mx-auto h-full flex flex-col gap-y-4 p-2">
-        <nav className="border px-4 py-2 rounded flex justify-between items-center flex-row">
+      <section className="mx-auto dark:bg-slate-900 h-full flex flex-col gap-y-4 p-2">
+        <nav className="border dark:border-gray-700 px-4 py-2 rounded flex justify-between items-center flex-row">
           {showMenu ? (
             <button
               type="button"
-              className="border p-1 rounded-secondary md:hidden"
+              className="border text-primary dark:border-gray-700 p-1 rounded-secondary md:hidden"
               onClick={() => setShowMenu(!showMenu)}
             >
               <svg
@@ -96,7 +96,7 @@ const Dashboard = ({ children }) => {
           ) : (
             <button
               type="button"
-              className="border p-1 rounded-secondary md:hidden"
+              className="border p-1 text-primary dark:border-gray-700 rounded-secondary md:hidden"
               onClick={() => setShowMenu(!showMenu)}
             >
               <svg
@@ -122,7 +122,7 @@ const Dashboard = ({ children }) => {
 
           <button
             type="button"
-            className="p-1 rounded-secondary border md:block hidden"
+            className="p-1 rounded-secondary border dark:border-gray-700 md:block hidden"
             title="خروج"
             onClick={() => {
               localStorage.removeItem("accessToken");
@@ -140,7 +140,7 @@ const Dashboard = ({ children }) => {
           </div>
 
           {showMenu && (
-            <div className="absolute top-0 right-0 h-full overflow-y-auto w-3/4 bg-white z-50 md:hidden">
+            <div className="absolute top-0 right-0 h-full overflow-y-auto w-3/4 bg-white dark:bg-slate-900 z-50 md:hidden">
               <div className="w-full h-full flex flex-col gap-y-4">
                 {routes.map((route, index) => (
                   <div

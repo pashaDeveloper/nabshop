@@ -6,7 +6,7 @@ const authApi = nabApi.injectEndpoints({
     signUp: builder.mutation({
       query: (body) => {
         return {
-          url: "/user/sign-up",
+          url: "/admin/sign-up",
           method: "POST",
           body,
         };
@@ -18,7 +18,7 @@ const authApi = nabApi.injectEndpoints({
     // signIn
     signIn: builder.mutation({
       query: (body) => ({
-        url: "/user/sign-in",
+        url: "/admin/sign-in",
         method: "POST",
         body,
       }),
@@ -27,7 +27,7 @@ const authApi = nabApi.injectEndpoints({
     // forgot password
     forgotPassword: builder.mutation({
       query: (userInfo) => ({
-        url: "/user/forgot-password",
+        url: "/admin/forgot-password",
         method: "PATCH",
         body: userInfo,
       }),
@@ -36,7 +36,7 @@ const authApi = nabApi.injectEndpoints({
    // persist login
     persistLogin: builder.query({
       query: () => ({
-        url: "/user/me",
+        url: "/admin/me",
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

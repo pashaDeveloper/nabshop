@@ -6,7 +6,7 @@ const upload = require("../middleware/upload.middleware");
 const verify = require("../middleware/verify.middleware");
 
 /* internal import */
-const userController = require("../controllers/user.controller");
+const adminController = require("../controllers/admin.controller");
 const authorize = require("../middleware/authorize.middleware");
 
 /* router level connection */
@@ -14,65 +14,62 @@ const router = express.Router();
 
 /* router methods integration */
 
-// sign up an user
+// sign up an admin
 router.post(
-  "/sign-up-phone",
-  userController.signUpWithPhone
+  "/sign-up",
+  upload("avatar").single("avatar"),
+  adminController.signUp
 );
 
-router.post(
-  "/sign-up-google",
-  userController.signUpWithGoogle
-);
+// sign in an admin
+router.post("/sign-in", adminController.signIn);
 
-router.post(
-  "/verify-phone",
-  userController.verifyPhone
-);
+// reset admin password
+router.patch("/forgot-password", adminController.forgotPassword);
 
 // login persistance
-router.get("/me", verify,  userController.persistLogin);
+router.get("/me", verify,  adminController.persistLogin);
 
-// get all users
+// get all admins
 router.get(
-  "/all-users",
+  "/all-admins",
   verify,
   authorize("superAdmin"),
-  userController.getUsers
+  adminController.getAdmins
 );
 
-// get single user
+// get single admin
 router.get(
-  "/get-user/:id",
+  "/get-admin/:id",
   verify,
   authorize("superAdmin"),
-  userController.getUser
+  adminController.getAdmin
 );
 
-// update user information
+// update admin information
 router.patch(
   "/update-information",
   verify,
   authorize("superAdmin", "admin"),
   upload("avatar").single("avatar"),
-  userController.updateUser
+  adminController.updateAdmin
 );
 
 router.patch(
-  "/update-user/:id",
+  "/update-admin/:id",
   verify,
   authorize("superAdmin", "admin"),
   upload("avatar").single("avatar"),
-  userController.updateUserInfo
+  adminController.updateAdminInfo
 );
 
-// delete user information
+// delete admin information
 router.delete(
-  "/delete-user/:id",
+  "/delete-admin/:id",
   verify,
   authorize("superAdmin", "admin"),
-  userController.deleteUser
+  adminController.deleteAdmin
 );
 
-/* export user router */
+/* export admin router */
 module.exports = router;

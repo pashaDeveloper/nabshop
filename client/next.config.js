@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost'], 
+    domains: ['localhost', 'lh3.googleusercontent.com'], // اضافه کردن دامنه مورد نظر
     remotePatterns: [
       {
         protocol: "https",
@@ -19,7 +19,6 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost', 
         port: '', 
-      
       },
     ],
   },

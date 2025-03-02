@@ -15,14 +15,14 @@ const MobileNav = ({ isOpen, setIsOpen }) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 200 }}
       className={
-        "fixed  z-[9999] md:hidden block inset-0 flex-col backdrop-blur-sm items-start justify-start w-screen h-screen overflow-y-hidden" +
+        "fixed  z-50 md:hidden block inset-0 flex-col backdrop-blur-sm items-start justify-start w-screen h-screen overflow-y-hidden" +
         " " +
         (isOpen ? "flex" : "hidden")
       }
     >
       <section className="relative w-full h-full">
         <div
-          className="relative z-[999999] w-full h-full"
+          className="relative z-50 w-full h-full"
           onClick={(e) => {
             setIsOpen(false);
             e.stopPropagation();
@@ -34,7 +34,7 @@ const MobileNav = ({ isOpen, setIsOpen }) => {
                 { href: "/menu", icon: <Home />, text: "صفحه اصلی" },
                 { href: "/menu", icon: <Category />, text: "دسته بندی خدمات" },
                 { href: "/store", icon: <Shop />, text: "فروشگاه" },
-                { href: "/services", icon: <User />, text: "حساب کاربری" },
+                { href: "/auth/singin", icon: <User />, text: "حساب کاربری" },
                 { href: "/terms", icon: <Rules />, text: "قوانین و مقررات" },
                 { href: "/about", icon: <About />, text: "درباره ما" },
                 { href: "/contact", icon: <Phone />, text: "تماس با ما" }
