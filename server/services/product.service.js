@@ -75,10 +75,9 @@ exports.getProducts = async (res) => {
     select: "price stock unit lowStockThreshold",
     populate: {
       path: "unit",
-      select: "title value" // فیلدهای مورد نظر از واحد
+      select: "title value" 
     }
   });
-console.log(products)
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",

@@ -10,7 +10,7 @@ import Logout from "@/components/icons/Logout";
 import Image from "next/image";
 
 const Auth = () => {
-  const { user } = useSelector((state) => state.auth);  // دریافت مستقیم از استور
+  const { user } = useSelector((state) => state.auth);  
   const [isOpen, setIsOpen] = useState(false);
 
   if (!user) return null;

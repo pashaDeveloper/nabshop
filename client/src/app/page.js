@@ -19,10 +19,7 @@ export default function Home() {
         <main className="flex flex-col gap-y-20 w-full bg-lightbg dark:bg-darkbg">
           <Hero/>
           <NewArrivals />
-          <Post/>
           <Banner2 />
-          <ExpertChoice />
-          <Blog/>
           <Trending />
           <Banner3 />
           <Gallery/>

@@ -1,38 +1,38 @@
 
 import { nabApi } from "../nab";
 
-const userApi = nabApi.injectEndpoints({
+const adminApi = nabApi.injectEndpoints({
   endpoints: (builder) => ({
-    // get all users
-    getUsers: builder.query({
+    // get all admins
+    getAdmins: builder.query({
       query: () => ({
-        url: "/user/all-users",
+        url: "/admin/all-admins",
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
 
-      providesTags: ["User"],
+      providesTags: ["Admin"],
     }),
 
-    // get user
-    getUser: builder.query({
+    // get admin
+    getAdmin: builder.query({
       query: (id) => ({
-        url: `/user/get-user/${id}`,
+        url: `/admin/get-admin/${id}`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
 
-      providesTags: ["User"],
+      providesTags: ["Admin"],
     }),
 
-    // update user
-    updateUser: builder.mutation({
+    // update admin
+    updateAdmin: builder.mutation({
       query: (body) => ({
-        url: `/user/update-information`,
+        url: `/admin/update-information`,
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -40,13 +40,13 @@ const userApi = nabApi.injectEndpoints({
         body,
       }),
 
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Admin"],
     }),
 
-    // user single user
-    updateUserInfo: builder.mutation({
+    // admin single admin
+    updateAdminInfo: builder.mutation({
       query: ({ id, body }) => ({
-        url: `/user/update-user/${id}`,
+        url: `/admin/update-admin/${id}`,
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -54,20 +54,20 @@ const userApi = nabApi.injectEndpoints({
         body,
       }),
 
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Admin"],
     }),
 
-    // delete user
-    deleteUser: builder.mutation({
+    // delete admin
+    deleteAdmin: builder.mutation({
       query: (id) => ({
-        url: `/user/delete-user/${id}`,
+        url: `/admin/delete-admin/${id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
 
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Admin"],
     }),
 
 
@@ -76,11 +76,11 @@ const userApi = nabApi.injectEndpoints({
 });
 
 export const {
-  useGetUsersQuery,
-  useGetUserQuery,
-  useUpdateUserMutation,
-  useUpdateUserInfoMutation,
-  useDeleteUserMutation,
+  useGetAdminsQuery,
+  useGetAdminQuery,
+  useUpdateAdminMutation,
+  useUpdateAdminInfoMutation,
+  useDeleteAdminMutation,
   useGetSellerRequestQuery,
   useReviewSellerMutation,
-} = userApi;
+} = adminApi;

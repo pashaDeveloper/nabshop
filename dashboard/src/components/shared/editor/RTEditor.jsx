@@ -80,8 +80,8 @@ import "./Editor.css";
 const LICENSE_KEY =
   "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDE1NjQ3OTksImp0aSI6ImI1ZWJlYTI0LTViMmUtNDZjMi05MTdkLWNiNmZjMTVhZTExZiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6Ijg4Yzk3NTkzIn0.F8Zl0ZqLlZxOcJR-6hYg03Ov5mqxp8ODvczDLUBxYqKQUDBdx9P4SrRw55ZfZ2s_dE8bTv2CltCIHHT1zGM2Jw";
 
-  export default function RTEditor({ value, onChange }) {
-	const editorContainerRef = useRef(null);
+export default function RTEditor({ value, onChange }) {
+  const editorContainerRef = useRef(null);
   const editorRef = useRef(null);
   const [isLayoutReady, setIsLayoutReady] = useState(false);
 
@@ -390,12 +390,15 @@ const LICENSE_KEY =
         <div className="editor-container__editor">
           <div ref={editorRef}>
             {editorConfig && (
-              <CKEditor data={value}
-			  onChange={(event, editor) => {
-				const data = editor.getData();
-				onChange(data);
-			  }}
-editor={ClassicEditor} config={editorConfig} />
+              <CKEditor
+                data={value}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  onChange(data);
+                }}
+                editor={ClassicEditor}
+                config={editorConfig}
+              />
             )}
           </div>
         </div>

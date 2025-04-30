@@ -23,7 +23,7 @@ const verificationCodeSchema = new mongoose.Schema(
     expiresAt: {
       type: Date,
       required: true,
-      default: () => new Date(Date.now() + 3 * 60 * 1000), // ۳ دقیقه بعد
+      default: () => new Date(Date.now() + 3 * 60 * 1000), 
     },
     used: {
       type: Boolean,

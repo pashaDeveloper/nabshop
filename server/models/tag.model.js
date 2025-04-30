@@ -1,7 +1,6 @@
 /* external imports */
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
-const validator = require("validator");
 const baseSchema = require("./baseSchema.model");
 const Counter = require("./counter")
 

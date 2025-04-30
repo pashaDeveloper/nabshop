@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useGetProductsQuery } from "@/services/product/productApi";
 import ProductCard from "../shared/skeletonLoading/ProductCard";
 import { toast } from "react-hot-toast";
+import HighlightText from "../shared/highlightText/HighlightText";
 
 const Trending = () => {
   const router = useRouter();
@@ -26,10 +27,10 @@ const Trending = () => {
 
   return (
     <Container>
-      <section className="flex flex-col gap-y-10">
-        <div className="flex flex-col gap-y-1">
-          <h1 className="text-4xl">داغ‌ترین‌های امروز</h1>
-          
+      <div className="flex flex-col gap-y-10">
+      <div className="lg:text-5xl md:text-4xl text-3xl w-fit whitespace-normal">
+      <HighlightText title={"داغ‌ترین‌های امروز "} />
+
         </div>
         <div className="flex flex-col gap-y-12">
           <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-x-6 gap-y-8">
@@ -53,7 +54,7 @@ const Trending = () => {
           >
 نمایش بیشتر          </button>
         </div>
-      </section>
+      </div>
     </Container>
   );
 };

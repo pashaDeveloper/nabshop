@@ -9,10 +9,9 @@ const Banner2 = ({ className }) => {
   const router = useRouter();
 
   return (
-    <section className="mt-20">
       <Container className={className ? className : ""}>
         <div
-          className="bg-yellow-100 dark:bg-yellow-600 h-full w-full dark:text-gray-100 rounded-primary relative flex flex-col gap-y-0 lg:p-24 px-8 pt-8 mt-96"
+          className="bg-yellow-100 dark:bg-red-600 h-full w-full dark:text-gray-100 rounded-primary relative flex flex-col gap-y-0  px-8 pt-8 "
           style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
         >
           <Image
@@ -39,7 +38,6 @@ const Banner2 = ({ className }) => {
           </article>
         </div>
       </Container>
-    </section>
   );
 };
 

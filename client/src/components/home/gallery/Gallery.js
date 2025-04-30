@@ -45,11 +45,7 @@ const Gallery = () => {
               <div className="lg:text-5xl md:text-4xl text-3xl w-fit whitespace-normal">
                 <HighlightText title={"گالری تصاویر"} />
               </div>
-              <p className="text-base">
-                با مرور گالری تصاویر، شما با کیفیت خدمات و راهکارهای ما آشنا
-                می‌شوید و می‌توانید ببینید که چگونه ما به مشتریان خود ارزش
-                افزوده می‌دهیم.
-              </p>
+             
             </article>
           </div>
 

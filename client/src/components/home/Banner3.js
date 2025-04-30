@@ -11,7 +11,7 @@ const Banner3 = ({ className }) => {
   return (
     <Container className={className ? className : ""}>
       <div
-        className="bg-gray-50 dark:bg-yellow-500 h-full w-full mb-4 rounded-primary relative flex flex-col gap-y-8 lg:p-24 p-8"
+        className="bg-gray-50 dark:bg-blue-700 h-full w-full mb-4 rounded-primary relative flex flex-col gap-y-8 lg:p-24 p-8"
         style={{ backgroundImage: "url(/assets/home/banner/dots.svg)" }}
       >
         <Image

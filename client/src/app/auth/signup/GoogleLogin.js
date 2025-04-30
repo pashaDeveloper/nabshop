@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-import { auth, provider } from "@/config/firebaseConfig"; // Import auth and provider from firebaseConfig
-import { signInWithPopup } from "firebase/auth"; // Import signInWithPopup
+import { auth, provider } from "@/config/firebaseConfig"; 
+import { signInWithPopup } from "firebase/auth"; 
 import { useSignUpGoogleMutation } from "@/services/auth/authApi";
 
 function GoogleLogin() {
