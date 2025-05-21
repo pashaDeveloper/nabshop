@@ -1,10 +1,8 @@
-
-
 import Hero from "@/components/home/hero/Hero";
 import Banner2 from "@/components/home/Banner2";
 import Banner3 from "@/components/home/Banner3";
 import ExpertChoice from "@/components/home/ExpertChoice";
-import NewArrivals from "@/components/home/NewArrivals";
+import NewArrivals from "@/components/home/newArrivals/page";
 import NicheExplorer from "@/components/home/NicheExplorer";
 import Trending from "@/components/home/Trending";
 import Main from "@/components/shared/layouts/Main";
@@ -17,12 +15,14 @@ export default function Home() {
     <>
       <Main>
         <main className="flex flex-col gap-y-20 w-full bg-lightbg dark:bg-darkbg">
-          <Hero/>
+          <Hero />
           <NewArrivals />
           <Banner2 />
+          <Post />
           <Trending />
+          <ExpertChoice />
           <Banner3 />
-          <Gallery/>
+          <Gallery />
         </main>
       </Main>
     </>

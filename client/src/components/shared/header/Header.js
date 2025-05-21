@@ -46,7 +46,7 @@ const Navbar = () => {
       <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />
       <header>
         <Container>
-          <nav className="fixed top-0 m-4  left-0 flex flex-row justify-between right-0 shadow-lg lg:grid lg:grid-cols-12 items-center z-50 p-4 bg-white dark:bg-slate-800 rounded-xl dark:text-gray-100">
+          <nav className="fixed top-0 m-4  left-0 flex flex-row justify-between right-0 shadow-lg lg:grid lg:grid-cols-12 items-center z-50 px-4 py-1 bg-white dark:bg-slate-800 rounded-xl dark:text-gray-100">
             <div className=" col-span-2 flex-row-reverse gap-x-2 relative h-fit">
               <div className="md:hidden block col-span-0">
                 <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -79,7 +79,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            <div className="flex col-span-2 justify-between flex-row gap-x-1  items-center relative">
+            <div className="flex relative col-span-2 justify-between flex-row gap-x-1  items-center ">
               <div></div>
               <div className="flex justify-center items-center">
                 <h2 className="text-2xl font-nozha">نقل و حلوای ناب</h2>
@@ -88,7 +88,7 @@ const Navbar = () => {
                   alt="logo"
                   width={300}
                   height={300}
-                  className="h-12 w-12 object-contain md:block cursor-pointer"
+                  className="h-16 w-16 object-contain md:block cursor-pointer"
                   onClick={() => window.open("/", "_self")}
                 />
               </div>

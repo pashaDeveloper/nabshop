@@ -64,7 +64,7 @@ exports.addProduct = async (req, res) => {
 exports.getProducts = async (res) => {
   const products = await Product.find({ isDeleted: false })
     .select(
-      "title thumbnail campaign slug status summary productId _id createdAt creator"
+      "title thumbnail campaign slug gallery status summary productId _id createdAt creator"
     )
     .populate("category", "title")
     .populate({
@@ -221,6 +221,7 @@ exports.getProductCart = async (req, res) => {
 
 /* filtered products */
 exports.getFilteredProducts = async (req, res) => {
+  console.log("hs")
   try {
     let filter = {
       isDeleted: false,
@@ -232,7 +233,7 @@ exports.getFilteredProducts = async (req, res) => {
       filter.category = req.query.category;
     }
 
-    const products = await Product.find(filter).populate(["category"]);
+    const products = await Product.find(filter).populate(["variations"]);
 
     res.status(200).json({
       acknowledgement: true,
