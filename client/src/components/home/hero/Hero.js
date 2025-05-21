@@ -1,4 +1,4 @@
-import KeyServices from "@/app/Policies/Policies";
+import KeyServices from "@/app/[locale]/Policies/Policies";
 import Banner1 from "./Banner1";
 import Container from "@/components/shared/Container";
 import Category from "./Category";

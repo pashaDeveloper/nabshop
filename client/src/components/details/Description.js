@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import DetailCard from "./DetailCard";
 import Modal from "../shared/Modal";
@@ -33,12 +31,11 @@ const Description = ({ product }) => {
     addReview({
       product: product?._id,
       rating: e.target.rating.value,
-      comment: e.target.comment.value,
+      comment: e.target.comment.value
     });
 
     event.target.reset();
   };
-
   return (
     <section className="flex flex-col gap-y-2.5">
       <div className="flex flex-row gap-x-2 items-center">
@@ -57,13 +54,15 @@ const Description = ({ product }) => {
         </button>
         <div className="flex flex-row gap-x-2 items-center">
           <span className="whitespace-nowrap text-sm text-black dark:text-gray-100">
-ویزگی های این محصول          </span>
+            ویزگی های این محصول{" "}
+          </span>
           <hr className="w-full" />
         </div>
         <div className="flex flex-col gap-y-4">
           {product?.features?.map((explanation, index) => (
             <DetailCard
               key={index}
+              icon={explanation.icon}
               title={explanation?.title}
               content={explanation?.content}
             />

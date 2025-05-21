@@ -11,7 +11,7 @@ const authApi = nabApi.injectEndpoints({
           body,
         };
       },
-      invalidatesTags: ["User"],
+      invalidatesTags: ["Admin"],
     }),
     
 
@@ -26,10 +26,10 @@ const authApi = nabApi.injectEndpoints({
 
     // forgot password
     forgotPassword: builder.mutation({
-      query: (userInfo) => ({
+      query: (adminInfo) => ({
         url: "/admin/forgot-password",
         method: "PATCH",
-        body: userInfo,
+        body: adminInfo,
       }),
     }),
 
@@ -43,7 +43,7 @@ const authApi = nabApi.injectEndpoints({
         },
       }),
 
-      providesTags: ["User"],
+      providesTags: ["Admin"],
     }),
   }),
 });

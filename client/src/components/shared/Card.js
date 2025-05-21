@@ -30,7 +30,7 @@ const Card = ({ index, product, ...rest }) => {
   return (
     <div className="relative group mb-8 bg-white dark:bg-darkCard rounded-2xl shadow-lg group cursor-pointer">
       <Link
-        href={`/products/${product?._id}`}
+        href={`/fa/products/${product?.productId}/${product?.slug}`}
         passHref
         onClick={(e) => {
           e.stopPropagation();

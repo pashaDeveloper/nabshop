@@ -23,7 +23,7 @@ const Left = ({ product }) => {
           height={200}
           className="rounded w-full h-full object-cover border border-orange-300"
         />
-        <div className="grid grid-cols-7 gap-4 justify-center items-center">
+        <div className="grid grid-cols-3 gap-4 justify-center items-center">
           {product?.gallery?.map((thumbnail, index) => (
             <LoadImage
               src={thumbnail?.url}
@@ -75,6 +75,7 @@ const Left = ({ product }) => {
             {product?.tags?.map((tag, index) => (
               <DetailCard
                 key={index}
+                icon={"🏷️"}
                 title={tag.title}
                 content={tag?.keynotes} // آرایه رشته‌ها
               />
@@ -83,6 +84,7 @@ const Left = ({ product }) => {
         </div>
         <div className="flex flex-col gap-y-2.5">
           <DetailCard
+          icon={"🛍️"}
             title={`از دسته بندی ${product?.category?.title}`}
             content={product?.category?.keynotes}
           />

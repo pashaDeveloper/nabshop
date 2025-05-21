@@ -24,7 +24,7 @@ const ThumbnailStep = ({ nextStep, errors ,register,thumbnail,setThumbnail}) => 
           )}
         </div>
         <label htmlFor="thumbnail" className="flex flex-col text-center gap-y-2">
-        تصویر عنوان دسته بندی
+        تصویر عنوان  محصول
         <ThumbnailUpload
           setThumbnailPreview={setThumbnailPreview}
           setThumbnail={setThumbnail}

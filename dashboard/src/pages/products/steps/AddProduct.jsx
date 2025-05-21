@@ -20,7 +20,7 @@ const StepAddProduct = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState({});
   const [invalidSteps, setInvalidSteps] = useState({});
-  const [features, setFeatures] = useState([{ title: "", content: [""] }]);
+  const [features, setFeatures] = useState([{icon:'', title: "", content: [""] }]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const openAddModal = () => setIsAddModalOpen(true);

@@ -27,8 +27,7 @@ export const metadata = {
     title: "نقل و حلوا پزی ناب - خرید نقل ارومیه با بهترین کیفیت",
     description:
       "نقل و حلوا پزی ناب، عرضه‌کننده نقل ارومیه اصل و تازه با طعم‌های متنوع و سنتی. خرید آنلاین نقل ارومیه با بهترین کیفیت و ارسال سریع به سراسر کشور.",
-    image: "https://noglenab.com/images/og-halwa.jpg" // لینک تصویر مربوطه را وارد کن
-  }
+ }
   };
   
 export default function RootLayout({ children }) {

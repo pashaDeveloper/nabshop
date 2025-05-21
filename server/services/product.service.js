@@ -46,7 +46,7 @@ exports.addProduct = async (req, res) => {
       return await Variation.create({ ...variation, product: product._id });
     })
   );
-  product.variations = variationDocs.map(v => v._id);
+  product.variations = variationDocs.map((v) => v._id);
   await product.save();
 
   await Category.findByIdAndUpdate(product.category, {
@@ -63,21 +63,23 @@ exports.addProduct = async (req, res) => {
 /* get all products */
 exports.getProducts = async (res) => {
   const products = await Product.find({ isDeleted: false })
-  .select("title thumbnail status summary productId _id createdAt creator")
-  .populate("category", "title")
-  .populate({
-    path: "reviews",
-    options: { sort: { updatedAt: -1 } },
-    select: "reviewer"
-  })
-  .populate({
-    path: "variations",
-    select: "price stock unit lowStockThreshold",
-    populate: {
-      path: "unit",
-      select: "title value" 
-    }
-  });
+    .select(
+      "title thumbnail campaign slug status summary productId _id createdAt creator"
+    )
+    .populate("category", "title")
+    .populate({
+      path: "reviews",
+      options: { sort: { updatedAt: -1 } },
+      select: "reviewer"
+    })
+    .populate({
+      path: "variations",
+      select: "price stock unit lowStockThreshold",
+      populate: {
+        path: "unit",
+        select: "title value"
+      }
+    });
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
@@ -93,7 +95,7 @@ exports.getDetailsProducts = async (res) => {
     status: "active"
   })
     .select(
-      "title thumbnail status discountAmount summary productId _id createdAt creator campaign gallery variations"
+      "title thumbnail slug status discountAmount summary productId _id createdAt creator campaign gallery variations"
     )
     .populate("category", "title")
     .populate({
@@ -126,7 +128,9 @@ exports.getDetailsProducts = async (res) => {
 /* get a single product */
 exports.getProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id)
+    const productId = parseInt(req.params.id, 10);
+
+    const product = await Product.findOne({ productId })
       .populate("category")
       .populate({
         path: "reviews",
@@ -173,25 +177,29 @@ exports.getProduct = async (req, res) => {
 // get cart proct
 exports.getProductCart = async (req, res) => {
   try {
-
     const query = req.query.query;
     const parsedProducts = JSON.parse(query);
     const products = await Promise.all(
       parsedProducts.map(async (item) => {
         return await Product.findOne(
           { _id: item.product },
-          { title: 1, thumbnail: 1, variations: { $elemMatch: { unit: item.unit } } }
-        ).populate("variations.unit", "title")
-        .lean(); 
+          {
+            title: 1,
+            thumbnail: 1,
+            variations: { $elemMatch: { unit: item.unit } }
+          }
+        )
+          .populate("variations.unit", "title")
+          .lean();
       })
     );
-    const filteredProducts = products.filter(product => product);
+    const filteredProducts = products.filter((product) => product);
 
-    const finalProducts = filteredProducts.map(product => ({
+    const finalProducts = filteredProducts.map((product) => ({
       _id: product._id,
       title: product.title,
       thumbnail: product.thumbnail,
-      variations: product.variations.map(variation => ({
+      variations: product.variations.map((variation) => ({
         unit: variation.unit?.title,
         price: variation.price
       }))
@@ -313,7 +321,7 @@ exports.updateRejectProduct = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "محصول با موفقت تاید و در صفحه اصلی سایت درج شد"
+    description: "محصول با موفقت تایید و در صفحه اصلی سایت درج شد"
   });
 };
 
@@ -325,7 +333,7 @@ exports.updateApproveProduct = async (req, res) => {
   res.status(200).json({
     acknowledgement: true,
     message: "Ok",
-    description: "محصول با موفقت تاید و در صفحه اصلی سایت درج شد"
+    description: "محصول با موفقت تایید و در صفحه اصلی سایت درج شد"
   });
 };
 
