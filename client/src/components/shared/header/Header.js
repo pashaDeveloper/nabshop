@@ -60,7 +60,7 @@ const Navbar = () => {
             </div>
             <div className="col-span-8 rounded-primary hidden md:flex justify-center">
               <div className="flex flex-row justify-center gap-x-4 overflow-x-auto">
-                <div className="flex flex-row justify-center gap-x-4 border p-1 rounded-secondary bg-white dark:bg-slate-800 overflow-x-auto scrollbar-hide">
+                <div className="flex flex-row justify-center gap-x-4 border border-gray-100  p-1 rounded-secondary bg-white dark:bg-slate-800 overflow-x-auto scrollbar-hide">
                   {niches.map((niche, index) => {
                     const isActive = pathname === niche.href;
                     return (
@@ -88,7 +88,7 @@ const Navbar = () => {
                   alt="logo"
                   width={300}
                   height={300}
-                  className="h-16 w-16 object-contain md:block cursor-pointer"
+                  className="h-20 w-20 object-contain md:block cursor-pointer"
                   onClick={() => window.open("/", "_self")}
                 />
               </div>

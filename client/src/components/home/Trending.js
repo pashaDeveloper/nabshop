@@ -1,6 +1,5 @@
 import React from "react";
 import Container from "../shared/Container";
-import Card from "../shared/Card";
 import Spinner from "../shared/Spinner";
 import ProductCard from "../shared/skeletonLoading/ProductCard";
 import HighlightText from "../shared/highlightText/HighlightText";

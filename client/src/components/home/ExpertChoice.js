@@ -33,7 +33,7 @@ const ExpertChoice = async ({ className }) => {
             <>
               {products?.slice(-8)?.map((product, index) => (
                 <Link
-                  href={`/fa/products/${product?.productId}/${product?.slug}`}
+                  href={`/products/${product?.productId}/${product?.slug}`}
                   key={index}
                   className="flex flex-col gap-y-4 border border-gray-100 dark:border-blue-500 p-4 rounded-lg hover:border-gray-300 dark:hover:border-gray-800 transition-colors cursor-pointer"
                 >

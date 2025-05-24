@@ -19,7 +19,7 @@ const Banner2 = ({ className }) => {
             className="h-full  w-full object-cover"
           />
         </div>
-        <article className="flex flex-col  order-1 md:order-2 justify-start items-end order-1">
+        <article className="flex flex-col  md:order-2 justify-start items-end order-1">
           <div className="flex flex-col  md:gap-y-8 gap-y-4 max-w-lg z-48 lg:ml-auto lg:mr-0 mr-auto">
             <h2 className="md:text-6xl dark:text-gray-100 font-nozha text-gray-900 text-4xl">
               نقل و حلوای ناب{" "}
